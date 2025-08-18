@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="noindex">
+<TITLE>FAQ03-42</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Azure環境のWindows ServerへのE-Postインストール時の注意 <font color="#ff0000">new!</font></FONT></b><br>
+
+<HR>
+<br>
+Azure環境のWindows Serverに対してビルトインのAdministratorでE-Post Mail Server (x64) のインストールおよび稼働ができますが、注意点がいくつかありますので以下の(1)～(3)にあげてみます。<br>
+(1) コントロールパネルから[システムロケール]の設定がデフォルトで[英語]になっていますので[日本語]に直す必要があります。[システムロケール]が[英語]のままですと、E-Postインストーラーや E-Post Mail Control などのツールなどの表示が文字化けします。<br>
+(2) Azure 環境では、SMTP として通常使用される25番ポートはブロックされていると聞きます（Outbound Port 25 Blocking）。あるいは Azure 契約内容やインストールされるサービスによっては、送信通信用に25番ポートを使用できるとも受け取れる情報があります。Submission Portの587番ポートで接続すれば外部に送信できることを確認しました。それでよければ、SMTP配送サービスであるEPSTDSの設定では、25番でなく587番ポートに変更することが必要です。サービスを停止した上でポート番号を変更、その後、サービスを再開してください。なお、実際に25番ポートを使用できるかできないかはマイクロソフトとの契約内容に依存しますので確認してください。<br>
+(3) SMTP受信サービスであるEPSTRSでは、25番が標準で待ち受けポートになっていますが、587番ポートを追加する必要があります。この設定時もサービスを停止した上でポート番号を追加し、サービスを再開してください。実際に25番ポートを使用できないか、あるいは代替ポートとして587番ポートなら使用できるのかどうかはマイクロソフトとの契約内容に依存しますので確認してください。詳細な設定については、下記のドキュメントをご参照ください。<br>
+■<a href="https://www.e-postinc.jp\doc\setup_port587.pdf ">サブミッションポート（Port587）の併用設定について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+
+<br>
+
+</BODY>
+</HTML>
