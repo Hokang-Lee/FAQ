@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="noindex">
+<TITLE>FAQ19-47</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post関連サービスがCPU負荷100％となっており、送受信とも遅い、考えられることは？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-PostでCPUが100％高負荷状態が続いている状態で考えられる原因を下記にあげます。<br>
+<br>
+1. アンチウイルスソフトの除外設定はしっかり行われているか、除外設定をしていたのにはずれていないか<br>
+======================================<br>
+E-Postシリーズにとって、CPU負荷の高まりと言われる対象は、通常、EPSTRS/EPSTDS/EPSTPOP3S/EPSTIMAP4Sなど、E-Post関連サービスプログラムの負荷問題であれば、アンチウイルスソフトやセキュリティソフトを同居させているケースで、メール作業用フォルダ（C:\mail）やメールボックスフォルダなどをリアルタイムスキャンの対象から除外設定すべきところ、除外設定していないときに発生する事象として知られています。（下記FAQ記事参照）<br>
+既にご存じで導入時に設定済みかもしれませんが、アップデート適用時などで勝手に除外が解除されてしまうこともあるようです。
+必ずチェックしていくようにしてください。一般的に言っても、SMTP/POP3サービスがCPU100％高負荷状態になる場合はまずほとんどのケースで他アプリとのファイルアクセスの競合などが考えられます。上記にあげたのは、サードパーティ製のアンチウイルスソフトの話しですが、Windows Serverに付属するDefenderでも、同様です。除外設定した内容が知らず知らず解除されていないかも確認してください。<br>
+<br>
+2. メールボックスフォルダに大量のメールデータがたまっていないか<br>
+==========================================<br>
+POP3プロトコル利用時、メールボックスフォルダに大量のメールデータを残しているユーザーはいないでしょうか？また、こちら側は意図しないのに大量のジャンクメールを送りつけられ、大量のメールデータが格納されてしまったメールボックスフォルダはありませんか？<br>
+もし、POP3サーバ利用時に大量のメールデータを残したまま運用されていることがあれば、それは御法度になります。全ユーザーのメールボックスフォルダに入っているファイル数をエクスプローラの「プロパティ」表示で確認してください。また、メールボックスフォルダ以外に、下記の記事で示すフォルダにも大量のデータが残り続けている状況になっていないかもご確認ください。<br>
+
+<br>
+3. 万が一スパムやジャンクメールの踏み台、不正利用されている可能性はないか念のため確認－メールキューとリトライ関係フォルダの目視<br>
+==============================================<br>
+メール作業用フォルダ（既定 C:\mail\）下のincomingフォルダ（メールキュー）およびリトライ関係フォルダ（domains/holding/lists）もフォルダ内を目視で確認してください。ここでは、通常時、それなりの数のデータファイルが生成されては、消えている状態が普通ですが、膨大な数のファイルがたまったりしていないでしょうか？<br>
+膨大な数のファイルがたまっているときは、メールの不正利用者の可能性を考える必要もあり、緊急対応が望まれます。まさかとは思いますが、念のため、外部からの不正利用者がいる可能性も念頭に置いて、お調べください。<br>
+<br>
+E-PostのSMTPサービスで急激なCPU高負荷が起きるのは、一般的に言ってファイルアクセスの競合を発生させるようなアプリやツールによって、ファイルの取り合いが起こることによるものがほぼ全てのケースです。上記にあげたサードパーティ製アンチウイルスソフトやセキュリティソフト、Defenderなどのリアルタイムスキャンや定期スキャンの除外設定がはずれていないかを十分確認してください<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+
+<br>
+
+</body>
+</html>
