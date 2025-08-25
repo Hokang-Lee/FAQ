@@ -30,15 +30,26 @@
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
 <!-- ACCESS KAISEKIKEN end-->
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>senderlogの詳しい見方を知りたい <font color="#ff0000">new!</font></b></FONT>
+<FONT SIZE="4" COLOR="#000000"><b>senderlogに記録されたGetTryServer:(ltime(xxx...)-otime(xxx...))/240=(0)の見方を知りたい <font color="#ff0000">new!</font></b></FONT>
 <HR>
 <br>
-E-Postではレジストリを変更することによって、長めの出力設定時に送信先だけが記録されるようになります。<br>
-GetTryServer:(ltime(12709270733)-otime(12709270733))/240=(0)<br>
+E-Postでは、配送時の詳細ログ(senderlog)を長めの出力設定にレジストリを変更することで、送信先が記録されるようになります。<br>
+参考FAQで記載されているsenderlogの記録で送信先サーバに接続時の時刻の見方を説明します。<br>
+参考FAQ同様、下記は E-Postシリーズのsenderlog の基本的パターンを事例化したものです。接続相手は同じ E-Postシリーズを想定しています。<br><br>
+<small>
+<hr align="center" width="98%" size="1" noshade>
+　メッセージID　  送受信内容・内部処理ステータス
+<hr align="center" width="98%" size="1" noshade>
+　[B0000097013] [yyy.yyy.jp] GetTryServer:()<br>
+　[B0000097013] [yyy.yyy.jp] GetTryServer:(ltime(12709270733)-otime(12709270733))/240=(0)<br>
+　[B0000097013] ConnectHost(xxx.xxx.jp)<br>
+　　　　　　　　　：　　　　　　<br>
+<br>
+ここで、GetTryServer:(ltime(12709270733)-otime(12709270733))/240=(0)に関して、<br>
 "12709270733" は[Windows time(unix time)]ですので時刻化可能です。<br>
 240=(0)の0は"[リトライ時刻]ltime(12709270733)-[初回時刻]otime(12709270733)"=時間差(0)という意味合いになります。<br>
 時刻化する場合、以下のように、コマンドプロンプトやshellからw32tmコマンドを使い"12709270733"を18桁になるよう、後部を'0'で桁埋めし求めます。<br>
-コマンドプロンプトでの結果、<br>
+Windowsコマンドプロンプトでの結果、<br>
 C:\Windows\System32>w32tm /ntte 127092707330000000<br>
 147098 00:58:53.0000000 - 2003/09/29 9:58:53<br>
 となります。<br>
