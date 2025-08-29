@@ -38,17 +38,17 @@
 <hr align="center" width="98%" size="1" noshade>
 　メッセージID　  送受信内容・内部処理ステータス
 <hr align="center" width="98%" size="1" noshade>
-　[B0000097013] [yyy.yyy.jp] GetTryServer:()<br>
-　[B0000097013] [yyy.yyy.jp] GetTryServer:(ltime(12709270733)-otime(12709270733))/240=(0)<br>
-　[B0000097013] ConnectHost(xxx.xxx.jp)<br>
+　[B0000099999] [yyy.yyy.jp] GetTryServer:()<br>
+　[B0000099999] [yyy.yyy.jp] GetTryServer:(ltime(13400750614)-otime(13400750614))/240=(0)<br>
+　[B0000099999] ConnectHost(xxx.xxx.jp)<br>
 　　　　　　　　　：　　　　　　<br>
 </small>
-ここで、GetTryServer:(ltime(12709270733)-otime(12709270733))/240=(0)に関して、"12709270733" は[Windows time(unix time)]ですので時刻化可能です。<br>
-240=(0)の0は"[リトライ時刻]ltime(12709270733)-[初回時刻]otime(12709270733)"=時間差(0)という意味合いになります。<br>
-時刻化する場合、以下のように、コマンドプロンプトやpowershellからw32tmコマンドを使い"12709270733"を18桁になるよう、後部を'0'で桁埋めし求めます。<br>
+ここで、GetTryServer:(ltime(13400750614)-otime(13400750614))/240=(0)に関して、"13400750614" は[Windows time(unix time)]ですので時刻化可能です。<br>
+240=(0)の0は"[リトライ時刻]ltime(13400750614)-[初回時刻]otime(13400750614)"=時間差(0)という意味合いになります。<br>
+時刻化する場合、以下のように、コマンドプロンプトやpowershellからw32tmコマンドを使い"13400750614"を18桁になるよう、後部を'0'で桁埋めし求めます。<br>
 コマンドプロンプトでの結果、以下のようになります。<br>
-w32tm /ntte 127092707330000000<br>
-147098 00:58:53.0000000 - 2003/09/29 9:58:53<br>
+w32tm /ntte 134007506140000000<br>
+155101 06:43:34.0000000 - 2025/08/27 15:43:34<br>
 <br>
 <b>（参考FAQ）</b><br>
 ●<a href="./faq05-10.html">配送時の詳細ログ(senderlog)について</a><br>
