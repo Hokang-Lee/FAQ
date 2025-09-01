@@ -36,7 +36,7 @@ E-Postの設定ではエンベロープFROMを判定条件に使う方法のひとつ、【effect.dat】にエ
 <br>
 E-Post Mail Control画面の「中継の制限」タブにある「マシン毎の中継」から【effect.dat】の設定を行い、エンベロープFROMのドメインかメールアドレスをfalse指定する方法があります。エンベロープFROMを調べるには、SMTP受信ログ（inlog）の送信元アドレス欄に記載されているものから調べるという方法が順当になります。<br>
 <br>
-<b>（参考FAQ）</b><br>
+<b>（関連FAQ）</b><br>
 ●<a href="./faq04-01.html">中継の制限－マシンごとの中継【effect.dat】設定</a><br>
 上記記事のうち、後半にある【effect.dat】記述例 - 2.送信元エンベロープによる制限 b、d、gの例をご覧ください。<br>
 ------------------------<br>
@@ -48,7 +48,7 @@ abc＠abc.co.jp false<br>
 ------------------------<br>
 ※記事にも書かれているように、ドメイン名を &quot;true&quot; 指定してしまうととても危険な行為となりますが、拒絶する設定の &quot;false&quot; 指定をしていただく分にはまったく支障はありません。<br>
 <br>
-<b>（参考FAQ）</b><br>
+<b>（関連FAQ）</b><br>
 ●<a href="./faq05-04.html">SMTP受信ログ（inlog）について</a><br>
 ※ログに記載される送信元アドレスは、MTAが使用するエンベロープFROMの情報になります。<br>
 <p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>

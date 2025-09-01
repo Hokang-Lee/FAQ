@@ -36,7 +36,7 @@ E-Postシリーズで内部ドメイン宛てメールにて、SMTP受領にかかる時間に比べ、メールボ
 ・EPSTRS：SMTP受信（受領）を 一時作業フォルダの tempフォルダで行う。受領成功すると inlog（SMTP受信ログ）に記録される。データはメールキューである incomingフォルダに移動し格納。詳細記録は receivelog（SMTP受信詳細ログ）に記録される。<br>
 ・EPSTDS：配送段階を受け持つ。メールキューである incomingフォルダに格納されたメールデータファイルとエンベロープ情報のRCPファイルを元に該当メールアドレス宛てに配送、内部ドメインアカウント宛ての場合は該当メールボックスにメールデータを作成する。配送が成功すると外部ドメイン宛ては outlog（SMTP送信ログ）、内部ドメイン宛てはoutlocallog（SMTPローカル送信ログ）に記録される。詳細記録は senderlog（配送時の詳細ログ）に記録される。<br>
  つまり、標題の内容について言えばE-Postではメッセージファイルをincomingフォルダ（メールキュー）に格納するのはEPSTRS側の仕事になります。この後、incomingフォルダ（メールキュー）に格納されたファイルをEPSTDS側が配送処理を受け持ち、内部アカウントのメールボックスに格納する（着信させる）ところまで受け持ちます。<br>
-<b>（参考FAQ）</b><br>
+<b>（関連FAQ）</b><br>
 ●<a href="./faq05-08.html">SMTPローカル送信ログ（outlocallog）について</a><br>
 <p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
 <br>
