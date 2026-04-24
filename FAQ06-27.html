@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-27</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDMARC を使ってDKIM/DMARC設定したがARC未設定だと epstarc のエラーが出てしまう <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDMARC を使ってDKIM/DMARC設定したが、ARC未設定だと epstarc のエラーが出てしまうと報告を受けました。<br>
+ARCについて、&quot;epstarc.[自身のホスト名].ini&quot; ファイルを作成しておらず未設定のままだが、イベントビューアに以下のエラー Applicatioon Error (1000) が上がっているという内容です。<br>
+<br>
+　障害が発生しているアプリケーション名：epstarc.exe<br>
+　障害が発生しているモジュール名：ntdll.dll<br>
+<br>
+これの対応方法ですが、ARC未設定の場合は、epstarc.exe をリネームしておく、例えば &quot;epstarc.exe&quot; → &quot;~epstac.exe&quot; などにファイル名の先頭をリネームしてことで、epsdmarc.exe からの呼び出しを無効にしてください。その後、エラーが出力されなくなることを確認してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

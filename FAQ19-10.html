@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-10</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールの暗号化(SMTP over SSL)とDKIMで利用する証明書は同じものを一つ購入すればよいか？Let's Encryptで大丈夫か？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+暗号化用と、DKIM用とは、別物になります。共通ではありません。<br>
+メールの暗号化(SMTP over SSL)で使用する証明書は「通信の暗号化とサーバ認証」のためのものであり、DKIMで使用する証明書（鍵ペア）は「メールの送信ドメイン認証と改ざん検出」のためのものです。目的と役割が異なるため、別物として扱われます。<br>
+<br>
+<b><ol><li>暗号化通信用について</li></b>
+STARTTLSの受信時、SMTP over SSL/TLSやPOP3 over SSL/TLSの暗号化通信において、認証局の証明書は1つご購入されることを提案いたします。<br>
+Let's Encryptでも問題ありませんが、90日間の有効期限があり、「3か月に一度（約60日～90日ごと）の更新」が推奨されています。<br>
+<br>
+<b><li>DKIM用について</li></b>
+後述するツールの EPSTDMARC v1.06c もしくは EPSTDKIM v1.04a でシグネチャ（電子署名）作成したものをDNSのTXTレコードに貼りつける手順となります。<br>
+EPSTDMARC v1.06c にはDKIMの電子署名を作成するツールが含まれていますので、そちらだけで事足ります。<br>
+<br>
+前者（1.暗号化通信用について）で取り上げた暗号化用の認証局データは用いません。<br>
+両ツールは、正規ユーザー様が利用できる「サポート2」サイトの「ダウンロード」より入手が可能です。<br>
+<br>
+■「ドメイン認証（DMARC）アドオンツール EPSTDMARC v1.06c」<br>
+■「ドメイン認証（DKIM）アドオンツール　EPSTDKIM v1.04a」<br>
+<br>
+<small>ダウンロードの場所：<br>
+「サポート2」にログイン<br>
+　→左側の▼Support2Menuより「ダウンロード」選択<br>
+　　→[64bit][32bit] ツール・ユーティリティ を選択<br>
+　　　→日付 (△▽)の▽ボタンで日付降順にソート<br>
+　　　　→●ドメイン認証（DMARC）アドオンツール EPSTDMARC v1.06c<br>
+　　　　→●ドメイン認証（DKIM）アドオンツール EPSTDKIM v1.04a<br></small>
+<br>
+<b>（関連ドキュメント）</b><br>
+●<a href="/doc/readme.html">epstdmarc/epstarcについて-送信ドメイン認証（DMARC/DKIM/SPF）アドオンツール EPSTDMARC v1.06c 付属 readme</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="faq06-22.html">アドオンツール EPSTDMARC のインストールおよび E-Postでの設定に関する質疑応答集</a><br>
+●<a href="faq15-79.html">EPSTDKIMを使ってDKIMによる送信ドメイン認証を導入する方法について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

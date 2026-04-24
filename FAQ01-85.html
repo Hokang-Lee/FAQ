@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-85</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directory連携時のSMTP認証パスワードの変更について</b></FONT>
+<HR>
+<br>
+E-Post Mail Server / E-Post SMTP Serverシリーズでユーザー管理をActive Directory連携させるとき、Active Directory側で設定・変更されたユーザー認証パスワードが連動しているのは、POP3認証パスワード・IMAP4認証パスワード項目です。<br>
+<font color="#cc0000">一方、SMTP認証を利用、認証方式を PLAIN/LOGIN/CRAM-MD5 方式のいずれかに設定しているとき、利用されるSMTP認証パスワードは「Active Directoryユーザーとコンピュータ」で管理されるパスワードと連動項目とはなりません。</font>E-Post Mail Server 側が管理する &quot;apop.dat&quot; などの認証ファイルに設定されているSMTP認証パスワードとマッチングされます。<br>
+SMTP認証パスワードを変更するには「Active Directoryユーザーとコンピュータ」からは変更できず、Account Managerから変更を行う必要があります。Account Managerから、各アカウントをダブルクリックして表示されるダイアログボックスで操作を行い「SMTP-AUTH & APOPを使用」チェックボックスをオフ→オンにし、表示された認証パスワードダイアログボックスより、パスワードを入力します。なお、「SMTP-AUTH & APOPを使用」チェックボックスがオンのまま（POP3用の）パスワードを単純に変更しても、SMTP認証パスワードは書き換わらないので、注意してください。<br>
+<br>
+（関連FAQ）<br>
+●<a href="./faq01-84.html">Active Directory連携時の連動項目は？</a><br>
+<br>
+SMTP認証パスワードのみ変更するもう一つの方法は、該当ユーザーアカウントを選択して右クリックメニューから「エクスプローラ」を選択、該当アカウントのメールボックスフォルダを開いたときに置かれている&quot;apop.dat&quot;ファイルをメモ帳で直接編集し、SMTP認証用のパスワードを平文で入力する方法です。この方法でも、Active Directory連携されているPOP3/IMAP4のパスワードとは別にSMTP認証パスワードを管理することができます。<br>
+SMTP認証パスワードは、各ユーザーアカウントのメールボックスフォルダ内に格納されている認証ファイル&quot;apop.dat&quot;ファイルにて認証パスワードがチェックされる仕組みです。通常、Account ManagerからSMTP認証を有効にしてパスワード設定すると、&quot;apop.dat&quot;ファイルには暗号化した内容が格納されますが、手動でファイルを作成したときは、平文の内容を入れても有効に働く仕組みです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

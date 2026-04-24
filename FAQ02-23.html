@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ02-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>特定ツールを併用する環境でメーリングリスト設定が消える現象について</b></FONT>
+<HR>
+<br>
+メールサーバマシンで特定ツールと併用している環境では、アカウントマネージャからメーリングリストの設定を登録しても、登録されたはずのメーリングリスト設定が表示されず、アカウントマネージャから消えてしまう現象が確認されています。<br>
+過去の事例では、ユーザー様よりツール類の導入による影響が報告されています。結論として、それぞれ影響を排除することにより、現象が回避できたことを把握しています。<br>
+<ol>
+<li>システムのバックアップに CA社のARCServe Backup を使用しオプションの「CA ARCServe Backup Agent for Open File for Windows」を導入すると問題の現象が発生する。<br>
+<li>Windowsのドライブ圧縮を導入すると問題の現象が発生する。<br>
+</ol>
+1 のケースではツールの導入そのものをやめてしまうことで現象は改善できる見込みです。あるいは常駐監視の部分的な除外設定が可能であれば「メール作業フォルダ」下を除外する手法を取る一案もあります（くわしくは下記）。<br>
+また2 のケースでは「メール作業フォルダ」を含むドライブでの圧縮ドライブの設定をやめることで改善できます。<br>
+では「メール作業フォルダ」下のフォルダがどうして重要で、このフォルダの読み込みに課題があると問題が発生する可能性があるのかという点についてふれます。<br>
+メーリングリストの設定は、E-Postシリーズでは「共有設定情報」として、マシンのレジストリ内ではなく、「メール作業フォルダ」下のREGフォルダ下に設定ファイル群として保管管理しています。シングルサーバ構成では、「メール作業フォルダ」は、&quot;C:\mail&quot;などを指定しますので、いずれもローカルマシン内に保管されていますが、それに対して、クラスタ構成を取った場合は「メール作業フォルダ」は、&quot;Z:\mail&quot;などの共有ディスク下のフォルダ、&quot;\\server\mail&quot;などのネットワーク共有ドライブ下のフォルダを指定することになります。このうち、メーリングリスト設定は、下記のフォルダ下にある設定ファイル群で管理されています。<br>
+<blockquote><small>
+[メール作業フォルダ]内<br>
+→REG<br>
+　→SOFTWARE<br>
+　　→EMWAC<br>
+　　→IMS<br>
+　　　→Lists<br>
+　　　　→[ML-list name1] (メーリングリスト名1)<br>
+　　　　　　　　: 繰り返し<br>
+　　　　→[ML-list nameN] (メーリングリスト名N)<br>
+</small></blockquote>
+もし、上記にあげたバックアップツール側で常駐監視対象フォルダの除外設定をすることができるのであれば、理屈上は、[メール作業フォルダ]\REG\ フォルダ下すべてを除外設定するのがよいと考えます。ただし、弊社でその結果の挙動を確認したわけではありませんので、あくまで弊社からの一案ということで、ツールを提供しているベンダーとの意見も合わせて検討してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-15.html">E-Post Mail Server／E-Post SMTP Serverで使用している設定ファイル＆レジストリ</a>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

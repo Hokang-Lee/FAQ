@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>クラスタ構成時の共有情報と個別情報の扱いについて</b></FONT>
+<HR>
+<br>
+下記のFAQ記事にあるように、E-Post Mail Serverシリーズの設定情報は共有情報と個別情報とに大きく２つに分かれます。<br>
+設定情報が分かれていること自体、シングルサーバ構成のときには特に問題となることはありませんが、クラスタ構成時には扱いが異なることによる結果の違いを認識しておく必要があります。クラスタ構成時の共有情報と個別情報の扱いについて説明します。<br>
+<blockquote>
+■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定<br>
+■個別情報－レジストリで設定<br>
+</blockquote>
+このうち、共有情報が管理されている[メール作業フォルダ]\regフォルダは、MSFCクラスタでは共有ディスク上に置かれます。それによりクラスタが切り替わったときに、双方のノードから共有される情報となります。典型的な代表例としては、メッセージIDの発番情報があります。<br>
+一方の個別情報が管理されているレジストリは、MSFCクラスタではアクティブ側ノードマシン、スタンバイ側ノードマシンで個別に管理されている情報となり、片方から片方へ自動的に反映されることはありません。設定はそれぞれ行うことが必要になります。<br>
+個別情報が管理されているレジストリを変更する事例として、たとえば、SMTPローカル送信ログ（outlocallog）、POP3詳細ログ（receivepop3）、IMAP4詳細ログ（receiveimap4）の有効設定があります。アクティブ側（正系）のレジストリにて設定を行うだけでなく、スタンバイ側（副系）用のレジストリにも設定を行う必要があります。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-15.html">E-Post Mail Server／E-Post SMTP Serverで使用している設定ファイル＆レジストリ</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

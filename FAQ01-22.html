@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-22</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>別々のIPで複数ドメインを割り当てる場合（グローバルIPで直接公開）</b></FONT>
+<HR>
+<br>
+構築したメールサーバについて別々のIPアドレスに複数ドメインを割り当て、グローバルIPアドレスでメールサーバを直接公開する場合は、以下のような設定を行ってください。なお、アカウント管理方法についてはE-Post側で<b>Soft Account（独自アカウント方式）</b>にしておく必要があります。<br>
+<br>
+<b>domainA.co.jpとdomainB.co.jp を別々のIPで接続させて利用する事例</b><br>
+まずグローバルIPアドレスをメールサーバに直接割り当てます。<br>
+<blockquote>domainA.co.jp をグローバルIP（xxx.xxx.xxx.xx1）に割り当て<br>
+domainB.co.jp をグローバルIP（xxx.xxx.xxx.xx2）に割り当て</blockquote>
+<ol>
+<li><b>サーバ側の設定</b><br>
+E-Post Mail Control→［ドメイン管理］タブ→［運用ドメイン一覧］→［詳細］ボタンクリック<br>
+または Account Manager→ドメインを選択してダブルクリック<br>
+<ul>
+ <li>domainA.co.jp のメールボックス選択<br>
+ <b>「接続ドメイン/IPで区別する」</b><br>
+ IPアドレス（SMTP）= xxx.xxx.xxx.xx1<br>
+ IPアドレス（POP3）= xxx.xxx.xxx.xx1<br>
+ IPアドレス（IMAP4）= xxx.xxx.xxx.xx1<br>
+ フォルダ名　　　　= domainA.co.jp<br>
+ <li>domainB.co.jp のメールボックス選択<br>
+ <b>「接続ドメイン/IPで区別する」</b>><br>
+ IPアドレス（SMTP）= xxx.xxx.xxx.xx2<br>
+ IPアドレス（POP3）= xxx.xxx.xxx.xx2<br>
+ IPアドレス（IMAP4）= xxx.xxx.xxx.xx2<br>
+ フォルダ名　　　　= domainB.co.jp<br>
+</ul>
+設定したり変更を行った場合は、その後各サービスの再起動が必要です。<br>
+<br>
+<li><b>メールクライアント側の設定</b><br>
+メールクライアントから、POP3／IMAP4プロトコルを使ったアカウント接続方法ですが、いわゆるユーザーID項目については[アカウント]のみでも可、[アカウント]＠[domain]または、[アカウント]％[domain]でも使用可能です。仮にユーザーアカウントを&quot;taro&quot;とすると次のようになります。（＠や％は半角です）<br>
+<ul>
+ <li>メールクライアント側からdomainA.co.jp への接続<br>
+ ユーザーID＝taro　または　taro＠domainA.co.jp　taro％domainA.co.jp<br>
+ パスワード＝従来通り<br>
+ <li>メールクライアント側からdomainB.co.jp への接続<br>
+ ユーザーID＝taro　または　taro＠domainB.co.jp　taro％domainB.co.jp<br>
+ パスワード＝従来通り<br>
+</ul>
+</ol>
+なお、メールクライアントから、SMTPプロトコルでメールサーバに接続するとき、それぞれのドメインに対応したSMTPサーバのドメイン名あるいはIPアドレスに接続する必要があります。<br>
+もし、domainA.co.jp のユーザーが domainB.co.jp へ接続を試みた場合は、受信はできても、送信は拒絶されます。domainB.co.jp のユーザーが domainA.co.jp へ接続を試みた場合も、受信はできても、送信は拒絶されます。これは、物理的には１台のサーバマシンで処理されているものの、ソフト的には異なるマシンとして扱っているためです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

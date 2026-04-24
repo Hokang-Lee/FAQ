@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-25</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>DMARC認証をPassさせるために DKIM署名設定はどうすればよいか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+DMARC認証をPassさせるために、メールサーバにDKIM署名設定を実施したい、DKIM署名設定の際には秘密鍵と公開鍵が発行されるかと思うが、公開鍵を外部DNSに登録する必要があるため、公開鍵をDNS担当者である社内で連携したい、という問い合わせを受けたことがあります。<br>
+<br>
+E-Post Mail Server (x64)・E-Post SMTP Server (x64)では、DMARC認証をPassさせるために DKIM署名設定が可能です。E-Postシリーズ用 送信ドメイン認証（DMARC）アドオンツール EPSTDMARC v1.06c を用意しています。この EPSTDMARC v1.06c の中にDKIM署名作成ツールが含まれています。<br>
+アドオンツール EPSTDMARC v1.06c は「サポート2」サイトにログインし、EPSTDMARCをダウンロード、導入・設定をする必要があります。詳細な内容については、上記EPSTDMARCに付属しているドキュメントに記載されています。ドキュメントは下記リンクからもご覧になれます。<br>
+<br>
+<b>[epstdmarc/epstarcについて]</b><br>
+<a href="https://www.e-postinc.jp/doc/readme.html">https://www.e-postinc.jp/doc/readme.html</a><br>
+<br>
+また、送信ドメイン認証（DMARC）アドオンツールEPSTDMARC v1.06cを導入、DKIM設定を実施していく際に、稼働中メールサーバへの影響が生じる可能性はあるかどうかについてですが、これについて考えられることは下記の通りです。<br>
+<br>
+EPSTDMARC v1.06cをインストールする際、Readme.html 文末の方に書かれている「アドイン方法」をご覧いただいてもわかるとおり、レジストリ変更後、EPSTRS（SMTP受信サービス）再起動が必要になります。<br>
+EPSTRS（SMTP受信サービス）再起動は、E-Post Mail Control画面の「サービス制御」タブ画面からEPSTRSの「停止」→「開始」で行います。サービスの止まっている時間は10秒もないとはいえ、メール流量の多い日中では、ごく短い時間、一時的にSMTPサービスが止まることになります。<br>
+ごく短い時間とはいえ、SMTPサービスが一時的に止まるという点では、メールクライアントからの送信という業務が大量に行われているタイミングを避ければ影響は出ないと考えます。一方で送信業務が常にある場合は、再設定される日時を案内した上で、実施するのがよいかと考えます。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

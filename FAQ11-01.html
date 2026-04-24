@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="index,follow">
+<TITLE>FAQ11-01</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">ライセンス数の考え方はどうなっていますか？</FONT>
+<HR>
+<br>
+E-Post Mail Server (x64) シリーズ および E-Post SMTP Server (x64) シリーズ の必要ライセンス数は、E-Post Account Manager に登録する<b>メールアカウント、エイリアス設定数、メーリングリスト設定数の総数</b>がおさまるように考えてください。<br>
+<br>
+ライセンスのくくりは50user版/100user版/250user版/500user版/1000user版/2000user版/3000user版/5000user版/10000user版という区切りになっています。たとえば700の必要ライセンスが想定される場合は、必要ライセンス数が充足するよう1000user版をお求めください。最低は50user版からになっています。<br>
+<br>
+メールアカウントは送信元のFromとして利用するものであり、送信先は関係ありません。また E-Post SMTP Server (x64) シリーズをSMTPゲートウェイやメールリレーとして利用するケースで、構築方法によってはメールアカウントが最小限で済む場合でも50user版からになります。一方で構築方法によっては内側のメールサーバと同数のメールアカウントが必要な場合があり、250user版や500user版が必要になるケースもあります。SMTPゲートウェイやメールリレーを設定する場合、登録アカウントなしはソフトウェアの動作上認められておらず、最低でもダミーアカウント1つ以上が必要になります。<br>
+<br>
+一方、メールアカウントが100必要として、そのメールアカウント全部に対しエイリアスを１つずつ追加で割り当てする場合は、あわせて200以上のライセンス数が必要になります。<br>
+<br>
+さらに、メーリングリストを使用する場合、メーリングリスト設定数だけ必要ライセンス数がカウントされます。メーリングリストに含まれるメンバーの数は関係ありません。<br>
+<br>
+なお、Active Directory連携を行う場合、Active Directoryの全体ユーザー数が多くても、メール送受信のために連携するアカウントが一部のとき、"IMSUsers"などのMail Groupを設定したアカウント分のみがカウントされることになります。ただし、エイリアスを追加指定するときは、エイリアスの数も追加でカウントされますので、必要なライセンス数を検討してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

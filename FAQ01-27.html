@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-27</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directoryで管理しているアカウントをメールサーバに使う場合</b></FONT>
+<HR>
+<br>
+既に設定されたActive Directory（アクティブディレクトリ）で管理されているアカウントをE-Post Mail Server/E-Post SMTP Serverシリーズの「Acount Manager」側に反映させ、メールの送受信を可能にする、いわゆる「Active Directory連携」を行うには、通常、スタートメニューに登録されている<b>「簡単セットアップ」（設定ウィザード）</b>を使って設定を行います。<br>
+「簡単セットアップ」（設定ウィザード）を使う前に、必ず以下の手順で事前の設定を行うか、あるいは設定されている内容を確認して下さい。<br>
+<br>
+<b>[メール用グループを"IMSUsers"とするケース]</b><br>
+<br>
+１．メンバーサーバー側での設定<br>
+　[ローカル・セキュリティ・ポリシー（Vistaでは、ローカル コンピュータ ポリシー）]<br>
+　　->[セキュリティの設定]<br>
+　　　->[ローカルポリシー]<br>
+　　　　->[ユーザー権利の割り当て]<br>
+　　　　　->[バッチジョブとしてのログオン]<br>
+　　　　　　Active Directory側のドメインローカルグループ名を追加します。<br>
+　　　　　　（例・<ドメイン名\Domain Users>）<br>
+<br>
+２．Active Directory（アクティブディレクトリ）側での設定<br>
+　２－１．[Active Directory　ユーザーとコンピュータ]<br>
+　　　　　　->[Users]<br>
+　　　　　　　"ドメインローカル" にて "グループ名" "IMSUsers"を作成します。<br>
+<br>
+　２－２．[ドメインコントローラ・セキュリティ・ポリシー]<br>
+　　　　　　->[セキュリティの設定]<br>
+　　　　　　　->[ローカルポリシー]<br>
+　　　　　　　　->[ユーザー権利の割り当て]<br>
+　　　　　　　　　->[バッチジョブとしてのログオン]<br>
+　　　　　　　　　　メール用グループとして利用するドメインローカルグループを追加します。<br>
+　　　　　　　　　　（例・IMSUsers）<br>
+<br>
+　２－３．[Active Directory　ユーザーとコンピュータ]<br>
+　　　　　　->[Users]<br>
+　　　　　　　メール送受信を行うアカウントに対し、"IMSUsers"と"Domain Users"を<br>
+　　　　　　　「所属するグループ」として追加します。<br>
+<br>
+（注意）Active Directoryを利用したアカウント管理の場合、完全なマルチドメイン仕様でのメールサーバ運用はできません。これは、OSで管理されているアカウントを利用するため、アカウントが一意のものになるためでです。具体的に言うと、"taro＠a_domain" と "taro＠b_domain" というような同一アカウントであり、異なるドメイン名のついたメールアドレスは作成不可能な状態をさします。ただし、アカウントがすべて異なる前提条件であれば、仮想的なマルチドメインの環境を構築することは可能です。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

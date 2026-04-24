@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-35</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>部外者からPOP3/IMAP4の接続を制限するには</b></FONT>
+<HR>
+<br>
+部外者(外部ネットワーク)からPOP3/IMAP4の接続を制限するには、以下のような方法が考えられます。運用の環境によって適切な設定を検討してください。<br>
+<ol>
+ <li type="1">ルータやファイヤウォールなどのネットワーク機器の設定でPOP3/IMAP4ポートへの接続自体を無効にする。<br>
+ → 設定は各製品のマニュアルなどを参照してください。<br>
+ <br>
+ <li type="1">Windowsのファイヤウォール設定などで接続元IPを限定する。<br>
+ → 設定はWindowsのドキュメント・関連資料などを参照してください。<br>
+ <br>
+ <li type="1">POP3やIMAP4の設定で接続を制限する。<br>
+  <ol>
+   <li type="a">POP3/IMAP4に接続するクライアントが、ルータやファイヤウォールなどの内側にあり、ローカルIPからの接続に限定する<br>
+   Mail Controlを開く<br>
+   ->[サーバー]タブを選択<br>
+   　->EPSTPOP3S（EPSTIMAP4S）の[詳細]ボタンをクリック<br>
+   　　->「詳細設定」ダイアログのIP設定のうち [一覧のアドレスに応答する] チェックボックスをオン<br>
+   　　このPOP3/IMAP4サーバーに静的に割り当てたIPアドレスが、例えば192.168.0.2の場合、192.168.0.2を設定しておく。<br>
+   　　同時にローカル内部のメールクライアント側の接続先IPも同じIPアドレスへ変更する。<br>
+   <br>
+   <li type="a">POP3サービス（またはIMAP4サービス）の接続ポートを変更してデフォルトの接続ポートを制限する<br>
+   次のように使用ポートを変えます。このときはメールクライアント側も接続ポートを変更します。<br>
+   　例）POP3のポート番号を110から1110に変更<br>
+   <br>
+   Mail Controlを開く<br>
+   ->[サーバー]タブを選択<br>
+   　->EPSTPOP3の[停止]ボタンをクリックしてサービスを停止<br>
+   　->EPSTPOP3Sのポート番号を1110に変更<br>
+   　->EPSTPOP3の[開始]ボタンをクリックしてサービスを再開<br>
+  </ol>
+</ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

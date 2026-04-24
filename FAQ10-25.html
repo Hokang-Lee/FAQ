@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-25</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>複数のドメインから来たメールを指定して自動転送させたい <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+複数のドメインから来たメールを指定して自動転送させたいときは、以下のように設定します。<br>
+Account Managerから該当アカウントについて、［メール制御］の［自動転送］機能を有効にして、［送信元編集］を設定することで、自動転送時に送信元を複数のドメイン指定することが可能です。<br>
+たとえば、abc.jp と def.jp のドメインから送られてきたメールをすべて、指定されたメールアドレスに転送するときは、以下のように設定を行います。このとき、指定されたドメイン以外から送られてきたメールは、自動転送の対象になりません。<br>
+<ol>
+<li>Account Managerを開きます。
+<li>自動転送設定する該当アカウントを選択し、右クリックメニューから「メール制御」を選択します。
+<li>「有効にする」チェックボックスをオンにし、「自動転送」ラジオボタンをオンにします。
+<li>「送信元で許可」チェックボックスをオンにし、［送信元編集］ボタンをクリックします。
+<li>表示される &quot;PERMITFROM.TXT&quot; 内に次の２行を記述します。<br>
+<hr align="left" width="80%" size="1" noshade>
+*@abc.jp<br>
+*@def.jp<br>
+<hr align="left" width="80%" size="1" noshade>
+<li> &quot;PERMITFROM.TXT&quot; を閉じます。
+<li>「転送先メールアドレス」を入力します。
+<li>転送後にメールボックスに残すかどうかの設定を「メールボックスに残す」チェックボックスで設定します。
+<li>最後に［OK］ボタンをクリックし「メール制御」ダイアログボックスを閉じます。
+</ol>
+自動転送設定時の［送信元編集］については、以下の注意点があります。<br>
+［送信元編集］で転送元アドレスを指定している場合、<font color="#ff0000"><b>メールの転送元エンベロープ（エンベロープFROM）と合致することが必要</b></font>です。仮にエンベロープFROMとヘッダーFromが異なっているようなメールですと、転送時の条件として判断するのはエンベロープFROMだけです。<br>
+一般的にメーラー上から確認できるのは、ヘッダーFromの情報の方であり、エンベロープFROMの情報を知っているのはメールサーバだけです。また、E-Postのログに記載されているFromアドレスはエンベロープFROMの情報です。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-43</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post Secure Handler (x64) のWeb管理「メール承認管理」を設定する</b></FONT>
+<HR>
+<br>
+E-Post Secure Handler (x64) の Web管理「メール承認管理」を設定するには、インストールするサーバに既に組み込まれている E-Post Mail Server (x64) シリーズか E-Post SMTP Server (x64) シリーズの Web管理ツールを先に設定しておくことをお薦めします。以下のページを参考にして設定をすませてください。<br>
+<br>
+●<a href="./faq09-04.html">Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</a><br>
+<br>
+---（以下は上記設定が完了した後に設定してください。）---<br>
+<br>
+仮想ディレクトリ&quot;approval&quot;を追加、割り当てる物理パスとして64bit版 E-Post Secure Handler (x64)版では、&quot;C:\Program Files\EPOST\admiappr&quot;を指定します。このフォルダ階層下にはhtmlファイル群が格納されています。<br>
+仮想ディレクトリ&quot;approval&quot;が作成できたら、&quot;cgi-bin&quot;実フォルダ（&quot;C:\Program Files\EPOST\cgi-bin&quot;）下にある&quot;epst-manager.ini&quot;ファイルの内容を確認し、必要な場合は修正します。<br>
+<p align="center"><a href="./img/faq16-43-01.jpg"><img src="./img/faq16-43-01s.jpg" border="0"></a><br>
+<small>▲仮想ディレクトリ&quot;approval&quot;を同様の手順で追加<br>
+※仮想ディレクトリ&quot;cgi-bin&quot;の下に作成されないよう注意</small></p>
+「メール承認管理」CGIプログラムはデフォルトでは、&quot;C:\Program Files\EPOST\cgi-bin&quot;にインストールされます。<br>
+CGI実行権限には &quot;admiappr.exe&quot; が格納されている &quot;cgi-bin&quot; フォルダに対してインターネットゲストアカウント（IUSR）について“フルコントロール”のアクセス許可権限が設定されている必要があります。<br>
+<p align="center"><a href="./img/faq16-43-02.jpg"><img src="./img/faq16-43-02s.jpg" border="0"></a><br>
+<small>▲最後にブラウザを起動し &quot;http://[IPアドレス]/approval/&quot; または<br>&quot;http://localhost/approval/&quot; に接続すると<br>「メール承認管理」ログイン画面が表示される。<br>
+デフォルトの管理者であるadminパスワードは'secret'で設定<br>
+管理者ＩＤまたはメールアドレス：admin<br>
+ログインパスワード：secret　　　　　　</small></p>
+「メール承認管理」ログイン後に E-Post Secure Handler の「メール承認管理一覧」画面が開きます。<br>
+<p align="center"><a href="./img/faq16-43-04.jpg"><img src="./img/faq16-43-04s.jpg" border="0"></a><br>
+<small>▲「メール承認管理」ログイン後の初期画面</small></p>
+なお、必要に応じて管理者ＩＤやパスワードを変更する場合は、&quot;admiappr.ini&quot;ファイル内の以下の部分を変更するようにしてください。
+<blockquote>
+'----- admiappr.ini ----<br>
+' 管理者ＩＤ<br>
+id=admin<br>
+' パスワード<br>
+pw=secret<br>
+'-----------------------</blockquote>
+<p align="center"><a href="./img/faq16-43-03.jpg"><img src="./img/faq16-43-03s.jpg" border="0"></a><br>
+<small>▲管理者ＩＤやパスワードを変更する場合は&quot;admiappr.ini&quot;ファイルを編集</small></p>
+なお、設定を変更したり、設定されているフォルダ位置を移動する場合は、&quot;cgi-bin&quot; フォルダに含まれる以下3つのファイルをセットにして移動します。
+<blockquote>
+admiappr.exe<br>
+admiappr.ini<br>
+securehandler.bat</blockquote>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

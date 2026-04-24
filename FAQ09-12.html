@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-12</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Web管理ツールからのユーザーアカウント操作時のログ生成について</b></FONT>
+<HR>
+<br>
+Web管理ツールからユーザー（アカウント）追加・削除・パスワード変更の操作を行ったとき、操作結果が無事成功した場合、Web管理ツール用のHTMLファイルが格納されている操作権限ごとのフォルダ下に結果成功のログが記録されます。なお、操作結果がうまく行われなかった、失敗した、などのケースではログには記載されません。<br>
+<blockquote>
+システム管理者による<b>［システム管理者メニュー］</b>での操作<br>
+[ユーザー追加] webmanager/admman/user/useradd.log<br>
+[ユーザー削除] webmanager/admman/user/userdel.log<br>
+[ユーザーパスワード変更] webmanager/admman/user/userpsw.log<br>
+<br>
+ドメイン管理者による<b>［ドメイン管理者メニュー］</b>での操作<br>
+[ユーザー追加] webmanager/domman/user/useradd.log<br>
+[ユーザー削除] webmanager/domman/user/userdel.log<br>
+[ユーザーパスワード変更] webmanager/domman/user/userpsw.log<br>
+<br>
+個々のユーザーによる<b>［ユーザー管理メニュー］</b>での操作<br>
+[ユーザー追加] webmanager/user/useradd.log<br>
+[ユーザー削除] webmanager/user/userdel.log<br>
+[ユーザーパスワード変更] webmanager/user/userpsw.log<br>
+</blockquote>
+なお、「Web管理CGIプログラム 20150111差分」または「Web管理CGIプログラム (x64) 20150111差分」以降、Web管理ツールCGIプログラムの機能を利用して、コンソールベースでアカウント登録・削除などの操作が可能になっていますが、Administrator権限でのコマンドプロンプトからユーザー（アカウント）追加・削除・パスワード変更のコマンド操作を行った場合は、以下のフォルダ下に結果成功のログが記録される仕様です。<br>
+<blockquote>
+Administrator権限でのコマンドプロンプトからのコマンド操作<br>
+[ユーザー追加] webmanager/admman/useradd.log<br>
+[ユーザー削除] webmanager/admman/userdel.log<br>
+[ユーザーパスワード変更] webmanager/admman/userpsw.log<br>
+</blockquote>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

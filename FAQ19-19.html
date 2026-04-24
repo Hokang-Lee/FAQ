@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-19</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IPロックアウト機能でiplockが記載されており、時間を調べることはできるか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+IPロックアウト機能で使用される設定ファイルである rejectsmtpip.dat のファイル内、IPアドレスの右側、iplock表示の左側にはシリアル値が記録されています。<br>
+これはNTタイムエポックとも呼ばれるWindows時間のシリアル値であり、ここから時間を算出することができます。<br>
+<br>
+接続元IPアドレス[TABコード]接続時間情報（シリアル値）or 論理値<br>
+---(例)rejectsmtpip.dat--------------------------<br>
+200.100.xxx.xxx<font color="pink">[TAB]</font>133977293793391816<br>
+210.110.xxx.xxx<font color="pink">[TAB]</font>133977305856859353<br>
+220.120.xxx.xxx<font color="pink">[TAB]</font>133977517517477385<font color="pink">[TAB]</font>iplock<br>
+192.168.xxx.xxx<font color="pink">[TAB]</font>133977564000000000<br>
+　：<br>
+　：<br>
+-------------------------------------------------------<br>
+<br>
+iplock表示されているIPのシリアル値は&quot;133977517517477385&quot;であり、これは&quot;1601-01-01 09:00:00&quot;（日本時間）からの累積時間を表しています。<br>
+133977517517477385 = 2025-07-23 22:42:31 となります。<br>
+確認方法は、Windowsに用意されているw32tmコマンドで確認可能です。<br>
+PowerShellかコマンドプロンプトから、下記書式で動作させることができます。<br>
+<br>
+<B>w32tm /ntte [ファイルタイム値]</B><br>
+<br>
+---(例)コマンドプロンプト-----------------------<br>
+w32tm /ntte 133977517517477385 [Enter]<br>
+155066 13:42:31.7477385 - 2025/07/23 22:42:31<br>
+　　　　　　　　　　　　 ^^^^^^^^^^^^^^^^^←日時です。<br>
+-------------------------------------------------------<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-09.html">〔新機能〕SMTP接続時の「IPロックアウト機能」について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

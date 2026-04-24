@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-14</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>１つのIPアドレスで複数ドメインへの接続を処理したい場合</b></FONT>
+<HR>
+<br>
+完全な複数ドメインを１つのIPで管理する場合は、E-Post側、メールクライアント側の双方でそれぞれ以下の設定を行います。なお、アカウント管理方法についてはE-Post側で<b>Soft Account（独自アカウント方式）</b>にしておく必要があります。<br>
+<br>
+<b>domain_a.co.jp と domain_b.co.jp を1つのIP（例 192.168.0.2）で共用して利用する事例</b><br>
+ここでは２つのドメインを使う例をあげましたが、３つ以上のドメインを運用する場合も同様の設定で行うことができます。<br>
+<ol>
+<li><b>サーバ側の設定</b><br>
+E-Post Mail Control→［ドメイン管理］タブ→［運用ドメイン一覧］→［詳細］ボタンクリック<br>
+または Account Manager→ドメインを選択してダブルクリック<br>
+<ul>
+ <li>domain_a.co.jp のメールボックス選択<br>
+ <b>「接続ドメイン/IPで区別する」</b><br>
+ IPアドレス(SMTP)= 192.168.0.2<br>
+ IPアドレス(POP3)= 192.168.0.2<br>
+ IP アドレス(IMAP4)= 192.168.0.2<br>
+ フォルダ名       = domain_a.co.jp</li>
+ <li>domain_b.co.jp のメールボックス選択<br>
+ <b>「接続ドメイン/IPで区別する」</b><br>
+ IPアドレス(SMTP)= 192.168.0.2<br>
+ IPアドレス(POP3)= 192.168.0.2<br>
+ IPアドレス(IMAP4)= 192.168.0.2<br>
+ フォルダ名       = domain_b.co.jp</li>
+</ul>
+設定したり変更を行った場合は、その後各サービスの再起動が必要です。<br>
+<br>
+<li><b>メールクライアント側の設定変更</b><br>
+メールクライアントから、POP3／IMAP4プロトコルを使ったアカウント接続方法ですが、いわゆるユーザーID項目を[アカウント]だけですんでいた接続方法を変更します。[アカウント]＠[domain]または、[アカウント]％[domain]で接続するように設定変更してください。仮にユーザーアカウントを&quot;taro&quot;とすると次のようになります。（＠や％は半角です）<br>
+<ul>
+ <li>メールクライアント側からdomain_a.co.jpへの接続<br>
+ ユーザーID＝taro＠domain_a.co.jp　または　taro％domain_a.co.jp<br>
+ パスワード＝従来通り<br>
+ <li>メールクライアント側からdomain_b.co.jpへの接続<br>
+ ユーザーID＝taro＠domain_b.co.jp　または　taro％domain_b.co.jp<br>
+ パスワード＝従来通り<br>
+</ul></ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

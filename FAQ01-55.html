@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-55</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>「接続セッション数」の意味と望ましい設定値について</b></FONT>
+<HR>
+<br>
+SMTP受信部サービス（EPSTRS）とPOPサービス（EPSTPOP3S）の詳細設定画面で表示される「接続セッション数」は、既定値で"0"（無制限を意味する）になっていますが、あえて制限を設けることを考えたときの望ましい設定値は、次のように考えてください。<br>
+<br>
+「接続セッション数」とは、そのまま“メール件数”または“クライアントからの接続数”になります。<br>
+<br>
+<b>（SMTP受信部サービスの望ましいセッション数）</b><br>
+フォワードしてくるSMTPゲートウェイの最大セッション数＋接続クライアント数を満たす数であればよいものと思われます。
+たとえば、フォワードしてくるSMTPの最大セッション数が30で、接続クライアントが100とすれば、30＋100＝130となり、150あれば十分カバーできると見なせます。<br>
+<br>
+<b>（POPサービスの望ましいセッション数）</b><br>
+単純に接続クライアント数を満たす数であればよいでしょう。<br>
+<br>
+ちなみに、既定値"0"の設定のまま、多数のセッションが張られたとき、メモリ1GBのマシンで300セッション数以上のセッションが開けない状態になったケースがあります。こうした事象の要因には、Windows ServerのOS自体がもつ性能限界もあり、それらが原因となっているケースもあるようです。<br>
+<br>
+ちなみに、他のサービスでは、「スレッド」と表記されている部分がありますが、プログラム内部で処理される単位としては、「セッション」と同じ扱いです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

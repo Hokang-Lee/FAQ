@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-15</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>システム管理パスワードがわからなくなった</b></FONT>
+<HR>
+<br>
+Mail Controlのシステム管理パスワードがわからなくなってしまったとき、 パスワードの解除方法は以下の方法で操作してください。<br>
+<br>
+<b>システム管理パスワードをリセットする方法</b><br>
+<ol>
+<li>事前にWindowsの「管理ツール」－「サービス」を開き、&quot;E-POST ～&quot;の各サービスを停止する。<br>
+<li>コマンドプロンプトを開く。<br>
+<li>カレントディレクトリを[プログラムインストールフォルダ]（既定値　C:\Program Files\EPOST\MS）に移動する。<br>
+<li>以下のコマンドをタイプして実行する。設定情報のエクスポートが行われるのを確認。<br>
+　<b>epstbackup.exe -o -d -v=3</b><br>
+<br>
+<li>[プログラムインストールフォルダ]\backupフォルダ内に出力された&quot;epst-ms.reg&quot;ファイルをメモ帳で編集。<br>
+<li>出力されたファイルの該当キー部分を下線部のように書き換える。<br>
+　[HKEY_LOCAL_MACHINE\SOFTWARE\EMWAC\IMS\Secur]<br>
+　&quot;SysPassword&quot;=hex:<u>00</u><br>
+<br>
+<li>コマンドプロンプトより以下のコマンドを実行。（カレントディレクトリは[プログラムインストールフォルダ]）<br>
+　<b>epstbackup.exe -i -d -v=3</b><br>
+<br>
+<li>インポートが実行され、「システム管理パスワード」がリセットされる。<br>
+<li>Mail Controlを開くことができるか確認する。確認できたら、各サービスを再開する。<br>
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

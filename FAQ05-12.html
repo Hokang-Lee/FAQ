@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-12</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>POP3の詳細ログ（receivepop3）について</b></FONT>
+<HR>
+<br>
+POP3の詳細ログ（receivepop3）は、POP3サーバへの接続時の詳細な動作記録です。<br>
+記録を採る場合は、以下の通り、レジストリ項目と設定値を手動で作成し、フォルダを手動作成した後、POP3サービス（EPSTPOP3S)を再起動してください。<br>
+以下の項目 "AcceptlogEnabled" を手動作成、設定値に１を入力してレジストリを設定した後、メール作業フォルダ下に "receivepop3" というフォルダを手動作成します。その後、POP3サービス（EPSTPOP3S）を再起動します。<br>
+<small>
+<hr align="center" width="98%" size="1" noshade>
+HKEY_LOCAL_MACHINE<br>
+　->SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTPOP3S　　※<br>
+　　　　　+->AcceptlogEnabled<br>
+　　　　　　　DWORD 0:ログを残さない,1:ログを残す<br>
+<hr align="center" width="98%" size="1" noshade>
+</small><br>
+ログ記録は、E-Post Mail Serverシリーズの場合：[メール作業フォルダ￥receivepop3￥コンピュータ名]フォルダに作成されます。<br><small>
+<hr align="center" width="98%" size="1" noshade>
+　記録日時　　　　　スレッド・メモリ　送受信内容・内部処理ステータス<br>
+<hr align="center" width="98%" size="1" noshade>
+[09/Dec/2007:11:52:36], 0015cfe0, +OK E-POST POP3 Server.....<br>
+[09/Dec/2007:11:52:36], 0015cfe0, USER xxxx＠xxxx.jp<br>
+　　　　　　　　　:<br>
+　　　　　　　　　:<br>
+<hr align="center" width="98%" size="1" noshade>
+</small>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

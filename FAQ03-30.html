@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-30</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Postクラスタ構成時にIPWatcherサービスが取得する仮想IPアドレスのサブネットマスクを指定するには</b></FONT><br>
+<HR>
+<br>
+E-Postクラスタ構成時の場合、IPWatcherサービスが取得する仮想IPアドレスのサブネットマスクは、デフォルト設定で 255.255.255.0（24ビット）の設定になっています。<br>
+サブネットマスクを 255.255.0.0（16ビット）に変更するには、IPWatcherサービス（ipwcs）が取得する仮想IPアドレスに加え、サブネットマスクを指定する方法としては、次の書式で指定が可能です。<br>
+クラスタ環境ノードマシンにある &quot;ipwatch.dat&quot; ファイルに設定できるオプションとして &quot;-m=[サブネットマスク]&quot; があります。&quot;ipwatch.dat&quot; ファイル内に <b>-m=255.255.0.0</b> を追加してください。ファイル保存後、IPWatcherサービス（ipwcs）の再起動が必要になります。<br>
+ちなみに、IPWatcherサービス（ipwcs）用の &quot;ipwatch.dat&quot; ファイルに設定できるオプションは次のものがあります。（ガイドやヘルプに載っていないオプション含む）<br>
+<blockquote>-c or -C　ペアとなるコンピュータ名（監視マシン名）<br>
+-i or -I　監視するIPアドレス（IPv4アドレス）<br>
+-f or -F　ネットワーク構成名（インターフェース名）<br>
+-m or -M　IPv4サブネットマスク（デフォルト 255.255.255.0）<br>
+-t or -T　監視時間 秒単位（デフォルト60秒）</blockquote>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

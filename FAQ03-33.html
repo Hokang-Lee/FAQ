@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-33</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-PostシリーズはNetBIOSを利用するのか？NetBIOSを停止してよいか？ <font color="#ff0000">new!</font></b></FONT><br>
+<HR>
+<br>
+E-Postシリーズは、Windows Serverに実装されているNetBIOS（NetBIOS over TCP/IP）を利用するのか？NetBIOS（NetBIOS over TCP/IP）のサービスを停止してよいか？という質問を受けたことがあります。<br>
+<br>
+E-Postシリーズは、名前解決のためにNetBIOS（NetBIOS over TCP/IP）の機能は一切利用されていませんし、NetBIOSで使われるポートも使いません。<br>
+下記の２つの使用状況を除いて、NetBIOS（NetBIOS over TCP/IP）を止めた場合でも、基本的なメールサーバとしての動きができなくなるといったことはありません。この下記の２つはNetBIOSありきの環境を前提に動作していると考えます。<br>
+<blockquote>
+(1) ユーザー管理でActive Directory連携をしているとき<br>
+(2) E-Post方式クラスタ環境を構築していて、メール作業用フォルダとしてネットワーク共有ドライブを指定しているとき<br>
+</blockquote>
+上記の使用状況やその環境ではない、たとえばユーザー管理がSoft Accout（E-Post独自方式）であり、シングルサーバ環境では、NetBIOS（NetBIOS over TCP/IP）を止めた場合でもメールサーバの動きとして特別に問題になるようなことは基本的にありません。<br>
+実際にNetBIOSサービス停止を試して確認しました。「インターネットプロトコル（TCP/IP v4）」のプロパティから「詳細設定」を開き、ネットワーク「WINS」タブにある「NetBIOS over TCP/IP を無効にする」チェックボックスオンにして動作を確認してみたところ、ユーザー管理がSoft Accout（E-Post独自方式）であり、シングルサーバ環境である場合、メールサーバの動きとして特段の変化や支障になるような問題はありませんでした。<br>
+<br>
+　　　　　　　　　☆　　　　　　　　　　　　　☆<br>
+<br>
+このNetBIOS（NetBIOS over TCP/IP）とやや関連する問題にふれてみます。<br>
+hostsファイルにメールサーバに設定する自分のメールドメイン名とマシンのIPアドレスを記述しているかどうかによって、inlogやacceptlogなどの各種ログやReceived:ヘッダに記載されるマシン名（あるいはメールドメイン名）が変わる結果になりますので留意してください。<br>
+<blockquote>
+●hostsファイルに自分のメールドメイン名とマシンのIPアドレスを記述している場合（下記FAQ記事参照）<br>
+→hostsファイルに記述している「自分のメールドメイン名」だけがinlogやacceptlogなどの各種ログに記載されます。また同様の書式でReceived:ヘッダにも記載されます。<br>
+　例）test-sample.jp<br>
+●hostsファイルに自分のメールドメイン名とマシンのIPアドレスを記述していない場合<br>
+→「コンピュータ名．E-Postに設定している内部メールドメイン名」のスタイルでinlogやacceptlogなどの各種ログに記載されるケースがあります。また同様の書式でReceived:ヘッダにも記載されます。内部メールドメインが複数設定されているマルチドメインの場合はAccount Managerに登録されているドメイン名のうち、昇順で最初に見つかるものが優先的に使われます。<br>
+　例）SV1.test-sample1x.jp<br>
+※このときCIFS/SMBのコンピュータ名（ホスト名）が引用され、ログやReceived:ヘッダに記載されることがあるため、関連事項としてふれました。<br>
+</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-53.html">hostsファイル記述の必要性と有用性について</a><br>
+●<a href="./faq10-31.html">Received:ヘッダに該当しない別のドメイン名が表示される</a><br>
+●<a href="./faq05-31.html">inlog / outlog / outlocallog の行頭に記載される＠より右側のサーバ名称は何によっている？</a><br>
+●<a href="./faq01-42.html">HELOコマンドで送出するホスト名がFQDN（ホスト名＋ドメイン名）になっていない</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

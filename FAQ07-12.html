@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-12</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>[32bit版][64bit版] E-Post Mail Server / E-Post SMTP Server シリーズが32bit版か64bit版 (x64) かを区別する方法 </b></FONT>
+<HR>
+<br>
+E-Post Mail Server / E-Post SMTP Server シリーズが32bit版か64bit版（ｘ64）かを区別するには、次の方法で確認してください。<br>
+<br>
+<b>A．E-Post Mail Control の「バージョン情報」タブ画面で確認する方法</b><br>
+<br>
+E-Post Mail Control の「バージョン情報」タブ画面で確認します。E-Post シリーズ 32bit 版 では、<u>（4.10）のバージョン表示</u>となります。下の画面はE-Post Mail Server シリーズ 32bit 版ですが、E-Post SMTP Server シリーズ では、「E-POST SMTP Server」と表記されます。また、Standard 版かEnterprise II 版の違いは「Virus Check」タブがあるかないかで見分けが可能です。<br>
+<p align="center"><img src="./img/faq07-12-01.jpg" border="0"><br><br>
+<img src="./img/faq07-12-02.jpg" border="0"><br>
+E-Post シリーズ 32bit 版</p>
+E-Post シリーズ 64bit 版 では、<u>（4.20-x64）以降のバージョン表示</u>となります。たとえば（4.59-x64）のバージョン表示も64bit版です。下の画面はE-Post Mail Server  (x64) シリーズ 64bit 版ですが、E-Post SMTP Server シリーズ では、「E-POST SMTP Server」と表記されます。また、Standard 版かEnterprise II 版の違いは「Virus Check」タブがあるかないかで見分けが可能です。<br>
+<p align="center"><img src="./img/faq07-12-03.jpg" border="0"><br><br>
+<img src="./img/faq07-12-04.jpg" border="0"><br>
+E-Post シリーズ 64bit 版</p>
+<b>B．タスクマネージャの「プロセス」タブ画面で確認する方法</b><br>
+<br>
+タスクマネージャの「プロセス」タブ画面で確認します。<br>
+E-Post シリーズ 32bit 版 では、32bitOS のServer 2008 環境下で動作させると稼働中サービスはショートファイルネームを使った表記で特に注記は付きません。<br>
+一方、E-Post シリーズ 32bit 版 を64bitOS の2008 R2 や2012 R2 環境下で動作させると、「* 32」の注記が付いたり、(32 ビット)というかっこ付き注記が付きます。<br>
+<p align="center"><img src="./img/faq07-12-05.jpg" border="0"><br>Windows Server 2008 [32bit] での表示</p>
+<p align="center"><img src="./img/faq07-12-06.jpg" border="0"><br>Windows Server 2008 R2 での表示</p>
+<p align="center"><img src="./img/faq07-12-07.jpg" border="0"><br>Windows Server 2012 R2 での表示</p>
+E-Post シリーズ 64bit 版 では、基本的に注記がつきません。64bitOS の2008 R2 環境下で動作させると稼働中サービスはショートファイルネームを使った表記で特に注記は付きません。<br>
+<p align="center"><img src="./img/faq07-12-08.jpg" border="0"><br>
+Windows Server 2008 R2 での表示</p>
+E-Post シリーズ 64bit 版 を64bitOS の2012 R2 環境下でE-Post Mail Server Enterprise II(x64) を動作させている例では下の通り。基本的に(32 ビット)などの注記がつきません。<br>
+ちなみにStandard 版では赤い実線枠部分のみ。点線枠のEnterprise II 版モジュール”epstavs.exe”だけが例外的に(32 ビット)表記がされます。<br>
+<p align="center"><img src="./img/faq07-12-09.jpg" border="0"><br>
+Windows Server 2012 R2 での表示</p>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

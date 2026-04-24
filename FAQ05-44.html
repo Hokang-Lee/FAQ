@@ -1,0 +1,139 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-44</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	dd {
+		padding:0;
+		margin:0 0 0.5em 0em;
+		padding:3px;
+		background:#f4f3e8;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>スクリプトで行う定期的なログ削除の自動化の事例</b></FONT>
+<HR>
+<br>
+<b>ログ削除スクリプトを作ってタスクスケジューラに登録し定期的に実行する</b><br>
+ログを採取したまま放っておくと、いつしかログファイルでディスクは一杯になってしまうおそれがあり、ログを定期的に削除する必要が出てきます。スクリプトで行う定期的なログ削除の自動化の事例をあげてみました。<br>
+（※スクリプトをプログラムインストールフォルダの &quot;C:\Program Files\epost\ms\&quot; に置いた例）<br>
+         <dl>
+         <dd>
+         <b>[logclean.vbs]</b>  30日前のログを指定して削除するスクリプト例<br>
+         <hr color="#C0C0C0" align="left" width="94%" noshade size="1">
+         Set objFS=createobject(&quot;Scripting.FileSystemObject&quot;)<br>
+         Dim MyDate, MyStr, MyFn<br>
+         <br>
+         REM <u>30日前</u>日付を算出（※1）<br>
+         MyDate = Date()-<u>30</u><br>
+         <br>
+         REM 30日前のログファイル名を作成<br>
+         MyStr = Mid(MyDate,3,2) + Mid(MyDate,6,2) + Mid(MyDate,9,2) + ".log"<br>
+         rem  MsgBox  MyStr<br>
+         <br>
+         REM 削除するファイル　acceptlog　をフルパスで指定（※2）<br>
+         MyFn = <u>&quot;C:\mail\acceptlog\[マシン名]\&quot;</u> + MyStr<br>
+         rem  MsgBox  MyStr + &quot;を削除します。&quot;<br>
+         <br>
+         REM ファイル削除実行<br>
+         objFS.DeleteFile(MyFn)<br>
+         <hr color="#C0C0C0" align="left" width="94%" noshade size="1">
+         </dd>
+         </dl>
+         （※1）何日前を指定するのかはログファイルを削除するポリシーによって判断してください。<br>
+         （※2）下線部のログファイルが置かれているパス指定は設定によって変わります。<br>
+         <br>
+         <dl>
+         <dd>
+         <b>[logclean2.vbs]</b> 30日以前のログを一括して削除するスクリプト例<br>
+         <hr color="#C0C0C0" align="left" width="94%" noshade size="1">
+         Dim MyDate, MyStr<br>
+         Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)<br>
+         '30日前日付を算出<br>
+         MyDate = Date() - 30<br>
+         '30日前のログファイル名を作成<br>
+         MyStr = Mid(MyDate, 3, 2) + Mid(MyDate, 6, 2) + Mid(MyDate, 9, 2) + &quot;.log&quot;<br>
+         <br>
+         'SMTP受信ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\inlog\[マシン名]\&quot;</u>)<br>
+         'SMTP送信ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\outlog\[マシン名]\&quot;</u>)<br>
+         'SMTPローカル送信ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\outlocallog\[マシン名]\&quot;</u>)<br>
+         '接続マシンログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\acceptlog\[マシン名]\&quot;</u>)<br>
+         'SMTP受信詳細ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\receivelog\[マシン名]\&quot;</u>)<br>
+         '配送詳細ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\senderlog\[マシン名]\&quot;</u>)<br>
+         '配送失敗ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\faillog\[マシン名]\&quot;</u>)<br>
+         'POP3基本ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\pop3log\[マシン名]\&quot;</u>)<br>
+         'IMAP4基本ログ 削除（※3）<br>
+         Call DeleteLog(MyStr, <u>&quot;C:\mail\imap4log\[マシン名]\&quot;</u>)<br>
+         <br>
+         'ウイルス検出ログ 削除（Enterprise II用）（※3）<br>
+         'Call DeleteLog(MyStr, <u>&quot;C:\mail\3rd-party\[マシン名]\&quot;</u>)<br>
+         'パターンファイル更新ログ 削除（Enterprise II用）（※3）<br>
+         'Call DeleteLog(MyStr, <u>&quot;C:\Program Files\EPOST\MS\log\&quot;</u>")<br>
+         <br>
+         '------- サブルーチン -------------------------------<br>
+         Sub DeleteLog(LogFileName, FolderPath)<br>
+         　Dim kijyunFileName<br>
+         　kijyunFileName = FolderPath + "\" + LogFileName<br>
+         　Set src = fso.GetFolder(FolderPath)    ' 対象フォルダの指定<br>
+         　For Each FileName In src.Files<br>
+         　　'MsgBox FileName + " " + kijyunFileName<br>
+         　　If FileName <= kijyunFileName Then<br>
+         　　　fso.DeleteFile(FileName)<br>
+         　　End If<br>
+         　Next<br>
+         End Sub<br>
+         <br>
+         <hr color="#C0C0C0" align="left" width="94%" noshade size="1">
+         </dd>
+         </dl>
+         （※3）どのログを取得する設定をしているかそうでないかによって、削除対象のログファイルをコメントアウトを取るか付けるか適切に調節してください。<br>
+<br>
+スケジュールでスクリプト実行が可能なように、さらにバッチファイル（logclean.bat）を作成してください。<br>
+         <dl>
+         <dd>
+         <b>[logclean.bat]</b>
+         <hr color="#C0C0C0" align="left" width="84%" noshade size="1">
+         C:\Windows\system32\cscript.exe &quot;C:\Program Files\epost\ms\logclean.vbs&quot;<br>
+         <hr color="#C0C0C0" align="left" width="84%" noshade size="1">
+         </dd>
+         </dl>
+スクリプトとバッチファイルが完成したら、タスクスケジューラに作成したバッチファイル（logclean.bat）が毎日指定した時刻に実施されるよう登録してください。<br>
+タスクスケジューラに指定した時刻まで待ち、時間後に対象のログが削除されていることを確認します。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

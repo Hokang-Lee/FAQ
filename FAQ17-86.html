@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-86</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SendGrid へのSMTP認証付き送信フォワードする際、70文字の長いパスワードを設定できるか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+SendGrid を利用し、SMTP認証付き送信フォワードする際、E-Postシリーズ側で70文字の長いパスワードを設定できるか問い合わせを受けたことがあります。<br>
+<br>
+E-Postシリーズに実装されている EPSTDS v4.72以降では、レジストリ設定を行うことでSMTP認証パスワードを最長127byteまで設定可能になっています。<br>
+以下のレジストリ値を編集し、レジストリ内に認証パスワードを直接入力することにより、EPSTDSサービスプログラムとしては最大127byteまで許容され、認識します。レジストリ値変更後はEPSTDSの再起動が必要です。<br>
+<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　→CurrentControlSet<br>
+　　→Services<br>
+　　　→EPSTDS<br>
+　　　　→SMTPAUTHPass (文字列)<br>
+　　　　　（SMTP認証時のPassword）<br>
+<br>
+ただし、レジストリ値を設定した後で、E-Post Mail Control画面を開き、EPSTDSの［詳細］をクリックして表示される画面では、パスワード部分は空白表示されます。この状態のまま［OK］ボタンで保存したりしてしまうと、E-Post Mail Control側がパスワードを14文字で切ってしまいます。注意してください。万が一間違えて操作したときは、再度レジストリ値を編集してください。<br>
+<br>
+EPSTDSサービスからSendGridへのSMTP認証パスワード付き送信フォワード（中継）を弊社が確認した限りでは、SendGridによるAPIキーは何度作成しても70byte固定の長さになっているようでした。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-34.html">SMTP認証を有効にして外部MTAに送信要求をそのままフォワードさせる方法</a><br>
+●<a href="./faq15-20.html">SMTP認証付きフォワードする際、受信対象の内部アカウントすべてを登録しなくてすむエイリアス設定での回避方法とそのときの注意点</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

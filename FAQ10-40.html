@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directory連携時のアカウント情報インポートの挙動について</b></FONT>
+<HR>
+<br>
+<b>１．AD連携時のインポート動作について</b><br>
+<br>
+AD連携時に、Account Managerにてインポートを行った場合の動作についてパターン別にまとめると下記のようになります。<br>
+<br>
+パターンA．AD上に存在せず　かつ　E-Postに存在しない Accountの場合<br>
+<blockquote>
+インポートすると次の結果になります。<br>
+・アカウント（＝ADのメンバー）を作成<br>
+・IMSUserグループへのメンバー追加<br>
+・メールボックスフォルダの作成可能状態<br>
+・各種フラグの設定可能状態<br>
+</blockquote>
+パターンB．AD上に存在し　かつ　E-Postに存在しない Accountの場合<br>
+<blockquote>
+インポートすると次の結果になります。<br>
+・IMSUserグループへのメンバー追加<br>
+・それ以外はなにもしない<br>
+</blockquote>
+パターンC．AD上に存在し　かつ　E-Postに存在する Accountの場合<br>
+<blockquote>
+この場合、インポートしても、何も変更しません。<br>
+</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href=./faq01-84.html>Active Directory連携時の連動項目は？</a><br>
+●<a href=./faq01-87.html>アカウントデータとインポートの仕様について</a><br>
+<br>
+<b>２．AD連携時のインポートで「ドメイン」がインポートされない制約事項</b><br>
+<br>
+AD連携時、マルチドメイン設定のために[Domain]名項目にドメイン名を指定してインポートを行った場合、「ドメイン」は下記の環境で正しくインポートできない制約があります。<br>
+なお、このときAD側に該当ドメイン名の「セキュリティグループ」が自動作成されますが、そのグループ内にメンバーは自動的には入りません。<br>
+<br>
+下記のOSをActive Directoryのドメインコントローラにしている場合、AD連携時のインポートで[Home]および[Domain]項目がインポートできません。<br>
+<blockquote>
+・Windows Server 2008 R2(64bit）/ 2008 SP1 (64bit）/ 2008 SP1 (32bit）<br>
+</blockquote>
+また、下記のOSをActive Directoryのドメインコントローラにしている場合、[Domain]項目がインポートできません。一方で[Home]項目はインポートされます。<br>
+<blockquote>
+・Windows Server 2003 SP2(32bit)<br>
+</blockquote>
+上記の環境では、インポート作業後に、AD側の「Active Directoryユーザーとコンピュータ」から、該当ドメイン名の「セキュリティグループ」にメンバーを追加しておくことが必要です。「セキュリティグループ」を選び、メンバーを追加、加入させてください。<br>
+これは、E-Post Mail Server側で、「Domain」項目が入っていないと、マルチドメイン構成時に区別がつかなくなってしまうためです。シングルドメイン構成時には、この作業は必須ではありませんが、念のため、自動作成された「セキュリティグループ」に、メンバーを追加、加入させておくことを推奨します。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href=./faq10-30.html>Active Directory連携時にマルチドメイン設定を行うとセキュリティグループが参照されるしくみについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-37</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>他社製ファイヤーウォールソフトを使う場合もWindowsファイヤーウォールと同様の除外設定が必要 <font color="#ff0000">update!</font></b></FONT><br>
+<HR>
+<br>
+他社製ファイヤーウォールソフトが同じサーバ内で稼働している場合も、Windowsファイヤーウォールと同様の除外設定が必要になります。ごくまれなケースとは思われますが、E-PostのSMTP受信サービスプログラム本体である EPSTRS.exeファイルが Symantec Endpointによって深夜帯に移動隔離されていた事態が報告されました。<br>
+他社製ファイヤーウォール機能を含むセキュリティソフトが同じサーバ内にインストールしている場合も、Windowsファイヤーウォールと同様の除外設定が必要になります。<br>
+<br>
+・通信許可を与えるポート番号<br>
+ <ul type="disc">
+  <li>ポート番号（プロトコル名称）<br>
+  <li> 25（SMTP）<br>
+  <li>587（Submission）<br>
+  <li>110（POP3）<br>
+  <li>143（IMAP4）<br>
+  <li>465（SMTP over SSL/TLS）※SSL/TLS使用時<br>
+  <li>995（POP3 over SSL/TLS）※SSL/TLS使用時<br>
+  <li>993（IMAP4 over SSL/TLS）※SSL/TLS使用時<br>
+ </ul>
+・サービスプログラムや管理ツールへの通信許可設定<br>
+　もしくはE-Postプログラムインストールフォルダ（C:\Program Files\EPOST\MS\）配下を除外設定<br>
+ <ul type="disc">
+  <li>Epstrs.exe（SMTP受信サービスプログラム）<br>
+  <li>Epstds.exe（SMTP配送サービスプログラム）<br>
+  <li>Epstpop3s.exe（POP3サービスプログラム）<br>
+  ※E-Post Mail Server (x64)シリーズのみ。SMTP Serverには非搭載。<br>
+  <li>Epstimap4.exe（IMAP4サービスプログラム）<br>
+  ※E-Post Mail Server (x64)シリーズのみ。SMTP Serverには非搭載。<br>
+  <li>modifys.exe（ウイルスパターン更新サービスプログラム） および<br>
+  autoupdate.exe（パターンファイルダウンロードプログラム）<br>
+  ※Enterprise II 版のみ。Standard版には非搭載。Enterprise II 版では ウイルスパターン更新プログラムへの通信許可が必須。<br>
+  <li>ipwcs.exe（IP監視サービスプログラム）※E-Postクラスタ構成時のみ<br>
+  <li>EpstControl.exe（管理ツール：E-Post Mail Control）<br>
+  ※ライセンスキー登録を行う際、80番ポートでイー・ポスト認証サイトへの通信を行うため通信許可が必須。<br>
+  <li>Manager.exe（管理ツール：E-Post Account Manager）<br>
+  <li>loganalyzer.exe（付属ツール：E-Post LogAnalyzer）<br>
+ </ul>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-19.html">Windows Server 2016 / 2019 / 2022 / 2025 への導入時の注意</a><br>
+●<a href="./faq03-34.html">Enterprise II 版でウイルスパターン更新サービスの通信許可をファイヤーウォールに与えるとき</a><br>
+</ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

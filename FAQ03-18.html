@@ -1,0 +1,134 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-18</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>MSCSクラスタ環境でメールサーバを設定する注意点</b></FONT>
+<HR>
+E-Post Mail Serverシリーズ、E-Post SMTP Serverシリーズ製品をWindows Server 2003 Enterprise Edition以上に付属しているMSCS（Microsoft Server Cluster Service）によるHAクラスタ構成で構築するポイントは、以下の通りです。<br>
+<br>
+MSCS（Microsoft Server Cluster Service）でHAクラスタ構成の環境を構築するとなると、ドメインコントローラにするマシン、クラスタのノードにするマシン、クラスタ共有ディスク装置か共有ファイルサーバマシンというように、ハードウェアを複数台用意して構築する必要があるため、体験してみようというレベルでは、設定環境を整えることが困難です。そのため、ここでは仮想マシンの形でHAクラスタ構成を行うためのOSを設定し、構成と環境の例をあげながら、ポイントをあげてみます。<br>
+<br>
+［構成図］<br>
+<p align="center"><a href="./img/faq03-18-01.gif"><img src="./img/faq03-18-01.gif" border="0"></a></p>
+<br>
+［環境］<br>
+1.Active Directoryのドメインコントローラ(DC) : 仮想サーバー１台目<br>
+  OS: Windows 2003 Server R2 Enterprise<br>
+<br>
+2.HAクラスタ：アクティブ側（MSCS1） : 仮想サーバー２台目<br>
+  OS: Windows 2003 Server R2 Enterprise<br>
+<br>
+3.HAクラスタ：スタンバイ側（MSCS2） : 仮想サーバー３台目<br>
+  OS: Windows 2003 Server R2 Enterprise<br>
+<br>
+4.ハートビート用プライベートネットワーク（仮想LAN）<br>
+<br>
+5.クラスタ共有ディスク<br>
+　仮想SCSI(iSCSI)で共有ディスクの設定を構成<br>
+　（SCSIでHAクラスタマシンから物理的に接続可能なインターフェースを持つもの）<br>
+<br>
+※MSCSでは、Active Directoryに参加していないマシンは構成できないので、Active Directoryのドメインコントローラは必須です。なお、なお、MSCSのインストール構成は、以下のMicrosoftの配布文章を参考にしました。<br>
+<a href="http://download.microsoft.com/download/f/5/b/f5bc73ed-13b5-4724-9b08-1af540c5dadf/CluCon_no1.exe">http://download.microsoft.com/download/f/5/b/f5bc73ed-13b5-4724-9b08-1af540c5dadf/CluCon_no1.exe</a><br>
+<br>
+［インストール手順］<br>
+E-Post Mail Serverのインストール手順については、共有ディスク方式のインストール手順と基本的には同じですが、インストールとメールサーバ設定作業の際の注意点は、以下の通りです。<br>
+<br>
+１．インストールとメールサーバの設定作業の際は、各HAクラスタノードを必ずアクティブ状態に遷移させてから行います。<br>
+　これは、メール作業フォルダを共有ディスクにアサインするためです。スタンバイ状態では共有ディスクが参照できないため、設定が行えません。<br>
+<br>
+２．プログラムのインストールは、各HAクラスタノードそれぞれのマシンに対してローカルディスク（C:ドライブ等）へ行います。<br>
+<br>
+３．外部からメールサーバとして応答させるIPアドレスは、MSCSのIPアドレスを設定します。<br>
+<br>
+<br>
+［E-Post Mail Server設定画面］<br>
+<p align="center"><a href="./img/faq03-18-02.gif"><img src="./img/faq03-18-02s.gif" border="0"></a></p>
+<table align="center" border="0">
+ <tr>
+  <td>▲メール作業フォルダ：共有SCSIディスクに設定　　　<br>
+  </td>
+ </tr>
+ <tr>
+  <td>▲メールボックスフォルダ：共有SCSIディスクに設定　<br>
+  </td>
+ </tr>
+</table>
+<p align="center"><a href="./img/faq03-18-03.gif"><img src="./img/faq03-18-03s.gif" border="0" width="480"></a></p>
+<table align="center" border="0">
+ <tr>
+  <td width="70">
+  </td>
+  <td>
+   ▲アカウントフォルダ：<br>
+   共有SCSIディスクに設定<br>
+  </td>
+  <td width="50">
+  </td>
+  <td>
+   ▲メールボックス「接続ドメイン/IPで区別する」<br>
+   設定にし、MSCSの代表IPアドレスを指定<br>
+  </td>
+ <tr>
+ <tr>
+  <td>
+  </td>
+ <tr>
+</table>
+<p align="center"><a href="./img/faq03-18-04.gif"><img src="./img/faq03-18-04s.gif" border="0" width="480"></a></p>
+<table align="center" border="0">
+ <tr>
+  <td width="200">
+  </td>
+  <td width="50">
+  </td>
+  <td>
+   ▲各HAクラスタノードにおけるEPSTRSの詳細設定<br>
+   －一覧のアドレスに応答する設定<br>
+  </td>
+ <tr>
+</table>
+<br>
+<br>
+※E-Post Mail Serverシリーズ、E-Post SMTP Serverシリーズ製品は、Windows Server 2003 Enterprise Edition以上に付属しているMSCS（Microsoft Server Cluster Service）で構成したHAクラスタ環境での動作について、2007年5月以降のバージョンでは正式対応しています。それ以前の旧バージョンをお使いの方は、2007年5月1日以降の差分アップデートプログラムを適用していただく必要があります。<br>
+<br>
+<br>
+※なお、ここにあげた説明は概略ですので、詳細な手順をお知りになりたい方は、テクニカル・ホワイトペーパー<a href="../doc/MSCS_cluster_mailserver_entryguide_10.pdf" target="_blank">『MSCS方式クラスタリングメールサーバ構築ガイド』</a>（PDF形式）をダウンロードしてご覧ください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

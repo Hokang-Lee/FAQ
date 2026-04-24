@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-01</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>SPA（v1,v2）で使用しているレジストリ</b></FONT>
+<HR>
+<small><B>[COMMON]</B><br>
+HKEY_LOCAL_MACHINE<br>
+　->SOFTWARE<br>
+　　->EMWAC<br>
+　　　->IMS<br>
+　　　　->Membership　　　　(SZ     Default NULL) NULL=マシンのローカルグループ<br>
+　　　　->SendDataTimeout　(DWORD  Default 60)sec (送信タイムアウト時間:default 60秒)<br>
+　　　　->AddressFamily　　　(DWORD  Default 0) 0:IPv4 only, 1:IPv6 only, 2:IPv4&IPv6 mix<br>
+　　　　->HostName　　　　　(SZ     Default NULL) IPv6 host name.<br>
+　　　　->DomainNamesAreLocal (BINALY Default NULL) 運用ドメインリスト<br>
+　　　　->MailInCopy 　　　　(BINARY Default NULL) Mail Carbon copy address.<br>
+　　　　->MailInMaxSize　　　(DWORD  Default 0) 0:無制限 1メール当りの限界サイズ<br>
+　　　　->MailInBoxSize　　　(DWORD  Default 0)<br>
+　　　　　 0:無制限 1メールボックス当りの保存限界サイズ<br>
+　　　　->RCPTMaximum　　　(DWORD  Default 0) 0:無制限 あて先(RCPT TO:)数の制限<br>
+　　　　->MailInBoxDir　　　　(SZ     Default %HOME%\INETMAIL\INBOX)<br>
+　　　　　 メールボックスフォルダ<br>
+　　　　->LastMsgId　　　　　(DWORD  Default 0) メール受信カウンタ<br>
+　　　　->MailGroup　　　　　(SZ     Default IMSUsers) メールローカルグループ名<br>
+　　　　->MailSpoolDir　　　　(SZ     Default %SystemRoot%\SYSTEM32\SPA\MAIL)<br>
+　　　　　 メール作業フォルダ<br>
+　　　　->LocalFailuresToPostmaster (DWORD  Default 0)<br>
+　　　　　 0:Disable, 1:Enable エラーメールをpostmasterに送信<br>
+　　　　->PostMaster　　　　　(SZ     Default administrator) postmasterアカウント<br>
+　　　　->Aliases　　　　　　　(KEY)  エイリアス管理用<br>
+　　　　　->0　　　　　　　　　(KEY)  エイリアスその０<br>
+　　　　　　->Alias　　　　　　(SZ     Default NULL) エイリアス名<br>
+　　　　　　->MappedTo　　　　(SZ     Default NULL) 実アドレス<br>
+　　　　　->1　　　　　　　　　(KEY)  エイリアスその１<br>
+　　　　　　: 以下繰り返し<br>
+　　　　->Lists　　　　　　　　(KEY) メーリングリスト管理用<br>
+　　　　　->[ML-list name1] 　(KEY) メーリングリスト名１<br>
+　　　　　　->DeletesAttachment　(DWORD  Default 0)<br>
+　　　　　　　 添付ファイル取扱い方法 0:削除しない,1:削除する<br>
+　　　　　　->BounceAction 　　　(DWORD  Default 0)<br>
+　　　　　　　 未送信レポート先 0:送信しない,1:送信者に戻す,2:返信者を指定<br>
+　　　　　　->BouncesTo　　　　　(SZ  Default NULL) 未送信レポート指定時メールアドレス<br>
+　　　　　　->ListPassword　　　　(SZ  Default NULL) 投稿パスワード<br>
+　　　　　　->ListSave　　　　　　(DWORD  Default 0) 投稿内容を保存 0:保存しない,1:保存する<br>
+　　　　　　->ListSaveFolder　　　(SZ  Default NULL) 投稿内容保存先<br>
+　　　　　　->MlId　　　　　　　　(DWORD  Default 0) カウンタ値<br>
+　　　　　　->MlToken　　　　　　(SZ  Default NULL) 付加表題＆カウント方法<br>
+　　　　　　->Moderator　　　　　(SZ  Default NULL) 管理人アドレス<br>
+　　　　　　->ModeratorControlJoin (DWORD  Default 0) 入会要求は管理人へ転送<br>
+　　　　　　->ModeratorControlLeave (DWORD  Default 0) 退会要求は管理人へ転送<br>
+　　　　　　->ReplyTo 　　　　　　(DWORD  Default 1)<br>
+　　　　　　　 Reply-To:ヘッダを付加する 0:しない,1:する<br>
+　　　　　　->WhoCanSend 　　　(DWORD  Default 1)<br>
+　　　　　　　 投稿者の条件 1:メンバーのみ,2:誰でも,3:管理人のみ<br>
+　　　　　　->Members　　　　　　(KEY) 参加者管理用<br>
+　　　　　　　->[mail address]　　(KEY) 参加者メールアドレス<br>
+　　　　　　　　　: 繰り返し<br>
+　　　　　->[ML-list nameN] (メーリングリスト名１)<br>
+　　　　　　: 以下繰り返し<br>
+
+HKEY_LOCAL_MACHINE<br>
+　->SOFTWARE<br>
+　　->SPA<br>
+　　　->IMS<br>
+　　　　->Domain<br>
+　　　　　->AcountNumber　(KEY) ドメイン毎の登録者数上限値 (0=無制限)<br>
+　　　　　　->[domain name1] (DWORD  Default 0)<br>
+　　　　　　　　:<br>
+　　　　　　->[domain nameN]<br>
+　　　　　->Operation　　　　(KEY) ドメイン毎の操作パスワード（空白=パスワード無し）<br>
+　　　　　　->[domain name1] (SZ) eg.password1<br>
+　　　　　　　　:<br>
+　　　　　　->[domain nameN] (SZ) eg.password2<br>
+　　　　->Secur<br>
+　　　　　->OpPassword 　　(DWORD  Default 0=操作パスワードチェックしない）<br>
+　　　　　->SysPassword　　(SZ) メールサーバーの操作パスワード（空白=パスワード無し）<br>
+
+<B>[SPARS]</B><br>
+HKEY_LOCAL_MACHINE<br>
+ SYSTEM<br>
+　->CurrentControlSet<br>
+　　->Services<br>
+　　　->SPARS　　　　　　　　　(KEY)<br>
+　　　　->Timeout　　　　　　　(DWORD  Default 300)sec  無通信状態タイムアウト<br>
+　　　　->PatternOfTheOnce　　(DWORD  Default 500);  フィルタデータパターンの一括処理数<br>
+　　　　->PasswordFile 　　　　(SZ     Default apop.dat) SMTP認証パスワード設定ファイル名<br>
+　　　　->ListenMode　　　　　(DWORD  Default 0)<br>
+　　　　　 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ<br>
+　　　　->ListenIP　　　　　　　(SZ     Default NULL) 指定IPアドレス：ポート設定<br>
+　　　　->RecvDataBufferSize　(DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ<br>
+　　　　->AcceptLimit　　　　　(DWORD  Default 0) 同時接続数 0:無制限<br>
+　　　　->AcceptlogEnabled　　(DWORD  Default 0) 0:Disable, 1:Enable Acceptlogの取得フラグ<br>
+　　　　->SMTPAUTHOnly　　　(DWORD  Default 0)<br>
+　　　　　 0:両方 1:認証専用 2:認証ファイル毎 セキュリティレベル<br>
+　　　　->SMTPAUTHMode 　　(SZ     Default NO) PLAIN,LOGIN,CRAM-MD5  SMTP認証方式<br>
+　　　　->VirusCheck　　　　　(DWORD  Default 0)<br>
+　　　　　 0:Disable, 1:Enable メールフィルタ実行フラグ<br>
+　　　　->Received　　　　　　(DWORD  Default 20) メールループ最大回数<br>
+　　　　->Parameters　　　　　(KEY)<br>
+　　　　　->PortNo　　　　　　(DWORD  Default 25)<br>
+　　　　　->MailInlogEnabled　(DWORD  Default 0) 0:Disable, 1:Enable<br>
+　　　　　->MailQueueDir　　　(SZ     incoming) メール受信フォルダ名<br>
+<br>
+<B>[SPADS]</B><br>
+HKEY_LOCAL_MACHINE<br>
+ SYSTEM<br>
+　->CurrentControlSet<br>
+　　->Services<br>
+　　　->SPADS 　　　　　　　　(KEY)<br>
+　　　　->SendMaxRetryTime 　(DWORD  Default 8)h リトライ終了時間<br>
+　　　　->RetryRule　　　　　　(DWORD  Default 1) 0:定期的,1:倍数的 リトライの方法<br>
+　　　　->SendDataBufferSize　(DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ<br>
+　　　　->SendDataTimeout　　(DWORD  Default 1200)sec 送信１回当りのタイムアウト時間<br>
+　　　　->RecvDataTimeout　　(DWORD  Default 1200)sec 応答１回当りのタイムアウト時間<br>
+　　　　->ThreadType　　　　　(DWORD  Default 1) 1:マルチスレッド, 0:シングルスレッド<br>
+　　　　->MaxThread　　　　　(DWORD  Default 1) 送信スレッド数<br>
+　　　　->SendGateway　　　　(SZ     NULL) Gatewayアドレス<br>
+　　　　->MailForward　　　　　(DWORD  Default 0)<br>
+　　　　　 0:Disable, 1:Enable 全受信をGatewayへ転送<br>
+　　　　->ESMTP　　　　　　　(DWORD  Default 0)<br>
+　　　　　 0:Disable, 1:Enable Greeting を EHLO で行うか否か<br>
+　　　　->SMTPAUTHId　　　　(SZ     NULL) SMTP認証時のID<br>
+　　　　->SMTPAUTHPass　　　(SZ     NULL) SMTP認証時のPassword<br>
+　　　　->SMTPAUTHMode 　　(SZ     NULL) PLAIN,LOGIN,CRAM-MD5 SMTP認証方式<br>
+　　　　->SenderlogEnabled　　(DWORD  Default 0)<br>
+　　　　　 0:Disable, 1:Level1ログ, 2:Level2ログ 送信時の詳細ログ<br>
+　　　　->Parameters　　　　　(KEY)<br>
+　　　　　->Timeout 　　　　　(DWORD  Default 120)sec リトライ間隔<br>
+　　　　　->PortNo　　　　　　(DWORD  Default 25)<br>
+　　　　　->MailOutlogEnabled (DWORD  Default 0) 0:Disable, 1:Enable<br>
+<br>
+<B>[SPAPOP3S]</B><br>
+HKEY_LOCAL_MACHINE<br>
+ SYSTEM<br>
+　->CurrentControlSet<br>
+　　->Services<br>
+　　　->SPAPOP3S　　　　　　　(KEY)<br>
+　　　　->Timeout　　　　　　　(DWORD  Default 300)sec 無通信状態タイムアウト<br>
+　　　　->PasswordFile 　　　　(SZ     Default apop.dat) APOP認証パスワード設定ファイル名<br>
+　　　　->SendDataBufferSize　(DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ<br>
+　　　　->AcceptLimit　　　　　(DWORD  Default 0) 同時接続数 0:無制限<br>
+　　　　->AcceptlogEnabled　　(DWORD  Default 0) 0:Disable, 1:Enable 詳細ログ取得フラグ<br>
+　　　　->MailExtension　　　　(SZ     Default "MSG")<br>
+　　　　　 メールメッセージファイルの拡張子、デフォルト".MSG"<br>
+　　　　->ListenMode　　　　　(DWORD  Default 0)<br>
+　　　　　 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ<br>
+　　　　->ListenIP　　　　　　　(SZ     Default NULL) 指定IPアドレス：ポート設定<br>
+　　　　->SendDataTimeout　　(DWORD  Default 60)sec 送信１回当りのタイムアウト時間<br>
+　　　　->Parameters　　　　　(KEY)<br>
+　　　　　->PortNo　　　　　　(DWORD  Default 110)<br>
+　　　　　->Pop3LogEnabled 　(DWORD  Default 0) 0:Disable, 1:Enable<br>
+　　　　　->ExclusiveAPOP 　　(DWORD  Default 0) 0:Disable, 1:Enable<br>
+<br>
+<B>[SPAIMAP4]</B><br>
+HKEY_LOCAL_MACHINE<br>
+ SYSTEM<br>
+　->CurrentControlSet<br>
+　　->Services<br>
+　　　->SPAIMAP4S　　　　　　(KEY)<br>
+　　　　->Timeout　　　　　　　(DWORD  Default 300)sec 無通信状態タイムアウト<br>
+　　　　->PasswordFile 　　　　(SZ     Default apop.dat) APOP認証パスワード設定ファイル名<br>
+　　　　->SharedRoot　　　　　(SZ     Default 空白) 共有フォルダルート<br>
+　　　　->SharedMode　　　　　(DWORD  Default 0)<br>
+　　　　　 共有フォルダアクセス権　0:読込み専用 1:読み書き可<br>
+　　　　->SendDataBufferSize　(DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ<br>
+　　　　->AcceptLimit　　　　　(DWORD  Default 0) 同時接続数 0:無制限<br>
+　　　　->AcceptlogEnabled　　(DWORD  Default 0) 0:Disable, 1:Enable 詳細ログ取得フラグ<br>
+　　　　->MailExtension　　　　(SZ     Default "MSG")<br>
+　　　　　 メールメッセージファイルの拡張子、デフォルト".MSG"<br>
+　　　　->ListenMode　　　　　(DWORD  Default 0)<br>
+　　　　　 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ<br>
+　　　　->ListenIP　　　　　　　(SZ     Default NULL) 指定IPアドレス：ポート設定<br>
+　　　　->SendDataTimeout　　(DWORD  Default 60)sec 送信１回当りのタイムアウト時間<br>
+　　　　->Parameters　　　　　(KEY)<br>
+　　　　　->PortNo 　　　　　　(DWORD  Default 143)<br>
+　　　　　->Imap4LogEnabled　(DWORD  Default 0) 0:Disable, 1:Enable<br>
+</small><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

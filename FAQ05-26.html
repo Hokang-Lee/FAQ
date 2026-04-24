@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-26</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>senderlog に&quot;421 Service Temporarily Unavailable&quot;と&quot;451 Requested action aborted: error in processing. (code=0/0)&quot;が記録される理由について</b></FONT>
+<HR>
+<br>
+<a href="./faq05-10.html">配送時の詳細ログ（senderlog）</a>にリトライした度に接続先サーバからの応答が次のように記録されている場合は、相手先サーバが一時的に使えなくなっているという解釈ができます。基本的に、こちら側（E-Post側）の問題でなく、相手側（先方）の問題です。<br>
+<blockquote>
+<b>421 Service Temporarily Unavailable</b><br>
+</blockquote>
+さらに、上記エラーのあい間に以下のようなエラーが記録されているケースがあります。<br>
+<blockquote>
+<b>451 Requested action aborted: error in processing. (code=0/0)</b><br>
+</blockquote>
+この記録から見ると、回線上で通信ができない、もしくは回線が混雑のため、通信タイムアウトが発生している可能性があることが推測されます。ちなみにこの応答コード&quot;451 Requested action aborted: error in processing. (code=0/0)&quot;は、無通信タイムアウトや、セッションが切られた場合など、E-Post側においてその事象に応じて内部で自動作成した応答コード＆メッセージです。その理由はあくまでも基本的にこちら側（E-Post側）の問題ではなく、相手側（先方）の抱えている問題です。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-10.html">配送時の詳細ログ(senderlog)について</a><br>
+●<a href="./faq05-32.html">senderlogに&quot;451 Requested action aborted: error in processing. (code=0/0)&quot;が記録される場合の対処策</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

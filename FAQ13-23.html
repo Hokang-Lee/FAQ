@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="index,follow">
+<TITLE>FAQ13-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">E-Post方式クラスタとは何ですか？　HAクラスタ構成の専用OSに変更する必要がありますか？ </FONT>
+<HR>
+<br>
+E-Post Mail Server (x64) シリーズ、E-Post SMTP Server (x64) シリーズ製品のクラスタモデル版で実現できるE-Post方式のHAクラスタ機能は、特に別途専用ソフトを必要としない方式で、サーバ２台とネットワーク共有ドライブ装置で冗長化構成を構築することができます。<br>
+<br>
+E-Post方式HAクラスタ機能は、冗長化に主な目的をおいています。アクティブ－スタンバイ方式のフェイルオーバー／フェイルバックの構成です。２つのマシンで１つの仮想IPをもったメールサーバを構成し、マスター側にしているノードがシステム障害で停止しても、スレーブ側のノードが肩代わりして、稼働を続けます。停止したマスター側ノードが復旧したときは、スレーブ側からマスター側にバトンを戻します。このようなフェイルオーバー／フェイルバック動作によって、メールサーバ、SMTPサーバの冗長化がはかれます。<br>
+<br>
+NASなどのネットワーク共有ドライブ装置、あるいは、Windows Serverで構築したネットワーク共有ドライブで動作します。UNC名でアクセスできれば種類は問いません。NASはWindows系のもののみ対応です。Linux系のものには対応していません。なお、これらネットワーク共有ドライブは、Ethernet の転送速度がボトルネックとなる可能性があります。もとよりE-Post方式クラスタ機能は、I/O性能が限られるネットワーク共有ドライブを利用するため、user数が多く、メール流量の多い大規模な環境には向きません。<br>
+<br>
+500userを軽く超えるなど、きわめてuser数が多く、しかもメール流量の多い大規模環境には、Windows Server に含まれるMSFC機能を利用して、MSFCでのフェイルオーバークラスタ構成を構築するようにしてください。MSFCクラスタでは、FCやiSCSIなどの共有ディスク専用ストレージを使用するため、パフォーマンスが問題になることはないと考えております。<br>
+<br>
+<h4 align="center">クラスタモデル版で構築したフェイルオーバー／フェイルバックの構成モデル図</h4>
+<p align="center"><img src="../epmsent_construct_guide/images/cluster1.gif"></p>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

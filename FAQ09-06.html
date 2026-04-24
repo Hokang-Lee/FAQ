@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>MSFCクラスタ構成でWeb管理ツールを使用するときの注意点 </b></FONT>
+<HR>
+<br>
+MSFCクラスタ構成でWeb管理ツールを使用する場合、設定方法に関しては、「Windows Server 2008 R2 / 2012 / 2012 R2 のIIS7.x/8.xでWeb管理を設定するときの補足・修正事項」の内容がそのまま使えます。<br>
+<br>
+シングル構成とMSFC構成とで違う点は、最後にブラウザからWeb管理ツールを呼び出すときのURIに違いがあることだけです。シングル構成のときは、<b>http://localhost/manager</b>　または　<b>http://[物理IP]/manager</b>　で呼び出しが可能です。<br>
+<br>
+一方、MSFCクラスタ構成のときは、ローカルベースのホスト名や物理IPアドレスで呼び出してしまった場合、アクティブのときには共有ドライブが割り当てられていても、スタンバイのときには共有ドライブが割り当てられておりません。さらにスタンバイのときはサービスも止められています。メールサーバにとって重要な「メール用作業フォルダ」がない状態では、正しい設定ができません。<br>
+この問題を避けるため、MSFCクラスタ構成のときは、メールサーバに割り当てた仮想IPアドレスをベースにしたURI　<b>http://[メールサーバ仮想IP]/manager</b>　で呼び出すようにしてください。これにより、稼働側がアクティブ側であるときも、スタンバイ側に切り替わっているときも、どちらでも対応でき、Web管理ツールで正しく操作することが可能になります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

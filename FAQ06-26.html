@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-26</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>2つのドメインを管理するとき EPSTDMARC を使って送信ドメイン認証（DMARC/DKIM/ARC）設定に関する質疑応答集 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+2つのドメインをマルチドメイン管理するときなど、EPSTDMARC v1.06c を使って送信ドメイン認証（DMARC/DKIM/ARC）設定する内容について、質疑応答を紹介します。<br>
+<br>
+<b>〔前提条件〕2つのドメインをマルチドメイン管理するときの送信ドメイン認証（DMARC/DKIM/ARC）設定</b><br>
+　１台のサーバにE-Postをインストールし、2つのドメインをマルチドメイン設定により管理する。<br>
+　dom1.com<br>
+　dom2.com<br>
+　このサーバは、DNSサーバも兼ねており、2つのドメインゾーンを管理している。<br>
+<br>
+<b>１．2つのドメイン管理のときDKIM用・ARC用の公開鍵・秘密鍵をそれぞれ作成する。DKIM用・ARC用の公開鍵・秘密鍵をそれぞれ作成する段取りで合っているでしょうか？さらにこれは２つのドメイン（dom1.com, dom2.com）で共通利用するという認識で合っているでしょうか？</b><br>
+　dkim_selector1<br>
+　arc_selector1<br>
+→はい。2つのドメインで共通利用する方法であってもかまいませんし、使用上の制限はありません。なお、セキュリティ上はドメイン毎に鍵が異なるものの方がより好ましいと思われます。<br>
+<br>
+<b>２．&quot;epstdkim.ini&quot; ファイルにはそれぞれのエンベローブFROMを記載する段取りで合っているでしょうか？</b><br>
+　dom1.com　　dkim_selector1<br>
+　dom2.com　　dkim_selector1<br>
+→<b>&quot;epstdkim.ini&quot; ファイル</b>で指定するドメイン部分には、下記のような書式で'@'を付けてください。<br>
+　@dom1.com　　dkim_selector1<br>
+　@dom2.com　　dkim_selector1<br>
+<br>
+<b>３．&quot;epstdmarc.ini&quot; ファイルの「FailureReportsSentBy」には、どのように記述すればよいでしょうか。 2つのドメイン分が記載できないようです。</b><br>
+<br>
+→<b>&quot;epstdmarc.ini&quot; ファイル</b>の「FailureReportsSentBy」についてドメイン毎に分ける設定はありません。<br>
+<br>
+<b>４．〔シングルドメイン・マルチドメイン限らず共通〕dkimの署名と検証を実施した場合、DKIM-Signature は記録されますが、コマンド上で「操作可能なプログラムまたはバッチファイルとして認識されていません」のエラーになります。どこがおかしいのでしょうか。</b><br>
+<br>
+→コマンド実行時、['D:\Program' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチファイルとして認識されていません]のエラーが表示されてコマンド実行ができない場合、空白の含まれるパス名のままコマンドラインで実行していることはないか確認してください。コマンド実行時には次のどちらかで行ってください。<br>
+　[1] ロングファイルネームのパス全体を &quot;（ダブルクオーテーション）で囲った書式で実行する。<br>
+　（例・&quot;D:\Program Files\EPOST\MS\epstdmarc\epstdmarc.exe&quot;）<br>
+　[2] ショートファイルネームパスで実行する。（例・D:\PROGRA~1\EPOST\MS\epstdmarc\epstdmarc.exe）<br>
+　※このときDドライブはショートファイルネームが有効になっていることが前提。有効か無効かを確認したり変更する方法は下記記事を参照。ショートネームパスが使えないときは、カレントパスを指定した形式（先頭に".\"を加える形）にして実行する。（例）「.\epstdmarc.exe [IPアドレス] [メールアドレス] test.msg ns.dom1.com」<br>
+<b>（参考FAQ）</b><br>
+●<a href="./faq03-26.html">ショートファイルネームが無効にされたDドライブをプログラムインストールフォルダ先にすると問題を与える可能性</a><br>
+<br>
+<b>５．〔シングルドメイン・マルチドメイン限らず共通〕&quot;sender.ini&quot; ファイルは特に変更することはないと思ってよいでしょううか。</b><br>
+<br>
+→<b>&quot;sender.ini&quot; ファイル</b>について、DMARC検証でfail判定時に送信元へのアラートメール通知用として、接続先IP（smtpserver=）,ポート（port=）等の指定は必要です。アラートメール通知をしなくてよいのであれば、それらの指定は不要です。<br>
+<br>
+<b>６．&quot;epstarc.domain.ini&quot; ファイルはtelnetで接続したホスト名で1つあればよいでしょうか？ 2つのドメインのメールサーバとなるが、telnetで接続したホスト名は同じになります。</b><br>
+<br>
+→<b>&quot;epstarc.[自身のホスト名].ini&quot; ファイル</b>についてですが、サーバが同じでも下記の2つとして作成する必要があります。<br>
+　epstarc.domainA.ini<br>
+　epstarc.domainA.ini<br>
+　それぞれのファイル内に<br>
+　AuthservID   項<br>
+　Domain  項<br>
+　Selector  項<br>
+　KeyFile    項<br>
+　これらはそれぞれのドメインの設定に合わせたものにする必要があります。<br>
+<br>
+<b>７．〔シングルドメイン・マルチドメイン限らず共通〕送信ドメイン認証において、ARCは必要なのでしょうか？ また、ARCを利用しないと決めた場合、&quot;epstarc.domain.ini&quot; ファイルを作成しない、DNSへのTXTレコードも存在しなければ、動作しないと考えてよいのでしょうか。</b><br>
+<br>
+→前者についてDMARC設定という点では、ARCは必須ではありません。ARCがなくても問題ありません。<br>
+　後者についての認識はその通りです。ARCを利用しないため設定しなければ動作せずエラーとなります。エラーが記録されるのを避けるには epstdmarc のインストールフォルダにある epstarc.exe が起動しないように "~epstarc.exe" というようにファイル名の先頭をリネームしておいてください。<br>
+<br>
+<b>（参考FAQ）</b><br>
+●<a href="./faq06-27.html">EPSTDMARC を使ってDKIM/DMARC設定したがARC未設定だと epstarc のエラーが出てしまう</a><br>
+<br>
+<b>８．〔シングルドメイン・マルチドメイン限らず共通〕E-Postが外部SMTPサーバからメールを受信する際に、送信ドメイン認証のチェックが実施されているかをどこで確認できますか？</b><br>
+<br>
+→通常、送信ドメイン認証のチェックは、E-Postから送信され、届いた先のサイトのSMTP側にて行われます。<br>
+確認方法としては例えば、gmail、outlook、yahooなど宛てにメールを送ることで、届いた側で判定結果がメールヘッダ &quot;Authentication-Results: &quot; が付加され、その結果内容が pass として表記されていれば、正常に設定が行われていることを確認できます。<br>
+<br>
+<b>９．〔シングルドメイン・マルチドメイン限らず共通〕EPSTDMARC v1.06c を利用し、送信対応としてSPF(DNS)、DKIM(E-Post)、DMARC(DNS)の対応を行うのは理解しています。一方、E-Postが外部からインバウンド方向のメールを受信した場合、E-PostがSPF、DKIM、DMARCのチェックをしてくれると認識しますが、それをメールサーバ切替前に確認する術があるのでしょうか。本番で実際受信して、そのメールを見てみるしかないのでしょうか。そしてチェック機能（SPF/DKIM/DMARC）を止めることができるのでしょうか。何かこちらの設定で不備がある場合に受信メールに影響があるのを避けたいです。</b><br>
+<br>
+→DKIM、DMARCの普及に弾みがついたのは、理解されている通り gmail、yahooメールがポリシーを公表したことがきっかけでした。まずこちらからアウトバウンド方向へ送ったメールを相手側が拒絶するか、受け入れるかについては、相手SMTP側のポリシーで決まることなので、自身でコントロールすることはできないことが大前提になります。<br>
+　そして、E-Postが外部からインバウンド方向のメールを受信した場合、<b><a href="/doc/readme.html">「epstdmarc/epstarcについて」readme.html</a></b> に書かれている<b>「epstdkim.ini ファイル定義例」</b>にあるように、インバウンド方向メールで外部ドメインから受領したメールに判定記録をヘッダに出力するには、&quot;epstdkim.ini&quot; の末行に &quot;* verify&quot; （それ以外の検証）を記述してください。受領したメールに &quot;Authentication-Results: &quot;のヘッダが追加されるようになります。<br>
+　----【epstdkim.ini】-------<br>
+　127.0.0.1 none<br>
+　@DomainA selectA<br>
+　@DomainB selectB<br>
+　* verify<br>
+　----------------------------<br>
+　※selectAやselectBは[セレクタ文字]例<br>
+　もし、内部ドメインで生成したものも、判定記録をヘッダに出力するのであれば、[セレクタ文字,verify] と記載します。1行目に示した &quot;127.0.0.1 none&quot; の設定行は任意ですが、こうした設定行を増やすことで、特定のアドレスからの送信判定出力を行わない場合のホワイトリストの扱いになります。<br>
+　----【epstdkim.ini】-------<br>
+　127.0.0.1 none<br>
+　@DomainA selectA,verify<br>
+　@DomainB selectB,verify<br>
+　* verify<br>
+　----------------------------<br>
+　なお、DMARCのTXTレコードには、&quot;p=&quot; オプションで判定に対する挙動を指定できます。運用開始時期や試験運用段階では、&quot;p=none&quot; としておけば、基本的には相手拒絶の対象にはなりませんが、これは試験運用期間の設定と考えてください。言い換えれば認証の適用に準備が整っているか状況を分析するため、一定期間を確保するために選ばれることがあるモードです。&quot;p=quarantine&quot; や &quot;p=reject&quot; に切り替えるかは、DKIM、DMARCの世の中の実施状況や動きなど見ながら、実施するかどうかの判断をしてください。<br>
+　------------------------------------------------------------------------<br>
+　何もしない（p=none）ポリシーを強制せず、メール活動を監視する。<br>
+　隔離（p=quarantine）疑わしいメールにフラグを付ける。その後迷惑メールフォルダなどへ隔離。<br>
+　排除（p=reject）認証されていないメールの配信をブロックする。<br>
+　------------------------------------------------------------------------<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

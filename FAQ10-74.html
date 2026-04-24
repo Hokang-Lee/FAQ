@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-74</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Outlook 2013で使用するとIMAP4サーバ同期中メッセージで処理が進まない - NOOPコマンド連続発信現象への対策について</b></FONT>
+<HR>
+<br>
+メールサーバ側をE-Post Mail Server、メールクライアント側を Outlook 2013 にした組み合わせで、IMAP4を使用しているとき、IMAP4サーバ同期中メッセージが出たまま処理が進まず、しかもメールサーバのCPU負荷が異常に高まる現象が報告されました。<br>
+調べた結果、Outlook 2013 との相性に問題があることがわかりました。E-Post Mail Serverが、クライアントから発せられるNOOPコマンドに対して、フォルダポーリングの状態を逐一応答して返していると、Outlook 2013側が突如として、NOOPコマンドを異常に連続発信させるようになります。その頻度はかなり異常で、１秒間の間に平均6.4回というものでした。この数字はあくまで１セッション当たりのものですから、もし100セッションが同時稼働している場合は、1秒間に600回以上のNOOPコマンドを異常発信することとなります。その結果、メールクライアント側には同期中メッセージが出たまま進まない状態となり、メールサーバのCPU負荷が異常に高まってしまう事態を招いてしまうことがわかりました。<br>
+弊社としては、この問題はあくまで Outlook 特有の問題だと考えましたが、NOOPコマンドに対して、フォルダポーリングの状態を常に一律に返すのではなく、他に問題が波及することなくデフォルト設定を見直しして2014年7月1日公開の20140623差分、EPSTIMAP4S v4.44 で対策を取りました。このバージョンでは Outlook 2013側からNOOPコマンドが異常に連続発信されることの防止策を施しました。ちなみにこれ以降の最新差分はすべてここであげた内容が含まれます。<br>
+<br>
+<small>－－－－－－－－－－－－－－（ここから一部抜粋）－－－－－－－－－－－－－<br>
+<b>[EPSTIMAP4]<br>
+v4.43 2014.05.30</b><br>
+　2.NOOP命令での選択フォルダ内のポーリング実行有無の指定を可能にした。<br>
+　　HKEY_LOCAL_MACHINE<br>
+　　　->SYSTEM<br>
+　　　　->CurrentControlSet<br>
+　　　　　->Services<br>
+　　　　　　->EPSTIMAP4S<br>
+　　　　　　　->NOOPPoll (DWORD) NOOP命令内でのフォルダポーリング実行の有無<br>
+　　　　　　　　TRUE:有効 FALSE:無効（デフォルト）<br>
+　<br>
+<b>v4.44 2014.06.20</b><br>
+　1.NOOPポーリング結果でフォルダ内に変化があった場合のみ結果応答を行うようにした。<br>
+　2.NOOPポーリングをデフォルトで有効に変更した。(v4.43-2項の変更)<br>
+　　HKEY_LOCAL_MACHINE<br>
+　　　->SYSTEM<br>
+　　　　->CurrentControlSet<br>
+　　　　　->Services<br>
+　　　　　　->EPSTIMAP4S<br>
+　　　　　　　->NOOPPoll (DWORD) NOOP命令内でのフォルダポーリング実行の有無<br>
+　　　　　　　　TRUE:有効（デフォルト） FALSE:無効<br>
+－－－－－－－－－－－－－－（ここまで）－－－－－－－－－－－－－－－－－<br></small>
+<br>
+上記項目は“NOOPPoll”というレジストリで、NOOPコマンドでのフォルダポーリング実行の有無についてその有無を設定できるようにしたものです。<br>
+v4.43では、いったんフォルダポーリング実行をデフォルト無効としました。これにより、Outlook 2013はNOOPコマンドを頻発しなくなりました。その後 v4.44では、フォルダポーリング実行をフォルダ内に変化・変更があった場合のみに限り、デフォルト有効としました。このモジュールによる確認を行ったところ、Outlook 2013はNOOPコマンドを頻発することはありませんでした。<br>
+なお、上記の通り、レジストリで“NOOPPoll”を作成すれば、デフォルト有効設定以外に無効設定にすることも可能です。<br>
+<br>
+Outlook 2013の組み合わせでIMAP4を使用しているとき、標題のような現象に悩まされている場合、上記以降の最新差分アップデートを適用することを推奨いたします。<br>
+<br>
+<small><b>［お断り］</b>　<font color="#cc0000">Outlook 2013については、2014年6月現在の現行バージョンで一連の現象を確認しましたが、マイクロソフトのUpdateにより、Outlook 特有の問題が今後修正されるかもしれないことは、ご承知おきください。あくまで E-Post 側で取ることのできる対策を先に取ったのだとご理解をいただければ幸いです。</font></small><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

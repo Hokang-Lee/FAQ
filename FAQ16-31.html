@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-31</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>BossCheck Server 上長承認機能を全体で抑止させ使わない方法について <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+BossCheck Server 上長承認機能を全体で抑止させ使わない方法ですが、簡単にできます。<br>
+E-Post BossCheck Option (x64) の画面（小さなダイアログボックス）を呼び出して、「上長承認を有効にする」チェックボックスをオフにします。その後、上記チェックボックスをオフにした後は、E-Post Mail Controlの「サービス制御」タブ画面よりEPSTRSサービスを停止→開始と、サービス再起動をすると、その後からは上長承認機能が無効になります。<br>
+上長承認の条件設定を記述している &quot;sender.dat&quot; についてはそのままでもかまいませんし、ていねいに１つずつ承認依頼を行う条件設定部分を削除してもかまいません。全体で上長承認機能が無効になると、&quot;sender.dat&quot; 内に記載している承認依頼を行うオプションを意味する動作コードの &quot;1&quot;,&quot;2&quot;,&quot;3&quot; といったコードがパスされることになります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

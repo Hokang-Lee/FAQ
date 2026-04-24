@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post BossCheck Option (x64) で使用している設定ファイル＆レジストリ <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<PRE>
+<B>■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定</B>
+    <small><font color="darkgreen">※設定ファイルの拡張子種類は、次の通り値の型を表わす。レジストリのBINARY,DWORD,STRINGの型に該当。
+       （ .0 = BINARY,  .1 = DWORD,  .2 = STRING及びその他の形式 ）
+     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font>
+
+[メール作業フォルダ]内
+→REG
+ →SOFTWARE
+  →EMWAC
+   →IMS
+     →MailApprovalLog.1        (DWORD  Default 1) 上長承認履歴（記録ログ）の保存有無
+                                             ( 1:保存する, 0:保存しない )
+     →MailApprovalManager.2  (SZ   Default NULL) 上長承認メールシステム管理者
+     →MailApprovalRes.1        (DWORD  Default 1) 保留通知メールの有無
+                                             ( 1:保留通知あり, 0:保留通知なし )
+     →MailApprovalDepath.1   (DWORD  Default 1) 代理承認者の代理設定可能な階層
+                                             ( 1～:回帰的に可能な代理承認の深さ ）
+     →MailApprovalNotification.1  (DWORD  Default 1) 開封通知メールを添付ファイル条件除外
+                                             ( 1:除外する, 0:除外しない )
+     →MailApprovalNum.1      (DWORD  Default 2) 2人を超える承認者数 ( 例:承認者3人…3 )
+         <small>ただしフルパス表記[メールボックスフォルダ\作成ドメイン名\アカウント名]長さ合計が最大200バイトまで
+         （例）承認者3人＝アカウントがttanaka、ssuzuki、ssatoのケース
+           C:\mail\inbox\testdomain.jp\ttanaka … 35バイト
+           C:\mail\inbox\testdomain.jp\ssuzuki … 35バイト
+           C:\mail\inbox\testdomain.jp\ssato … 33バイト   計103バイト</small>
+     →MailApprovalDomain.2  (SZ   Default NULL) サブドメインをエイリアス設定したときの
+                                            サブドメイン名 ( 例:sub )
+     →MailApprovalLogLevel.1 (DWORD  Default 0) 履歴に送信元IPや送信先を含むか含まないかの設定
+                                             ( 0:含まない, 1:含む ) <font color="blue">(EPSTRS v4.82b～)</font> 
+     →MailApprovalCodepage.1 (DWORD  Default 932) 承認依頼メールのmailtoリンクの生成時の文字コード設定
+                                             (932(Shift-JIS), 65001(UTF-8),20932(JP_EUC),
+                                              50220 or 50222(JP_JIS))<font color="blue">(EPSTRS v4.86～)</font> 
+</small>
+<B>■個別情報－レジストリに設定</B><small>
+HKEY_LOCAL_MACHINE
+ →SOFTWARE
+  →EPOST
+   →BOSSCHECK
+     →proxymessage40      (SZ) 代理承認時の通知メールメッセージ（JISエンコード文字列）
+     →proxymessage41      (SZ) 代理承認解除時の通知メールメッセージ（JISエンコード文字列）
+
+HKEY_LOCAL_MACHINE
+ →SOFTWARE
+  →EMWAC
+   →IMS
+     →MailApprovalHtml     (DWORD  Default 0) 上長承認依頼メールをHTML形式メールに変更するオプション
+                                         ( 0:PLAIN 1:HTML ) <font color="blue">(EPSTRS v4.A3～)</font>
+     →MailApprovalHtmlColumn      (DWORD default 78) 承認依頼メールHTML形式で1行当たりの文字数を正規化するオプション
+                                         <font color="blue">(EPSTRS v4.AI～)</font>
+
+HKEY_LOCAL_MACHINE
+ →SYSTEM
+  →CurrentControlSet
+   →Services
+    →EPSTRS
+      →MailApprovalMessNum (DWORD  Default 100)
+        [作成リトライ回数] 100(デフォルト), 0:リトライしない <font color="blue">(EPSTRS v4.AH～)</font>
+        BossCheck有効時の通知メール作成が失敗したときのリトライ回数
+</small>
+</pre>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

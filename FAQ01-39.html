@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-39</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>サービス停止後に再開が突然できなくなった</b></FONT>
+<HR>
+ＯＳのhotfixを適用している場合で、サービスのインストールフォルダが、&quot;C:\Program Files\spa-pro\&quot; (ドライブは任意)のようにフォルダパスに一部スペースが使われているフォルダにインストールしてある場合、サービスの開始ができなくなることがあります。以下レジストリを開き、サービス実行パスをショートネームに変更して保存すると正常に起動できるようになります。<br>
+<br>
+ただし、この問題が発生した場合は、他のトラブルが発生する可能性がありますので「空白」のない別フォルダにインストールし直すようにして下さい。<br><small>
+<HR width=95% align="left" size="1" noshade>
+[SPA-PRO Mail Server 2003/SPA-PRO Mail Server/SPA-PRO Mail(SMTP) @Solomon]の変更先<br>
+<HR width=95% align="left" size="1" noshade>
+ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPARS-PRO\ImagePath<br>
+  現在 -> C:\Program Files\SPA-Pro\spa-rs.exe<br>
+  変更 -> C:\PROGRA~1\SPA-Pro\spa-rs.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPADS-PRO\ImagePath<br>
+  現在 -> C:\Program Files\SPA-Pro\spa-ds.exe<br>
+  変更 -> C:\PROGRA~1\SPA-Pro\spa-ds.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAPOP3S-PRO\ImagePath<br>
+  現在 -> C:\Program Files\SPA-Pro\spa-pop3s.exe<br>
+  変更 -> C:\PROGRA~1\SPA-Pro\spa-pop3s.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAIMAP4S-PRO\ImagePath<br>
+  現在 -> C:\Program Files\SPA-Pro\spa-imap4s.exe<br>
+  変更 -> C:\PROGRA~1\SPA-Pro\spa-imap4s.exe<br>
+<HR width=95% align="left" size="1" noshade>
+[SPA Mail Server v1/v2]の変更先<br>
+<HR width=95% align="left" size="1" noshade>
+ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPARS\ImagePath<br>
+  現在 -> C:\Program Files\SPA-MS2\spa-rs.exe<br>
+  変更 -> C:\PROGRA~1\SPA-MS2\spa-rs.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPADS\ImagePath<br>
+  現在 -> C:\Program Files\SPA-MS2\spa-ds.exe<br>
+  変更 -> C:\PROGRA~1\SPA-MS2\spa-ds.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAPOP3S\ImagePath<br>
+  現在 -> C:\Program Files\SPA-MS2\spa-pop3s.exe<br>
+  変更 -> C:\PROGRA~1\SPA-MS2\spa-pop3s.exe<br>
+<br>
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAIMAP4S\ImagePath<br>
+  現在 -> C:\Program Files\SPA-MS2\spa-imap4s.exe<br>
+  変更 -> C:\PROGRA~1\SPA-MS2\spa-imap4s.exe<br>
+<HR width=95% align="left" size="1" noshade><br>
+</small><br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

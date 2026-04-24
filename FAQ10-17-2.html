@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ_EPSTDS_stop</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>「E-POST SMTP Delivery Agent」（EPSTDS）サービスが正常に停止できない <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDSサービスが停止できない場合、［メール作業用フォルダ］下にある以下のフォルダに配送メールが溜まったままになっていないか確認してください。<br><br>
+<blockquote>
+・<b>incomingフォルダ</b>（メールキューフォルダ）<br>
+・<b>holding/domainsフォルダ</b>（リトライ関係フォルダ）<br>
+</blockquote>
+メール配送中にサービスを停止しようとすると、上記フォルダにメールデータが溜まっている状況下では停止できない状態になります。<br>
+<br>
+<b>【対処方法】</b><br>
+サービスを起動する前に、上記フォルダにあるメールデータを手動で任意フォルダへ退避させてください。<br>
+試験メールなどいずれのメールデータも不要であれば、削除してください。<br>
+フォルダをきれいにすることで、EPSTDSサービスが正常に起動・停止できるようになります。<br>
+<br>
+<b>【退避したメールデータについて】</b><br>
+任意フォルダへ退避させたメールデータは、元あったフォルダへ戻せばメールキューやリトライデータとして再度機能します。<br>
+なお、リトライデータはリトライ設定時間が経過したものから順にリトライをあきらめ、最終的に配送失敗として処理されます。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="https://www.e-postinc.jp/faq/faq10-50.html" target="_blank">サービス[停止]ボタンをクリックしたとき、メッセージが表示されたり、ボタンが正常表示されないことがある</a><br>
+●<a href="https://www.e-postinc.jp/faq/faq01-67.html" target="_blank">リトライ処理が行われるときの情報とフォルダについて</a><br>
+●<a href="https://www.e-postinc.jp/faq/faq19-40.html" target="_blank">メールキューフォルダ（incoming）にメールデータがたくさんたまってしまう原因を調べる</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

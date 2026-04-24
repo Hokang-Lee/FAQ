@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-03</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>MSFCクラスタ構成時に「接続ドメイン/IPで区別する」方式から「共通ボックス（区別しない）」方式へ切り替える手順について</b></FONT>
+<HR>
+<br>
+MSFCクラスタ構成時の環境で「接続ドメイン/IPで区別する」方式から「共通ボックス（区別しない）」方式へ切り替えて移行する手順のポイントです。<br>
+※ここでは、ユーザー管理をAD連携させるための必要条件として「共通ボックス（区別しない）」に切り替える手順を提示しました。<br>
+※下記はWindows Server 2008 R2＋MSFCクラスタ構成の検証環境で確認した作業例です。<br>
+<ol>
+<li>アクティブ側（正系）のみ起動。Mail Controlよりメール用作業フォルダ設定が、共有ディスクである&quot;E:\mail&quot;（例）で正常に割り当てられているかを確認。<br>
+<li>Mail Controlの「ドメイン」詳細ダイアログボックスより「共通ボックス（区別しない）」方式へ変更。「適用」ボタンクリック。<br>
+<li>Mail Control閉じる。<br>
+<li>フェールオーバークラスタマネージャより「サービスとアプリケーション」からオフラインにする。E-Post関連サービスもオフラインにし、E-Post関連サービスすべてが終了されていることを確認。<br>
+<li>「接続ドメイン/IPで区別する」方式から「共通ボックス（区別しない）」方式へ切り替わる際のメールボックスフォルダをまるごと移動またはコピー（※共有ディスクがE:の例）<br>
+<blockquote>E:\mail\inbox\[ドメイン名]\[ユーザー]<br>
+下のサブフォルダすべて<br>
+　　　　　　↓<br>
+E:\mail\inbox\[ユーザー]<br>
+下のサブフォルダすべて</blockquote>
+<li>フェールオーバークラスタマネージャより「サービスとアプリケーション」から、オンラインにする。<br>
+クラスタの共有ディスクがオンライン化されていることを確認の上、E-Post関連サービスもオンラインにし、E-Post関連サービスすべてが開始されていることを確認。<br>
+<li>Mail Controlを開いて正常に開けるか、サービスは開始状態になっているかを確認。<br>
+<li>Mail Controlの「ドメイン」詳細ダイアログボックスより「共通ボックス（区別しない）」方式に変更されていることを確認。<br>
+<li>Account Managerを開き、アカウント選択で右クリックメニューから「エクスプローラ」を選択、認識されているメールボックスフォルダが 5.の設定通り認識されているかを確認。<br>
+<li>メールクライアント側のログインユーザーIDをアカウント名だけに変更または確認。<br>
+<li>メールクライアントから正常に接続できることを確認。<br>
+<li>スタンバイ側（副系）起動。アクティブ側（正系）シャットダウン。<br>
+<li>フェールオーバークラスタマネージャよりクラスタの共有ディスクがオンライン化されていることを確認。<br>
+<li>Mail Controlを開いて正常に開けるか、サービスは開始状態になっているかを確認。<br>
+<li>Mail Controlの「ドメイン」詳細ダイアログボックスより「共通ボックス（区別しない）」方式に変更されていることを確認。<br>
+<li>Account Managerを開き、アカウント選択で右クリックメニューから「エクスプローラ」を選択、認識されているメールボックスフォルダが５の設定通り認識されているかを確認。<br>
+<li>メールクライアントから正常に接続できることを確認。<br>
+<li>スタンバイ側（副系）のMail Control、Account Managerをすべて閉じ、アクティブ側（正系）を起動。<br></ol>
+※なお、E-Post関連サービスの各種レジストリ設定を行ったものについては、Windows Server 2008 R2＋MSFCクラスタに装備されているレジストリレプリケーション機能により、設定内容がコピーされます。ちなみに、Windows Server 2012 R2ではレジストリレプリケーションがサポートされなくなったため、レジストリ設定は、正副それぞれに必要になります。<br>
+※ここでは、ユーザー管理をAD連携させるための必要条件として「共通ボックス（区別しない）」に切り替える手順を提示しましたが、ユーザー管理をAD連携させないでE-Post方式で使う場合は、「接続ドメイン/IPで区別する」設定のまま利用することが可能であり、わざわざ変更する必要はありません。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

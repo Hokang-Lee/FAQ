@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-29</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directoryへの問い合わせリトライ間隔と時間を調整するには</b></FONT>
+<HR>
+<br>
+AD（Active Directory）連携時に、メールサーバからADへの問い合わせが大量に発生するケースで、認証に時間がかかる現象のときには、2009年12月以降にリリースされたモジュールで追加されたレジストリ項目によって、ADへの問い合わせリトライ待ち時間を短く調整できるようになりました。さらに、従来から用意されているレジストリ項目を組み合わせることで、ADへの問い合わせリトライ総時間の調整が可能です。<br>
+もともと、E-Post Mail Server がAD連携環境にてパスワード認証をする際、メールサーバからADに向けて、ユーザー検索のリクエストを数回行う仕様になっています。このとき、ADへの問い合わせリトライ間隔は、従来バージョンではプログラム内部で1秒固定ですが、新しいバージョンでは、このリトライ間隔を調整できるようになっています。<br>
+<br>
+2009年12月以降に公開されている最新差分を適用後、レジストリのキー"ADRetryMSec"をDWORDで作成、数値を設定することによって、リトライ間隔を調整できるようになります。このキーが有効なサービスプログラムのバージョンは以下の通りです。<br>
+・EPSTRS　　　4.63以降<br>
+・EPSTDS　　　4.47以降<br>
+・EPSTPOP3S 　4.26以降<br>
+・EPSTIMAP4S　4.30以降<br>
+<br>
+<b>[AD連携時のユーザー情報問い合わせリトライ間隔（リトライ待ち時間）設定レジストリ]</b><br>
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTRS<br>
+　　　　　→ADRetryMSec (DWORD) デフォルト1000（ミリ秒）<br>
+　　　　→EPSTDS<br>
+　　　　　→ADRetryMSec (DWORD) デフォルト1000（ミリ秒）<br>
+　　　　→EPSTPOP3S<br>
+　　　　　→ADRetryMSec (DWORD) デフォルト1000（ミリ秒）<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→ADRetryMSec (DWORD) デフォルト1000（ミリ秒）<br>
+<br>
+（例）デフォルト1000（ミリ秒）＝1秒　→　300（ミリ秒）＝0.3秒<br>
+<br>
+レジストリ設定値を変更したときは、各サービスの再起動が必要です。<br>
+<br>
+ちなみに、上記バージョンからは、AD連携設定時に、メールボックスの設定が環境変数 %USERNAME% を含む設定のときに限り、ADへの問い合わせ２回目以降にホームフォルダの検索をしないようにしました。その結果、AD連携時の処理速度の高速化がはかられています。環境変数 %HOME% を含む設定のときは変わりません。<br>
+<br>
+なお、リトライ回数を設定するための"ADRetryTime"キーについては、従来バージョンでも有効です。<br>
+<b>[AD連携時のユーザー情報問い合わせリトライ回数設定レジストリ]</b><br>
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTRS<br>
+　　　　　→ADRetryTime (DWORD) デフォルト10（回）<br>
+　　　　→EPSTDS<br>
+　　　　　→ADRetryTime (DWORD) デフォルト10（回）<br>
+　　　　→EPSTPOP3S<br>
+　　　　　→ADRetryTime (DWORD) デフォルト10（回）<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→ADRetryTime (DWORD) デフォルト10（回）<br>
+<br>
+レジストリ設定値を変更したときは、各サービスの再起動が必要です。<br>
+<br>
+この新しい"ADRetryMSec"値と、従来バージョンから設けられている"ADRetryTime"値との掛け算によって、ADへの問い合わせリトライ総時間が決まります。言い換えると、ADリトライ待ち時間×ADリトライ回数の調整でAD問い合わせリトライ時間を調整します。<br>
+<br>
+<b>ADRetryMSec値（ミリ秒）×ADRetryTime値（回）＝ADユーザー情報問合せリトライ総時間</b><br>
+<br>
+例） 1000ミリ秒（1秒）×10回＝10秒<br>
+　　　300ミリ秒（0.3秒）×30回＝9秒<br>
+　　　300ミリ秒（0.3秒）×20回＝6秒<br>
+<br>
+調整のしかたによっては、ADへの問い合わせが大量に発生するケースで、リトライ待ち総時間が増えてしまったり、認証できず接続エラーが増える状況も考えられますので、設定値を変更するときは、いたずらに速度を上げることだけを目的としないで、より安全かつ確実に認証が通ることを確認しながら行ってください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

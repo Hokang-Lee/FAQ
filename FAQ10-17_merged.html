@@ -1,0 +1,129 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-17</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>サービスを停止しようとしても停止できない状態になる</b></FONT>
+<HR>
+<br>
+E-Post各サービスプログラムを停止させる場合、E-Post Mail Control画面から操作したり、あるいは Windowsの管理ツール「サービス」から操作、あるいはnetコマンドから操作するなど、何通りかの方法がありますが、いずれの場合もサービスが完全に停止できない状態になってしまうときは、次のようなケースが考えられます。<br>
+なお、Mail Controlの「サービス制御」ではなく、Windowsの管理ツール「サービス」で確認すると、サービス停止中のステータスが表示されるため、サービス停止できないときの状態を確認しやすくなります。<br>
+<br>
+<b>（こうした状況が起きるケースと考えられる原因について）</b><ol><b><li>サービスが動作中のまま、メールサーバIPアドレスの変更やポート番号の変更を行ったケース</b></li>
+サービスが動作中のまま、詳細設定画面で設定するIPアドレスや、ポート番号の変更を行う操作をすると、停止処理でうまく停止できなくなってしまいます。詳細設定画面で設定するIPアドレスや、ポート番号の変更を行うときは、設定の根幹部分ですので、事前にサービスを停止しておかなければなりません。<br>
+正式な手順としては、たとえば、EPSTRS（SMTP受信部）のポート番号を&quot;25&quot;から、&quot;20025&quot;に変更する場合、サービス動作状態のまま行わないで、Mail Controlの「サービス制御」タブ画面よりいったんサービスを停止させてから、ポート番号を変更し、[適用］ボタンをクリック、その後にサービスを開始させるという手順になります。<br>
+もし、うっかりミスで事前にサービスを停止せず、詳細設定画面で設定するIPアドレスや、ポート番号の変更を行ってから、サービス停止操作を行ったときには、他の対応方法がありませんので、マシン全体の再起動を行ってください。<br>
+<b><li>HAクラスタ構成でサービスの登録・開始をAdministratorで行わなかったケース</b></li>
+HAクラスタ構成の場合、メール作業フォルダとしてアクセスする共有フォルダをUNC名で指定するとき（例：\\srv\mailなど）、サービスの登録・開始をAdministratorで行うべきところ、LocalSystemで行ってしまうと、停止処理でうまく停止できなくなります。<br>
+なお、シングル構成時のメール作業フォルダは、通常、&quot;C:\mail&quot;のように、ローカルドライブを指定しますので、LocalSystemのままで支障はありません。<br>
+<li><b>メール作業フォルダに指定しているドライブもしくはディスク不調、アクセス不可のケース</b></li>
+メール作業フォルダに指定しているドライブもしくはディスクがハード的に不調になっている状態、あるいはアクセス不可になっている状態では、サービスプログラムが正常に書き込みにいけませんから、このようになってしまう可能性もあります。<br>
+<li><b>サービスプログラムのファイルが破損しているケース</b></li>
+きわめてまれなケースですが、サービスプログラムのファイルが何らかの原因で破損してしまうと、このようになってしまう可能性も考えられます。<br>
+この場合、各サービスプログラムをデバッグモードで起動させ、正常に働くかどうかを調べることで、破損していないかどうかを調べます。<br>
+<li><b>特定環境において一部バージョンで確認された不具合のケース</b></li>
+特定環境において一部バージョンで確認された不具合のケースがあります。最近のものでは以下のようなものがあります。状況に該当するときは最新差分アップデートを適用してください。<br>
+・E-Post Mail Server／E-Post SMTP Serverシリーズ（32bit版）<br>
+　EPSTRS v4.98とv4.99においてhostsファイルの記述形態により停止時にハングする現象。<br>
+</ol>
+<b>（対処策について）</b><br>
+万が一、各サービスプログラムを停止しようとしても、停止できない状態になるときは、次の操作を行って対処してください。<br>
+<blockquote>
+(1) Windowsの「管理ツール」-「サービス」より、&quot;E-POST ～&quot;の名前の付いた各サービスを「自動」から「手動」に変更する。<br>
+(2) OSを再起動する。<br>
+(3) 上記１～３などの内容を確認して、正常にサービスを開始・終了できることが確認できたら、再び「自動」に戻す。<br>
+</blockquote>
+<a name="debug">
+<br>
+<b>（デバッグモードの使い方について）</b><br>
+デバッグモードの使い方は、次の通りです。<br>
+<blockquote>
+(1) 各サービスを停止する。<br>
+(2) コマンドプロンプトを開く。<br>
+(3) カレントフォルダについてプログラムインストールフォルダに移動。<br>
+<table bgcolor="#777777" width="480">
+ <tr>
+  <td><font color="#ffffff">
+  <b> <u>cd &quot;C:\Program files\EPOST\MS&quot; </u> [Enter]</b><br></font>
+  </td>
+ </tr>
+</table>
+<br>
+(4) EPSTRS サービスのデバッグモードを起動するには、epstrs -debug と入力。<br>
+<table bgcolor="#777777" width="480">
+ <tr>
+  <td><font color="#ffffff">
+  <b> <u>epstrs -debug </u> [Enter]</b><br></font>
+  </td>
+ </tr>
+</table>
+他のサービスのデバッグモードも同様にオプションをつけて起動します。<br>
+</blockquote>
+ステータスやメッセージがたくさん表示されれば、プログラムファイルの破損はなく、基本的に正しいプログラムファイルといえます。このデバッグモードの最中にクライアントからメールの送受信テストを行うことができ、表示される画面で基本的な動作を確認することができます。デバッグモードを停止させるには《Ctrl》＋[C]キーを押します。<br>
+<br>
+
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>「E-POST SMTP Delivery Agent」（EPSTDS）サービスが正常に停止できない <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+<br>
+EPSTDSサービスが停止できない場合、［メール作業用フォルダ］下にある以下のフォルダに配送メールが溜まったままになっていないか確認してください。<br><br>
+<blockquote>
+・<b>incomingフォルダ</b>（メールキューフォルダ）<br>
+・<b>holding/domainsフォルダ</b>（リトライ関係フォルダ）<br>
+</blockquote>
+メール配送中にサービスを停止しようとすると、上記フォルダにメールデータが溜まっている状況下では停止できない状態になります。<br>
+<br>
+<b>【対処方法】</b><br>
+サービスを起動する前に、上記フォルダにあるメールデータを手動で任意フォルダへ退避させてください。<br>
+試験メールなどいずれのメールデータも不要であれば、削除してください。<br>
+フォルダをきれいにすることで、EPSTDSサービスが正常に起動・停止できるようになります。<br>
+<br>
+<b>【退避したメールデータについて】</b><br>
+任意フォルダへ退避させたメールデータは、元あったフォルダへ戻せばメールキューやリトライデータとして再度機能します。<br>
+なお、リトライデータはリトライ設定時間が経過したものから順にリトライをあきらめ、最終的に配送失敗として処理されます。<br>
+<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-66.html">Windowsの管理ツール「サービス」とE-Post Mail Controlの「サービス制御」との操作上の違いは？</a><br>
+●<a href="https://www.e-postinc.jp/faq/faq10-50.html" target="_blank">サービス[停止]ボタンをクリックしたとき、メッセージが表示されたり、ボタンが正常表示されないことがある</a><br>
+●<a href="https://www.e-postinc.jp/faq/faq01-67.html" target="_blank">リトライ処理が行われるときの情報とフォルダについて</a><br>
+●<a href="https://www.e-postinc.jp/faq/faq19-40.html" target="_blank">メールキューフォルダ（incoming）にメールデータがたくさんたまってしまう原因を調べる</a><br>
+<br>
+
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-08</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールサーバマシンにアンチウイルスソフトを同居させるときの注意点<font color="red">（重要）</font></b></FONT><br>
+<HR>
+<br>
+E-Post Mail Server／SMTP Serverシリーズを導入・構築したサーバマシンに対し、サードパーティ製アンチウイルスソフトをインストールして、サーバマシンに対するウイルス検出を行う場合、「メール作業用フォルダ」下のすべてのフォルダ、及び「メールボックスフォルダ」下のフォルダの常時監視＝リアルタイムスキャンを行わないように除外設定してください。また、Windows Server に標準で備わっている Windows Defender も同様です。「除外」-「除外の追加」で同様の設定を行ってください。これは常時監視を行うようなバックアップソフトなどでも同様なことが言えます。<br>
+ここであげた対策を取らないまま、サードパーティ製アンチウイルスソフトによって「メール作業用フォルダ」「メールボックスフォルダ」下にあるフォルダの常時監視やスキャンを行った場合、メール送受信処理との間で各フォルダ内にあるファイルの競合（ファイルの取り合い）が発生し、メール送受信時に予期しない問題が発生する可能性があります。万が一、ファイルの取り合いの事象が発生すると、最悪のケースでは、サービスプログラムがアプリケーションエラーを起こして停止してしまう原因になります。サービスが止まらないまでも、メールデータが詰まってしまう現象になったり、クライアントへの応答速度が極度に遅くなったり、CPU占有率が50%以上で高止まりする現象や、負荷が小さい状態にもかかわらずCPU占有率が100%近くに上がったりする現象として現れることがわかっています。<br>
+またクライアントPCから、システム管理者がネットワークごしにメールサーバのドライブを開いたときにも、そのおそれがあります。ネットワークドライブもリアルタイムスキャン対象からはずしてください。<br>
+「メール作業用フォルダ」下すべてと「メールボックスフォルダ」下すべてに対して、アンチウイルスソフトの常時監視対象外とする設定、いわゆる除外設定を必ず行ってください。それでも動きがおかしいときは、アンチウイルスソフトの関連サービスプログラムをすべて完全に停止させてみて動きを確認してください。<br>
+ <ul>
+ <b>〔E-Post Mail Server (x64) / E-Post SMTP Server (x64) シリーズ共通〕<br>
+ 〔E-Post Mail Server / E-Post SMTP Server シリーズ共通〕</b><br>
+ <b>メール作業用フォルダ（既定値）　　&quot;C:\mail&quot;</b><br>
+ <b>メールボックスフォルダ（既定値）　&quot;C:\mail\inbox\%USERNAME%&quot;</b><br>
+ （例）&quot;C:\mail\inbox\[ドメイン名]\&quot;
+ </ul>
+また、E-Post方式クラスタ構成のとき、メール作業用フォルダをネットワーク共有ドライブに指定しますが、EPSTRSサービスが受領時にデータを展開する &quot;temp&quot; フォルダについて、シングルサーバ構成時には [メール作業用フォルダ]\temp フォルダを使用する代わりにローカルドライブである（C:\Program Files\EPOST\MS\temp）を代替先として使います。E-Post方式クラスタ構成のときは以下を追加設定をしてください。<br>
+<ul>
+ <b>〔E-Post方式クラスタ構成時は次を追加〕</b><br>
+ <b>[プログラムインストールフォルダ]\temp　&quot;C:\Program Files\EPOST\MS\temp&quot;</b> <small>※1</small><br>
+ <small>※1) 32bit版E-Postを64bitOS環境にインストールすると&quot;C:\Program Files (x86)\EPOST\MS\temp&quot;となります。ちなみに &quot;temp&quot; フォルダはEPSTRSサービスが受領時にデータを展開する一時作業フォルダです。E-Post方式クラスタ構成では処理速度が低下することを防ぐために &quot;temp&quot; フォルダをローカルドライブに自動的に切り替える仕様です。</small><br>
+</ul>
+また、Enterprise II (x64) / Enterprise II 版では、次のフォルダを添付ファイルを一時展開する作業フォルダとして使用するため、除外設定に加えてください。さらに「プログラムインストールフォルダ」下のパターンファイル保管フォルダやパターン更新ログフォルダについても、除外設定することを推奨します。やはりファイルの競合が発生する可能性があります。<br>
+<ul>
+ <b>〔Enterprise II / Enterprise II (x64) シリーズの場合は次を追加〕</b><br>
+ <b>一時展開する作業フォルダ（既定値）　&quot;%ALLUSERSPROFILE%\wct\&quot;</b> <small>※2</small><br>
+ <b>パターンファイル保管フォルダ（既定値）　&quot;C:\Program Files\EPOST\MS\database&quot;</b> <small>※3</small><br>
+ <b>パターン更新ログフォルダ（既定値）　&quot;C:\Program Files\EPOST\MS\log&quot;</b> <small>※4</small><br>
+ <small>※2) OS環境によって変わりますが大多数は&quot;C:\ProgramData\wct\&quot;となります。<br>
+ ※3,※4) 32bit版E-Postを64bitOS環境にインストールするとそれぞれ&quot;C:\Program Files (x86)\EPOST\MS\&quot;下になります。</small><br>
+</ul>
+また、アンチウイルスソフトがSMTPプロトコルのデータ、POP3プロトコルのデータを自動的にスキャンして検出するような設定を行っている場合、ソフトの動作によっては、送受信の時間が極端に遅くなる場合がありますので注意してください。<br>
+なお、受信・送信ポート番号を細かく指定変更できるプロキシタイプのソフトウェアを同じマシンに共存させる場合は、原理的に言って、リアルタイムスキャンによるファイルの取り合いが発生しないことから、ここであげた注意は不要かと思われます。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

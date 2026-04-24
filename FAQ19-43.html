@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-43</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>M365のSMTPメールリレー接続設定方法とOAuth2.0での接続設定方法、説明ドキュメントへの案内 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+M365のSMTPメールリレーの接続設定方法とOAuth2.0での接続設定方法の違い、それぞれの説明ドキュメントへの案内をします。公開ダウンロードコーナーには次の3つの技術資料を用意しています。<blockquote>
+<b>『OAuth 2.0（オー・オース）Gateway設定ガイド』（PDF）<br>
+『M365 のSMTPリレーによるGateway 設定ガイド』（PDF）<br>
+『M365 のOAUTH2認証共有によるGateway 設定ガイド』（PDF）</b></blockquote>
+特に『OAuth 2.0（オー・オース）Gateway設定ガイド』で解説されている OAuth2.0での接続方法と、『M365 のSMTPリレーによるGateway 設定ガイド』で解説されている SMTPリレーでの接続方法とは、別々に想定されているM365への接続方法ですので、混同しないよう注意してください。<br>
+<br>
+1.<b>『OAuth 2.0（オー・オース）Gateway設定ガイド』</b>：OAuth2.0を使う場合、メール設定に加え、E-Post側のメール作業用フォルダ（既定値 C:\mail\）下に指定された[ドメイン別\アカウント名\フォルダ]下に"アクセストークン"と"リフレッシュトークン"の２つの情報をM365側の認可機能をhttps経由で設定しておく必要があります。SMTP先進認証（XOAUTH2）を行うためのユーザー毎のアクセストークン取得用コマンドラインでの実行プログラム setoauth2 は 公開ダウンロードの「共通ツール・ユーティリティ」、またはサポート２の[ツール・ユーティリティ] に用意されています。<br>
+※こちらの方法では、設定するE-Postサーバは固定IPアドレスである必要はありません。さらに【gateway.dat】拡張書式がサポートされているモジュールを含む最新差分アップデートプログラム20251218差分が適用済みであることが必要です。<br>
+<br>
+2.<b>『M365 のSMTPリレーによるGateway 設定ガイド』</b>：SMTPリレーによる接続の場合は、SMTP先進認証自体は不要ですので、「サービス制御」タブにあるEPSTDSの「詳細設定」からダイアログボックスを呼び出し、ESMTPで送信をON、SMTP認証方法をNOにして、M365で取得しているドメインのMXレコードを nslookup コマンドなどで参照して【gateway.dat】ファイル内に接続先として記述、設定すれば作業が完了します。<br>
+※こちらの方法では、設定するE-Postサーバは固定IPアドレスが必要で、しかもDNS逆引き可能なドメインからの送信である必要があります。[契約サブドメイン名].onmicrosoft.comをお持ちのユーザー様であれば、こちらの設定は認証が必要ではなく設定作業も楽です。さらに【gateway.dat】拡張書式がサポートされているモジュールを含む最新差分アップデートプログラム20251218差分が適用済みであることが必要です。<br>
+<br>
+3.<b>『M365 のOAUTH2認証共有によるGateway 設定ガイド』</b>：『OAuth 2.0（オー・オース）Gateway設定ガイド』で説明されている設定方法に関連し、さらにOAUTH2認証共有による拡張設定方法です。「代表となるアカウントのOAUTH2 で認証」を行い「異なるメールアドレス」を"エンベロープの送信元"として送信可能にする設定を解説しています。<br>
+※こちらの方法を利用するには『OAuth 2.0（オー・オース）Gateway設定ガイド』の設定が終わっており、最新差分アップデートである20251218差分が適用済みであることが必要です。<br>
+<br>
+<b>（参考ページ）</b><br>
+<a href="https://www.e-postinc.jp/download_x64.html#oauth" target="_blank">製品評価版ダウンロード｜技術資料</a><br>
+<a href="https://www.e-postinc.jp/download_x64.html#tool" target="_blank">製品評価版ダウンロード｜共通ツール・ユーティリティ</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

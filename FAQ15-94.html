@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-94</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>社内ネットワークからのメーラーによるPOP3接続を止め、Webメールシステムからの接続だけ許可したい場合</b></FONT>
+<HR>
+<br>
+社内ネットワークからのメーラーによるPOP3接続を止め、Webメールシステムからの接続だけ許可したい場合、POP3認証時の接続ロックアウト機能を活用して設定します。<br>
+2016年12月7日以降の最新差分アップデートを適用してあり、EPSTPOP3Sバージョンがv4.37以降であれば、POP3認証時の接続ロックアウト機能を有効に設定することにより、社内ネットワーク（LAN内）に接続されたPCからのPOP3接続を拒絶することが可能です。<br>
+<br>
+<b>社内ネットワークに接続されたPCからのPOP3接続を拒絶する方法</b><br>
+<ol type="1"><li>レジストリを設定するか、Web管理ツールで設定するか、どちらかの方法でPOP3認証時の接続ロックアウト機能を有効にする。（下記記事参照）</li>
+※Web管理ツールを使う場合は20170908差分以降が適用されていることが必要です。<br>
+※機能を有効にするには最後にEPSTPOP3Sサービス再起動が必要です。<br>
+<li>プログラムインストールフォルダ内に【rejectpopip.dat】ファイルが自動生成されている場合はそのファイルを編集、生成されていないときはそのファイル名で作成し編集する。</li>
+<li>【rejectpopip.dat】に次のような記述を行う。</li>
+ここでは例として社内ネットワーク（LAN）のIPアドレスを192.168.1.xxxとする。<br>
+'-------------------------------------------------------------------------------------<br>
+192.168.1.XXX<font color="pink">&lt;tab&gt;</font>true　　←（Webメールシステムを動かすサーバのIP）<br>
+192.168.1.*<font color="pink">&lt;tab&gt;</font><br>
+　　　　　　　　　↑（その他のネットワーク内からの接続をすべて拒絶）<br>
+'-------------------------------------------------------------------------------------<br>
+※WebメールシステムのサーバIPを指定する行ではtabコードの区切りの後、&quot;true&quot;指定にしてください。そのIPには接続ロックアウトは適用されなくなります。2行目の拒絶を指定する行はtabコードの区切りの後、何も書かないで改行してください。<br>
+※【rejectpopip.dat】の記述方法は次の記事を参考にしてください。IPと&quot;true&quot;の間の区切り文字はtabコードです。<br>
+<li>これ以降、192.168.1.*の社内ネットワークPCのメーラーからPOP3接続しても、この接続ロックアウト機能により接続が拒絶されます。</li></ol>
+※EPSTPOP3Sバージョンが古い場合はこの機能は使えませんので、最新差分アップデートが必要になります。またWeb管理ツールのバージョンが古い場合の時も、設定画面はありませんので、同様に最新差分アップデートが必要です。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-26.html">〔新機能〕POP3認証時の「接続ロックアウト機能」について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

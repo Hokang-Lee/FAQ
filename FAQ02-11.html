@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ02-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メーリングリスト設定で、添付ファイル削除を有効にしているとき、HTMLメールの本文が抜け落ちる現象とその対応について</b></FONT>
+<HR>
+<br>
+メーリングリスト詳細設定で、添付ファイルを削除する設定を有効にしていて、下記のような条件のもとで、HTMLメールにて添付ファイルを付けて送信したときに、メール本文が抜け落ちる現象が報告されていますが、この問題の対策がEPSTRS v4.68以降で取られています。<br>
+<br>
+<b>●過去に対策が取られたEPSTRSの修正点</b><br>
+--------------------------------------------------------------------<br>
+[EPSTRS]<br>
+v4.68 2011.01.19<br>
+　1.メーリングリストの添付ファイル削除機能でHTMLメールに添付ファイルがあると正しく削除されない不具合の修正。<br>
+--------------------------------------------------------------------<br>
+「サポート２」より最新差分アップデートプログラムを適用してください。なお、以降の最新版では累積的に適用されています。<br>
+<br>
+<b>●この現象が発生する条件</b><br>
+<ul>
+<li type="circle">SMTP受信サービスプログラムがEPSTRS 4.67より前のバージョンを利用。<br>
+<li type="circle">メーリングリスト設定で「添付ファイルを削除する」チェックボックスを有効にしている。<br>
+<li type="circle">OutlookExpressからHTMLメール形式で添付ファイルを付けて送信。メーリングリストに投稿する。<br>
+<li type="circle">配信されるメールは、メールの本文がカットされてしまい、表示されなくなる。<br>
+</ul>
+この現象に対し、上記の対策版では、メーリングリスト詳細設定で「添付ファイルを削除する」チェックボックスが有効になっているとき、OutlookExpressからHTMLメール＋添付ファイル付きで送られた場合、OutlookExpressで受信すると、本文がカットされないようにしています。MIME構造が入れ子状態（※文末を参照）のときにも「削除する」機能が働くように対策が取られています。<br>
+<br>
+なお、添付ファイルは、テキストメールで送られた場合と同様、OutlookExpressで受信したとき、<b>0バイトのファイルアイコンが表示</b>されます。OutlookExpressが受信後に表示している0バイトのファイルが開けるか開けないかは、ファイルと関連づけられたアプリケーションの動きに依存します。ThunderBirdで受信したときには、開けないファイルアイコンとして表示されます。これは、従来バージョンでのテキストメール投稿時の場合と同様の結果になります。<br>
+「0バイトのファイルアイコン」が表示される理由は、MIME構造上の入れ子状態をうまくカット処理するようにしているものの、MIME構造そのものを壊すことはできないためです。<br>
+この事象は、メーラーの特性にも左右されますが、アイコン表示上の課題などが存在しますので、メーリングリストを運用する際は、OutlookExpressから投稿するときにHTMLメールを使わない設定での運用を推奨します。<br>
+<br>
+<br>
+<b>（参考：詳細な状況と技術的な理由について）</b><br>
+以下のケースのときに、添付ファイル以外に本文部分がカットされ、&quot;Content-Type&quot;部分の指定部分だけが本文として送られるという現象となる。<br>
+<b>●OutlookExpress6から添付付きHTMLメールで送信</b><br>
+　　→本文がカットされ、&quot;Content-Type&quot;記述部分が本文として送られる<br>
+・メーリングリスト設定の「添付ファイルを削除する」チェックボックスを有効にして使っている。<br>
+・HTMLメールでさらに添付ファイルを付けて送ったとき。単純なHTMLメールだけでは問題ない。<br>
+<br>
+一方、送信するメーラー種類によっては、本文はカットされず、添付ファイルだけが正常にカットされる。<br>
+<b>●ThunderBird2から添付付きHTMLメールで送信</b><br>
+　　→正常<br>
+<br>
+これについては、メーラー種類によるMIME構造の違いによる部分が多いと考えられる。以下のうち、MIME構造が入れ子になっていない仕組みを取っているのがThunderbirdで、MIME構造が入れ子になっている仕組みを取っているのがOutlookExpressであることが、それぞれの挙動から確認されている。<br>
+（EPSTRS 4.67より前の）SMTP受信サービスプログラムは、MIME構造が入れ子状態の構造になっているMIMEメールに対して、入れ子の内容別に削除するような処理はしておらず、入れ子のMIMEを丸ごと削除していたためである。（EPSTRS 4.68以降ではこの問題の対策を取った）<br>
+<br>
+[MIME構造が入れ子になっていないメール]<br>
+－－－－<br>
+MIME1<br>
+－－－－　 ←＋<br>
+MIME2　　　＋－－　削除<br>
+－－－－　 ←＋<br>
+<br>
+[MIME構造が入れ子になっているメール]<br>
+－－－－<br>
+MIME1<br>
+－－－－　←＋<br>
+[MIME2]　　|<br>
+　－－－－　 |<br>
+　MIME2-1　|<br>
+　－－－－　＋－－　丸ごと削除<br>
+　MIME2-2　|<br>
+　－－－－　 |<br>
+－－－－　←＋<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

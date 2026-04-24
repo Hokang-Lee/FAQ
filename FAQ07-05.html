@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-05</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>アンインストール時に完全削除する方法</b></FONT>
+<HR>
+<br>
+評価版・正規版にかかわらず、32bit版のE-Post Mail Server / E-Post SMTP Server シリーズ、64bit版のE-Post Mail Server (x64)/ E-Post SMTP Server (x64) シリーズ製品の完全なアンインストールを行いたいとき、E-Post関係のプログラムや設定情報など完全削除を行うには、次の手順と方法を取ってください。<br>
+<ol>
+<li>事前にE-Post Mail Control画面からE-Post関係の各サービスを[停止]ボタンクリックで停止。E-Postクラスタ方式でのクラスタ構成の場合はIPWatcherサービスも停止。<br>
+<li>同上画面で各サービスを[削除]ボタンクリックで削除。<br>
+　※サービスを削除すると、ライセンスキー登録情報も合わせてクリアされます。従って、サービスを[削除]ボタンで削除するときは、その後のことも十分にご考慮の上、実行してください。<br>
+<li>「プログラムの追加と削除」からアンインストールを実行。<br>
+　※1.の手順を忘れ、サービスを停止しないでアンインストールを実行すると、サービスだけがアンインストールされずに残ってしまいます。<br>
+<li>プログラムインストールフォルダの削除<br>
+　<b><font color="#ff0000">［E-Post(x64)(64bit版)の場合の既定値］</font></b><br>
+　C:\Program Files\EPOST\MS および C:\Program Files\EPOST<br>
+　<b><font color="#ff0000">［E-Post 32bit版の場合で32bitOS環境の既定値］</font></b><br>
+　C:\Program Files\EPOST\MS および C:\Program Files\EPOST<br>
+　<b><font color="#ff0000">［E-Post 32bit版の場合で64bitOS環境の既定値］</font></b><br>
+　C:\Program Files (x86)\EPOST\MS および C:\Program Files (x86)\EPOST<br>
+<li>メールボックスフォルダの削除<br>
+　［既定値での例］ C:\mail\inbox\%USERNAME%<br>
+<li>メール作業関連フォルダの削除<br>
+　［既定値での例］ C:\mail<br>
+<li>レジストリの削除<br>
+　※アンインストール後に下記のレジストリキーが残っている場合は削除。EMWAC自体およびEPOST自体を削除します。ちなみにEPOST自体を削除を削除すれば、その下のEPOST\IMSも削除されます。<br>
+　<b><font color="#ff0000">［E-Post(x64)(64bit版)の場合の既定値］</font></b><br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EMWAC<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EPOST<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EPOST\IMS<br>
+　<b><font color="#ff0000">［E-Post 32bit版の場合で32bitOS環境の既定値］</font></b><br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EMWAC<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EPOST<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\EPOST\IMS<br>
+　<b><font color="#ff0000">［E-Post 32bit版の場合で64bitOS環境の既定値］</font></b><br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\EMWAC<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\EPOST<br>
+　HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\EPOST\IMS<br>
+<br>
+　※EPOSTとEPOST\IMSを分けて書いたのには少々意味があります。E-PostシリーズのオプションシリーズのソフトウェアがEPOSTの下にIMSとは別にキーがそれぞれおかれる構造になっており、EPOST\IMSはメールサーバ本体が利用するため、ここでは分けて明記しています。レジストリ全体の詳細については、下記を参照してください。<br>
+</ol>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-15.html">E-Post Mail Server / SMTP Serverで使用している設定ファイル＆レジストリ</a>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

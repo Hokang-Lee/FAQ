@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-18</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windows Server 2022でLanmanServer及びComputerBrowserが起動失敗することがあるが、後から起動させたとき、E-Postに影響はあるか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+LanmanServer は、ファイルやプリンターリソースなどを外部へ公開するSMB 共有の管理を担当するサーバー機能であり、Computer Browserは、ネットワーク上のコンピューターの最新の一覧を管理し、その参照者として指定されたコンピューターに一覧を提供する、特にSMB1.0のときに必須の機能です。<br>
+<br>
+この2つについてE-Postシリーズにとっては、ネットワーク上のファイルとフォルダのアクセスが発生するときに影響があり得ますが、デフォルト値"C:\mail\"で管理されるメール作業用フォルダ、さらにデフォルト値"C:\mail\inbox\%USERNAME%"で管理されるメールボックスフォルダなどのメール作業領域がローカルディスク上の指定であれば、問題ありません。<br>
+つまりローカルドライブだけで作業領域を確保しているシングルサーバ版では影響はありません。仮想マシンでシングルサーバ版を動かしているときも同様に影響はありません。<br>
+<br>
+一方、E-PostシリーズをE-Post方式クラスタやMSFC方式クラスタなどのクラスタ構成で共有ネットワークドライブ・共有ディスクへのアクセスを前提にしている場合は、上記2つのサービスが未起動の場合、何かしらの影響を受ける可能性があります。<br>
+つまりクラスタモデル版でクラスタ構成にしているときには影響があり得ます。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

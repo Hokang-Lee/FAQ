@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-96</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Loganalyzerの新機能でユーザーへのメールボックス使用量警告メールのスケジュールが機能しないときのチェック項目</b></FONT>
+<HR>
+<br>
+Loganalyzerの新機能でユーザーへのメールボックス使用量警告メールのスケジュールが機能しないときのチェック項目は以下の通りです。<br>
+<ul><li>Loganalyserの「スケジュールする」チェックボックスをオンにすると、Windows Server側のタスクスケジューラのライブラリ内に&quot;E-Post Loganalyzer&quot;という名称でスケジュール登録されるのを確認してください。</li>
+<li>タスクスケジューラのライブラリ内に表示される&quot;E-Post Loganalyzer&quot;の項目行をダブルクリックし、表示されたダイアログの［操作］タブをクリックすると、このスケージュル設定で実行すべきプログラムがフルパスで記載されます。そのフルパス指定場所に実際のプログラムであるバッチファイル（maillog.bat）が存在しているか確認してください。</li>
+<li>その他の起動条件についても、Windows Server側タスクスケジューラに設定されている内容で動作させることになります。［全般］［トリガー］［設定］の各タブに設定されている内容についてそれぞれ確認してみてください。</li>
+<li>&quot;C:\Program Files\EPOST\Logana\&quot;フォルダ内にある&quot;alert.ini&quot;をエディタで開き、&quot;sendmail.exe&quot;を指定するパスが合っているか確認してください。また、バッチファイル（maillog.bat）をエディタで開き、1行目に指定されたパスが合っているか、違うフォルダになっていないかも確認してください。</li>
+<li>バッチファイル（maillog.bat）について、少なくとも、管理者権限のコマンドプロンプトから&quot;C:\Program Files\EPOST\Logana\maillog.bat&quot;が起動できるか確認してください。</li>
+<li>上記であげたコマンドプロンプトからの起動ができ、タスクスケジューラの設定内容が正しければ、問題なく動作するはずです。</li></ul>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-81.html">〔新機能〕メールボックス使用状況レポート機能およびユーザーへのメールボックス使用量警告メール機能</a><br>
+●<a href="./faq15-95.html">Loganalyzerの新機能でユーザーへのメールボックス使用量警告メール機能のスケジュール変更しようとするとコマンドプロンプトがロックする場合</a><br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

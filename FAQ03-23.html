@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR><b><FONT SIZE="4" COLOR="#000000">サーバをバックアップデータからリストアしたとき、メッセージ開始番号の上書き警告メッセージが表示されたときの対処方法について</FONT></b>
+<HR>
+<br>
+サーバをバックアップデータからリストアしたとき、データのリストアのしかたによっては、メッセージ開始番号（メッセージID）の上書き警告メッセージが表示されるケースがあります。具体的には、EPSTRSを開始したとき、次のような警告メッセージが表示されるケースです。<br>
+<ul><small>
+「メッセージ開始番号が初期値になりました。１．新規の場合…OKボタンを押してください ２．移行の場合…保管中のメッセージが、順次「上書き」されます。移行前のサーバーのメッセージ開始番号を以下に設定してからOKボタンを押してください。メッセージ開始番号： ３．その他の場合…開始番号が一巡しました。保管中のメッセージがある場合、順次「上書き」されます。問題が無ければOKボタンを押してください。」</small></ul>
+このメッセージが表示されたときには、リストアしたときに、メッセージ開始番号（メッセージID）の情報をいっしょに戻さなかったことが理由として考えられます。さらに、リストア時にメッセージIDの情報が戻されたとき、リストア前のメールサーバでは、その間のメッセージIDの発番が進んでいたことが考えられます。いわゆるメッセージIDが重複することによるメールデータの上書きに対する警告です。<br>
+<br>
+メッセージIDの情報は、下記にあげる [メール作業フォルダ]\reg\ フォルダ下にある設定ファイル内に保管されているものです。<br>
+<br>
+なお、メッセージIDが重複して発番されるということは、同じユーザーに同じメッセージIDのファイル名をもった以前のメールデータが残っていた場合、上書きされますので、できれば重複するような事態は避けた方が賢明です。<br>
+<br>
+この警告に対する対処方法としては、次の手順で操作を行ってください。<br>
+まず、上記のメッセージではOKボタンをクリックせずキャンセルした上で、EPSTRSをいったん停止してください。続いて、下記の設定ファイルをメモ帳などのエディタで開き、メッセージIDを重複しない番号に引き上げ変更します。その後、EPSTRSを開始してください。<br>
+<br>
+[メール作業フォルダ]（既定値 C:\mail\）<br>
+　→REG フォルダ<br>
+　　→SOFTWARE <br>
+　　　→EMWAC <br>
+　　　　→IMS <br>
+　　　　　→LastMsgId.1　(DWORD  Default 0) メール受信カウンタ<br>
+（例：C:\mail\reg\SOFTWARE\EMWAC\IMS\LastMsgId.1 ）<br>
+<br>
+※ファイルの拡張子&quot;1&quot;は、値の型が DWORD であることを表します。<br>
+※ファイル内には末尾に改行を入れないでください。<br>
+<br>
+どのぐらいの数字に引き上げればよいかの判断方法については、inlogやacceptlogなどの受領記録を確認し、'B'で始まる最後のメッセージID番号を調べ、それと同じか、１以上大きな数字にします。たとえば、ログで確認できる最後の情報が &lt;B0000317088＠test-sample00.jp&gt; だったとすると、メッセージID番号は &quot;317088&quot; まで発番されているので、上記 &quot;LastMsgId.1&quot; ファイルを &quot;317088&quot; にします。<br>
+<br>
+ユーザーのメールボックスに直近のメールデータがもれなく残っている場合は、ファイル名を調べるという手もあります。しかし、ログ記録も取っておらず、メールデータも残っていない場合は、確実にメッセージ番号が上回って発番されるよう、少し大きな桁部分でくりあげておく方法しかありません。<br>
+<br>
+ちなみに、メッセージIDの発番は、連続していなくても大丈夫で、重複した発番をしない限りは、特に問題がありません。<br>
+<br>
+（関連FAQ）<br>
+●<a href="./faq15-15.html">メッセージIDを進めたり戻したりするときの動作と仕様について</a>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

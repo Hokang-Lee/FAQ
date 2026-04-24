@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-97</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アカウントマネージャのフルネーム（full name）項目の用途について</b></FONT>
+<HR>
+<br>
+ユーザー管理方式がE-Post独自方式（Soft Accout）を選択している環境下では、E-Post Account Managerにおける「フルネーム」項目とは、SMTPプロトコルでのVRFYコマンドの応答に含まれる“名称”情報としてだけ使用されるもので、全角文字の使用は不可、アスキーコード（半角英数文字）のみ有効です。<br>
+実はセキュリティ上、ほとんどのサーバがVRFY,EXPNコマンドの応答を禁止しているのが普通で、E-PostシリーズでもE-Post Mail Controlの「サービス制御」タブにある「VRFY,EXPNコマンドに応答」既定値オフの状態では、VRFYコマンドに応答しません。つまり「フルネーム」は基本使用ではSMTPプロトコルでは利用されない項目であり、条件を守ればメモ的に使っていただいてもかまわない項目です。（くわしくは関連記事参照）。<br>
+ちなみにWeb管理ツールでは「ユーザー氏名」という項目名になっています。<br>
+一方、ユーザーアカウントのActive Directory連携設定をしているときは、Active Directoryとの連動項目となるので注意が必要です。Account Managerにおける「フルネーム」項目は、Active Directoryユーザーとコンピュータの「表示名」と連動される項目です。ただし、このことは、ユーザー管理方式がE-Post独自方式（Soft Accout）を選んでいるときには関係がありません。（くわしくは関連記事参照）<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-42.html">アカウントマネージャのフルネーム（full name）項目は全角文字で運用してよいですか？</a><br>
+●<a href="./faq09-13.html">Web管理ツールのユーザー管理画面にある［ユーザ氏名］項目を全角文字で運用できますか？</a><br>
+●<a href="./faq15-85.html">「VRFY,EXPNコマンドに応答」チェックボックスはオフのままでよいですか？</a><br>
+●<a href="./faq01-84.html">Active Directory連携時の連動項目は？ </a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

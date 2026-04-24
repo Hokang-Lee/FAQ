@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-18</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>コマンドでエイリアス登録・削除などを操作したいときには <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Web管理ツールのCGIプログラム（Web管理CGI）の実行ファイルである Epstuser.exe をコマンドプロンプトから引数付きで実行することにより、アカウント登録・削除だけでなくコンソールベースでエイリアス登録・削除が可能になりました。この新機能は EPST UserCGI v4.26以降で利用可能です。機能を利用したい場合は、事前にWeb管理ツール画面の［システム管理メニュー］→［バージョン情報］より EPST UserCGI 4.26 以降のバージョンになっていることを確認してください。<br>
+<br>
+ここでは、エイリアス登録・削除の機能とコマンドを紹介します。詳細な使い方に関しては、サポート２内の［ダウンロード］－［運用ガイド・関連ドキュメント］コーナーにアップしている『E-Post Mail Server コンソール用管理ツール マニュアル』（PDF）をご覧ください。<br>
+<br>
+<b>エイリアスの一覧（表示）</b><br>
+Epstuser mode=NL domname=[ドメイン名]<br>
+<br>
+<b>エイリアスの登録（実アドレスとの割り当てせず）</b><br>
+Epstuser mode=NA domname=[ドメイン名] aliases=[エイリアス名]<br>
+<br>
+<b>実アドレスの参照（表示）</b><br>
+Epstuser mode=NS domname=[ドメイン名] aliases=[エイリアス名]<br>
+<br>
+<b>実アドレスの設定（割り当て）</b><br>
+Epstuser mode=NS next=P domname=[ドメイン名] aliases=[エイリアス名] mappedto=[実アドレス]<br>
+<br>
+<b>エイリアスの削除</b><br>
+Epstuser mode=ND domname=[ドメイン名] aliases=[エイリアス名]<br>
+<br>
+<b>（実行例）</b><br>
+Epstuser mode=NL domname=testdomain.jp<br>
+Epstuser mode=NA domname=testdomain.jp aliases=a1＠testdomain.jp<br>
+Epstuser mode=NS domname=testdomain.jp aliases=a1＠testdomain.jp<br>
+Epstuser mode=NS next=P domname=testdomain.jp aliases=a1＠testdomain.jp mappedto=real1＠testdomain.jp<br>
+Epstuser mode=ND domname=testdomain.jp aliases=a1＠testdomain.jp=<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-83.html">コマンドでアカウント登録・削除などを操作したいときには</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

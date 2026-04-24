@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-45</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>LGWAN Option組み込み時、配送のセッションを分離させるための設定 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+下記のような構成、内側のメールサーバに E-Post Mail Server (x64)、SMTPゲートウェイ位置に E-Post SMTP Server (x64)＋ LGWAN Option を使って構成する際、E-Post Mail Server (x64) 側に配送のセッションを分離させるための設定が有効かつ必要です。<br>
+これはインターネット側・LGWAN側方向へ送信先アドレスを混在して同報するときに、内側のメールサーバからSMTPゲートウェイにフォワード送信されるときに、セッションが分離されていることで、LGWAN Option によって、それぞれ分けてヘッダーとエンベロープ情報の書き換えが有効に働かせるための必要な方策になります。（下記構成図の赤色矢印部分）<br>
+下記のように E-Post Mail Server (x64) 側のレジストリに設定しておくことで、セッションが分離されてフォワード送信され、ゲートウェイ先の「E-Post SMTP Server (x64) ＋ LGWAN Option」において、混在同報時にもそれぞれ分けてヘッダーとエンベロープ情報の書き換えを行うことができるようになります。<br>
+------------------------------------------------------------<br>
+　LGWAN側　　　　インターネット側<br>
+　　↑↓　　　　　　　　↑↓<br>
+　　↑↓　　　　　　　　↑↓<br>
+［E-Post SMTP Server (x64)＋ LGWAN Option］<br>
+　　　　　　　<b><font color="#ff0000">↑</font></b>↓<br>
+［E-Post Mail Server (x64)］<br>
+　　　　　　　↑↓<br>
+　　　メールクライアント<br>
+------------------------------------------------------------<br>
+<br>
+E-Post Mail Server (x64) 側のレジストリ設定については、下記のように行います。<br>
+DWORD（32ビット）値でレジストリ項目「IncludeForward」を作成、値を"0"に設定してください。<br>
+変更後は EPSTDS サービス再起動が必要です。<br>
+なお、上記の構成では、設定変更が必要なのは E-Post Mail Server (x64) 側であり、E-Post SMTP Server (x64)側のレジストリを変更する必要はありません。<br>
+<small>------------------------------------------------------------<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTDS<br>
+　　　　　→IncludeForward (DWORD)　値を"0"に設定<br>
+　　 <small>※1:セッション分離しない 0:セッション分離する（デフォルト=1）<br>
+　　　※EPSTDS v4.77以降のみこのレジストリ項目が有効。変更後はEPSTDSサービスの再起動が必要。</small><br>
+------------------------------------------------------------</small><br>
+この設定が必要になるには、20230425差分で公開された EPSTDS v4.77以降のバージョンです。EPSTDS v4.77以降、配送時のセッションの扱いについてのデフォルト仕様が変更され、旧デフォルト値が"セッション分離する"だったものから、新デフォルト値が"セッション分離しない"へ変更された経緯があります。EPSTDS v4.76以前は、「SMTPゲートウェイ」項目で設定した上位サーバ宛にフォワードする時点で、異なるドメイン毎にセッション発生させ、1通ずつバラバラにしてフォワード送信するのがデフォルト動作仕様でした。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-65.html">「SMTPゲートウェイ」項目に指定されたサーバにフォワード送信する際、20230425差分以降はスレッドを分けずに送信する仕様に変更されました</a><br>
+●<a href="./faq17-74.html">内部宛と外部宛の同報メールを送信すると内部宛メールが遅延してしまう</a><br>
+●<a href="./faq05-15.html">E-Post E-Post Mail Server (x64) / E-Post E-Post SMTP Server (x64) で使用している設定ファイル＆レジストリ</a><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,212 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY bgcolor="#ffffff" TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP/POP3/IMAP4 over SSL/TLS設定方法 <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+SMTP/POP3/IMAP4 over SSL/TLS とは、Webサイトで利用されているSSLを利用して、丸裸のSMTP/POP3/IMAP4の通信手順そのものを暗号化する手段です。E-Postシリーズでは、次の通信手順を暗号化することが可能です。<br>※なお2019年1月公開の20181224最新差分アップデートを適用した最新版では、SSLは廃止され、TLS1.0～TLS1.3に対応しています。<br>
+<OL>
+ <LI>クライアント－サーバー間（SMTP/POP3/IMAP4)<br>
+ <LI>サーバー－サーバー間(SMTP)<U>*1</U><br>
+ <small>*1)　相手サーバーがSSL/TLSで通信可能で、「ゲートウェイテーブル」=【gateway.dat】に相手サーバーが指定されている場合に通信が行われます。</small><br>
+</OL>
+E-PostシリーズにてSSL/TLSを利用可能にするには、以下の手順にて設定を行います。<br>
+<OL>
+ <LI>「公開鍵証明書」と「秘密鍵」を作成する。<br>
+ <LI>「公開鍵証明書」と「秘密鍵」を本サーバーソフトウェアに設定する。<br>
+ <LI>クライアント－サーバー間でのSMTP over SSL/TLS用IPアドレス/ポートの指定<br>
+ <LI>クライアント－サーバー間でのPOP3 over SSL/TLS用IPアドレス/ポートの指定<br>
+ <LI>クライアント－サーバー間でのIMAP4 over SSL/TLS用IPアドレス/ポートの指定<br>
+ <LI>サーバー－サーバー間でのSMTP over SSL/TLS用IPアドレス/ポートの指定<br>
+</OL>
+<b><font color="brown">１.「公開鍵証明書」と「秘密鍵」を作成する。</font></b><br>
+<a href="../download_x64.html#tool" target="_blank">「ダウンロード」公開ページ</a>に用意してある <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> をダウンロードし、解凍してください。<br>
+（※2018年12月以降、新しい openssl.exe を組み込んだ <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> を用意してあります。E-Postシリーズの20181224最新差分アップデート［2019年1月公開］以降が適用された環境で、CSRの鍵長が2048bitであり、TLS1.3にも対応する必要がある場合は、必ずこちらのツールで「公開鍵証明書」と「秘密鍵」を作成するようにしてください。それ以前のE-Post旧バージョン環境でCSRの鍵長が512bitでよいケース向けに <b>SSL-Key.zip</b> も用意しています。）<br>
+解凍されたファイルの <b>&quot;CERTIFICATE.BAT&quot;</b> <U>*2</U>を実行し、質問に合わせて順次入力すれば、「秘密鍵」「証明書要求（Certificate Request or CSR）」「公開鍵証明書」が作成されます。
+<ol><small>*2)自前で認証局を作成し、必要な「公開鍵証明書」と「秘密鍵」を作る為に独自に用意したバッチファイルです。このバッチファイルでは中間証明書は作成されません。正規の認証局に公開鍵証明書を発行してもらう場合は、「登録申請書」を認証局に送付して「公開鍵証明書」を発行してもらってください。<br>
+<font color="blue">なお、中間証明書付きの証明書を作成して試したいときは <b>&quot;CERTIFICATE-internal.BAT&quot;</b> の方を使います。&quot;CERTIFICATE-internal.BAT&quot; ではルート証明書と中間証明書作成時に16桁以上のパスワードを登録する必要があります。パスワードが短すぎるとファイルが作成できませんので注意してください。作成後、rootCA/cacert.pem と interCA/cacert.pem  を結合して ./cacert.pem を作成、opensslコマンドを使って、&quot;openssl s_client -connect 192.168.xx.xx:465 -CAfile cacert.pem&quot; とすることで接続確認ができます。</font></small></ol>
+<b>&quot;CERTIFICATE.BAT&quot;</b> の実行例　（<U><FONT COLOR="RED">赤のアンダーライン部が入力例</FONT></U>）<br>
+<I>自前での認証局（CA）の作成</I><br>
+<OL><small>
+　openssl req -config openssl.cnf -new -nodes -keyout cakey.pem -x509 -out cacert.pem<br>
+<br>
+　Using configuration from openssl.cnf<br>
+　Loading 'screen' into random state - done<br>
+　Generating a 512 bit RSA private key<br>
+　..++++++++++++<br>
+　....++++++++++++<br>
+　writing new private key to 'key.pem'<br>
+　-----<br>
+　You are about to be asked to enter information that will be incorporated<br>
+　into your certificate request.<br>
+　What you are about to enter is what is called a Distinguished Name or a DN.<br>
+　There are quite a few fields but you can leave some blank<br>
+　For some fields there will be a default value,<br>
+　If you enter '.', the field will be left blank.<br>
+　-----<br>
+　Country Name (2 letter code) [AU]:<U><FONT COLOR="RED">JP</FONT> ←　国</U><br>
+　State or Province Name (full name) [Some-State]:<U><FONT COLOR="RED">Saitama</FONT> ←　都道府県</U><br>
+　Locality Name (eg, city) []:<U><FONT COLOR="RED">Kasukabe</FONT> ←　市町村等</U><br>
+　Organization Name (eg, company) [Internet Widgits Pty Ltd]:<U><FONT COLOR="RED">XXX Corp.</FONT> ←　会社名（組織名）</U><br>
+　Organizational Unit Name (eg, section) []:<U><FONT COLOR="RED">xxxx</FONT> ←　部署等</U><br>
+　Common Name (eg, YOUR name) []:<U><FONT COLOR="RED">xxxx</FONT> ←　担当者の氏名等</U><br>
+　Email Address []:<U><FONT COLOR="RED">xxx@domain.jp</FONT> ←　担当者のメールアドレス</U><br>
+</small></OL>
+<I>秘密かぎの作成と登録申請書の作成</I><br>
+<OL><small>
+　openssl req -config openssl.cnf -new -nodes -newkey rsa:512 -keyout mykey.pem -out myreq.pem <br>
+<br>
+　Using configuration from openssl.cnf<br>
+　Loading 'screen' into random state - done<br>
+　Generating a 512 bit RSA private key<br>
+　...++++++++++++<br>
+　.++++++++++++<br>
+　writing new private key to 'mykey.pem'<br>
+　-----<br>
+　You are about to be asked to enter information that will be incorporated<br>
+　into your certificate request.<br>
+　What you are about to enter is what is called a Distinguished Name or a DN.<br>
+　There are quite a few fields but you can leave some blank<br>
+　For some fields there will be a default value,<br>
+　If you enter '.', the field will be left blank.<br>
+　-----<br>
+　Country Name (2 letter code) [AU]:<U><FONT COLOR="RED">JP</FONT> ←　国</U><br>
+　State or Province Name (full name) [Some-State]:<U><FONT COLOR="RED">Saitama</FONT> ←　都道府県</U><br>
+　Locality Name (eg, city) []:<U><FONT COLOR="RED">Kasukabe</FONT>←　市町村等</U><br>
+　Organization Name (eg, company) [Internet Widgits Pty Ltd]:<U><FONT COLOR="RED">XXX Corp.</FONT> ←　会社名（組織名）</U><br>
+　Organizational Unit Name (eg, section) []:<U><FONT COLOR="RED">xxxx</FONT> ←　部署等</U><br>
+　Common Name (eg, YOUR name) []:<U><FONT COLOR="RED">xxxx</FONT> ←　担当者の氏名等</U><br>
+　Email Address []:<U><FONT COLOR="RED">xxx@domain.jp</FONT> ←　担当者のメールアドレス</U><br>
+<br>
+　Please enter the following 'extra' attributes<br>
+　to be sent with your certificate request<br>
+　A challenge password []:<br>
+　An optional company name []:<br>
+</small></OL>
+<I>認証局（CA）によって署名した「公開鍵証明書」を発行</I><br>
+<OL><small>
+　openssl ca -config openssl.cnf -in myreq.pem -keyfile cakey.pem -cert cacert.pem -out mycert.pem<br>
+<br>
+　Using configuration from openssl.cnf<br>
+　Loading 'screen' into random state - done<br>
+　Check that the request matches the signature<br>
+　Signature ok<br>
+　The Subjects Distinguished Name is as follows<br>
+　countryName           :PRINTABLE:'JP'<br>
+　stateOrProvinceName   :PRINTABLE:'Saitama'<br>
+　localityName          :PRINTABLE:'Kasukabe'<br>
+　organizationName      :PRINTABLE:'XXX Corp.'<br>
+　organizationalUnitName:PRINTABLE:'xxxx'<br>
+　commonName            :PRINTABLE:'xxxx'<br>
+　Certificate is to be certified until May  6 00:29:27 2003 GMT (365 days)<br>
+　Sign the certificate? [y/n]:<U><FONT COLOR="RED">y</FONT></U><br>
+<br>
+　1 out of 1 certificate requests certified, commit? [y/n]<U><FONT COLOR="RED">y</FONT></U><br>
+　Write out database with 1 new entries<br>
+　Data Base Updated<br>
+</small></OL>
+<b><font color="brown">２.「公開鍵証明書」と「秘密鍵」を本サーバーソフトウェアに設定する</font></b><br>
+上記 <b>&quot;CERTIFICATE.BAT&quot;</b> の実行で作成されたファイルは、次の通り作成されています。<OL>
+ <LI>秘密鍵ファイル<br>
+ mykey.pem<br>
+ <LI>証明書要求（Certificate Request or CSR）ファイル<br>
+ myreq.pem<br>
+ <small>正規認証局（日本ジオトラストや日本ベリサインなど）にて証明書発行を依頼する場合に利用する<br></small>
+ <LI>公開鍵証明書ファイル<br>
+ mycert.pem<br></OL>
+SSL/TLS設定で利用するファイルは、秘密鍵ファイル（上記１）及び公開鍵証明書ファイル（上記３）のファイルです。<br>
+任意のフォルダに保存後、MailControl画面の「SSL設定」タブ画面での各項目にフルパス表記で指定して下さい。<br>
+<ol>
+<IMG src="./img/faq01-40-001.gif" width="440"><br>
+</ol>
+<br>
+<b><font color="brown">３.クライアント－サーバー間でのSMTP over SSL/TLS用IPアドレス/ポートの指定</font></b><br>
+MailControl画面の「サービス制御」タブに切り替えいったん EPSTRSサービス を［停止］します。<br>
+「サービス制御」タブにある EPSTRSの［詳細］ボタンをクリックします。<br>
+「詳細設定」のダイアログボックスが表示されますので、「IP設定」の「一覧のアドレスに応答する」を選択し、&quot;IP&quot;欄と&quot;port&quot;欄に応答アドレス/ポートを入力、［追加］ボタンをクリックします。同様の方法でもう一つ追加し、合わせて２つの設定をしてください。<br>
+<ol><small>
+（メールサーバ自体のIPアドレスが192.168.0.4の事例）<br>
+192.168.0.4  25　　　←－ IP address 192.168.0.4 port 25 は暗号化しないで接続するためのポート<br>
+192.168.0.4  465*　　←－ IP address 192.168.0.4 port 465 はSSL/TLSで暗号化して接続するためのポート<br>
+<IMG src="./img/faq01-40-002.gif"><br>
+</small></ol>
+追加ができたら［OK］ボタンをクリック。<br>
+EPSTRSサービス［開始］ボタンクリックし、サービスを再開します。
+メールクライアントのアカウント設定でSSL/TLS通信の指定を行うと、クライアント－サーバー間の暗号化通信でメール送信を行えるようになります。<U>*3</U><br>
+<ol><small>*3)自前で認証局を作成し、「公開鍵証明書」と「秘密鍵」を自身で作成した場合、一部メーラーでは送信の始めに警告ダイアログボックスが表示されますが、「はい」をクリックすることでメール送信が実施されます。<br>
+<IMG src="./img/faq01-40-006.gif"><br>
+</small></ol>
+<b><font color="brown">４.クライアント－サーバー間でのPOP3 over SSL/TLS用IPアドレス/ポートの指定</font></b><br>
+MailControl画面の「サービス制御」タブに切り替えいったん EPSTPOP3Sサービス を［停止］します。<br>
+「サービス制御」タブにある EPSTPOP3Sの［詳細］ボタンをクリックします。<br>
+「詳細設定」のダイアログボックスが表示されますので、「IP設定」の「一覧のアドレスに応答する」を選択し、&quot;IP&quot;欄と&quot;port&quot;欄に応答アドレス/ポートを入力、［追加］ボタンをクリックします。同様の方法でもう一つ追加し、合わせて２つの設定をしてください。<br>
+<ol><small>
+（メールサーバ自体のIPアドレスが192.168.0.4の事例）<br>
+192.168.0.4 110　　　←－ IP address 192.168.0.4 port 110 は暗号化しないで接続するためのポート<br>
+192.168.0.4 995* 　　←－ IP address 192.168.0.4 port 995 はSSL/TLSで暗号化して接続するためのポート<br>
+<IMG src="./img/faq01-40-003.gif"><br>
+</small></ol>
+追加ができたら［OK］ボタンをクリック。<br>
+EPSTPOP3Sサービス［開始］ボタンクリックし、サービスを再開します。
+メールクライアントのアカウント設定でSSL/TLS通信の指定を行うと、クライアント－サーバー間の暗号化通信でPOP3受信が行えるようになります。<U>*4</U><br>
+<ol><small>*4)自前で認証局を作成し、「公開鍵証明書」と「秘密鍵」を自身で作成した場合、一部メーラーでは送信の始めに警告ダイアログボックスが表示されますが、「はい」をクリックすることでメールボックスからの受信が実施されます。</small></ol>
+<b><font color="brown">５.クライアント－サーバー間でのIMAP4 over SSL/TLS用IPアドレス/ポートの指定</font></b><br>
+MailControl画面の「サービス制御」タブに切り替えいったん EPSTIMAP4Sサービス を［停止］します。<br>
+「サービス制御」タブにある EPSTIMAP4Sの［詳細］ボタンをクリックします。<br>
+「詳細設定」のダイアログボックスが表示されますので、「IP設定」の「一覧のアドレスに応答する」を選択し、&quot;IP&quot;欄と&quot;port&quot;欄に応答アドレス/ポートを入力、［追加］ボタンをクリックします。同様の方法でもう一つ追加し、合わせて２つの設定をしてください。<br>
+<ol><small>
+（メールサーバ自体のIPアドレスが192.168.0.4の事例）<br>
+192.168.0.4 143　　　←－ IP address 192.168.0.4 port 143 は暗号化しないで接続するためのポート<br>
+192.168.0.4 993* 　　←－ IP address 192.168.0.4 port 993 はSSL/TLSで暗号化して接続するためのポート<br>
+<IMG src="./img/faq01-40-004.gif"><br>
+</small></ol>
+EPSTIMAP4Sサービス［開始］ボタンクリックし、サービスを再開します。
+メールクライアントのアカウント設定でSSL/TLS通信の指定を行うと、クライアント－サーバー間の暗号化通信でIMAP4受信が行えるようになります。<U>*5</U><br>
+<ol><small>*5)自前で認証局を作成し、「公開鍵証明書」と「秘密鍵」を自身で作成した場合、一部メーラーでは送信の始めに警告ダイアログボックスが表示されますが、「はい」をクリックすることでメールボックスからの受信が実施されます。</small></ol>
+<b><font color="brown">６.サーバー－サーバー間でのSMTP over SSL/TLS用IPアドレス/ポートの指定</font></b><br>
+MailControl画面の「サーバー設定」タブに切り替え［テーブル編集］ボタンをクリックします。<br>
+SMTPゲートウェイテーブルである【gateway.dat】が表示されますので、以下の記述例にならい、SSL/TLS通信可能なサーバーを指定して保存します。<br>
+<ol><small>
+（ドメインsample2.jp宛のメール送信を SMTP over SSL/TLS で送信する事例）<br>
+sample2.jp,mail.sample2.jp,465*<br>
+<IMG src="./img/faq01-40-005.gif" width="440"><br>
+</small></ol>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-58.html">SSL設定で中間CA証明書を設定するには</a><br>
+●<a href="./faq15-07.html">グローバルサイン認証局の証明書を利用したSSL設定事例</a><br>
+●<a href="./faq15-06.html">SSL/TLS設定で認証局が発行するSHA2（sha256）の証明書に対応しているか</a><br>
+●<a href="./faq17-13.html">SSL/TLS通信使用時にTLS1.3のみ有効にさせる方法について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

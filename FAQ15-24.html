@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-24</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Enterprise II でアンチウイルスが働かず、記録ログがDドライブ直下にできたり、パターンファイルダウンロードができないときには</b></FONT>
+<HR>
+<br>
+Windows Server 2012 R2 や Windows Server 2008 R2 環境において、Enterprise II / Enterprise II (x64)シリーズでアンチウイルスが働かない、VMCSによるパターンファイルダウンロードの記録ログがDドライブ直下などの指定外のところにできてしまう、さらに [プログラムインストールフォルダ]\database フォルダを見てもパターンファイルダウンロードがどうやらできていない、といった現象に見舞われたときには、次のポイントを確認してください。<br>
+これらの原因としてサーバ機種によっては、Dドライブなどの追加されたドライブについて、ファイルシステムに備わっているショートファイルネームが無効にされている可能性があります。<br>
+<br>
+<b>１．プログラムインストールフォルダ先ドライブがショートファイルネームを有効にしているか確認</b><br>
+パターンファイルダウンロードの役割を果たしているVMCSサービス（modifys.exe）は、プログラムインストールフォルダ先のドライブがショートファイルネームを無効にしていた場合は、パターンファイルダウンロードの記録ログが指定外のところにでき、さらに [プログラムインストールフォルダ]\database フォルダを見てもダウンロードそのものができていない、結果的にアンチウイルスが働かないといった現象になることがわかっています。<br>
+インストール先のドライブがショートファイルネームが使えるかどうかを確認します。ドライブがショートファイルネーム無効になっている場合は、有効にしておく必要があります。<br>
+プログラムインストール先フォルダのショートファイルネームでのパス表記を確認します。ショートファイルネームのフォルダ名は、コマンドプロンプトを開き、dir /x コマンドで確認できます。<br>
+<br>
+（例）インストール先が D:\Program Files\EPOST\MS の場合　→　D:\PROGRA~1\EPOST\MS<br>
+<br>
+ショートファイルネームが表示されている場合、以下の５の手順を確認してください。<br>
+一方、ショートファイルネームがない場合、ショートファイルネーム無効になっている可能性があるので、次の２の手順でショートファイルネームが有効か無効を確認した上で、続いて３の手順で有効にします。<br>
+<br>
+<b>２．ショートファイルネームの有効か無効かの確認</b><br>
+コマンドプロンプトより次のコマンドを実行します。以下の例は「ボリューム2」＝「Dドライブ」でショートファイルネームが有効か無効かを確認しています。<br>
+<br>
+<b>〔Windows Server 2012 R2 の場合〕</b><br>
+　---------------------------------------------------------------<br>
+　C:\&gt; <b>fsutil 8dot3name query D:</b> [Enter]<br>
+　ボリュームの状態は 1 です (8dot3 名の作成は無効です)。<br>
+　レジストリの状態は 2 です (ボリューム単位で設定します - 既定値)。<br>
+　上の 2 つの設定に基づいて、8dot3 名の作成は D: で無効です<br>
+　---------------------------------------------------------------<br>
+<br>
+<b>３．ショートファイルネームの有効化</b><br>
+コマンドプロンプトより次のコマンドを実行します。以下の例は「ボリューム2」＝「Dドライブ」でショートファイルネーム無効になっているのを有効に変更する方法です。<br>
+<br>
+<b>〔Windows Server 2012 R2 の場合〕</b><br>
+　---------------------------------------------------------------<br>
+　C:\&gt; <b>fsutil 8dot3name set 2</b> [Enter]<br>
+　現在のレジストリの状態は 2 です (ボリューム単位で設定します - 既定値)。<br>
+　C:\&gt; <b>fsutil 8dot3name set D: 0</b> [Enter]<br>
+　8dot3name の生成が D: で有効になりました<br>
+　---------------------------------------------------------------<br>
+<br>
+<b>４．ショートファイルネームでのパス表記を確認</b><br>
+ショートファイルネームが有効になったら上記１の方法でプログラムインストール先フォルダのショートファイルネームでのパス表記を確認してください。<br>
+<br>
+<b>５．レジストリに登録されているVMCSサービス（modifys.exe）のパス表記</b><br>
+レジストリに登録されているVMCSサービス（modifys.exe）のパス表記をショートファイルネームでのパス表記になるよう、変更してください。<br>
+<br><small>
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→VMCS<br>
+　　　　　→ImagePath<br>
+　　　　　値のデータ（例）：<br>
+　　　　　D:\PROGRA~1\EPOST\MS\modifys.exe<br>
+</small><br>
+<b>６．VMCSサービス（modifys.exe）の再起動</b><br>
+VMCSサービス（modifys.exe）の再起動を行い、パターンファイルのダウンロードがされるか、ダウンロード記録ログが [プログラムインストールフォルダ]\log フォルダ内に正しく記録されるか、確認してください。<br><br>
+<b>７．コマンドプロンプトからダウンロード確認</b><br>
+パターンファイルダウンロード時には、VMCSサービス（modifys.exe）から呼び出されて動作するプログラム“autoupdate.exe”をコマンドプロンプトから単独実行する方法でも、ダウンロードが正常にできるかどうかを確認することができます。ちなみにEnterpriseⅡ版から呼び出す“autoupdate.exe”には“ktzautoupd”のプログラムステータス表示がされます。なお、“autoupdate.exe”を起動した状態にしておくと、パターンファイルのダウンロードが繰り返し行われてしまいますので、確認できたらCtrl+[C]キーを押して、中断させてください。<br>
+<p align="center"><b>プログラムインストールフォルダから“autoupdate.exe”の実行</b><br>
+<img src="./img/faq15-24-01.jpg" border="0"></p>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-72.html">ウイルスパターンファイル更新の記録を取るには</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

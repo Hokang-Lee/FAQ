@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-08</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Web管理での自動転送設定を行うときの仕様について</b></FONT>
+<HR>
+<br>
+Web管理での自動転送設定を行うときと、GUI画面のAccount Managerで自動転送設定を行うときとで、操作画面の違いや動作が異なる部分があります。仕様上の違いから来る注意事項を列挙します。<br>
+<br>
+<ol><li><b>自動転送設定・自動応答設定のオンオフの違い</b></li>
+<br>
+Account Manager側から自動転送設定、または自動応答設定を有効にする場合は、「メール制御」ダイアログボックスの「有効にする」チェックボックスをオンにします。オンにした場合は、メールボックスフォルダ内に&quot;IMS.CTL&quot;が生成され、オフにした場合は、&quot;IMS.CTL&quot;が削除されます。また、自動転送設定と自動応答設定は、排他的な設定です。<br>
+一方、Web管理ツールでは、この「有効にする」チェックボックスに該当する特別な項目はありません。自動転送設定または自動応答設定を有効にした場合に自動的に有効になる仕組みです。ただし自動応答設定には「自動応答を有効にする」チェックボックスが存在します。<br>
+<br>
+<li><b>転送先複数アドレスの指定手順と設定内容の違い</b></li>
+<br>
+Account Managerには、転送先を指定するとき、複数アドレス指定するためのボックスは用意されていません。複数アドレスを自動転送先に指定する場合は、手動で次の設定を行います。<br>
+<ul type=disc>
+<li>任意のフォルダに転送先を記述するテキストファイルを作成。<br>
+　例・C:\forward\address.txt (フォルダ先やファイル名は任意)</li>
+<li>ファイル内に自動転送先アドレスを記述。</li>
+<li>転送先アドレスのボックス内に &quot;file:C:\forward\address.txt&quot; の指定をする。</li>
+<li>この操作により、&quot;IMS.CTL&quot; 内の &quot;ForwardTo=&quot; 項目内に &quot;file:C:\forward\address.txt&quot; の指定が記録される。</li></ul>
+一方、Web管理ツールには、&quot;転送先１&quot;から&quot;転送先１０&quot;まで複数アドレスのボックスが用意されています。新規で複数アドレスを指定した場合、実際には &quot;IMS.CTL&quot; の &quot;ForwardTo=&quot; 項目には、複数アドレスを直接記述しておけないため、以下の処理が自動的になされます。<br>
+<ul type=disc>
+<li>メールボックスフォルダ内に<u>ファイル名 &quot;send.txt&quot; が自動生成される</u>。</li>
+<li>&quot;IMS.CTL&quot; 内の &quot;ForwardTo=&quot; 項目内に &quot;file:C:\mail\inbox\[domain.jp]\[user]\send.txt&quot; が <u>自動的に記述される</u>。</li>
+</ul>
+<br>
+Account Managerで設定済みの自動転送設定内容をWeb管理ツールの自動転送設定で設定し直した場合、下記の動きになりますので注意してください。<br>
+<ul type=disc>
+<li>自動転送先アドレスを入れたファイルをたとえば &quot;address.txt&quot; などのように、任意のファイル名で作成していた場合、Web管理ツールの画面から複数アドレスを変更したときには、強制的に該当アカウントのメールボックスフォルダ内に置かれた &quot;send.txt&quot; として保存される。<br>
+　（&quot;send.txt&quot; のファイル名は固定。任意で作成していたファイルは変更しない）</li>
+<li>加えて &quot;IMS.CTL&quot; 内の &quot;ForwardTo=&quot; 項目もそれに合わせて書き換えられる。</li></ul>
+<br>
+<li><b>転送先複数アドレスの一部を変更したり削除するときの注意</b></li>
+<br>
+Account Managerには、複数アドレス指定のボックスはありませんので、複数アドレスを指定したファイルをメモ帳で開き、登録済みアドレスから一部のアドレスだけを変更したり削除したりする操作になります。<br>
+一方、Web管理ツールに用意されている複数アドレス指定のボックスから、登録済みアドレスから一部アドレスだけ変更したりクリアした後、適用する操作になります。<br>
+なおこのとき、Web管理CGIプログラム（EpstUser.exe）のバージョンが4.28より前のバージョンでは、登録済みアドレスから&quot;転送先１&quot;だけをクリアした場合、自動転送設定自体がオフの設定になってしまう不具合がありました。この問題について修正を施した最新差分が次の通り「サポート２」に公開されています。<br>
+<blockquote>
+[32bit] E-Postシリーズ全製品<br>
+・Web管理CGIプログラム 20160105差分 掲載日: 2016-01-12<br>
+[64bit] E-Postシリーズ全製品<br>
+・Web管理CGIプログラム (x64) 20160105差分 掲載日: 2016-01-12<br>
+</blockquote>
+なお、仮にすべてのアドレスをクリアした場合は、自動転送自体が解除されたものとして扱われ、その結果、&quot;IMS.CTL&quot;自体が削除される結果となります。<br>
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

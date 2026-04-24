@@ -1,0 +1,217 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-84</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>Active Directory連携時の連動項目は？</b></FONT>
+<HR>
+<br>
+E-Post Mail Server / E-Post SMTP Serverシリーズにおいて、ユーザー管理をActive Directory連携させたときの連動項目は、下表のようになります。<br>
+ここでは、Widows Server で設定したActive Directoryドメインコントローラと、そのメンバーサーバとなったWindows Server 環境にインストールしたE-Post Mail Serverとの間でユーザー管理の連携を行った場合の連動項目です。<br>
+<br>
+<table border=1 cellspacing=0 cellpadding=2 width=600>
+ <tr>
+   <th bgcolor="#CCCCCC">アカウント関連の<br>
+     操作内容
+   </th>
+   <th bgcolor="#CCCCCC">連携の<br>
+     有無
+   </th>
+   <th bgcolor="#CCCCCC">Active Directory<br>
+     ユーザーとコンピュータ
+   </th>
+   <th bgcolor="#CCCCCC">連動
+   </th>
+   <th bgcolor="#CCCCCC">E-Post Account Manager
+   </th>
+ </tr>
+ <tr>
+   <th>
+     アカウント<br>新規作成
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td>・Window2000より前の<br>
+     　ユーザーログオン名<small>（※1）</small><br>
+     ・表示名
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+     <br><br>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・アカウント<br>
+     <br>
+     ・フルネーム
+   </td>
+ </tr>
+ <tr>
+   <th>
+     アカウント<br>名前変更
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td>・Window2000より前の<br>
+     　ユーザーログオン名<small>（※1）</small><br>
+     ・表示名
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+     <br><br>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・アカウント<br>
+     <br>
+     ・フルネーム
+   </td>
+ </tr>
+ <tr>
+   <th>
+     POP3<br>パスワード
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td>・パスワード<br>
+    （パスワードのリセット）<br>
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・パスワード<br>
+   </td>
+ </tr>
+ <tr>
+   <th>
+     IMAP4<br>パスワード
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td>・パスワード<br>
+    （パスワードのリセット）<br>
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・パスワード<br>
+   </td>
+ </tr>
+ <tr>
+   <th>
+     SMTP認証<br>パスワード<br>
+    <small>（PLAIN/LOGIN/CRAM-MD5）</small><br>
+   </th>
+   <td align="center">
+     なし
+   </td>
+   <td>
+     　　　　　－－　　　　　
+   </td>
+   <td>
+     　　　　　
+   </td>
+   <td>
+     ・SMTP認証パスワード<br>
+     　<small>認証ファイルに設定されて<br>
+     　いるSMTP認証パスワード<br>
+     　（※2）</small><br>
+   </td>
+ </tr>
+ <tr>
+   <th>
+     <small>フルネーム</small>
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td><small>・表示名</small><br>
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・フルネーム<br>
+   </td>
+ </tr>
+ <tr>
+   <th>
+     <small>ホームディレクトリ</small>
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td><small>・ホームフォルダ（ローカルパス）</small><br>
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・ホーム<br>
+   </td>
+ </tr>
+ <tr>
+   <th>
+     <small>ドメイン名</small>
+   </th>
+   <td align="center">
+     あり
+   </td>
+   <td><small>・所属するグループ</small><br>
+   </td>
+   <td>
+     <img src="./img/yajirushi01.gif">
+   </td>
+   <td>
+     ・ドメイン<br>
+   </td>
+ </tr>
+</table>
+<br>
+<small>※1) 「Active Directoryユーザーとコンピュータ」にある2003以降の「ユーザーログオン名」は対象外となり、連動項目とはなりません。電子メールの項目、また姓や名の項目も対象外です。<br>
+※2) SMTP認証を使用する場合、利用されるSMTP認証パスワードは「Active Directoryユーザーとコンピュータ」で管理されるパスワードと連動項目とはなりません。E-Post Mail Server 側が管理する &quot;apop.dat&quot; などの認証ファイルに設定されているSMTP認証パスワードとマッチングされます。その認証ファイルは通常「SMTP-AUTH & APOPを利用する」チェックボックスをオンにし、続いて表示されるダイアログボックス内にSMTP認証パスワードを入力したときに該当ユーザーのメールボックスフォルダに暗号化された状態で作成・保存されます。<br>
+</small>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

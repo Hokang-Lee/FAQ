@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-41</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Postクラスタ構成時 iplog から稼働アクティブ側を判定する方法 / ipwcsサービス停止中を判断する方法 <font color="#ff0000">new!</font></FONT></b><br>
+<HR>
+<br>
+E-Postクラスタ構成で、ipwatcher設定による主副を通常のアクティブ－スタンバイ構成にした状態では、副系が稼働するのは主系が落ちているときだけであり、比較的明瞭ですが、ipwatcher設定を主副ともアクティブ－アクティブ構成にした状態では、その時点で主系が稼働しているのか、副系が稼働しているのか判断しづらくなります。<br>
+そこで、iplog（ipwatcher〔ipwcs〕サービス動作記録）のログ記録から、稼働アクティブ側および待機スタンバイ側を判定するために、dwWait でなく“netsh interface ip”の“add”か“delete”で判定します。<blockquote>アクティブ: netsh interface ip add address .....<br>
+スタンバイ: netsh interface ip delete address ....</blockquote>iplog（ipwatcher〔ipwcs〕サービス動作記録）のログ記録から両者を探します。<br>
+主副ともアクティブ－アクティブ構成にしているとき、後から電源オンした側で待機スタンバイ側となったことを示す netsh interface ip delete address .... 記録を確認できます。その後切り替えを実施し、稼働アクティブ側となったことを示す netsh interface ip delete address .... 記録を確認できればOKです。<br>
+<br>
+ipwatcher（ipwcs）サービス停止状態は、dwWait = 0 の記録で判断できます。または“CloseHandle”や“free”の記録でも判断できます。<br>
+<br>
+サービス停止中：dwWait = 0<blockquote>または<br>
+cleanup<br>
+または<br>
+CloseHandle(....<br>
+または<br>
+free(...</blockquote>以上の記録で判断します。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-10.html">メールサーバーで使用しているフォルダについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

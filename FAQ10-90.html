@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-90</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAP4でメールを検索する際、SEARCHコマンドを使って複雑な検索をする一部メールクライアントへの対策 </b></FONT>
+<HR>
+<br>
+OutlookやWindows Mail、Thunderbird、Becky!など主要なメールクライアントでは、IMAP4でメールを検索する際、検索条件の組み立てをまずメールクライアント内部で処理し、最後に&quot;FETCH xxx:xxx&quot;というよう形でサーバ側に必要なメールだけを要求するやり方を行っています。<br>
+<br>
+その一方、一部のメールクライアントでは、SEARCHコマンドとそのオプション&quot;OR&quot;を多用し、複雑な検索式を投げかけるものがあります。EPSTIMAP4S ver4.49以降では、そうした一部のメールクライアントの出す複雑な検索式に対しても対応できるように強化しました。なお、SEARCHコマンドですべての条件を指定するメールクライアントは、非常に特殊で少数派であるのが現状です。実際、RFCにもSEARCHコマンドがどのレベルまで使えるようにすべきとの細かな規定はまったくありません。<br>
+<br>
+<b>１．準備</b><br>
+<br>
+あらかじめ「サポート２」に公開された2015年8月20日掲載の最新差分アップデートを適用してください。<br>
+［64bit版］<br>
+・E-Post Mail Server Enterprise II (x64) 20150807差分 掲載日:2015-08-20<br>
+・E-Post Mail Server Standard (x64) 20150807差分 掲載日:2015-08-20<br>
+［32bit版］<br>
+・E-Post Mail Server Enterprise / Enterprise II 20150807差分 掲載日:2015-08-20<br>
+・E-Post Mail Server Standard 20150807差分 掲載日:2015-08-20<br>
+<br>
+<b>２．SEARCHコマンドの対策</b><br>
+<br>
+<b>(1) SEARCHコマンドで日付検索が行われたときの実状見直し</b><br>
+<br>
+E-PostのIMAP4サービスにおいて、従来バージョンのモジュールでは、日付検索を行った場合、[ファイルの作成日時]かつ[UTC日付]で検索を行っていました。そのため、ユーザーの想定しているメールが必ずしも検索される結果となっていませんでした。<br>
+<br>
+上記最新差分を適用することにより、新バージョンEPSTIMAP4S v4.49以降では、日付検索を行う場合、デフォルトの[ファイルの作成日時]を[ファイル更新日時]に変更し、さらに、デフォルトの[UTC日付]を[ローカル日付]に変更しました。<br>
+<br>
+※このデフォルト値を意図的に従来バージョンと同じようにさせたい場合は、&quot;<メール作業フォルダ>\REG&quot;で管理されている設定ファイルを作成して設定します。通常は設定する必要はありません。<br>
+　&lt;メール作業フォルダ&gt;\REG\SOFTWARE\EMWAC\IMS\SearchLocalTime.1<br>
+　（デフォルト値=1 0:UTC日付 1:ローカル日付）<br>
+　&lt;メール作業フォルダ&gt;\REG\SOFTWARE\EMWAC\IMS\SearchAccessType.1<br>
+　（デフォルト値=0 0:更新日時 1:アクセス日時 2:作成日時）<br>
+<br>
+<b>(2) SEARCHコマンドで"OR"が指定されたときの検索ロジック見直し</b><br>
+<br>
+SEARCHコマンドでより複雑な条件が指定されたときの検索ロジックを見直しました。新バージョンEPSTIMAP4S v4.49以降での検索可能な条件式の項目数は、括弧を含めて100項です。また、文字検索の1項目あたりの文字数の上限は、79byteです。<br>
+<br>
+たとえば、以下の式の場合は、括弧も含めて5項目とみなします。<br>
+. SEARCH OR &lt;項1&gt; ( &lt;項3&gt; &lt;項4&gt; )<br>
+<br>
+また、文字列検索は、各項目での検索文字数の上限となります。<br>
+. SEARCH OR SUBJECT &lt;Max79byte&gt; OR FROM &lt;Max79byte&gt; TO &lt;Max79byte&gt; ...<br>
+<br>
+（検索条件例）<br>
+    SEARCH [A]<br>
+    SEARCH [A] [B]<br>
+    SEARCH OR [A] [B]<br>
+    SEARCH OR [A] [B] [C]<br>
+    SEARCH OR (OR [A] [B]) [C]<br>
+    SEARCH (OR [A] [B])<br>
+    SEARCH (OR [A] [B]) [C]<br>
+    SEARCH (OR (OR [A] [B]) [C])<br>
+    SEARCH (OR .... (OR (OR [A] [B]) [C]) .... [N])<br>
+<br>
+    SEARCH OR .... OR [A] OR [B]  OR [C] .... [N]   括弧なしOR<br>
+    SEARCH [A] [B]  [C] .... [N]   括弧なしAND<br>
+    SEARCH OR ([A] [B]) ([C] [D])<br>
+    SEARCH ([A] [B]) ([C] [D])<br>
+    SEARCH (([A] [B]) ([C] [D])) (([E] [F]) ([G] [H]))<br>
+    SEARCH OR (([A] [B]) ([C] [D])) (([E] [F]) ([G] [H]))<br>
+<br>
+<hr width="80%"><br>
+<b>（参考：最新差分プログラムの更新情報）</b><br>
+[EPSTIMAP4]<br>
+　v4.48 2015.06.15<br>
+　1.MS-OFFICEファイルのMIMEタイプが長すぎて途中で切られてしまう不具合の修正。<br>
+　2.添付ファイルの名称が複数行にまたがっている場合の処理。<br>
+　3.ORを含んだ検索結果が正しく出力されない不具合の修正。<br>
+　4.検索時の日付をUTC日付かローカル日付かに変更できるオプションを追加した。<br>
+　　<メール作業フォルダ>\REG\SOFTWARE\EMWAC\IMS\SearchLocalTime.1<br>
+　　（デフォルト値=1 0:UTC日付 1:ローカル日付）<br>
+　5.受信日検索がファイル作成日時から更新日時に変更した。<br>
+　　<メール作業フォルダ>\REG\SOFTWARE\EMWAC\IMS\SearchAccessType.1<br>
+　　（デフォルト値=0 0:更新日時 1:アクセス日時 2:作成日時）<br>
+　6.SELCET命令のフォルダ名に末尾に半角スペースが含まれると、フォルダ移動から抜け出れなくなる不具合の修正。<br>
+　7.多重構造の複雑な検索で正常な結果が出力出来るよう検索ロジックを見直した。<br>
+　<br>
+　v4.49 2015.07.16<br>
+　1.Evolution（linux系メーラ）でメールが一部読み込めない不具合の修正。(BODYSTRUCTUREの構造出力の修正)<br>
+　2.BODY情報取得時に2件目以降の応答内容の一部が欠けてしまう不具合の修正。<br>
+　3.対象メールのヘッダ構造に不正な書式があるとBODY[HEADER]<x.n>で正しいヘッダが出力されない不具合の修正。<br>
+　4.対象メールのヘッダ構造に不正な書式があるとBODY[n.MIME]で正しい結果が出力されない不具合の修正。<br>
+　5.SEARCH命令で検索対象番号をカンマ区切りで複数羅列するとハングする不具合の修正。(v4.48での修正ミス)<br>
+　6.SEARCH命令で検索対象NOを複数羅列すると正しい結果が得られない不具合の修正。(v4.48での修正ミス)<br>
+　7.SEARCH命令で検索対象NOにNOT指定を行うと正しい結果が得られない不具合の修正。<br>
+　8.Javamailを使った任意のメール受信でメールが一部読み込めない不具合の修正。(BODYSTRUCTUREの構造出力の修正)<br>
+　9.QMAIL3で添付付きメールが開けない不具合の修正。<br>
+　10.FETCH BODY[HEADER]の応答で余分な半角スペースが含まれて出力されないようにした。<br>
+　11.複数の命令が１度に受信された時、応答結果に無効なデータが含まれることがあるのを修正。<br>
+　12.Content-Type: 1行内に type=&quot;xxx/xxx&quot;;が記述された後に、boundary=&quot;xxx&quot;が含まれていると入れ子のbody[n.n]等が正しく抽出できない不具合の修正。<br>
+　13.Evolution 3系で大きなサイズのメールの受信に失敗する不具合の修正。(BODY[]の応答でBODY[]として応答していなかった)<br>
+　14.MIME構造で(multipart(text,multipart(html))のような構造のとき構造出力結果の順序が正しくなくなる不具合の修正。<br>
+　15.FETCH n ENVELOPEの応答で不正な文字があると出力が正しくなくなる不具合の修正。<br>
+　16.MESSAGE/RFC822の構造出力結果がバッファオーバフローする可能性のある不具合の修正。<br>
+　17.MESSAGE/RFC822の構造出力への対応(入れ子の解析)でTEXT以外構造が出力されない不具合の修正。<br>
+　18.Content-TypeにPGPが含まれている時正しい構造が生成できない不具合の修正。<br>
+　19.MIMEパートの終わり判定が失敗する場合がある不具合の修正。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

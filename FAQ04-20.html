@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ04-20</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>存在しないアカウントに大量メールなどメール攻撃に対する総合的な手だてはどうしたらよいか <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+外部のサーバから、存在しないアカウント宛に大量のメールが送りつけられてくると、膨大な数の user unknown のエラー応答を返すことになります。放置していると、サーバが存在していると解釈され、さらに続けて大量のメールが送りつけられてくる事態となり、より攻撃を受ける確率が高くなります。E-Post Mail Server / E-Post SMTP Serverシリーズに実装された機能をフル稼働し、以下にあげる設定を試みてみたり設定内容を確認するなど、総合的な手だてを講じてください。ここではまとめガイドとして紹介します。<br>
+<ol>
+<b><li>ORDBサイトの指定</li></b>
+<br>
+E-Post Mail Control「中継の制限」タブにある「ORDBによる制限」設定を使い、有力なORDBサイトを最低でも一つは設定されることをお薦めします。これだけでも効果は絶大です。<br>
+たとえばスパムコップを指定されるときは、&quot;bl.spamcop.net&quot; を指定します。<br>
+ORDBサイトの情報によって拒絶された結果は、acceptlog（接続マシンログ）に理由といっしょに記載されます。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq04-02.html">ORDBによる制限（ordb.dat）設定</a><br>
+<br>
+<b><li>特定のIPアドレスからの接続を拒否</li></b>
+<br>
+E-Post Mail Control「接続の制限」タブにある「マシン毎の中継」【effect.dat】設定を使い、接続時の拒否を設定します。<br>
+acceptlog（接続マシンログ）に記録されている同じIPアドレスから大量に不正に接続を試みてあるもの、結果的にabortされているものを見つけてください。<br>
+ORDBサイトの情報でももれてくるもの、新しく不正に試みてくるものをその都度、指定する段取りでかまいません。<br>
+IPアドレスを指定して、「マシン毎の中継」【effect.dat】に以下の指定をします。<br>
+---------------------<br>
+[IPアドレス] false<br>
+---------------------<br>
+この設定の結果、指定されたIPアドレスから接続された時点で &quot;550 5.1.7 Please, mail from a valid IP or Domain address.&quot; のエラー応答を返して一切拒絶するようになります。<br>
+ユーザーの存在を確認してからエラー応答を返すより、接続時点での”門前払い”に該当しますので、はるかに効果的かつ強力です。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-22.html">特定のIPアドレスからの不正アクセスが大量に発生、これを拒否するには </a><br>
+<br>
+<b><li>VRFYコマンドは無効のまま</li></b>
+<br>
+E-Post Mail Control「サービス制御」タブにある「VRFY,EXPNコマンドに応答」チェックボックスは初期値オフ＝無効のままにしておいてください。万が一、有効にしますと、ユーザーの存在をコマンドベースで確認できるようになり、セキュリティが格段に下がってしまいます。<br>
+<br>
+<b><li>メールフィルタ設定でSURBLサイトを指定</li></b>
+<br>
+お薦めするのは、E-Post Mail Control「メールフィルタ」タブにあるメールフィルタ設定【mail.dat】でRBL: で任意のSURBL方式サイトを指定することです。下記記事の【ケース１】に書かれている内容例に従って指定します。「サポート２」にアップしているE-Post Mail Serverシステム運用ガイドも参考にしてください。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-81.html">メールフィルタ（mail.dat）の設定事例</a><br>
+<br>
+<b><li>個人アカウント単位で使用可能になった【effect.dat】を有効に利用する</li></b>
+<br>
+個人アカウント単位で受信するメールドメインが決まっている場合、受信許可するよう記述されたドメイン名からの受信だけが許可され、その他外部からのすべてのドメインからやってくるメールを拒絶するといったことができるようになりました。それが個人アカウント単位での【effect.dat】機能です。ヘッダレベルでなく、エンベロープFROMのレベルでチェックされるのでセキュアであり非常に強力です。<br>
+2015年8月以降に公開された最新差分アップデートを適用すると、個人アカウント単位での【effect.dat】に該当する機能が追加され、利用できるようになります。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq04-10.html">個人アカウント単位で【effect.dat】を有効にする機能が新しく追加実装されました </a><br>
+<br>
+<b><li>SMTP認証「認証接続ロックアウト機能」を有効にする</li></b>
+<br>
+メールを大量に送りつけてくる攻撃の最終目的は、アドレスの存在を確認できたものから、認証パスワードを見破り、メールアドレスを不正利用、なりすまし、踏み台にしての大量配信です。<br>
+そうした事態を防御するため、2016年12月以降に公開された最新差分アップデートを適用すると、SMTP認証・POP3認証・IMAP4認証における「認証接続ロックアウト機能」が新機能として実装されました。<br>
+それぞれの認証において、総当たり攻撃が頻繁に見られるような場合には、この機能を有効にすることで、攻撃遮断をする実施を検討してください。<br>
+POP3認証あるいはIMAP4認証は一見すると無関係に思えるかもしれませんが、実際に認証パスワードを破ろうとする入口として使われる手口も非常に多いため、一緒に紹介します。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-36.html">acceptlog / receivelogで大量に特定IPアドレス群からSMTP認証の総当たりを受けていることを見つけた場合</a><br>
+●<a href="./faq15-25.html">〔新機能〕SMTP認証時の「認証接続ロックアウト機能」について</a><br>
+●<a href="./faq15-26.html">〔新機能〕POP3認証時の「認証接続ロックアウト機能」について</a><br>
+●<a href="./faq15-27.html">〔新機能〕IMAP4認証時の「認証接続ロックアウト機能」について</a><br>
+<br>
+<b><li>SMTP接続時の「IPロックアウト機能」を有効にする</li></b>
+<br>
+メールを大量に送りつけてくる単純な攻撃ではなく、サーバダウンが目的としか思えないような破壊的な攻撃、たとえば1秒間に100回以上を越える連続的な接続を試みるいわゆるDDos攻撃も増えてきました。こうしたDDos攻撃のような連続無差別攻撃に対して有効なセキュリティ対策を強化するため、2019年6月以降に公開された最新差分アップデートでは上記SMTP認証時の認証接続ロックアウト機能に加える形で、SMTP接続時の「IPロックアウト機能」が新機能として追加されました。<br>
+IPロックアウト機能では一定の時間（サンプリング間隔）の間に設定回数以上の連続した接続に対し、設定されたロックアウト時間の間、接続を拒絶します。このIPロックアウト機能により、特定のIPアドレスから繰り返されるDDos攻撃のような連続無差別攻撃に対しても、接続そのものを自動的に遮断できるようになります。その結果、サーバーの負荷を高めずにセキュリティ対策を強化できます。<br>
+2019年6月以降に公開された最新差分アップデートでは、合わせてPOP3接続時およびIMAP4接続時での「IPロックアウト機能」も実装されています。SMTPだけではなくPOP3やIMAP4へのDDos攻撃もかなり見られるようになりましたのでこの機能を使って有効な対策を取るようにしてください。<br>
+このIPロックアウト機能は、2019年6月以降の販売される製品パッケージの中には既に実装されています。<br>
+IPロックアウト機能を使用するには、以下の記事を参考にしてください。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-09.html">〔新機能〕SMTP接続時の「IPロックアウト機能」について</a><br>
+●<a href="./faq17-10.html">〔新機能〕POP3接続時の「IPロックアウト機能」について</a><br>
+●<a href="./faq17-11.html">〔新機能〕IMAP4接続時の「IPロックアウト機能」について</a><br>
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

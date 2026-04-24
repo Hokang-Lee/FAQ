@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-94</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ドメインコントローラにメールサーバを同居させる場合は「Windowsのローカルアカウントと連携させたい」を選択する <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Active Directoryのドメインコントローラ自体にメールサーバをインストールするときは、「簡単セットアップ」（設定ウィザード）のステップ１の画面で、「Windowsのアクティブディレクトリ(AD)のアカウントと連携させたい」を選択せずに、「Windows ローカルアカウントと連携させたい」を選択して設定するようにします。<br>
+<br>
+実際の簡単セットアップの選択画面では、ややもすれば Active Directoryのドメインコントローラを参照すればよいのだと考え、「Windowsのアクティブディレクトリ(AD)のアカウントと連携させたい」を選択しがちになりますが、これを選択すると、自身がメンバーサーバであると誤解して外部にADを探しに行ってしまいます。場合によっては通信で10秒以上時間がかかってしまうことになるため、大きなロスにつながります。<br>
+このような設定をしている場合、receivelogに下記のエラーが記録されます。<br>
+<small>--------------------------------------------------------------------------------------<br>
+　　　　　　　　　　　　　　　　　　　　　　<small>※(Windowsドメイン / 連携ユーザー)</small><br>
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<small>↓　　↓</small><br>
+[03/Jul/2024:11:46:11], 00000000, NetGetAnyDCName(EPT / user1) = ERROR_NO_SUCH_DOMAIN<br>
+--------------------------------------------------------------------------------------</small><br>
+上記の記録がされているのは、ウィザードで「Windowsのローカルアカウントと連携させたい」を選択しているケース、前提としてドメインコントローラにメールサーバを同居させている環境でありながら、E-Post Mail Controlの「ドメイン管理」タブ画面にある「所属ドメインのアカウントを使用する」の設定項目が「空白でない」場合の状態でサービスが動いていることを示します。<br>
+<br>
+こうした問題を防止したり避けるには、下記の通り設定作業を進めてください。<br>
+<br>
+<b>１．ウィザードでこれから設定する場合</b><br>
+上記のように、「簡単セットアップ」（設定ウィザード）のステップ１の画面で、「Windowsのローカルアカウントと連携させたい」を選択してください。<br>
+<br>
+<b>２．ドメインコントローラとメールサーバを同居させ、既に「Windowsのアクティブディレクトリ(AD)のアカウントと連携させたい」を選択して設定した場合</b><br>
+既にウィザード画面で「Windowsのアクティブディレクトリ(AD)のアカウントと連携させたい」で進めてしまった場合は、E-Post Mail Control画面の「ドメイン管理」タブにある「所属ドメインのアカウントを使用する」設定を"空白"にすることで、上記の二番目の「Windowsのローカルアカウントと連携させたい」設定を選択した場合と同等扱いになります。<br>
+その結果、通信の時間は1秒ほどに短縮されます。ウィザードを再度走らせて再設定する必要はありません。この設定を行った場合は、まず E-Post Mail Control画面の「適用」「OK」ボタンをクリックし、Mail Control画面を開き直してから、全サービスの再起動を行ってください。<br>
+<br>
+さらに、以下にあげたFAQ記事についても、設定済みか確認してください。特に自ドメインについてhostsファイルに記述しているか確認し、まだ hostsファイルに何も記述していないようであれば、記述するようにしてください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-83.html">Active Directory連携をしているせいか小さなメールでも送信完了まで約10秒かかってしまう</a><br>
+●<a href="./faq01-04.html">クライアントからのメール送信が遅いケースとhostsファイルの必要性</a><br>
+●<a href="./faq10-53.html">hostsファイル記述の必要性と有用性について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

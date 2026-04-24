@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-56</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Enterprise の旧インストーラでインストールした場合に後から Enterprise II へアップグレードする際の注意について</b></FONT>
+<HR>
+<br>
+E-Post Mail Server Enterprise II のサーバリプレースを行う際に、旧 E-Post Mail Server Enterprise の古いインストーラでインストールした場合、旧アンチウイルスエンジンであることからアンチウイルス機能が正しく働かずパターンファイルダウンロードもできません。またモジュールが古いため、メールサーバ本体にも支障が起きる可能性があり、最低限 Enterprise II 版へのアップグレードをしていただく必要があります。以下の順番で作業を行ってください。<br>
+なお、公開ページの「ダウンロード」コーナーにある Enterprise II 版をダウンロードしインストールした場合、そちらはモジュールが新しいため、ここであげた作業は必要ではありません。<br>
+<br>
+<b>１．Enterprise から Enterprise II 版へのアップグレードを行う</b><br>
+以下のリンク先からアップグレードプログラムをダウンロードして適用してください。手順はその下のマニュアルを参照してください。<br>
+■<a href="/binary/W4E/Fastscan4EPOSTMS_v1004.msi">ファストスキャン版アンチウイルスエンジンアップグレードプログラム（.msi）</a><br>
+■<a href="/doc/fastscan_upgrade_manual.zip">同上マニュアルと補足資料一式（.zip）</a><br>
+<br>
+<b>２．パターンファイルダウンロード先の切り替え設定を行う</b><br>
+以下の記事を参照しパターンファイルダウンロード先を切り替えてください。<br>
+<b>（関連FAQ）</b><br>
+<br>
+●<a href="./faq10-84.html">パターンファイルダウンロード用のサーバ切り替えについて〔お願い〕</a><br>
+<br>
+<b>３．最新差分アップグレードプログラムの適用</b><br>
+「サポート２」にある最新差分アップグレードを適用し、メールサーバのモジュールを最新版にしてください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

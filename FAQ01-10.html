@@ -1,0 +1,721 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-10</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<a name="top">
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>メールサーバーで使用しているフォルダについて</b></FONT>
+<HR>
+<br>
+<TABLE border=0 cellspacing=0 cellpadding=2>
+ <TR>
+  <TD><small><a href="#msent">E-Post Mail Server Enterprise II (x64) シリーズ</a> <sup>※</sup></small></TD>
+ </tr>
+ <tr>
+  <TD><small><a href="#msstd">E-Post Mail Server Standard (x64) シリーズ</a> <sup>※</sup></small></TD>
+ </TR>
+ <TR>
+  <TD><small><a href="#ssent">E-Post SMTP Server Enterprise II (x64) シリーズ</a> <sup>※</sup></small></TD>
+ </tr>
+ <tr>
+  <TD><small><a href="#ssstd">E-Post SMTP Server Standard (x64) シリーズ</a> <sup>※</sup></small></TD>
+ </TR>
+ <TR>
+  <TD><small><a href="#bcs">E-Post BossCheck Server (x64)</a> / <a href="#bcs">E-Post Secure Handler (x64) シリーズ</a> <sup>※</sup></small></TD>
+ </tr>
+</TABLE>
+<a name="msent">
+<BR>
+<b>[E-Post Mail Server Enterprise II (x64)シリーズ]</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜メール作業用フォルダ＞ 既定値 C:\mail\</TH>
+</TR>
+<TR>
+ <TD>incoming</TD>
+ <TD>SMTP受信サービスがメールキューを一時保存するフォルダ（デフォルト設定時）<br>
+ SMTP配送サービスがメールキューとして自律的に処理を行うフォルダ</TD>
+</TR>
+<TR>
+ <TD>temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（シングル構成時、MSFCクラスタ構成時）</TD>
+</TR>
+<TR>
+ <TD>cluster</TD>
+ <TD>シングル・クラスタ両環境対応のメッセージID管理目的でSMTP受信サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>domains</TD>
+ <TD>SMTP配送で配送リトライを行うメールアドレスの一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>holding</TD>
+ <TD>SMTP配送で配送リトライを行うメールデータ一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>dead</TD>
+ <TD>SMTP配送でどこにも配送できなくなった場合のデータ保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>exclusive</TD>
+ <TD>シングル・クラスタ両環境の配送リトライ、メーリングリスト管理目的でSMTP配送サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>lists</TD>
+ <TD>メーリングリストの配送先展開用フォルダ</TD>
+</TR>
+<TR>
+ <TD>mxcash</TD>
+ <TD>名前解決ができたMXレコード情報のキャッシュデータ（mxcash\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>inbox</TD>
+ <TD>メールボックスフォルダ（設定次第で変更可）</TD>
+</TR>
+<TR>
+ <TD>inlog</TD>
+ <TD>SMTP受信サービスで配送対象としてメール受領した記録（inlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>acceptlog</TD>
+ <TD>SMTP受信サービスへの接続が確立された記録（acceptlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivelog</TD>
+ <TD>SMTP受信サービスの受信処理詳細記録（receivelog\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>outlog</TD>
+ <TD>SMTP外部ドメインへの配送記録（outlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>outlocallog</TD>
+ <TD>SMTP内部ユーザーへの配送記録（outlocallog\[コンピュータ名]）※レジストリ設定が必要</TD>
+</TR>
+<TR>
+ <TD>senderlog</TD>
+ <TD>SMTP配送サービスの配送処理詳細記録（senderlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>faillog</TD>
+ <TD>SMTP配送できなかったアドレスの記録（faillog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>pop3log</TD>
+ <TD>POP3クライアントの受信記録（pop3log\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivepop3</TD>
+ <TD>POP3クライアントの受信詳細記録（receivepop3\[コンピュータ名]）※レジストリ設定＆フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>imap4log</TD>
+ <TD>IMAP4クライアントの受信記録（imap4log\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receiveimap4</TD>
+ <TD>IMAP4クライアントの受信詳細記録（receiveimap4\[コンピュータ名]）※レジストリ設定＆フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>reg</TD>
+ <TD>共有設定情報［重要なので削除は不可］</TD>
+</TR>
+<TR>
+ <TD>3rd-party</TD>
+ <TD>ウイルス検出記録（3rd-party\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>viruslog</TD>
+ <TD>メールフィルタ機能およびアンチウイルス機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（シングル構成・MSFCクラスタ構成時）</TD>
+</TR>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜プログラムインストールフォルダ＞ 既定値 C:\Program Files\EPOST\</TH>
+</TR>
+<TR>
+ <TD>MS</TD>
+ <TD>サービスプログラム本体及び各種datファイル・idxファイル格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\database</TD>
+ <TD>ウイルスパターンファイル保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\log</TD>
+ <TD>ウイルスパターンファイル更新記録</TD>
+</TR>
+<TR>
+ <TD>MS\backup</TD>
+ <TD>エクスポートボタンによる設定情報の保管フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\viruslog</TD>
+ <TD>メールフィルタ機能およびアンチウイルス機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\iplog</TD>
+ <TD>IPWCS(IPWatcher)サービス動作記録（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>cgi-bin</TD>
+ <TD>Web管理ツール CGIプログラムが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>webmanager</TD>
+ <TD>Web管理ツール メニューを構成するHTMLファイルが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>Logana</TD>
+ <TD>E-Post Loganalyzerが格納されているフォルダ</TD>
+</TR>
+</TABLE>
+<a name="msstd">
+<br>
+<b>[E-Post Mail Server Standard (x64)シリーズ]</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜メール作業用フォルダ＞ 既定値 C:\mail\</TH>
+</TR>
+<TR>
+ <TD>incoming</TD>
+ <TD>SMTP受信サービスがメールキューを一時保存するフォルダ（デフォルト設定時）<br>
+ SMTP配送サービスがメールキューとして自律的に処理を行うフォルダ</TD>
+</TR>
+<TR>
+ <TD>temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（シングル構成時、MSFCクラスタ構成時）</TD>
+</TR>
+<TR>
+ <TD>cluster</TD>
+ <TD>シングル・クラスタ両環境対応のメッセージID管理目的でSMTP受信サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>domains</TD>
+ <TD>SMTP配送で配送リトライを行うメールアドレスの一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>holding</TD>
+ <TD>SMTP配送で配送リトライを行うメールデータ一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>dead</TD>
+ <TD>SMTP配送でどこにも配送できなくなった場合のデータ保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>exclusive</TD>
+ <TD>シングル・クラスタ両環境の配送リトライ、メーリングリスト管理目的でSMTP配送サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>lists</TD>
+ <TD>メーリングリストの配送先展開用フォルダ</TD>
+</TR>
+<TR>
+ <TD>mxcash</TD>
+ <TD>名前解決ができたMXレコード情報のキャッシュデータ（mxcash\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>inbox</TD>
+ <TD>メールボックスフォルダ（設定次第で変更可）</TD>
+</TR>
+<TR>
+ <TD>inlog</TD>
+ <TD>SMTP受信サービスで配送対象としてメール受領した記録（inlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>acceptlog</TD>
+ <TD>SMTP受信サービスへの接続が確立された記録（acceptlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivelog</TD>
+ <TD>SMTP受信サービスの受信処理詳細記録（receivelog\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>outlog</TD>
+ <TD>SMTP外部ドメインへの配送記録（outlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>outlocallog</TD>
+ <TD>SMTP内部ユーザーへの配送記録（outlocallog\[コンピュータ名]）※レジストリ設定が必要</TD>
+</TR>
+<TR>
+ <TD>senderlog</TD>
+ <TD>SMTP配送サービスの配送処理詳細記録（senderlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>faillog</TD>
+ <TD>SMTP配送できなかったアドレスの記録（faillog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>pop3log</TD>
+ <TD>POP3クライアントの受信記録（pop3log\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivepop3</TD>
+ <TD>POP3クライアントの受信詳細記録（receivepop3\[コンピュータ名]）※レジストリ設定＆フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>imap4log</TD>
+ <TD>IMAP4クライアントの受信記録（imap4log\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receiveimap4</TD>
+ <TD>IMAP4クライアントの受信詳細記録（receiveimap4\[コンピュータ名]）※レジストリ設定＆フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>reg</TD>
+ <TD>共有設定情報［重要なので削除は不可］</TD>
+</TR>
+<TR>
+ <TD>viruslog</TD>
+ <TD>メールフィルタ機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（シングル構成・MSFCクラスタ構成時）</TD>
+</TR>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜プログラムインストールフォルダ＞ 既定値 C:\Program Files\EPOST\</TH>
+</TR>
+<TR>
+ <TD>MS</TD>
+ <TD>サービスプログラム本体及び各種datファイル・idxファイル格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\backup</TD>
+ <TD>エクスポートボタンによる設定情報の保管フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\viruslog</TD>
+ <TD>メールフィルタ機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\iplog</TD>
+ <TD>IPWCS(IPWatcher)サービス動作記録（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>cgi-bin</TD>
+ <TD>Web管理ツール CGIプログラムが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>webmanager</TD>
+ <TD>Web管理ツール メニューを構成するHTMLファイルが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>Logana</TD>
+ <TD>E-Post Loganalyzerが格納されているフォルダ</TD>
+</TR>
+</TABLE>
+<a name="ssent">
+<br>
+<b>[E-Post SMTP Server Enterprise II (x64)シリーズ]</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜メール作業用フォルダ＞ 既定値 C:\mail\</TH>
+</TR>
+<TR>
+ <TD>incoming</TD>
+ <TD>SMTP受信サービスがメールキューを一時保存するフォルダ（デフォルト設定時）<br>
+ SMTP配送サービスがメールキューとして自律的に処理を行うフォルダ</TD>
+</TR>
+<TR>
+ <TD>temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（シングル構成時、MSFCクラスタ構成時）</TD>
+</TR>
+<TR>
+ <TD>cluster</TD>
+ <TD>シングル・クラスタ両環境対応のメッセージID管理目的でSMTP受信サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>domains</TD>
+ <TD>SMTP配送で配送リトライを行うメールアドレスの一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>holding</TD>
+ <TD>SMTP配送で配送リトライを行うメールデータ一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>dead</TD>
+ <TD>SMTP配送でどこにも配送できなくなった場合のデータ保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>exclusive</TD>
+ <TD>シングル・クラスタ両環境の配送リトライ、メーリングリスト管理目的でSMTP配送サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>lists</TD>
+ <TD>メーリングリストの配送先展開用フォルダ</TD>
+</TR>
+<TR>
+ <TD>mxcash</TD>
+ <TD>名前解決ができたMXレコード情報のキャッシュデータ（mxcash\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>inbox</TD>
+ <TD>メールボックスフォルダ（設定次第で変更可）</TD>
+</TR>
+<TR>
+ <TD>inlog</TD>
+ <TD>SMTP受信サービスで配送対象としてメール受領した記録（inlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>acceptlog</TD>
+ <TD>SMTP受信サービスへの接続が確立された記録（acceptlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivelog</TD>
+ <TD>SMTP受信サービスの受信処理詳細記録（receivelog\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>outlog</TD>
+ <TD>SMTP外部ドメインへの配送記録（outlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>outlocallog</TD>
+ <TD>SMTP内部ユーザーへの配送記録（outlocallog\[コンピュータ名]）※レジストリ設定が必要</TD>
+</TR>
+<TR>
+ <TD>senderlog</TD>
+ <TD>SMTP配送サービスの配送処理詳細記録（senderlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>faillog</TD>
+ <TD>SMTP配送できなかったアドレスの記録（faillog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>reg</TD>
+ <TD>共有設定情報［重要なので削除は不可］</TD>
+</TR>
+<TR>
+ <TD>3rd-party</TD>
+ <TD>ウイルス検出記録（3rd-party\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>viruslog</TD>
+ <TD>メールフィルタ機能およびアンチウイルス機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（シングル構成・MSFC方式クラスタ構成時）</TD>
+</TR>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜プログラムインストールフォルダ＞ 既定値 C:\Program Files\EPOST\</TH>
+</TR>
+<TR>
+ <TD>MS</TD>
+ <TD>サービスプログラム本体及び各種datファイル・idxファイル格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\database</TD>
+ <TD>ウイルスパターンファイル保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\log</TD>
+ <TD>ウイルスパターンファイル更新記録</TD>
+</TR>
+<TR>
+ <TD>MS\backup</TD>
+ <TD>エクスポートボタンによる設定情報の保管フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\viruslog</TD>
+ <TD>メールフィルタ機能およびアンチウイルス機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\iplog</TD>
+ <TD>IPWCS(IPWatcher)サービス動作記録（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>cgi-bin</TD>
+ <TD>Web管理ツール CGIプログラムが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>webmanager</TD>
+ <TD>Web管理ツール メニューを構成するHTMLファイルが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>Logana</TD>
+ <TD>E-Post Loganalyzerが格納されているフォルダ</TD>
+</TR>
+</TABLE>
+<a name="ssstd">
+<br>
+<b>[E-Post SMTP Server Standard (x64)シリーズ]</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜メール作業用フォルダ＞ 既定値 C:\mail\</TH>
+</TR>
+<TR>
+ <TD>incoming</TD>
+ <TD>SMTP受信サービスがメールキューを一時保存するフォルダ（デフォルト設定時）<br>
+ SMTP配送サービスがメールキューとして自律的に処理を行うフォルダ</TD>
+</TR>
+<TR>
+ <TD>temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（シングル構成時、MSFCクラスタ構成時）</TD>
+</TR>
+<TR>
+ <TD>cluster</TD>
+ <TD>シングル・クラスタ両環境対応のメッセージID管理目的でSMTP受信サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>domains</TD>
+ <TD>SMTP配送で配送リトライを行うメールアドレスの一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>holding</TD>
+ <TD>SMTP配送で配送リトライを行うメールデータ一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>dead</TD>
+ <TD>SMTP配送でどこにも配送できなくなった場合のデータ保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>exclusive</TD>
+ <TD>シングル・クラスタ両環境の配送リトライ、メーリングリスト管理目的でSMTP配送サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>lists</TD>
+ <TD>メーリングリストの配送先展開用フォルダ</TD>
+</TR>
+<TR>
+ <TD>mxcash</TD>
+ <TD>名前解決ができたMXレコード情報のキャッシュデータ（mxcash\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>inbox</TD>
+ <TD>メールボックスフォルダ（設定次第で変更可）</TD>
+</TR>
+<TR>
+ <TD>inlog</TD>
+ <TD>SMTP受信サービスで配送対象としてメール受領した記録（inlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>acceptlog</TD>
+ <TD>SMTP受信サービスへの接続が確立された記録（acceptlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivelog</TD>
+ <TD>SMTP受信サービスの受信処理詳細記録（receivelog\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>outlog</TD>
+ <TD>SMTP外部ドメインへの配送記録（outlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>outlocallog</TD>
+ <TD>SMTP内部ユーザーへの配送記録（outlocallog\[コンピュータ名]）※レジストリ設定が必要</TD>
+</TR>
+<TR>
+ <TD>senderlog</TD>
+ <TD>SMTP配送サービスの配送処理詳細記録（senderlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>faillog</TD>
+ <TD>SMTP配送できなかったアドレスの記録（faillog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>reg</TD>
+ <TD>共有設定情報［重要なので削除は不可］</TD>
+</TR>
+<TR>
+ <TD>viruslog</TD>
+ <TD>メールフィルタ機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（シングル構成時・MSFC方式クラスタ構成時）</TD>
+</TR>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜プログラムインストールフォルダ＞ 既定値 C:\Program Files\EPOST\</TH>
+</TR>
+<TR>
+ <TD>MS</TD>
+ <TD>サービスプログラム本体及び各種datファイル・idxファイル格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\backup</TD>
+ <TD>エクスポートボタンによる設定情報の保管フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\viruslog</TD>
+ <TD>メールフィルタ機能で受信拒否されたときに隔離されるメールデータ保管フォルダ（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>MS\iplog</TD>
+ <TD>IPWCS(IPWatcher)サービス動作記録（E-Postクラスタ構成時のみ）</TD>
+</TR>
+<TR>
+ <TD>cgi-bin</TD>
+ <TD>Web管理ツール CGIプログラムが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>webmanager</TD>
+ <TD>Web管理ツール メニューを構成するHTMLファイルが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>Logana</TD>
+ <TD>E-Post Loganalyzerが格納されているフォルダ</TD>
+</TR>
+</TABLE>
+<a name="bcs">
+<BR>
+<b>[E-Post BossCheck Server (x64) シリーズ]</b>（シングル構成）<br>
+<b>[E-Post Secure Handler (x64) シリーズ]</b>（シングル構成）　<a href="#top">[▲先頭へ戻る]</a><br>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜メール作業用フォルダ＞ 既定値 C:\mail\</TH>
+</TR>
+<TR>
+ <TD>approval</TD>
+ <TD>上長承認機能orインバウンドメール承認機能において承認待ちメールを保留するフォルダ</TD>
+</TR>
+<TR>
+ <TD>approval\log</TD>
+ <TD>承認者or自動承認による承認・却下が行われた記録</TD>
+</TR>
+<TR>
+ <TD>admiappr</TD>
+ <TD>インバウンドメールのメール承認管理システム（Secure Handler本体）</TD>
+</TR>
+<TR>
+ <TD>incoming</TD>
+ <TD>SMTP受信サービスがメールキューを一時保存するフォルダ（デフォルト設定時）<br>
+ SMTP配送サービスがメールキューとして自律的に処理を行うフォルダ</TD>
+</TR>
+<TR>
+ <TD>temp</TD>
+ <TD>SMTP受信サービスが受信したデータの一時作業フォルダ（シングル構成時）</TD>
+</TR>
+<TR>
+ <TD>cluster</TD>
+ <TD>シングル・クラスタ両環境対応のメッセージID管理目的でSMTP受信サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>domains</TD>
+ <TD>SMTP配送で配送リトライを行うメールアドレスの一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>holding</TD>
+ <TD>SMTP配送で配送リトライを行うメールデータ一時保存フォルダ</TD>
+</TR>
+<TR>
+ <TD>dead</TD>
+ <TD>SMTP配送でどこにも配送できなくなった場合のデータ格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>exclusive</TD>
+ <TD>シングル・クラスタ両環境の配送リトライ、メーリングリスト管理目的でSMTP配送サービスが使う排他処理用作業フォルダ</TD>
+</TR>
+<TR>
+ <TD>lists</TD>
+ <TD>メーリングリストの配送先展開用フォルダ</TD>
+</TR>
+<TR>
+ <TD>mxcash</TD>
+ <TD>名前解決ができたMXレコード情報のキャッシュデータ（mxcash\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>inbox</TD>
+ <TD>メールボックスフォルダ（設定次第で変更可）</TD>
+</TR>
+<TR>
+ <TD>inlog</TD>
+ <TD>SMTP受信サービスで配送対象としてメール受領した記録（inlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>acceptlog</TD>
+ <TD>SMTP受信サービスへの接続が確立された記録（acceptlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>receivelog</TD>
+ <TD>SMTP受信サービスの受信処理詳細記録（receivelog\[コンピュータ名]）※フォルダ作成が必要</TD>
+</TR>
+<TR>
+ <TD>outlog</TD>
+ <TD>SMTP外部ドメインへの配送記録（outlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>outlocallog</TD>
+ <TD>SMTP内部ユーザーへの配送記録（outlocallog\[コンピュータ名]）※レジストリ設定が必要</TD>
+</TR>
+<TR>
+ <TD>senderlog</TD>
+ <TD>SMTP配送サービスの配送処理詳細記録（senderlog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>faillog</TD>
+ <TD>SMTP配送できなかったアドレスの記録（faillog\[コンピュータ名]）</TD>
+</TR>
+<TR>
+ <TD>reg</TD>
+ <TD>共有設定情報［重要なので削除は不可］</TD>
+</TR>
+<TR>
+ <TD>viruslog</TD>
+ <TD>メールフィルタ機能で受信拒否されたときに隔離されるメールデータ保管フォルダ</TD>
+</TR>
+<TR bgcolor="#CCCCCC">
+ <TH colspan="2">＜プログラムインストールフォルダ＞ 既定値 C:\Program Files\EPOST\</TH>
+</TR>
+<TR>
+ <TD>MS</TD>
+ <TD>サービスプログラム本体及び各種datファイル・idxファイル格納フォルダ</TD>
+</TR>
+<TR>
+ <TD>MS\backup</TD>
+ <TD>エクスポートボタンによる設定情報の保管フォルダ</TD>
+</TR>
+<TR>
+ <TD>cgi-bin</TD>
+ <TD>Web管理ツール CGIプログラム・メール承認管理 CGIプログラムが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>webmanager</TD>
+ <TD>Web管理ツール メニューを構成するHTMLファイルが格納されているフォルダ</TD>
+</TR>
+<TR>
+ <TD>Logana</TD>
+ <TD>E-Post Loganalyzerが格納されているフォルダ</TD>
+</TR>
+</TABLE>
+<br>
+<p align="right"><a href="#top">[▲先頭へ戻る]</a>　<input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

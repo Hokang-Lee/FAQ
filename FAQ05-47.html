@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-47</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	dd {
+		padding:0;
+		margin:0 0 0.5em 0em;
+		padding:3px;
+		background:#f4f3e8;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>receivelogにtempフォルダに枝番付き.RCPファイルの記録があるがこの意味は？</b></FONT>
+<HR>
+<br>
+receivelogにtempフォルダに枝番付き.RCPファイルが展開されている記録があるが、この意味は何かを尋ねられたことがあります。<br>
+同報をする際、メーリングリストアドレス宛のものを含む場合は、SMTP受領時に展開されるtempフォルダ内には枝番付き.RCPファイルが展開されます。このときreceivelogには、tempフォルダに展開された枝番付き.RCPファイルは、メールキューであるincomingフォルダに移動していく処理内容が記録されていくことになります。<br>
+シングルサーバ環境では、tempフォルダは［メール作業用フォルダ］下にあり、E-Postクラスタ環境でのtempフォルダはローカルドライブ内の C:\Program Files\EPOST\MS\temp の場所がデフォルトで使用されます。<br>
+同報をする際、メーリングリストアドレス宛のものを含まない場合は、tempフォルダ内に枝番付き.RCPファイルは作成されませんが、同報にメーリングリストアドレス宛が含まれる場合は、枝番付き.RCPファイルが作成され、題名ヘッダなどの採番などが入る仕様です。<br>
+複数のメーリングリストアドレス宛に同報で送信し、後からSMTP受信詳細ログ（receivelog）を見ると、枝番付き.RCPファイルが生成され、tempフォルダからincomingフォルダへ移動処理される動きを確認することができます。<br>
+<br>
+ちなみに下記の例Aはシングルサーバ環境、例BはE-Postクラスタ環境でのそれぞれの枝番付き.RCPファイルの移動処理記録です。シングルサーバ環境ではtempフォルダもincomingフォルダもtempフォルダはいずれも［メール作業用フォルダ］下にあり、その間での移動が行われます。E-Postクラスタ環境ではtempフォルダはローカルドライブの C:\Program Files\EPOST\MS\temp の場所が使われており、移動先のincomingフォルダは［メール作業用フォルダ］下にあります。<br>
+（例A）<br>
+[04/Apr/2019:17:59:19], 0050da30, MoveFileEx(C:\mail\temp\B0000004469.RCP, C:\mail\incoming\B0000004469.RCP) is successed.<br>
+[04/Apr/2019:17:59:19], 0050da30, MoveFileEx(C:\mail\temp\B0000004469-001.RCP, C:\mail\incoming\B0000004469-001.RCP) is successed.<br>
+[04/Apr/2019:17:59:19], 0050da30, MoveFileEx(C:\mail\temp\B0000004469-002.RCP, C:\mail\incoming\B0000004469-002.RCP) is successed.<br>
+[04/Apr/2019:17:59:19], 0050da30, MoveFileEx(C:\mail\temp\B0000004469-003.RCP, C:\mail\incoming\B0000004469-003.RCP) is successed.<br>
+[04/Apr/2019:17:59:19], 0050da30, 250 2.0.0 Message received ok.<br>
+<br>
+（例B）<br>
+[04/Apr/2019:17:32:51], 00607660, MoveFileEx(C:\PROGRA~1\EPOST\MS\temp\B0000000012.RCP, \\sv\mail\incoming\B0000000012.RCP) is successed.<br>
+[04/Apr/2019:17:32:51], 00607660, MoveFileEx(C:\PROGRA~1\EPOST\MS\temp\B0000000012-001.RCP, \\sv\mail\incoming\B0000000012-001.RCP) is successed.<br>
+[04/Apr/2019:17:32:51], 00607660, MoveFileEx(C:\PROGRA~1\EPOST\MS\temp\B0000000012-002.RCP, \\sv\mail\incoming\B0000000012-002.RCP) is successed.<br>
+[04/Apr/2019:17:32:51], 00607660, MoveFileEx(C:\PROGRA~1\EPOST\MS\temp\B0000000012-003.RCP, \\sv\mail\incoming\B0000000012-003.RCP) is successed.<br>
+[04/Apr/2019:17:32:51], 00607660, 250 2.0.0 Message received ok.<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

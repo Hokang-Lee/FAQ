@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-22</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR><b><FONT SIZE="4" COLOR="#000000">Windows Server ドメイン管理下のAdministratorsグループの別ユーザーで動作させるときのサポートの方針について</FONT></b>
+<HR>
+<br>
+Windows Server ドメイン管理下のAdministratorsグループの別ユーザーで動作させる場合、インストールはAdministratorから行って、Administrator以外のシステム管理者権限を持つ他のユーザーでログインすると、Mail Control のメニューやアイコンが出ないことについて、ご質問を受けたことがあります。これについて、弊社のサポートの方針をお伝えします。<br>
+<br>
+また、この記事の後半には、いくつかの環境で調べてみたことをお伝えします。<br>
+<br>
+メールサーバ製品を提供し、同時にサポート対応をしなければならない立場でもある弊社としては、<b>ドメイン管理下のAdministratorsグループ別名ユーザーで動作させたい要件があっても、ドメインコントローラ下の構成、特に複雑なMSFCクラスタ構成などでは、Administratorで管理・運用を続けることを推奨</b>いたします。<br>
+<br>
+これは、たしかに、理屈上は「Administrator の権限＝Administratorsグループの別ユーザーの権限」であるはずですが、セキュリティポリシーやファイヤウォールなどの機能や設定が複雑になりすぎ、高度化してきている2008 R2以降では、完全に“イコール”にするのは非常に難しく、マイクロソフトからも確実な情報があまり明らかにされていないためです。<br>
+<br>
+特に、MSFCクラスタ構成を取るときなど、ドメインコントローラ下での構成が必須になりますが、構築ガイドで公開している設定方法は、すべてAdministratorでインストールし、管理・運用することを前提に検証テストしています。<br>
+<br>
+<b>【参考情報】</b><br>
+Windows Server 2008 R2ドメインの管理下において、以下の設定を行えば、Administratorsグループに入っている別ユーザーでも動作はできることは確認しました。ただし実際に運用し続けて特に問題がないかどうかまでは検証してません。参考情報としてお知らせします。<br>
+<hr width="95%" align="left" size="1" noshade>
+<small>
+■弊社検証環境にてドメインコントローラと同居させたシングル構成のメールサーバで確認したこと<br>
+<ol>
+<li>「Active Directoryユーザーとコンピュータ」からAdministratorからユーザーをコピー、'kanri'と名前を付ける。
+<li>その後、'kanri'でログインし、確かめる。
+<li>スタートメニュー、アイコンなどは、Administratorと同じ状態が維持され、起動可能。
+<li>特に問題なし。EpstControl.exeも起動可能。
+</ol>
+<hr width="95%" align="left" size="1" noshade>
+■弊社検証環境にてドメインコントローラ下のMSFCクラスタ構成のメールサーバで確認したこと<br>
+<br>
+　　　ドメインコントローラ<br>
+　　　　　　　｜<br>
+　　　　＋－－＋－－＋<br>
+　　　　｜　　　　　｜<br>
+　　　MSFC1　　　　MSFC2<br>
+　　　　　＼　　　／<br>
+　　　　仮想ストレージ<br>
+<br>
+　　　※すべて2008R2環境<br>
+<ol>
+<li>ドメインコントローラの「Active Directoryユーザーとコンピュータ」からAdministratorからユーザーをコピー、'kanri'と名前を付ける。
+<li>その後、'kanri'でログインし、確かめる。
+<li>その結果、アイコンは表示されるが、アプリをブロックするダイアログが出てきて「はい」を選んでも起動不能。（ファイヤウォール無効状態にして試しても同じ）
+<li>EpstControl.exeを管理者で直接実行しても、タスクマネージャ上ではメモリ消費されているものの、実際には起動しない。
+</ol>
+この現象に対する対応策として、次のサイトで書かれている方法を試しました。<br>
+※ただし次に示した情報は、いずれも第三者の会社あるいは個人によるものであり、いずれもマイクロソフトの公式情報ではありません。<br>
+また、弊社がこの方法を保証するものでもありません。あくまで参考情報としてとどめておいてください。<br>
+<br>
+◆「一般ドメインユーザにローカルPCの管理者権限を与える方法」の「方法２」を試す<br>
+<br>
+　<a href="http://www.hoster.jp/tech/domain-user" target="_blank">一般ドメインユーザにローカルPCの管理者権限を与える方法</a><br>
+<ol>
+<li>ドメインコントローラのグループポリシー管理エディタを使い、Administraotrsグループをまず追加、そのプロパティから'kanri'ユーザーを追加した。
+<li>その結果、アプリをブロックするダイアログが出てくるが「はい」をクリックすると起動が可能。
+<li>EpstControl.exeを右クリックから「管理者として実行」を選んで直接実行しても、起動可能。
+<li>MSFCクラスタ構成なので、各サービスを止めると、正副切り替えになってしまい、確認しづらいが、EPSTDSを停止、開始させることができることを確認。
+</ol>
+<br>
+◆さらに一般ユーザーが公開している次の方法を試す<br>
+<br>
+　<a href="http://www.majishini.net/pukiwiki/index.php?%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D%2FWindows%20Server%202008%20R2%E3%81%A7Administrator%E3%81%A8Administrators%E3%81%AE%E5%8B%95%E3%81%8D%E3%81%8C%E4%BD%95%E3%81%8B%E9%81%95%E3%81%86" target="_blank">Windows Server 2008 R2でAdministratorとAdministratorsの動きが何か違う</a><br>
+<ol>
+<li>この記事の情報によれば、2008R2のAdministratorと、Administratorsのアカウントでは、基本的動作が異なるのは、UACの管理者承認モードの設定が原因との指摘がされており、次の設定を試した。<br>
+<li>ローカルセキュリティポリシー<br>
+　=>セキュリティの設定<br>
+　　=>ローカルポリシー<br>
+　　　=>セキュリティオプション<br>
+　　　　=>ユーザーアカウント制御:[管理者承認モードですべての管理者を<br>
+　　　　実行する]　を[無効]に変更<br>
+<li>ローカルセキュリティポリシー<br>
+　=>セキュリティの設定<br>
+　　=>ローカルポリシー<br>
+　　　=>セキュリティオプション<br>
+　　　　=>ユーザーアカウント制御:[ビルトインAdministratorアカウントの<br>
+　　　　ための管理者承認モード]　を有効に変更<br>
+<li>その結果、アプリをブロックするダイアログが出なくなったことを確認。</ol>
+<hr width="95%" align="left" size="1" noshade>
+</small>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

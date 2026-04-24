@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-84</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>パターンファイルダウンロード用のサーバ切り替えについて〔お願い〕</b></FONT>
+<HR>
+<br>
+<b>（対象）E-Post Mail Server Enterprise II (32bit版)・E-Post SMTP Server Enterprise II (32bit版)</b><br>
+〔※64bitネイティブ版 (x64）版は対象外〕<br>
+<br>
+32bit版 Enterprise II シリーズ製品をお使いのユーザー様にパターンファイルダウンロード用のサーバ切り替えについてお願いがあります。これまでもアンチウイルス用パターンファイルDBのダウンロード先のサイトをデフォルト指定のサイトとは別に、もう一つ用意しておりましたが、このほど、パターンファイルダウンロード用のサーバの切り替えをユーザー様にお願いすることになりました。<br>
+<br>
+なお、64bitネイティブ版 (x64版）では、すでに出荷時に設定ファイルが切り替わっており、この内容は該当しません。また、2014年以降に出荷した32bit版 Enterprise II でも、時期によっては出荷時に設定ファイルが切り替え済みです。不明な場合は下記の方法で確認してください。<br>
+<br>
+パターンファイルダウンロード用のサーバ切り替え方法は、以下の通りです。切り替えにあたっては、2015年8月末までのできるだけ早い時期に実施していただけるようお願いします。各サービスの再起動は、一切必要ありません。クラスタ構成のメールサーバの場合は、正副それぞれのマシンでの同じ設定作業が必要となります。<br>
+<br>
+<b>パターンファイルダウンロード用サーバの切り替え方法と確認方法<br></b>
+<br>
+１．プログラムインストールフォルダ内にある<b>【Autoupd.ini】</b>ファイルを編集し、次の指定部分の記述を変更。リンク先からもダウンロードできます。<a href="../binary/autoupd.zip">【Autoupd.zip】</a>をダウンロードし解凍すると【Autoupd.ini】が取り出せます。<br>
+（※プログラムインストールフォルダは既定で C:\Program Files\EPOST\MS）<br>
+（※64bitOS環境では既定で C:\Program Files (x86)\EPOST\MS）<br>
+<p align="center"><b>fastscan.kljetch.com　　　→　　　fastscan.on.coocan.jp</b><br>
+<img src="./img/faq10-84-01.jpg"></p>
+<br>
+２．次のパターンファイルダウンロードのタイミングを見計らい、パターンファイルダウンロードのログを確認して、<b>[DOWNLOAD_ADK_DB_SITE] </b>の部分でダウンロード先が変わったのを確認する。<br>
+（※パターンファイルのログは既定で C:\Program Files\EPOST\MS\log\[日付]）<br>
+（※64bitOSでは既定で C:\Program Files (x86)\EPOST\MS\log\[日付]）<br>
+例）<br>
+[DOWNLOAD_ADK_DB_SITE] GetRemoteData() <u>http://fastscan.on.coocan.jp/database/update-av61/wte.html</u><br>
+[HttpRequestHeader] send(0724):108 bytes<br>
+[DOWNLOAD_ADK_DB_SITE] GetRemoteData() success.(0)<br>
+<br>
+※VMCSを含む各サービスの再起動は必要ありません。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

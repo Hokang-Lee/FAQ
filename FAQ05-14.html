@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-14</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>IMAP4の詳細ログ（receiveimap4）について</b></FONT>
+<HR>
+<br>
+IMAP4の詳細ログ（receiveimap4）は、IMAP4サーバへの接続時の詳細な動作記録です。<br>
+<br>
+記録を採る場合は、以下の手順で操作してください。<br>
+<br>
+レジストリエディタを開き、レジストリ項目 &quot;AcceptlogEnabled&quot; を手動作成します。設定値に &quot;1&quot; を入力してレジストリエディタを閉じた後、メール作業フォルダ下に &quot;receiveimap4&quot; というフォルダを手動作成します。その後、IMAP4サーバ（EPSTIMAP4S）を再起動します。<br>
+<small>
+<hr align="center" width="98%" size="1" noshade>
+HKEY_LOCAL_MACHINE<br>
+　->SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTIMAP4S　　※<br>
+　　　　　+->AcceptlogEnabled<br>
+　　　　　　　DWORD 0:ログを残さない,1:ログを残す<br>
+<hr align="center" width="98%" size="1" noshade>
+</small><br>
+ログ記録は、E-Post Mail Serverシリーズの場合：[メール作業フォルダ￥receiveimap4￥コンピュータ名]フォルダに作成されます。<br><small>
+<hr align="center" width="98%" size="1" noshade>
+　　記録日時　　　　　スレッド・メモリ　送受信内容・内部処理ステータス<br>
+<hr align="center" width="98%" size="1" noshade>
+[09/Dec/2007:11:51:53], 00146288, * OK E-POST IMAP4rev1 Server........<br>
+[09/Dec/2007:11:51:53], 00146288, 0000 CAPABILITY<br>
+[09/Dec/2007:11:51:53], 00146288, * CAPABILITY IMAP4 IMAP4rev1 NAMESPACE AUTH=CRAM-MD5 AUTH=LOGIN<br>
+[09/Dec/2007:11:51:53], 00146288, 0000 OK CAPABILITY completed<br>
+[09/Dec/2007:11:51:53], 00146288, 0001 LOGIN "xxxxxx" "xxxxxxx"<br>
+[09/Dec/2007:11:51:53], 00146288, 0001 OK LOGIN completed<br>
+　　　　　　:<br>
+　　　　　　:<br>
+<hr align="center" width="98%" size="1" noshade>
+</small><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-13</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>エイリアスの一括登録方法とインポートの仕様について</b></FONT>
+<HR>
+<br>
+エイリアスの一括登録については、Account Managerから操作します。<br>
+<ol>
+<li>Account Managerを起動します。<br>
+<li>Domain Listsからツリーを開き、作成済みのドメインを選択します。<br>
+<li>選択したドメインのツリーを開き、Aliases（エイリアス）を選択します。<br>
+<li>Account Managerのメニューバーより「アカウント－エイリアス－エイリアスインポート」を選択します。<br>
+<li>あらかじめ用意していたテキストファイルを指定し、インポート実行します。<br>
+<li>Account Managerを終了します。<br>
+<li>Mail Controlを起動し「エイリアス設定」タブを選択し、インポートしたエイリアスが入力されていることを確認します。<br>
+</ol>
+<small>※登録されたエイリアスは、その数だけ、必要ライセンス数としてカウントされますので、ライセンスオーバーにならないように、注意してください。必要ライセンス数は、「バージョン情報」タブ画面で確認できます。</small><br>
+<br>
+<b>（エイリアスインポート用テキストファイルの書式）</b><br>
+<hr align="left" size="1" width="80%" noshade>
+[エイリアス] <font color="#FF69B4">[TAB]</font> [実アドレス] <font color="#FF69B4">[CRLF]</font><br>
+<hr align="left" size="1" width="80%" noshade>
+<br>
+また、既存のエイリアス設定がある状態で、エイリアスのインポートを実施すると、同一レコードがあるものも、同一レコードがないものでも、レコードが追加されていく仕様です。<br>
+<br>
+もし仮に、必要／不必要なエイリアスをテキストファイル上で追加したり削除して管理しているような場合、更新したテキストファイルに従って、ファイルに同期したエイリアス設定にしたいときには、インポートを実施する前に、Account Manager と Mail Control を閉じてから、下記の設定情報が保管されているフォルダを任意の別名フォルダにリネームしてください。<br>
+<br>
+[メール作業フォルダ](例 C:\mail\)<br>
+→reg<br>
+　→SOFTWARE<br>
+　　→EMWAC<br>
+　　　→IMS<br>
+　　　　→alias<br>
+　（例）aliasフォルダをalias_backフォルダにリネーム<br>
+<br>
+インポート実施後は、正しいフォルダが自動的に再作成され、そこにデータが格納されます。リネームした古いフォルダは、必要に応じて取っておくか、削除するか決めてください。<br>
+<br>
+なお、インポート・エクスポート時にテキストファイルがある同一フォルダにできる「ログ」は、うまく取り込めなかったもの、うまく出力できなかったものが記録される仕様であるため、通常実行時には空の状態になります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-22</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アドオンツール EPSTDMARC のインストールおよび E-Postでの設定に関する質疑応答集 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+<b>１．送信ドメイン認証（DMARC）アドオンツール EPSTDMARC インストールにあたって下記の手順でよいでしょうか？</b><br>
+(1) EPSTRS のバージョンを確認。v4.78以降または最新差分アップデートプログラムを適用し最新バージョンにする。<br>
+(2) アドオンツール EPSTDMARC をダウンロードしインストール。<br>
+　　epstdmarc.zipを "C:\Program Files\EPOST\MS\epstdmarc" フォルダへ解凍<br>
+(3) readme.html の説明に従い、DNSへの登録作業を実施。<br>
+<br>
+基本的にはこの手順の通りです。DNSへの登録の手段や方法は各自で確保してください。<br>
+手始めに特別な署名データ作成の必要のない、SPFレコードを先に登録しておくのもよいかもしれません。<br>
+（※他社サイト）SPFレコードの書き方<br>
+<a href="https://baremail.jp/blog/2020/02/28/579/" target="_blank">https://baremail.jp/blog/2020/02/28/579/</a><br>
+<br>
+<b>２．readme.html の説明「DNSへの設定－2.DKIM署名データの作成」の通りに秘密鍵と公開鍵を "C:\Program Files\EPOST\MS\epstdmarc" 内に作成した後、この鍵を有効にするために関連サービスの再起動は必要でしょうか？不要でしょうか？</b><br>
+<br>
+readme.html の記述にある、既にレジストリ項目での設定、EPSTRSでのレジストリ値 "OnDKIM=1" 及び epstdmarc.exe の実行パスを設定済みの場合、通常はその直後にサービスを再起動していると思います。ですので、その後のDNSへのDKIM署名定義したり追加するごとにサービスの再起動を行う必要はありません。DNSは、EPSTDSサービスが配送プロセスを行うたびに参照します。<br>
+<br>
+<b>３．DKIMおよびDMARCを利用するにあたり、DNSにDKIMレコードを登録する際は、事前にアドオンツール付属の &quot;sign.bat&quot; により秘密鍵と公開鍵のペアを生成できるという認識をしました。その通りでしょうか？</b><br>
+<br>
+上記の認識で合っています。以下はそのほかの注意点です。<br>
+(1) SPFとDMARCについては、E-Postと直接関連する設定はなく、DNSへのTXTレコードの作成・登録のみで完了します。<br>
+(2) DKIMについては、ツール付属の &quot;sign.bat&quot; により電子署名データを作成し、作成された公開鍵のデータをDNSにTXTレコード登録します。ほとんどの TXT レコードの最大文字数は255文字です。255文字を超える長い鍵データは途中で分割して登録する必要がありますが、BIND と Windows DNS とではその方法に違いがありますので注意してください。くわしくは関連サイトをご覧ください。<br>
+(3) 作成された秘密鍵の方は、EPSTRSのレジストリが設定されていることにより、EPSTRSから呼び出される epstdmarc.exe が仕事をします。秘密鍵はローカルの &quot;C:\Program Files\EPOST\MS\epstdmarc&quot; 内にて管理されています。内部のメーラーからメールサーバに送る際に、SMTP受領時、秘密鍵でメールデータに署名、つまりシグネチャヘッダの記載を有効に設定、さらに外部からのSMTP受信（受領）時において、DMARC（SPF、DKIMも含む）判定結果のヘッダへの記載を有効に設定します。これには、readme.html の説明にあるように、レジストリで &quot;OnDKIM&quot;（DWORD）項目に&quot;1&quot;を設定、&quot;DomainAUTHDKIM&quot;（文字列）項目にショートパス名での実行パス &quot;C:\PROGRA~1\EPOST\MS\epstdmarc\epstdmarc.exe&quot; を設定する必要があります。<br>
+<br>
+<b>４．メールサーバーは内部ネットワークにあります。DKIM,DMARCを利用するうえで、受信するメールサーバー側は、送信されてきたメールに含まれるDKIMの署名と、DNSレコードの登録内容を確認するのみであるため、影響はない認識ですが、その通りでしょうか？またDMARCのレポート受信については、受信可能な別ドメインのメールアドレスを指定すればよい認識ですが、これはその通りでしょうか？</b><br>
+<br>
+その通りの認識で合っています。<br>
+<br>
+<b>５．DKIM,DMARCは任意の機能を有効にできるでしょうか。E-Postシリーズとしての設定内容は、DKIMの署名についてのみであり、DMARCについてはDNSレコードに登録するか否かであるため、可能な認識ですが、これはその通りでしょうか？</b><br>
+<br>
+その通りの認識で合っています。<br>
+<br>
+<b>６．Outlookのメール本文中にある &quot;.MsoChpDefault&quot; というドット（＝ピリオド）が含まれるメールのサインを行うと、正しいサインが行えません。</b><br>
+<br>
+Outlookのメール本文中にある &quot;.MsoChpDefault&quot; というドット（＝ピリオド）が含まれるメールのサインを行うと、正しいサインが行えず、E-Postが付けたDKIMサインヘッダに対してサインヘッダを受け取ったgmail側で &quot;dkim=neutral (body hash did not verify)&quot; と判定した原因が判明済みです。既に同対策を取ったモジュール epstdmarc v1.06 以降がリリースされています。<br>
+原因は Outlookのメール本文中にある &quot;.MsoChpDefault&quot; という行の部分です。最初のカラムにある、ドット（＝ピリオド）が含まれるメールのサインを行うと、正しいサインが行われません。&quot;.MsoChpDefault&quot; はMicrosoft特有のHTMLメール用に定義したスタイルシートの書式です。<br>
+これに対して、メール本文の行の１カラム目にドット'.'が出現するとき、SMTPの送信では'..'とドットを２つ出力して、終了の'.CRLF'との区別をするのがRFCの仕様ですが、サインをする際は、'..'→'.'に戻したデータでハッシュ計算してサインする必要がありました。旧版のDKIM/DMARC/ARCのサインは、'..'のままで処理していたのが原因です。<br>
+同対策を取ったモジュール epstdmarc v1.06 以降をダウンロード、解凍して変更されているモジュール epstarc.exe、libdkim.dll、epstdmarc.exe、readme.html タイムスタンプを確認の上、上記モジュールを上書き更新してください。<br>
+<br>
+<b>7．DKIM署名データ作成時は &quot;sign.bat [セレクタ名]&quot; の書式ですが、ドメイン名入力不要で、DKIMの秘密鍵・公開鍵では特にドメイン名は見ていないということになりますか？</b><br>
+<br>
+epstdkim.ini ファイルという設定ファイル上で、セレクタ名に対応したドメインの引当て指定をおこなう仕様になっています。epstdkim.ini ファイルにはドメインを記述します。<br>
+くわしくは、EPSTDMARC v1.06c 付属のepstdkim.iniファイルをメモ帳で参照するか、readme.html にある [epstdkim.ini ファイル定義例]を参照してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

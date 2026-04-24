@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ライセンスキーを登録したのに期限が切れたと表示される</b></FONT>
+<HR>
+<br>
+Mail Controlの「バージョン情報」タブ画面を開いてバージョン情報を確認します。「ライセンスキー」を登録したのに、“期限が切れた”旨が表示される場合や、「あと○日です」の“期限カウント”が表示されたままの場合は、以下の点を再確認してください。<br>
+<br>
+<b>１．入力されたライセンスキーを正しく入力していますか？</b><br>
+<br>
+入力したキーが正しい場合、「ライセンス登録の完了を通知します。よろしいですか？」という下のような確認メッセージが表示されます。<br>
+<p align="center"><IMG SRC="./img/faq03-11-00.gif"></p>
+ライセンスキーを登録するには「ＯＫ」ボタンをクリックすることにより、登録の実行が行われます。このとき、80番ポートを使った通信が行われ、弊社認証サーバとの間で認証が行われます。万が一、ルータやファイヤーウォールなどの製品でポートを閉じていたり、外部との接続を一切許可しない環境では、通信ができないために、ライセンスキーの登録が正常に行えませんので、注意してください。「キャンセル」をクリックすると、ライセンスキー登録は行われません。<br>
+<br>
+長いライセンスキーを正しく入力するためには、いったん「メモ帳」等に入力しておき、「目視」にて正しいことを確認してから、ライセンス入力項目にコピー＆ペーストすることで、入力間違いを防ぐことができます。<br>
+<br>
+<b>２．正しく入力しているにもかかわらず、上記のメッセージが表示されない場合は、ライセンスキー登録部分で既に別のライセンスキーが登録済みである可能性があります。</b><br>
+<br>
+たとえば、Standard版とEnterprise版をそれぞれ購入されたときや、Mail ServerとSMTP Serverを同時に購入されたときなど、購入された製品パッケージに合致した正しいライセンスキーを入力する必要がありますが、別のライセンスキーを取り違えて入力してしまったケースがこれに該当します。<br>
+こうした場合、ライセンスキーが登録されてしまった際に、同時にレジストリにも入力済み記録がされてしまいます。レジストリに入力された記録をリセットするには、いったんMail Controlを閉じて、次の操作を行ってください。<br>
+<ul>
+(1) 下記のいずれかのファイルをダウンロードします。<br>
+　●<a href="/bin/init-license.zip">init-license.zip</A>　　…　Windows 2003 / Windows 2008 などの32bitOS用<br>
+　●<a href="/bin/init-license(64).zip">init-license(64).zip</A>　…Windows 2008 R2などの64bit版OS用<br>
+<br>
+(2) ダウンロード後、解凍したregファイルを、ダブルクリックします。メッセージに対して「OK」ボタンをクリックすると、レジストリから、設定済みのライセンス情報がリセットされます。<br>
+<font color="red">（※この操作は、ライセンスキーを入力しても１の確認メッセージが表示されない場合のみに行ってください。）</font><br>
+</ul>
+その後、再度 Mail Controlを起動し、「バージョン情報」タブ画面から「ライセンスキー」を登録してください。<br>
+<br>
+<b>３．80番ポートを使った通信は許可されていますか？　ライセンスキーを登録しようとしているマシンから、ブラウザを起動し、弊社のWebサイトは、ちゃんと閲覧できていますか？</b><br>
+<br>
+「ライセンス登録の完了を通知します。よろしいですか？」の確認メッセージに対して、「ＯＫ」ボタンをクリックしても、なおも「期限が切れた」旨のメッセージや「あと○日です」の“期限カウント”が表示されたままの場合は、同マシンのブラウザより弊社Webサイトが問題なく閲覧できるか確認してください。<br>
+<br>
+閲覧そのものができないときは、登録マシンが弊社の認証サイトに接続できない環境であることが原因として考えられます。ファイアーウォールやルータなどのセキュリティ設定を見直してください。少なくとも弊社Webサイトが閲覧できるようにしてください。また、合わせてCGIプログラムの実行についても何らかの制限を設けているときは、実行許可した上で、ライセンスキーの再登録を行ってください。<br>
+それでも、うまく行かない場合は、下記記事についても参照してください。<br>
+<br>
+<b>（参考FAQ）</b><br>
+●<a href="./faq08-05.html">ライセンスキーを入力すると「キーが無効です」と表示される</a><br><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

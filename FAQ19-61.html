@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-61</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ネットワークトラブルで大量（数十万件）のエラーメールが管理者アドレスに届き、グループウェアWebメールが受信できない。メールデータを取捨選択して整理できるか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+ネットワークトラブルで大量（数十万件）のエラーメールが管理者アドレスに届き、グループウェアWebメールが受信できない。メールデータを取捨選択して整理できるか、という質問を受けたことがあります。<br>
+<br>
+まず前提として、いったん特定アカウントのメールボックスに“着信済み”となったメールについて、E-Post側で「後から受信フィルタのように自動で振り分け・削除」する機能は用意されていません。<br>
+E-Postのメールフィルタ機能（【mail.dat】等）はSMTP受信時に動作するものであり、到達後のメールをその場で再判定して制御する用途に使うことはできません。<br>
+ただし、E-Postのメールボックスは<b>メールデータがファイルとして保存される方式のため、OS側の操作（検索→移動→削除）で「整理」することは可能です。</b><br>
+<br>
+・POP3形式／IMAP4形式共にメールボックスでは、拡張子.MSG（1メール＝1ファイル）で保管されます。（※Journal Optionでは拡張子.MSGと拡張子.RCPの（1メール＝2ファイル）セット保存になります。これはBCCを判定する目的で意図的に残してあるものです。）<br>
+・IMAP4形式のメールボックスはフォルダの位置が異なります。くわしくは下記記事参照。大量のIMAPメールは、クライアント側が読み込みしきれずエラーになる例も報告されています。そのため、グループウェアWebメールが処理できないほど溜まっている場合は、<b>サーバ上でメールデータファイルを“退避”させて総数を減らす</b>のが現実的です。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-11.html">方式の違いによるメールボックスフォルダの作成位置について</a><br>
+●<a href="./faq10-14.html">IMAP使用時のメールボックスフォルダと「POP3無効」チェックボックスの関係について</a><br>
+●<a href="./faq10-64.html">IMAPデータファイルの基本的な構造について</a><br>
+<br>
+<b>安全な進め方</b><br>
+<b>１．増え続ける状態ならまず止血する</b><br>
+原因が継続中だと整理しても追いつかないため、可能なら先にネットワーク復旧／誤送信停止などで、これ以上増えない状態を作ります。<br>
+<br>
+<b>２．対象メールボックスをバックアップ</b><br>
+対象アカウントのメールボックスフォルダを丸ごと別領域にコピーしてからの作業を推奨します（誤削除対策）。<br>
+<br>
+<b>３．.MSGファイルを検索して、該当ファイルを退避フォルダへ移動する</b><br>
+.MSGファイルを退避させ総数を減らすことにより、まずはWebメールが受信できる状態になるかの確認を行います。<br>
+<br>
+<b>整理方法の例</b><br>
+<b>Ａ．grep等のツールが利用できる場合（推奨）</b><br>
+E-Postのメールデータ（.MSG）は基本的に「1メール=1ファイル」です。<br>
+そのため、grep等の検索ツールやgrep機能をもつエディタでヘッダ文字列をキーに該当メールを抽出し、ファイルを移動／削除することで整理できます。<br>
+<blockquote>
+例：Fromヘッダで該当メールを抽出してファイル一覧を作成する<br>
+grep &#45;l &#45;F &quot;From: xxxx &lt;xxxx＠xxxx.xxx&gt;&quot; &#42;.MSG &gt; list.txt<br>
+</blockquote>
+作成された list.txt を元に、move／del 等で一括処理します。<br>
+※Journal Optionで .RCP が併存している環境では、.MSG と .RCP が同番号の対になっているため、移動・削除は 対で行うようにしてください。方法については下記参照。<br>
+※JIS（iso-2022-j）やUTF-8の場合は、エンコード文字列で検索する必要があります。<br>
+<br>
+<b>Ｂ．findstrコマンドを使う方法</b><br>
+Windows Serverに備わっているコマンドのうち、findstrをコマンドラインより実行する方法です。
+エラーメール（バウンス系）は、件名が日本語MIMEエンコードで読みにくいことがあるため、From：やReturn-Path：などASCIIで表現され検索しやすいヘッダをキーにします<br>
+<blockquote>
+例：.MSG から From を探してヒットしたファイル一覧を作る<br>
+findstr &frasl;M &frasl;C:&quot;From: xxxx &lt;xxxx＠xxxx.xxx&gt;&quot; &#42;.MSG > list.txt<br>
+</blockquote>
+list.txt ができたら、それを使って move / del のバッチで一括処理します（まずは削除ではなく退避用フォルダへ移動推奨）。<br>
+<br>
+<b>Ｃ．PowerShellで“対ファイル”も含めて安全に移動（Journal Option想定）</b><br>
+Journal Optionの場合は.MSGと.RCPが同番号で1組なので、.RCP側を検索キーにして、該当番号の.MSG／.RCPをまとめて退避します。<br>
+<blockquote>
+例：.RCP内の Return-path をキーに振り分け、退避<br>
+<br>
+$src  = &quot;C:\mail\INBOX\...\INBOX&quot;　　<font color="gray">←.MSGと.RCPがある対象フォルダ</font><br>
+$dest = &quot;C:\mail\INBOX\...\_evac&quot;　　<font color="gray">←退避先フォルダ</font><br>
+$target = &quot;user1＠test-sample.jp&quot;　　<font color="gray">←検索したいReturn-pathの値（完全一致）</font><br>
+<br>
+New-Item -ItemType Directory -Force -Path $dest | Out-Null　　<font color="gray">←退避先フォルダを作成（既にあってもよい）</font><br>
+<br>
+Get-ChildItem -Path $src -Filter &quot;&#42;.RCP&quot; -File |　　<font color="gray">←Return-pathが一致するRCPを検索し、同じIDの.MSGと.RCPを退避</font><br>
+  Select-String -Pattern (&quot;^Return-path:\s&#42;&quot; + [regex]::Escape($target) + "\s*$") -List |<br>
+  ForEach-Object {<br>
+    $base = [IO.Path]::GetFileNameWithoutExtension($_.Path)　　　<font color="gray">←ファイル名からID部分のみ取り出す　例：123456-000000</font><br>
+    $id = $base.Split(&rsquo;-&rsquo;)[0]　　　　　　　　　　　　　　　　　　　<font color="gray">←“-”で分割し、共通IDを得る　例：123456</font><br>
+    Get-ChildItem $src -Filter &quot;$id-&#42;.MSG&quot;  | Move-Item -Destination $dest　　<font color="gray">←上記で得た共通IDに一致する.MSGファイルを探す</font><br>
+    Get-ChildItem $src -Filter &quot;$id-&#42;.RCP&quot;  | Move-Item -Destination $dest　　<font color="gray">←上記で得た共通IDに一致する.RCPファイルを探す</font><br>
+  }<br>
+</blockquote>
+まずは退避フォルダ（例：_evac）に移動してWebメールが復旧するか確認 → 問題なければ、退避フォルダ（例：_evac）内をさらに条件で細かく仕分け／不要分を削除、の順が安全です。<br>
+
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

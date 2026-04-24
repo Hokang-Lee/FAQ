@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ08-19</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ライセンス認証時、プロキシ経由でつながっているマシンで登録する方法は？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+ライセンス認証時、ライセンスキーを登録しようとしているサーバが直接にはインターネットにつながっていないが、プロキシ経由でつながっている場合、IEの設定として残されている「インターネットオプション」にて、プロキシ設定をすることでライセンス認証が通る可能性があります。<br>
+<br>
+現在のWindows Serverでは、IEの設定として残されている「インターネットオプション」は埋没しており、Microsoft Edgeからですと、次の操作を行うことでたどって設定画面を呼び出すことができます。<br>
+<br>
+(1) Edgeを起動。Edgeブラウザの右上にある「…」↓「設定」をクリック。<br>
+(2) 左側のメニューから「既定のブラウザー」をクリック。<br>
+(3) 「Internet Explorer モードでサイトの再読み込みを許可」を「許可」に変更してクリック。<br>
+(4) ブラウザー［再起動］ボタンクリック。<br>
+(5) 「インターネットオプション」をクリック。<br>
+(6) 表示される「インターネットのプロパティ」ダイアログボックスの「接続」タブを選択。<br>
+(7) ［LANの設定］ボタンをクリック。<br>
+(8) 表示される「ローカルエリアネットワーク（LAN）の設定」ダイアログボックスの「プロキシサーバー」以下の項目を設定。<br>
+<br>
+上記で設定した内容は、レジストリを見ることでも設定内容を確認できます。またレジストリに直接記述することでも、設定は可能になっているようです。<br>
+<small>〔レジストリ〕<br>
+HKEY_CURRENT_USER<br>
+　→Software<br>
+　　→Microsoft<br>
+　　　→Windows<br>
+　　　　→CurrentVersion<br>
+　　　　　→Internet Settings<br>
+　　　　　　→ProxyEnable　(DWORD) 0=無効 1=有効 (プロキシサーバーの使用有無) <br>
+　　　　　　→ProxyServer　(文字列) プロキシサーバアドレス：ポート (アドレス：ポートの設定)</small><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

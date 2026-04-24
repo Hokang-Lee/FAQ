@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-34</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証を有効にして外部MTAに送信要求をそのままフォワードさせる方法</b></FONT>
+<HR>
+<br>
+E-Post Mail Server／E-Post SMTP Serverシリーズに実装されているサービスプログラムは、SMTPサーバとしてSMTP認証付きの受信・送信のみならず、他のMTAに対してSMTP認証付きSMTPクライアントの役目も果たせます。<br>
+E-Post SMTP Serverシリーズを使って自分がSMTPゲートウェイの位置となる場合、内側にSMTP認証を有効に設定したE-Post Mail Serverシリーズがあって、外部の位置にあるSMTP認証が必要なMTAがあるケースでは、外部MTAに向けて、送信要求をそのままフォワードさせるには、次の設定方法を行います。<br>
+<br>
+最初に、Mail Control設定画面を使って、SMTPゲートウェイ先を設定し、ホスティング業者（レンタルサーバ）のメールサーバにすべてのメールをフォワードする設定を行います。<br>
+<br>
+Mail Controlを開き、「サーバー設定」タブを選択、「SMTPゲートウェイ」欄に外部MTAのメールサーバを指定します。また「全受信メールをSMTPゲートウェイへ転送」チェックボックスですが、ここの設定値は、サーバ構成つまりメールサーバ自身の設定意図に応じて、オンにするかオフのままにするか選択します。「全受信メールをSMTPゲートウェイへ転送」チェックボックスをオンにすると、自身のメールサーバにはメールボックスが存在しないからすべて転送せよという意図を示すことになります。すなわち自身のメールサーバには着信メールがメールボックスに格納されないこととなります。反対に自身のメールサーバで全アカウントのメールボックスを管理するのであれば、オフのままにしておかなければなりません。<br>
+<p align="center"><IMG SRC="img/faq10-34-01.jpg"></p>
+外部MTAのSMTPが、SMTP認証を実施している場合、E-Post Mail Server／E-Post SMTP ServerでSMTP認証を有効にする設定を行います。<br>
+最初に、メールクライアントとE-Postの間、SMTP受信に関する設定部分です。Mail Controlを開き、「サービス制御」タブを選択、SMTP認証設定を該当する認証方法に切り替え、セキュリティレベルを「認証ファイル」に設定します。なお、このとき、外部MTAのSMTPが、SMTP認証を実施していない場合は「NO」のまま進めます。<br>
+さらに、ホスティング業者（レンタルサーバ）のメールサーバがOP25Bを実施していて、代替ポートとして587番ポートを指定できる場合は、EPSTDSのポート番号を「587」に変更します。最後にMail Control画面下にある「適用」ボタンを忘れずクリックします。<br>
+<p align="center"><IMG SRC="img/faq10-34-02.jpg"></p>
+<p align="center"><IMG SRC="img/faq10-34-03.jpg"></p>
+続いてEPSTDSの「詳細」ボタンをクリックすると、「配送の詳細（SMTP）」ダイアログボックスが表示されるので「ESTMPで送信」のチェックボックスをオンにし、「SMTP認証方法」を▼ボタンをクリックして表示されるリストから選択します。このときUSER IDとPASSWORDを空欄にしておきます。空欄にしておくと、Account Managerで各ユーザーに設定されたIDとパスワードでそのままログインしようとします。最後に「OK」ボタンをクリックします。<br>
+なお、このとき、外部MTAのSMTPが、SMTP認証を実施していない場合は「ESMTPで送信」チェックボックスオフのままで進めます。<br>
+最後にMail Control画面下にある「適用」ボタンを忘れずクリックし、EPSTRSおよびEPSTDSのサービスを再起動します。<br>
+<p align="center"><IMG SRC="img/faq10-34-04.jpg"></p>
+一方、Account Managerを使って、外部MTAと同じドメイン名でドメインを作成し、外部MTAに送信要求をフォワードさせるすべてのユーザーアカウントとパスワードを登録します。<b>送信元ユーザーアカウントはもちろん、受信先ユーザーアカウントもすべて登録</b>します。<br>
+外部MTAのSMTPがSMTP認証を実施している場合、各ユーザーの「アカウント」設定画面で「SMTP-AUTHを使用」チェックボックスをオンにします。SMTP認証パスワードの入力が要求された場合は正しいパスワードを入力してください。ドメイン作成後は念のためサービスをもう一度再起動してください。<br>
+<p align="center"><IMG SRC="img/faq10-34-05.jpg"></p>
+設定が完了したら、メールクライアント側の「SMTPサーバ」の設定について、社内に位置するE-Post Mail Server／E-Post SMTP ServerをローカルIPアドレスを直接指定する方法などで設定します。<br>
+メールクライアントから送信テストを行い、<b>メールクライアント → E-Post → 外部MTA</b> という経路でメール送信がフォワードされ送信されることを確認します。<br>
+<br>
+<b>うまくSMTP認証で送信できないとき(1)－ログを確認する</b><br>
+<br>
+うまくSMTP認証で送信できないとき、原因を調べるベストの方法は、下記のログを取得しておいて内容を確認することです。<br>
+<ol>
+・<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）</a>……<b>メールクライアント → E-Post</b> 間の記録<br>
+・<a href="./faq05-10.html">配送時の詳細ログ（senderlog）</a>……<b>E-Post → 外部MTA</b> 間の記録<br>
+</ol>
+SMTP受信詳細ログ（receivelog）を確認し、E-Post側に接続できているか確認します。接続しているのに受領できていない場合は、Account Managerで外部MTAと同じドメイン名のドメインを作っていて、同じアカウントを作っているか確認します。<br>
+配送時の詳細ログ（senderlog） を確認し、外部MTA側から"Auth Failed."などのエラーが返され、送信を拒絶されているときは、Account Managerに設定しているアカウント・パスワードを確認します。さらに下の(2)や(3)を確認します。<br>
+<br>
+<b>うまくSMTP認証で送信できないとき(2)－外部MTAのSMTP認証方式を確認する</b><br>
+<br>
+EPSTDSの「詳細」ボタンをクリックしたときに「SMTP詳細」ダイアログボックスで表示されるSMTP認証方法を弱いレベルに下げ、たとえば LOGIN で試してみてください。なお、このとき、Mail Control画面「サービス制御」タブの上部に表示されるEPSTRSのSMTP認証方法は変更せず、いちばん強度の高い「PLAIN LOGIN CRAM-MD5」のままでかまいません。<br>
+<br>
+<b>うまくSMTP認証で送信できないとき(3)－STARTTLSを無効に設定する</b><br>
+<br>
+一部MTAでは、STARTTLSに関する仕様が特別なものがあり、MTAの種類によっては、E-Post側でSTARTTLSを無効にする必要が出てくることがあります。STARTTLSを明示的に利用しない設定は次の通り行います。<br>
+レジストリエディタを開き、以下の方法で"UsedSTARTTLS"というキーを手動で作り、設定値を入力した後でEPSTDSを再起動してください。これ以降、STARTTLS命令を使用しなくなります。<br><small>
+<hr width="80%" size="1" align="left">
+HKEY_LOCAL_MACHINE<br>
+　->SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTDS<br>
+　　　　　->UsedSTARTTLS　(DWORD)設定値:0<br>
+<hr width="80%" size="1" align="left"></small>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-86.html">SendGrid へのSMTP認証付き送信フォワードする際、70文字の長いパスワードを設定できるか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-32</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windows Server 2012 R2以降のNICチーミング機能を有効にすると E-Postサービスが自動で開始されない場合</b></FONT><br>
+<HR>
+<br>
+Windows Server 2012 R2以降に追加された新機能でネットワークの負荷分散をはかることが目的の「NICチーミング」（LBFO）による構成を有効にしている場合、サーバ起動後や再起動後に E-Postサービス（EPSTRS / EPSTPOP3S / EPSTIMAP4S）が自動で開始されない事象の報告がありました。<br>
+これは、マシン環境やネットワーク構成にも大きく左右されますが、「NICチーミング」（LBFO）による構成によって、OS側の処理としてネットワークアダプタにIPアドレス割り当てのタイミングが遅れるケースがあり、E-Postサービス（EPSTRS / EPSTPOP3S / EPSTIMAP4S）が正常に開始されず終了してしまうことがことの原因だと判明しました。なおこのとき後から手動でサービスを起動すればサービスは問題なく開始できます。<br>
+確認した「NICチーミング」構成ですが、２つのネットワークアダプタをチーム構成にし、「チーミングモード：スイッチに依存しない」「負荷分散モード：動的」「スタンバイアダプター：なし（すべてのアダプターがアクティブ）」のデフォルト設定を行い、サーバのIPアドレスとしては一般的な手法である静的なIPアドレスを指定しました。E-Post側の各サービス詳細設定についても、「全てのアドレスに応答する」設定だけでなく「一覧のアドレスに応答する」設定の両方を試しました。その結果、マシン環境によってはこの現象が再現するものがある一方で、再現しないものがあるケースに分かれるようです。<br>
+<br>
+もし、３つのサービスE-Postサービス（EPSTRS / EPSTPOP3S / EPSTIMAP4S）についてサーバ起動後や再起動後に自動起動していなかったことが判明した場合、Windowsサービスの設定でE-Postのサービスのスタートアップ種類を<b>「自動（遅延開始）」</b>設定してください。<br>
+そしてサーバ起動後・再起動後にE-Postのサービスがきちんと自動起動されているか確認してください。マイクロソフトの情報によると「自動（遅延開始）」を行った場合には、OS起動後デフォルトで約2分後にサービス起動させる指定になります。起動後2分も経過していれば、ネットワーク構成は十分に完了していることから、サービスの自動起動については正常に働くようになるものと考えます。<br>
+<br>
+ここで「自動（遅延開始）」設定が有効である理由と原理的な仕組みを説明します。Windowsの「サービス」でも表示されている以下の３つのサービスは、各プロトコルでの待ち受けの処理を行うため、プログラムが立ち上がる前に、OS側のネットワーク構成とネットワーク設定に割り当てられたIPアドレスの構成が完了していることが前提です。
+<blockquote>・E-POST SMTP Receiver　[EPSTRS]<br>
+・E-POST POP3 Server　[EPSTPOP3S]<br>
+・E-POST IMAP4rev1 Server　[EPSTIMAP4S]</blockquote>
+一方、次のサービスプログラムEPSTDSは、配送エージェントでいわゆる待ち受け処理ではなく、メールキューであるincomingフォルダ内を監視しておき、メールデータやエンベロープ情報のファイルを見つけると自律的に配送処理を行います。OS側のネットワーク構成とIPアドレスの構成が完了していなくてもサービス起動は関係なくできます。
+<blockquote>・E-POST SMTP Delivry Agent　[EPSTDS]</blockquote>
+<br>
+さらにもう一つ別の方法として、管理者権限でコマンドプロンプトを開き、次のコマンドを実行してサービスの依存関係を設定しておく方法があります。この方法では、OS起動時にあらかじめ各サービスが依存するドライバが正常起動してから自動起動するようになりますのでより確実な手法です。<blockquote>
+-------------------------------------------------------<br>
+sc config EPSTRS depend=&quot;tcpip/afd&quot;<br>
+sc config EPSTPOP3S depend=&quot;tcpip/afd&quot;<br>
+sc config EPSTIMAP4S depend=&quot;tcpip/afd&quot;<br>
+-------------------------------------------------------<br></blockquote>
+OSには次々と新機能が追加搭載されます。そうした機能を試しに使った環境で使用する場合、弊社としては最善を尽くしてはいるものの、すべてをフォローできているとは限りません。不明な場合は事前にお問い合わせいただくか、評価版などを使った事前検証で想定している環境下でも問題がないかどうかをできるだけご確認いただくことをお薦めいたします。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-28</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDMARC を使ってDKIM署名ツールを利用しサインだけ実施する場合の手順 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDMARC を使ってDKIM署名ツールを利用しサインだけ実施する場合の手順は、以下の流れになります。省略して書いた部分の詳細は <b><a href="/doc/readme.html">「epstdmarc/epstarcについて」readme.html</a></b> をご覧ください。<br>
+<ol><b><li>DNSへの設定</li></b>
+セレクタ名付きのTXTレコードとして次の形式で追加します。<br>
+　[セレクタ名]._domainkey.[ドメイン名].　...　[作成鍵] 
+<br>
+追加した後、コマンドプロンプトから nslookup コマンドで確認します。<br>
+　nslookup -type=txt [セレクタ名]._domainkey.[ドメイン名].<br>
+設定した鍵の情報が返ってくることを確認できればOKです。<br>
+<br>
+<b><li>&quot;epstdkim.ini&quot;（DKIM署名および検証対応テーブル）への設定</li></b>
+次に上記DNSで定義した、セレクタ名をメールのサイン用に指定する必要があります。&quot;epstdkim.ini&quot; をメモ帳等で管理者権限で開き、下記を追加すれば完了です。<br>
+　-------------------------------<br>
+　@[ドメイン名] [セレクタ名]<br>
+　-------------------------------<br>
+例えば ドメイン名=e-postinc.jp で セレクタ名=e0002 としている場合以下のように追加します。<br>
+　---------------------------<br>
+　@e-postinc.jp e0002<br>
+　---------------------------<br>
+<br>
+<b><li>サインがメールに行えるかの確認（動作確認方法の個所）</li></b>
+管理者権限でコマンドプロンプトを開き、epstdmarcのインストールフォルダに移動、サインテスト用のダミーのメール<EML形式のファイル名>を用意して、コマンド実行後、[EML形式のファイル名] にサインされることを確認します。<br>
+　.\epstdmarc.exe [送信元IP] [送信元エンベロープ(From address)] [EML形式のファイル名] [実行したマシン名FQDN]<br>
+サイン内容は、メモ帳等で[EML形式のファイル名] を開き &quot;DKIM-Signature:&quot; ヘッダが追加されていればOKです。<br>
+※EML形式ファイルについてですが、E-Postシリーズのメールボックスフォルダ内に保管されているメールデータである.MSGファイルもEML形式ファイルです。ファイル拡張子を .MSGから .emlに変更すれば、確認用途にそのままファイルを使用できます。<br>
+<br>
+<b><li>レジストリに有効の設定を記述、EPSTRS のサービスを再起動</li></b>
+レジストリに OnDKIM（DWORD）および DomainAUTHDKIM（文字列）を作成、レジストリ値を設定して epstdmarc.exe を有効にする設定を記述したあと、EPSTRS のサービスを再起動します。<br>
+<small><blockquote>HKEY_LOCAL_MACHINE<br>
+→SYSTEM<br>
+　→CurrentControlSet<br>
+　　→Services<br>
+　　　→EPSTRS<br>
+　　　　→OnDKIM　　DWORD値（SPF確認の有無 0:しない/1:する）1を設定<br>
+　　　　→DomainAUTHDKIM　文字列（フルパスでepstdmarc.exeを指定する）<br>
+　　　　　〔プログラムインストールフォルダに保管した場合は、ショートパス名で<br>
+　　　　　 "C:\PROGRA~1\EPOST\MS\epstdmarc\epstdmarc.exe" を設定〕</blockquote></small>
+なおこのとき、arcヘッダの追加設定が不要であり、ARCは未設定にしておく場合、epstdmarc のインストールフォルダにある epstarc.exe は起動しないように "~epstarc.exe" とファイル名の先頭をリネームしておいてください。ファイル名をリネームしておくことで、epsdmarc.exe から呼び出された epstarc.exe がエラーとなり、イベントビューアにエラー記録が残るのを防げます。<br>
+<br>
+<b>（参考FAQ）</b><br>
+●<a href="./faq06-27.html">EPSTDMARC を使ってDKIM/DMARC設定したがARC未設定だと epstarc のエラーが出てしまう</a><br>
+</ol>
+以上で設定は完了になります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

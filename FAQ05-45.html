@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-45</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	dd {
+		padding:0;
+		margin:0 0 0.5em 0em;
+		padding:3px;
+		background:#f4f3e8;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>イベントログに EPSTRS イベントID:100 の警告が多発している</b></FONT>
+<HR>
+<br>
+イベントビューアーの［Windowsログ］-［Application］に記録されるイベントログ中に「EPSTRS イベントID:100」の警告が多発している場合は、以下の設定不備が原因となっているおそれがあります。設定項目を確認してください。<br><ul><li>Mail Control画面の「サービス制御」タブ画面にあるEPSTRSの［詳細］で設定しているリッスンするIPアドレスとメールサーバマシンに割り当てているIPが一致していない可能性。</li>
+<li>他のサービスがSMTPの25番ポートを使用してしまっているおそれがあり、そのため使用できないことでサービスが正常に開始できない可能性。</li></ul>
+上記前者の設定については、次に設定箇所にあるIPアドレスが正しいか確認してください。<br><ul><li>Mail Control画面→「サービス制御」タブ→各サービスの［詳細］→一覧のアドレスに応答する設定をしているときのIPアドレス</li>
+<li>Mail Control画面→「ドメイン管理」タブ→登録済みドメインの［詳細］→「接続するドメイン/IPで区別する」設定にしているときのIPアドレス</li></ul>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-46.html">イベントビューアーに記録されるイベントIDの一覧</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

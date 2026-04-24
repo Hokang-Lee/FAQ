@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-72</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>ウイルスパターンファイル更新の記録を取るには</b></FONT>
+<HR>
+<BR>
+Enterprise / Enterprise II 版でウイルスパターンファイル更新の記録を開始するには、次のように行います。<br>
+<br>
+<b>［パターンファイル更新の記録を取り、ログを確認する］</b><br>
+<ol>
+<li>「サービス制御」タブにあるVMCSの［詳細］ボタンをクリック。<br>
+<li>表示されるダイアログの「ログを残す」チェックボックスをオンにする。<br>
+<li>ダイアログを閉じ、VMCSを「停止」→「開始」してサービス再起動する。<br>
+<li>プログラムインストールフォルダ（C:\Program Files\EPOST\MS）内の &quot;log&quot; フォルダに日付ごとのファイルが作成され、パターンファイル更新記録がされているのを確認する。<br>
+</ol>
+<b>［パターンファイル更新ログ事例］</b><br>
+（ファストスキャン版アンチウイルスエンジン）<br>
+<HR align="left" size="1" noshade width="85%">
+<blockquote><small>
+[00:35:46:421] <br>
+ktzautoupd (0.516) Copyright 2010-2011 K-TEC Inc. All rights reserved.<br>
+<br>
+[00:35:46:421] mPath = [C:\PROGRA~1\EPOST\MS]<br>
+[00:35:46:421] mProxy = []<br>
+[00:35:46:421] Start download nam index....<br>
+[00:35:46:421] [DOWNLOAD_ADK_DB_SITE] GetRemoteData() http://fastxxxx.xxxxxx.com/database/update-xx99/xxx.html<br>
+[00:35:46:796] [HttpRequestHeader] send(0740):107 bytes<br>
+[00:35:46:828] [DOWNLOAD_ADK_DB_SITE] GetRemoteData() success.(0)<br>
+[00:35:46:828] QueryDataBase()<br>
+[00:35:46:828]  [Client DB]<br>
+[00:35:46:828]   MD5:4cb52a1c0b2f0cc974275fd96739f6dc<br>
+[00:35:46:828]   Size:58d<br>
+[00:35:46:828]   Date:2011-08-04 07:29<br>
+[00:35:46:828]  [Master DB]<br>
+[00:35:46:828]   MD5:4cb52a1c0b2f0cc974275fd96739f6dc<br>
+[00:35:46:828]   Size:58d<br>
+[00:35:46:828]   Date:2011-08-04 07:29<br>
+[00:35:46:828] result = mach<br>
+[00:35:46:828] Skip download nam database....<br>
+[00:35:46:828] Start download wte index....<br>
+[00:35:46:828] [DOWNLOAD_ADK_DB_SITE] GetRemoteData() http://fastxxxx.xxxxxx.com/database/update-xx99/xxx.html<br>
+[00:35:47:203] [HttpRequestHeader] send(0728):107 bytes<br>
+[00:35:47:218] [DOWNLOAD_ADK_DB_SITE] GetRemoteData() success.(0)<br>
+</small></blockquote>
+<HR align="left" size="1" noshade width="85%"><br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-10.html">本メールサーバで使用されているフォルダについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

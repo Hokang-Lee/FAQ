@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-38</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>SMTP認証（SMTP-AUTH）設定の手順</b></FONT>
+<HR>
+<BR>
+SMTP認証（SMTP-AUTH）を可能にする場合は以下の手順にて設定を行って下さい。<BR>
+<BR>
+<b>１. E-Post Mail Controlの設定</b><BR>
+　最初に「E-Post Mail Control」にて、サービスがSMTP認証の実行を可能にする設定を行います。<BR>
+<br>
+ <IMG SRC="img/faq01-38-01.gif"><BR>
+<br>
+　E-Post Mail Control<br>
+　　→［サービス制御］タブ<br>
+　　　→［SMTP認証方法］＝「PLAIN LOGIN CRAM-MD5」を選択（※1）<br>
+　　　→［セキュリティレベル］＝「認証ファイル」を選択<br>
+<br>
+　「適用」ボタンをクリックし、その後 <b>EPSTRSの［停止］ボタン→［開始］ボタンをクリックすることでサービス再起動</b> します。<br>
+<blockquote>（※1）［SMTP認証方法］はいちばん下の &quot;PLAIN LOGIN CRAM-MD5&quot; にしておけば、メールクライアント側からアクセスしてきたとき、接続時に自動的に調整され、いちばん強いいずれかの方法で認証しようとします。</blockquote>
+<b>２. E-Post Account Manager の設定</b><BR>
+　次に「E-Post Account Manager」にて、各ユーザーがSMTP認証での接続有無を設定します。<BR>
+<BR>
+ <IMG src="img/faq01-38-02.gif"><br>
+<br>
+ <IMG src="img/faq01-38-03.gif"><BR>
+<BR>
+　Account Manager<BR>
+　　→［ドメインツリー］を選択<BR>
+　　　→ツリーから［User］をクリック<BR>
+　　　　→右側で該当アカウントを選択し、ダブルクリック<BR>
+　　　　　→［アカウント設定ダイアログ］で「SMTP-AUTH ＆ APOPを使用」チェックボックスをオン。<BR>
+<BR>
+　「ＯＫ」ボタンをクリックしダイアログボックスを閉じると、パスワード入力が促されますので正しいパスワードを入力してください。<BR>
+<BR>
+以上でサーバー側の設定は完了します。続いてメールクライアント側でもSMTP認証可能な設定を行えば、メールの送信がSMTP認証にて行えるようになります。<BR>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

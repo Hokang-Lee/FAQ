@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-48</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>大量のエラーリターンメールが生成されたときEPSTDSが停止する現象について</b></FONT>
+<HR>
+<br>
+大量配送を行って、さらに大量にエラーのリターンメールが生成されたとき、EPSTDSサービスがエラーを起こして停止してしまう現象が発生する場合、EPSTDSのバージョンが4.47以前のままで使用していないか確認してください。既に以下のような対策が取られています。<br>
+<br>
+この問題の対策が取られているのは、4.48以降です。早急に「サポート２」より最新差分アップデートプログラムを適用し、最新のモジュールに置き換えてください。なお、以降の最新版では累積的に適用されています。<br>
+<br>
+過去に対策が取られたEPSTDSの修正点<br>
+--------------------------------------------------------------------<br>
+ [EPSTDS]<br>
+ v4.48 2009.12.25<br>
+ 　2.エラーメール送信時にハングすることがあった不具合の対策。<br>
+ （ハングアドレス 0x15639）<br>
+--------------------------------------------------------------------<br>
+<br>
+（この現象の詳細と原因について）<br>
+存在する他ドメイン宛の不明アドレスに大量に同報送信を行うと、結果的に&quot;User Unknown&quot;となりますが、EPSTDSのバージョンがv4.47以前のモジュールを使っているとき、エラーメールのリターン時に生成されるメールデータにおいて、メッセージIDに異常な文字列を出力してしまうことがあり、そのときに、EPSTDSサービスが停止してしまう現象が確認されています。この現象の原因は、コンパイラ側の不具合であることが後に判明、4.48以降ではコンパイラのオプションを見直し、対策を取っています。<br>
+<br>
+なお、v4.47以前のモジュールであっても、通常の大量配送しないケースではこの現象はめったに起きません。また、単純に大量配送を行うだけでも、現象は起きません。大量配送を行った上で、（数百数千を超える）大量のエラーリターンメールが生成されたときに、現象が起きることがわかっています。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

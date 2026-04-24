@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-03</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windows Server 2003 R2以降のIISでWeb管理を設定するときの注意点</b></FONT>
+<HR>
+<br>
+<b>Windows Server 2003 R2環境でのIIS設定について</b><br>
+<br>
+Windows Server 2003 R2以降のIIS設定では、出荷時より「既定のWebサイト」への匿名アクセスが限定されており、マニュアルに記載されている従来通りの設定方法では、Web管理のCGIプログラムを動作させることができないようです。<br>
+R2以降のIISのデフォルト状態では、「既定のWebサイト」にCGI設定したとき動作しません。<br>
+これは、仮想ディレクトリ&quot;cgi-bin&quot;の&quot;アクセス許可&quot;の設定にインターネットゲストアカウント（例：IUSR_xxxxxx）が含まれていないためです。以下の設定を行うことで、Web管理を起動させることが可能になります。<br>
+<br>
+<b>1. &quot;cgi-bin&quot;フォルダの「アクセス許可」を設定し、インターネットゲストアカウントを追加、&quot;フルコントロール&quot;を設定する。</b><br>
+<br>
+追加された仮想ディレクトリ&quot;cgi-bin&quot;を選択、右クリックメニューから「アクセス許可」を設定、インターネットゲストアカウントを追加し、さらに&quot;フルコントロール&quot;を設定します。<br>
+<p align="center"><a href="./img/faq09-03-01.gif"><img src="./img/faq09-03-01s.gif" border="0"></a><br>
+<br>
+<a href="./img/faq09-03-02.gif"><img src="./img/faq09-03-02s.gif" border="0"></a></p>
+<br>
+<b>2. &quot;cgi-bin&quot;フォルダ下の Epstuser.exe を Administrator アカウントで実行する設定に変更する。</b><br><br>
+&quot;cgi-bin&quot;フォルダ下のCGIプログラム Epstuser.exe を選択、右クリックメニューから「プロパティ」、「ファイルセキュリティ」タブ画面にある「認証とアクセス制御」の［編集］ボタンをクリックし、Administrator アカウントでCGIプログラムを実行する設定にします。<br>
+<p align="center"><a href="./img/faq09-03-03.gif"><img src="./img/faq09-03-03s.gif" border="0"></a></p>
+仮想Webサイトを新規作成した場合は、1.のアクセス権が含まれているため、特別な設定をしないで動作可能です。また、匿名接続が可能な仮想サイトへディレクトリを作成する方法でも動作可能と考えられます。<br>
+<br>
+※Windows Server 2003 R2以降にリリースされたWindowsでは、上記のようにIISの設定が変えられていると思われます。ここで掲げた設定を行ってみてください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

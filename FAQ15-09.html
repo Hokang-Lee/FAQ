@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-09</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directory連携時でのログインパスワードにダブルクォーテーション（&quot;）や円マーク（\）を使用しているときの問題と対応について</b></FONT>
+<HR>
+<br>
+Active Directory連携時でのログインパスワードにダブルクォーテーション（&quot;）や円マーク（\）の文字を使用しているとき、POP3/IMAP4サービス利用時に該当するログインユーザーは、パスワードを正しく返すことができず、結果として認証エラーとなります。<br>
+この問題の原因として、POP3サービス時のUSER命令、IMAP4サービス時のLOGIN命令を受ける際、ダブルクォーテーションが含まれているパスワードの場合に、ダブルクォーテーション（&quot;）以降の文字列をいわゆる囲み文字として、削る処理を行うことが原因です。円マーク（\）が含まれているパスワードも同様です。そのため、正常にパスワード取得ができないために認証が失敗する結果になります。<br>
+<br>
+現行バージョンでの運用にあたっては、Active Directory連携時でのログインパスワードにダブルクォーテーション（&quot;）や円マーク（\）を禁則文字として扱っていただくようお願いします。<br>
+2016年1月12日以降の最新差分アップデートでは、Active Directory連携時でのログインパスワードにダブルクォーテーション（&quot;）および円マーク（\）を使用しているときでも、パスワードとして有効に通すことができるように対策が取られました。EPSTPOP3S v4.35 および EPSTIMAP4S v4.50 以降のバージョンならばこの対策が取られています。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

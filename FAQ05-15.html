@@ -1,0 +1,521 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-15</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post Mail Server (x64) / E-Post SMTP Server (x64) で使用している設定ファイル＆レジストリ <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<PRE>
+<B>■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定</B>
+    <small><font color="darkgreen">※設定ファイルの拡張子種類は、次の通り値の型を表わす。レジストリのBINARY,DWORD,STRINGの型に該当。
+       （ .0 = BINARY,  .1 = DWORD,  .2 = STRING及びその他の形式 ）
+     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font>
+
+[メール作業フォルダ]内
+->REG
+ ->SOFTWARE
+  ->EMWAC
+   ->IMS
+     ->UserManager.1         (DWORD  Default 1) 1:Windows Account, 0:Soft Account
+     ->Membership.2          (SZ     Default NULL) NULL=Windows Accountの場合、マシンのローカルグループを使用
+                                     Soft Accountの場合、ユーザアカウントDB名
+     ->SendDataTimeout.1     (DWORD  Default 60)sec (送信タイムアウト時間:default 60秒)
+     ->AddressFamily.1        (DWORD  Default 0) 0:IPv4 only, 1:IPv6 only, 2:IPv4&IPv6 mix
+     ->AccountLength.1        (DWORD  Default 20) Soft Account運用時でのアカウント最大文字数(最大値=64)
+                                     <font color="blue">(EPSTMANAGER v4.28～)</font>
+     ->FullnameLength.1     (DWORD  Default 30) Soft Account運用時でのフルネーム最大文字数(最大値=64)
+                                     <font color="blue">(EPSTMANAGER v4.28～)</font>(注意) FullnameLength.1での指定サイズは
+                                    AccountLength.1の指定サイズに影響し、ホーム項の入力サイズにも影響する
+     ->PasswordLength.1     (DWORD  Default 14) パスワードの最大入力数を変更 (MAX 64byte,最大値=64)
+                                     <font color="blue">(EPSTMANAGER v4.33～)(EPSTUSER v4.36～)</font>
+     ->SecureAccountDB.1    (DWORD  Default 0) Soft Accountデータベース内のパスワードの暗号化指定オプション
+                                     0:プレーン 1:暗号化 <font color="blue">(EPSTMANAGER v4.32～)(EPSTUSER v4.35～)</font>
+     ->XOAUTH2.1            (DWORD  Default 0) SMTP認証のコンボボックスの表示幅を拡張
+                                     0:XOAUTH2をコンボボックスに表示しない 1:XOAUTH2をコンボボックスに表示する
+                                     <font color="blue">(EPSTCONTROL v4.37～)</font>
+     ->HostName.2             (SZ     Default NULL) IPv6 host name.
+     ->DomainNamesAreLocal.0  (BINALY Default NULL) 運用ドメインリスト
+     ->MailInCopy.0             (BINARY Default NULL) Mail Carbon copy address.
+     ->MailInMaxSize.1        (DWORD  Default 0) 0:無制限 1メール当りの限界サイズ
+     ->MailInBoxSize.1        (DWORD  Default 0) 0:無制限 1メールボックス当りの保存限界サイズ
+     ->RCPTMaximum.1          (DWORD  Default 0) 0:無制限 あて先(RCPT TO:)数の制限
+     ->MailInBoxDir.2          (SZ     Default %HOME%\INETMAIL\INBOX) メールボックスフォルダ
+     ->LastMsgId.1             (DWORD  Default 0) メール受信カウンタ
+     ->MailGroup.2              (SZ     Default IMSUsers) Windows Accountの場合、メールローカルグループ名
+     ->MailSpoolDir.2           (SZ     Default %SystemRoot%\SYSTEM32\EPOST\MAIL) メール作業フォルダ
+     ->MailFilterUp.1           (DWORD  Default 0) 0:しない 1:する メールフィルタ処理の強化
+                                      '1'の指定で'*[STRING]*'のようなワイルドカード指定が可能になる
+     ->LocalFailuresToPostmaster.1 (DWORD  Default 0) 0:Disable, 1:Enable エラーメールをpostmasterに送信
+     ->PostMaster.2             (SZ     Default administrator) postmasterアカウント
+     ->POP3IsNotUsed.1       (DWORD  Default 0) 0:反映しない 1:反映する  POP3禁止を全アカウントに反映する
+     ->SearchLocalTime.1     (DWORD  Default 1) 0:UTC日付 1:ローカル日付 IMAP4で日付検索を行う場合
+                                      従来はデフォルト[UTC日付]、該当バージョンから[ローカル日付]に変更
+                                       <font color="blue">(EPSTIMAP4S v4.48(h)～)</font>
+     ->SearchAccessType.1    (DWORD  Default 0) 0:更新日時 1:アクセス日時 2:作成日時  IMAP4で日付検索を行う場合
+                                      従来はデフォルト[ファイル作成日時]、該当バージョンから[ファイル更新日時]に変更
+                                       <font color="blue">(EPSTIMAP4S v4.48(h)～)</font>
+     ->AutoCreateFolder.1    (DWORD  Default 1) 1:作成する 0:作成しない
+                                      IMAP4ログイン時にルートフォルダ（POP3で使う場所と同じ）が存在しない場合
+                                      フォルダを自動作成する <font color="blue">(EPSTIMAP4S v4.52～)</font>
+     →AutoSubDirAndMsg.1    (DWORD  Default 1) 1:削除する 0:削除しない
+                                      削除対象フォルダにメールやサブフォルダが含まれていても削除可能にする
+                                       <font color="blue">(EPSTIMAP4S v4.54～)</font>
+     ->Aliases                  (KEY)  エイリアス管理用
+       ->00000000               (KEY)  エイリアスその0
+         ->Alias.2              (SZ     Default NULL) エイリアス名
+         ->MappedTo.2           (SZ     Default NULL) 実アドレス
+       ->00000001               (KEY)  エイリアスその1
+         ->Alias.2              (SZ     Default NULL) エイリアス名
+         ->MappedTo.2           (SZ     Default NULL) 実アドレス
+       ->00000002               (KEY)  エイリアスその2
+           : 以下繰り返し
+         
+     ->Lists                    (KEY) メーリングリスト管理用
+       ->[ML-list name1]        (KEY) メーリングリスト名1
+         ->BounceAction.1       (DWORD  Default 0) 未送信レポート先 0:送信しない,1:送信者に戻す,2:返信者を指定
+         ->BouncesTo.2          (SZ  Default NULL) 未送信レポート指定時メールアドレス
+         ->CharSet.2            (SZ  Default NULL) UTF-8: ARTICLE INDEXコマンドで返される一覧表示メールのヘッダを
+                                     Content-Type: text/plain; charset="UTF-8" に置き換え
+         ->ListPassword.2       (SZ  Default NULL) 投稿パスワード
+         ->ListSave.1           (DWORD  Default 0) 投稿内容を保存 0:保存しない,1:保存する
+         ->ListSaveFolder.2     (SZ  Default NULL) 投稿内容保存先
+         ->ListSaveExtension.2  (SZ  Default TXT）投稿内容保存ファイルの拡張子の指定 <font color="blue">(EPSTRS v4.A9～ EPSTDS v4.72～)</font>
+         ->ListSaveOrign.1     （DWORD  Default 0) 投稿内容保存ファイルに添付削除の有無を無視して原本メールを保存
+                                         0:添付削除の有無に依存 1:原本のまま <font color="blue">(EPSTRS v4.A9～)</font>
+         ->ListSaveURL.2        (SZ  Default NULL）投稿内容保存ファイルのWebからの参照用URL <font color="blue">(EPSTRS v4.A9～)</font>
+         ->ListSaveHTMLIndex.1 （DWORD  Default 1) 投稿内容保存ファイルのHTML形式のインデックスファイルの作成
+                                         1:作成する 0:作成しない <font color="blue">(EPSTRS v4.A9～)</font>
+         ->MlId.1               (DWORD  Default 0) カウンタ値
+         ->MlToken.2            (SZ  Default NULL) 付加表題＆カウント方法
+         ->Moderator.2          (SZ  Default NULL) 管理人アドレス
+         ->ModeratorControlJoin.1 (DWORD  Default 0) 入会要求は管理人へ転送
+         ->ModeratorControlLeave.1(DWORD  Default 0) 退会要求は管理人へ転送
+         ->ReplyTo.1            (DWORD  Default 1) Reply-To:ヘッダを付加する 0:しない,1:する
+         ->WhoCanSend.1         (DWORD  Default 1) 投稿者の条件 1:メンバーのみ,2:誰でも,3:管理人のみ
+         ->Members              (KEY) 参加者管理用
+           ->[mail address]     (KEY) 参加者メールアドレス
+                  : 繰り返し
+       ->[ML-list nameN] (メーリングリスト名１)
+         : 以下繰り返し
+         
+     ->Domain
+       ->Operation              (KEY) ドメイン毎の操作パスワード（空白＝パスワード無し）
+           ->[domain name1].2   (SZ) eg.password1
+                 :
+           ->[domain nameN].2   (SZ) eg.password2
+     ->Secur
+       ->SysPassword.2          (SZ) メールサーバーの操作パスワード（空白＝パスワード無し）
+</small>
+<B>■個別情報－レジストリに設定</B>
+    <small><font color="darkgreen">※秒数、回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。
+      ただし、0,1の2値のときは、どちらでも同じなので16進でも可。</font>
+
+HKEY_LOCAL_MACHINE
+ ->SOFTWARE
+  ->EMWAC
+   ->IMS
+     ->MailSpoolDir          (SZ  Default C:\mail ) メール作業フォルダ
+     ->LISTENADDRPRI    (DWORD  Default 1) リッスンIPアドレスのFQDNをホスト名にする
+                               1:優先する 0:優先しない(ホスト名) <font color="blue">(EPSTRS v4.AE～)</font>
+  ->EPOST
+   ->IMS
+     ->Domain
+       ->AcountNumber        (KEY) ドメイン毎の登録者数上限値 (0＝無制限)
+            ->[domain name1]  (DWORD  Default 0)
+                :
+            ->[domain nameN]
+       ->Folder              (KEY) ドメイン毎のメールボックス保存フォルダ位置
+            ->[domain name1]  (SZ) eg.domain1.co.jp
+                :
+            ->[domain nameN]  (SZ) eg.domainN.co.jp
+       ->MTAIP               (KEY) ドメイン毎の送信IP
+            ->[送信元エンベロープのドメイン名] (BYNARY) 送信IPアドレスバイナリ値
+              [例] [送信元エンベロープのドメイン名]を"hogehoge.jp"とし
+              送信元IP=(172.20.116.4)とする場合
+              バイナリ値="31 37 32 2e 32 30 2e 31 31 36 2e 34"を指定
+       ->SmtpIP              (KEY) ドメインに対応するSMTP-IPアドレス（空白＝マシンに設定されている全てのIPに応答）
+            ->[domain name1]  (SZ) eg.192.168.0.3
+                :
+            ->[domain nameN]  (SZ) eg.192.168.0.4
+       ->Pop3IP              (KEY) ドメインに対応するPOP3-IPアドレス（空白＝マシンに設定されている全てのIPに応答）
+            ->[domain name1]  (SZ) eg.192.168.0.3
+                :
+            ->[domain nameN]  (SZ) eg.192.168.0.4
+       ->Imap4IP             (KEY) ドメインに対応するIMAP4-IPアドレス（空白＝マシンに設定されている全てのIPに応答）
+            ->[domain name1]  (SZ) eg.192.168.0.3
+                :
+            ->[domain nameN]  (SZ) eg.192.168.0.4
+
+</small>
+<B>[EPSTRS]</B> (E-POST SMTP Receiver)
+<small>HKEY_LOCAL_MACHINE
+ SYSTEM
+  ->CurrentControlSet
+   ->Services
+     ->EPSTRS                  (KEY)
+       ->Timeout                (DWORD  Default 300)sec  無通信状態タイムアウト
+       ->SpoolFsSync          (DWORD  Default 1000) incomingフォルダへの滞留可能最大メール数 0:無制限
+       ->MovefileRetry        (DWORD  Default 300000)ms incomingフォルダへの移動リトライ上限(300000ms=30秒) 0:無制限 <font color="blue">(v4.A5～)</font>
+       ->PatternOfTheOnce   (DWORD  Default 500) フィルタデータパターンの一括処理数。
+       ->PasswordFile         (SZ   Default apop.dat) SMTP認証パスワード設定ファイル名
+       ->ListenMode           (DWORD  Default 0) 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ
+       ->ListenIP                (SZ   Default NULL) 指定IPアドレス：ポート設定
+       ->ImagePath            (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+       ->DefaultCode          (SZ   Default us-ascii) us-ascii=ASCII, iso-2022-jp=JIS  自動応答文字コード
+       ->RecvDataBufferSize   (DWORD  Default 0) 0:システムに依存  socket受信バッファサイズ
+       ->AcceptLimit            (DWORD  Default 0) 同時接続数 0:無制限
+       ->AcceptlogEnabled     (DWORD  Default 0) 接続マシンログ(acceptlog) 0:Disable, 1:Enable
+       ->SMTPAUTHOnly        (DWORD  Default 0) 0:両方 1:認証専用 2:認証ファイル毎  セキュリティレベル
+       ->SMTPAUTHMode        (SZ     Default NO) PLAIN,LOGIN,CRAM-MD5  SMTP認証方式,  "XOAUTH2"を追加 <font color="blue">(v4.AG～)</font>
+       ->ChallengeTokenLOGINUser (SZ Default Username:) AUTH LOGINでの応答時チャレンジ文字列設定 <font color="blue">(v4.AK～)</font>
+       ->ChallengeTokenLOGINPass (SZ Default Password:) AUTH LOGINでの応答時チャレンジ文字列設定 <font color="blue">(v4.AK～)</font>
+       ->VirusCheck            (DWORD  Default 0) 0:Disable, 1:Enable メールフィルタ実行フラグ
+       ->ThirdPartyModeule   (SZ   Default NULL) アンチウイルス機能のモジュールKasp.dllのインストール先フルパス
+                                        表記 <font color="blue">(Enterprise II 版のみ)</font>
+       ->ThirdPartyCalltype   (DWORD  Default 0) 0:popen, 1:spawnl  CUIプログラムの呼出し方法 <font color="blue">(v4.99～)
+                                        (Enterprise II 版のみ)</font>
+       ->OnDKIM                (DWORD  Default 0) 0:しない, 0以外:する  SPF確認の有無 <font color="blue">(v4.AI～)(EPSTDKIM/EPSTDMARC組み込み時)</font>
+                                (bit1 上長承認通知メールへの記載 0:しない / 1(0x2):する)
+                                (bit2 ML添付分離メールへの記載 0:しない / 1(0x4):する)
+       ->DomainAUTHDKIM      (SZ   Default NULL) epstdkim.exe, epstdmarc.exeをフルパス指定 <font color="blue">(EPSTDKIM/EPSTDMARC組み込み時)</font>
+                               （例 &quot;C:\PROGRA~1\EPOST\MS\epstdkim.exe&quot;）
+                               （例 &quot;C:\PROGRA~1\EPOST\MS\epstdmarc.exe&quot;）
+       ->Received               (DWORD  Default 20) メールループ最大回数
+       ->UsedSSL               (DWORD  Default 0) TRUE:SSL使用, FALSE:SSL不使用
+       ->Certificate             (SZ     Default 空白) SSL/TSL 証明書ファイル名
+       ->Private-Key            (SZ     Default 空白) SSL/TSL 個人鍵ファイル名
+       ->UsedSTARTTLS      (DWORD  Default 1) STARTTLS命令を使用 0:Disable, 1:Enable
+       ->SecureLayOption    (DWORD  Default 3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止
+                                    7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止
+                                    31:TLS1.2以前禁止 <font color="blue">(v4.A2～)</font>
+                                    ※10進指定。&quot;31&quot;指定でTLS1.2以前禁止となりTLS1.3以降のみの許可となる
+       ->SecuerLayCipher     (SZ  Default ALL) 利用する暗号アルゴリズムの組み合わせオプション（最大1023文字）<font color="blue">(v4.A6～)</font>
+                                    ※TLSv1.3の暗号組み合わせ名を&quot;:&quot;で区切る。以下が既定値
+<small>                         &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&quot;</small>
+       ->SecureLevel          (DWORD  Default 0) SSL_CTX_set_security_levelの設定に相当 レベル:0 ～ 5 <font color="blue">(v4.AI～)</font>
+       ->HidesGreeting        (DWORD  Default 0) グリーティングでの製品名・バージョン表示 0:表示する, 1:非表示
+       ->ADRetryTime          (DWORD  Default 10) ADへのユーザ情報問合せリトライ回数
+       ->ADRetryMSec          (DWORD  Default 1000)msec  ADへのユーザ情報問合せリトライ間隔時間(単位:ミリ秒)
+       ->ADCashLiveTime      (DWORD  Default 0)sec AD連携のアカウント情報問合せ時のキャッシュ機能有効時間,0:無効 <font color="blue">(v4.92～)</font>
+       ->AuthLockOut          (DWORD  Default 0) 認証失敗時に接続元IPからの接続ロックアウト機能とロックアウトまでの回数 0:無効 <font color="blue">(v4.93～)</font>
+       ->AuthLockOutTime    (DWORD  Default 0)min  認証失敗時に接続元IPからの接続ロックアウト期間(単位:分) <font color="blue">(v4.93～)</font>
+       ->IPLockOut              (DWORD  Default 0) 指定時間内でのIP毎の同時接続可能数 0:制限無し <font color="blue">(v4.A4～)</font>
+                                     ※下の設定とともに任意値設定で有効に働く。例・10,30（回）&quot;rejectsmtpip.dat&quot; にデータ蓄積
+       ->IPLockOutSPTime    (DWORD  Default 0)sec 同上サンプリング間隔(単位:秒) <font color="blue">(v4.A4～)</font>
+                                     ※上の設定とともにサンプリング間隔設定で有効に働く。例・1 (秒)
+       ->IPLockOutTime       (DWORD  Default 0)sec 同上ロックアウト時間(単位:秒) <font color="blue">(v4.A4～)</font>
+                                     ※上2つの設定によるロックアウト時間。例・300,60 (秒)
+       ->UTF8ToSJISTBL       (BINARY) 付加表題付きMLでのUTF8コードをSJISコードに変換テーブル追加 <font color="blue">(v4.AI～)</font>
+                             <small>(Default値 E2 80 93 EF BC 8D 20 E2 80 94 EF BC 8D 20 E2 88 92 EF BC 8D)
+                                CODE1 E28093→EFBC8D, CODE2 E28094→EFBC8D, CODE3 E28892→EFBC8D
+                                これ以外は [SP][UTF8元コード][UTF8置換コード] という書式でレジストリ値に追加</small>
+       ->Parameters              (KEY)
+         ->PortNo                 (DWORD  Default 25)
+         ->MailInlogEnabled   (DWORD  Default 0) SMTP受信ログ(inlog) 0:Disable, 1:Enable
+         ->MailQueueDir        (SZ   incoming) メール受信フォルダ名
+</small>
+<B>[EPSTDS]</B> (E-POST SMTP Delivry Agent)
+<small>HKEY_LOCAL_MACHINE
+ SYSTEM
+  ->CurrentControlSet
+   ->Services
+     ->EPSTDS                 (KEY)
+       ->SendMaxRetryTime     (DWORD  Default 8)h リトライ終了時間
+       ->RetryRule                (DWORD  Default 1) 0:定期的,1:倍数的 リトライの方法
+       ->SendDataBufferSize   (DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ
+       ->SendDataTimeout      (DWORD  Default 1200)sec 送信１回当りのタイムアウト時間
+       ->RecvDataTimeout      (DWORD  Default 1200)sec 応答１回当りのタイムアウト時間
+       ->ThreadType            (DWORD  Default 1) 1:マルチスレッド, 0:シングルスレッド
+       ->MaxThread             (DWORD  Default 1) 送信スレッド数
+       ->SendGateway          (SZ   NULL) Gatewayアドレス
+       ->IncludeForward       (DWORD  Default 1) SMTPゲートウェイ欄にゲートウェイ先明記のとき
+                            セッションを分離しない機能。ゲートウェイ先のセッション:
+                            1:セッション分離しない 0:セッション分離する <font color="blue">(v4.77～)</font>
+       ->MailForward           (DWORD  Default 0) 0:Disable, 1:Enable 全受信をGatewayへ転送
+       ->MailForward2         (DWORD  Default 0) DNS問合せ後にSMTPゲートウェイの処理順位
+                                      0:DNS問合せ前, 1:DNS問合せ後 <font color="blue">(v4.57～)</font>
+       ->ESMTP                     (DWORD  Default 0) 0:Disable, 1:Enable Greeting を EHLO で行うか否か
+       ->SMTPAUTHId           (SZ   NULL) SMTP認証時のID
+       ->SMTPAUTHPass        (SZ   NULL) SMTP認証時のPassword
+       ->SMTPAUTHMode       (SZ   NULL) PLAIN,LOGIN,CRAM-MD5  SMTP認証方式,  "XOAUTH2"を追加 <font color="blue">(v4.78～)</font>
+       ->ExpansionGatewayTable  (DWORD  Default 0) ゲートウェイ先ごとにSMTP認証ID,PWの規定を有効にするオプション 0:無効 1:有効 <font color="blue">(v4.75～)</font>
+                         <small>[gateway.datの新書式]
+                         '対象ドメイン,ゲートウェイ先(FQDN or IP)|[0,1,2,3]|([ID]|[PW])
+                         'or(BASE64([ID]|[PW])or(BASE64(Original encoding([ID]|[PW]))),接続ポート(*)
+                         '[ID],[PW]ともMAX127byte。
+                         '[0,1,2]
+                          0=SMTP-AUTHを実施しない。
+                          1=SMTP-AUTHを[ID]|[PW]の生データを使って実施する。
+                          2=SMTP-AUTHを[ID]|[PW]情報をBASE64エンコードされている文字列を使って実施する。
+                          3=SMTP-AUTHを[ID]|[PW]情報を独自エンコード後にBASE64エンコードされている文字列を使って実施する。</small>
+       ->ImagePath              (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+       ->GetRCPWait          （DWORD  Default 10) 配送スレッドが減るのを防ぐため配送スレッドウエイト制限数設定
+       ->MailSendLocallogEnabled  (DWORD  Default 0) SMTPローカル送信ログ(outlocallog) 0:Disable, 1:Enable
+       ->MailFaillogEnabled    (DWORD  Default 0) SMTP配送失敗ログ(faillog) 0:Disable, 1:Enable
+       ->SenderlogEnabled     (DWORD  Default 0) 配送時の詳細ログ(senderlog)長出力 0:Disable, 1:Level1ログ, 2:Level2ログ
+       ->Sender2logEnabled    (DWORD  Default 1) 配送時の詳細ログ(senderlog)短出力 0:Disable, 1:Enable
+       ->SaveDead               (DWORD  Default 1) 0:しない 1:する deadフォルダに保管するか否か
+       ->LogicalIP                (SZ   Default NULL) 空白(NULL)は常に配送実行、IPアドレスを設定すると該当IP獲得時のみ配送実行
+                                      クラスタ構成（E-Post/MSFC）のとき獲得する論理IP（仮想IP）を設定
+       ->UsedSTARTTLS        (DWORD  Default 1) STARTTLS命令を使用 0:Disable, 1:Enable
+       ->SecureLayOption    (DWORD  Default 3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止
+                                    7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止
+                                    31:TLS1.2以前禁止 <font color="blue">(v4.67～)</font>
+                                    ※10進指定。&quot;31&quot;指定でTLS1.2以前禁止となりTLS1.3以降のみの許可となる
+       ->SecuerLayCipher     (SZ  Default ALL) 利用する暗号アルゴリズムの組み合わせオプション（最大1023文字）<font color="blue">(v4.69～)</font>
+                                    ※TLSv1.3の暗号組み合わせ名を&quot;:&quot;で区切る。以下が既定値
+<small>                         &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&quot;</small>
+       ->SecureLevel          (DWORD  Default 0) SSL_CTX_set_security_levelの設定に相当 レベル:0 ～ 5 <font color="blue">(v4.81～)</font>
+       ->RecodeBadSTLSDomain  (DWORD  Default 1) STARTTLSで暗号化ネゴシェーションに失敗した宛先ドメイン
+                                     リスト作成と失敗先へのプレーン送信自動切替  1:切替する 0:切替しない <font color="blue">(v4.80～)</font>
+       ->ADRetryTime          (DWORD  Default 10) ADへのユーザ情報問合せリトライ回数
+       ->ADRetryMSec          (DWORD  Default 1000)msec  ADへのユーザ情報問合せリトライ間隔時間(単位:ミリ秒)
+       ->ADCashLiveTime      (DWORD  Default 0)sec AD連携のアカウント情報問合せ時のキャッシュ機能有効時間,
+                                      0:キャッシュ無効 <font color="blue">(v4.61～)</font>
+       ->ReturnMailForm       (DWORD  Default 2) エラー返信時バウンスメール構成内容の選択オプション
+                                      0:テキスト 1:添付ファイル 2:マルチパートレポート <font color="blue">(v4.56～)</font>
+       ->UseTimeFileEnabled   (DWORD  Default 0) 送信許可時間の設定機能 <font color="blue">(v4.60～)</font>
+                                      0:無効 1:許可[送信先条件] 2:許可[送信元＆送信先条件]
+       ->UseTimeFile          (SZ     Default &quot;usetime.dat&quot;) 送信許可時間の設定機能定義ファイル名の設定項目 <font color="blue">(v4.60～)</font>
+       ->SelectCase          (DWORD  Default 2) &quot;MAIL From:&quot;,&quot;RCPT To:&quot;のコマンド出力を&quot;MAIL FROM:&quot;,&quot;RCPT TO:&quot;に変更可能なオプション
+                                      SelectCase動詞部分の大小文字の選択: 0:従来 1:小文字 2:大文字 <font color="blue">(v4.76～)</font>
+       ->MTAIPOn             (DWORD  Default 0)&quot;Reporting-MTA&quot;ヘッダにメール受領時のFQDNがセットされるようにする
+                                      0:しない 1:する <font color="blue">(v4.75～)</font>
+       ->XUIDL               (DWORD  Default 0) メールボックスへメールを保管する際 &quot;X-UIDL: [ファイル名]&quot;のヘッダを挿入するオプション
+                                      0:無効 1:有効（追加する） <font color="blue">(v4.77～)</font>
+       ->ReturnMailEnvelopeTo (SZ   Default 空白) (空白=エンベロープの送信元) 
+                                      エラーメールのエンベローブの送信先として利用するヘッダ一覧
+                                      指定する場合は参照対象となるヘッダ名を半角スペースで区切って指定 <font color="blue">(v4.80～)</font>
+                     <small>設定例) &quot;Return-Path From Sender Reply-To Return-Receipt-To Errors-To Resent-Sender Resent-From Resent-Reply-To&quot;</small>
+       ->ReturnMailEnvelope   (DWORD  Default 1) 1:<>空白 0:管理者アカウント
+                                     以下の（&quot;ReturnMailEnvelopeFrom&quot;）が定義されている場合は
+                                     （&quot;ReturnMailEnvelopeFrom&quot;）の設定値が優先される <font color="blue">(v4.80～)</font>
+       ->ReturnMailEnvelopeFrom (SZ  Default 空白) (空白=エンベロープの送信先) 
+                                      エラーメールのエンベローブの送信元として利用するヘッダ一覧
+                                      指定する場合は参照対象となるヘッダ名を半角スペースで区切って指定 <font color="blue">(v4.80～)</font>
+                     <small>設定例) &quot;To Cc Bcc Apparently-To Resent-To Resent-Cc Resent-Bcc&quot;</small>
+       ->ReplyMailEnvelopeTo  (SZ  Default 空白) (空白=エンベロープの送信元) 
+                                      自動応答メールのエンベローブの送信先として利用するヘッダ一覧
+                                      指定する場合は参照対象となるヘッダ名を半角スペースで区切って指定 <font color="blue">(v4.80～)</font>
+                     <small>設定例) &quot;Return-Path From Sender Reply-To Return-Receipt-To Errors-To Resent-Sender Resent-From Resent-Reply-To&quot;</small>
+       ->ReplyMailEnvelopeFrom (SZ  Default 空白) (空白=エンベロープの送信先) 
+                                      自動応答のエンベローブの送信元として利用するヘッダ一覧
+                                      指定する場合は参照対象となるヘッダ名を半角スペースで区切って指定 <font color="blue">(v4.80～)</font>
+                     <small>設定例) &quot;To Cc Bcc Apparently-To Resent-To Resent-Cc Resent-Bcc&quot;</small>
+       ->OnDKIM               (DWORD default 15) 送信エラー,ML制御応答,転送メール,自動応答へのDKIM/ARCサイン追加オプション <font color="blue">(EPSTDKIM/EPSTDMARC組み込み時)(v4.81～)</font>
+                                   （デフォルト 15:全て追加する）
+                                     (bit0 送信エラー 0:しない / 1(0x1):する）
+                                     (bit1 ＭＬ制御応答 0:しない / 1(0x2):する）
+                                     (bit2 転送メール 0:しない / 1(0x4):する）
+                                     (bit3 自動応答 0:しない / 1(0x8):する）
+       ->Parameters           (KEY)
+         ->Timeout            (DWORD  Default 120)sec リトライ間隔
+         ->PortNo               (DWORD  Default 25)
+         ->MailOutlogEnabled    (DWORD  Default 0) SMTP送信ログ(outlog) 0:Disable, 1:Enable
+</small>
+<B>[EPSTPOP3S]</B> (E-POST POP3 Server) (※Mail Serverシリーズのみ、SMTP Serverは非該当)
+<small>HKEY_LOCAL_MACHINE
+ SYSTEM
+  ->CurrentControlSet
+   ->Services
+     ->EPSTPOP3S              (KEY)
+       ->Timeout                 (DWORD  Default 300)sec 無通信状態タイムアウト
+       ->PasswordFile          (SZ   Default apop.dat) APOP認証パスワード設定ファイル名
+       ->SendDataBufferSize  (DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ
+       ->AcceptLimit            (DWORD  Default 0) 同時接続数 0:無制限
+       ->AcceptlogEnabled    (DWORD  Default 0) POP3の詳細ログ(receivepop3) 0:Disable, 1:Enable
+       ->MailExtension        (SZ   Default "MSG") メールメッセージファイルの拡張子、デフォルト".MSG"
+       ->ListenMode           (DWORD  Default 0) 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ
+       ->ListenIP                (SZ   Default NULL) 指定IPアドレス：ポート設定
+       ->SendDataTimeout    (DWORD  Default 60)sec 送信１回当りのタイムアウト時間
+       ->ImagePath            (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+       ->UsedSSL               (DWORD  Default 0) TRUE:SSL使用, FALSE:SSL不使用
+       ->Certificate             (SZ   Default 空白) SSL/TSL 証明書ファイル名
+       ->Private-Key           (SZ   Default 空白) SSL/TSL 個人鍵ファイル名
+       ->UsedSTARTTLS       (DWORD  Default 1)STARTTLS命令を使用 0:Disable, 1:Enable 
+       ->SecureLayOption    (DWORD  Default 3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止
+                                    7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止
+                                    31:TLS1.2以前禁止 <font color="blue">(v4.43～)</font>
+                                    ※10進指定。&quot;31&quot;指定でTLS1.2以前禁止となりTLS1.3以降のみの許可となる
+       ->SecuerLayCipher     (SZ  Default ALL) 利用する暗号アルゴリズムの組み合わせオプション（最大1023文字）<font color="blue">(v4.45～)</font>
+                                    ※TLSv1.3の暗号組み合わせ名を&quot;:&quot;で区切る。以下が既定値
+<small>                         &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&quot;</small>
+       ->SecureLevel          (DWORD  Default 0) SSL_CTX_set_security_levelの設定に相当 レベル:0 ～ 5 <font color="blue">(v4.50～)</font>
+       ->HidesGreeting        (DWORD  Default 0) グリーティングでの製品名・バージョン表示 0:表示する, 1:非表示
+       ->APOPEnable           (DWORD  Default 1) 0:Disable, 1:Enable  APOPコマンド使用
+       ->AUTH                    (DWORD  Default 1) POP-AUTHの有効無効 デフォルト 1:有効 0:無効 <font color="blue">(v4.40～)</font>
+       ->AUTHMode             (SZ   Default PLAIN LOGIN CRAM-MD5)利用可能なPOP-AUTHの種類 <font color="blue">(v4.40～)</font>,  "XOAUTH2"を追加 <font color="blue">(v4.49～)</font>
+       ->ADRetryTime          (DWORD  Default 10) ADへのユーザ情報問合せリトライ回数
+       ->ADRetryMSec          (DWORD  Default 1000)msec  ADへのユーザ情報問合せリトライ間隔時間(単位:ミリ秒)
+       ->ADCashLiveTime      (DWORD  Default 0)sec AD連携のアカウント情報問合せ時のキャッシュ機能有効時間,0:キャッシュ無効 <font color="blue">(v4.35～)</font>
+       ->AuthLockOut          (DWORD  Default 0) 認証失敗時に接続元IPからの接続ロックアウト機能とロックアウトまでの回数 0:無効 <font color="blue">(v4.36～)</font>
+       ->AuthLockOutTime    (DWORD  Default 0)min  認証失敗時に接続元IPからの接続ロックアウト期間(単位:分) <font color="blue">(v4.36～)</font>
+       ->IPLockOut              (DWORD  Default 0) 指定時間内でのIP毎の同時接続可能数 0:制限無し <font color="blue">(v4.44～)</font>
+                                     ※下の設定とともに任意値設定で有効に働く。例・10,30（回）&quot;rejectpopip.dat&quot; にデータ蓄積
+       ->IPLockOutSPTime    (DWORD  Default 0)sec 同上サンプリング間隔(単位:秒) <font color="blue">(v4.44～)</font>
+                                     ※上の設定とともにサンプリング間隔設定で有効に働く。例・1 (秒)
+       ->IPLockOutTime       (DWORD  Default 0)sec 同上ロックアウト時間(単位:秒) <font color="blue">(v4.44～)</font>
+                                     ※上2つの設定によるロックアウト時間。例・300,60 (秒)
+       ->RetryReadMSG        (SZ   Default 10) RETR命令で指定ファイルのアクセス失敗時のリトライ回数 <font color="blue">(v4.51～)</font>
+       ->Parameters             (KEY)
+         ->PortNo                 (DWORD  Default 110) POP3ポート番号
+         ->Pop3LogEnabled    (DWORD  Default 0) POP3基本ログ  0:Disable, 1:Enable
+         ->ExclusiveAPOP      (DWORD  Default 0) POP/APOP排他利用設定  0:Disable, 1:Enable
+</small>
+<B>[EPSTIMAP4S]</B> (E-POST IMAP4rev1 Server) (※Mail Serverシリーズのみ、SMTP Serverは非該当)
+<small>HKEY_LOCAL_MACHINE
+ SYSTEM
+  ->CurrentControlSet
+   ->Services
+     ->EPSTIMAP4S             (KEY)
+       ->Timeout                (DWORD  Default 1800)sec 無通信状態タイムアウト
+       ->PasswordFile         (SZ   Default apop.dat) APOP認証パスワード設定ファイル名
+       ->SharedRoot           (SZ   Default 空白) 共有フォルダルート
+       ->SharedMode           (DWORD  Default 0) 共有フォルダアクセス権　0:読込み専用 1:読み書き可
+       ->SendDataBufferSize (DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ
+       ->AcceptLimit             (DWORD  Default 0) 同時接続数 0:無制限
+       ->AcceptlogEnabled    (DWORD  Default 0) IMAP4の詳細ログ(receiveimap4) 0:Disable, 1:Enable
+       ->MailExtension        (SZ   Default "MSG") メールメッセージファイルの拡張子、デフォルト".MSG"
+       ->ListenMode           (DWORD  Default 0) 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ
+       ->ListenIP                (SZ   Default NULL) 指定IPアドレス：ポート設定
+       ->SendDataTimeout  (DWORD  Default 300)sec 送信１回当りのタイムアウト時間
+       ->ImagePath            (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+       ->UsedSSL              (DWORD  Default 0) TRUE:SSL使用, FALSE:SSL不使用
+       ->Certificate            (SZ   Default 空白) SSL/TSL 証明書ファイル名
+       ->Private-Key           (SZ   Default 空白) SSL/TSL 個人鍵ファイル名
+       ->UsedSTARTTLS      (DWORD  Default 1) STARTTLS命令を使用 0:Disable, 1:Enable 
+       ->SecureLayOption   (DWORD  Default 3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止
+                                    7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止
+                                    31:TLS1.2以前禁止 <font color="blue">(v4.59～)</font>
+                                    ※10進指定。&quot;31&quot;指定でTLS1.2以前禁止となりTLS1.3以降のみの許可となる
+       ->SecuerLayCipher     (SZ  Default ALL) 利用する暗号アルゴリズムの組み合わせオプション（最大1023文字）<font color="blue">(v4.61～)</font>
+                                    ※TLSv1.3の暗号組み合わせ名を&quot;:&quot;で区切る。以下が既定値
+<small>                         &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&quot;</small>
+       ->SecureLevel          (DWORD  Default 0) SSL_CTX_set_security_levelの設定に相当 レベル:0 ～ 5 <font color="blue">(v4.70～)</font>
+       ->HidesGreeting        (DWORD) Default 0) グリーティングでの製品名・バージョン表示  0:表示する, 1:非表示
+       ->ADRetryTime          (DWORD  Default 10) ADへのユーザ情報問合せリトライ回数
+       ->ADRetryMSec          (DWORD  Default 1000)msec  ADへのユーザ情報問合せリトライ間隔時間(単位:ミリ秒)
+       ->ADCashLiveTime     (DWORD  Default 0)sec AD連携のアカウント情報問合せ時のキャッシュ機能有効時間,0:キャッシュ無効 <font color="blue">(v4.50～)</font>
+       ->ImapAuthType        (SZ   Default "CRAM-MD5,LOGIN,PLAIN") CAPABILITY 命令で応答する認証方法の制限指定
+                                     デフォルト:&quot;CRAM-MD5,LOGIN&quot;<font color="blue">(v4.30～v4.57)</font>, デフォルト:&quot;CRAM-MD5,LOGIN,PLAIN&quot;<font color="blue">(v4.58～)</font>,  "XOAUTH2"を追加 <font color="blue">(v4.65～)</font>
+       ->SimpleAuth           (DWORD  Default 0) 認証ファイルがない時にAUTHENTICATE LOGIN/PLAIN命令での処理
+                                      を可能にするオプション 0:無効(従来) 1:有効 <font color="blue">(v4.63～)</font>
+       ->UIDRecover           (DWORD  Default 0) IMAPフォルダ内のUID値情報が壊れた場合の回復機能
+                                      0:スキップ 1:実行 <font color="blue">(v4.35～)</font> 
+       ->IDLETimeout          (DWORD  Default 1800)sec NOOP命令のみのセッションで新着が1800秒(=30分)ないときセッションを切断
+                                     デフォルト:1800秒  0:タイムアウトしない <font color="blue">(v4.36～)</font>
+       ->IDLECmd              (DWORD  Default 1) IDLE命令の有効化  0:Disable, 1:Enable <font color="blue">(v4.43e～)</font>
+       ->IDLELoop             (DWORD  Default 5)sec IDLE命令実施中の監視間隔 デフォルト:5秒 <font color="blue">(v4.43e～)</font>
+       ->IDLEMSLoop           (DWORD Default 1000) msec IDLE命令実施中の監視間隔ミリ秒単位指定 デフォルト:1000ミリ秒
+                                     0指定は無効で1ミリ秒に強制変更 <font color="blue">(v4.73～)</font>
+                                     ※IDLELoop値×IDLEMSLoop値が実際のIDLEポーリング間隔。IDLELoop値を1,IDLEMSLoop値を300と
+                                     設定した場合 IDLELoop×IDLEMSLoopで300ミリ秒となる <font color="blue">(v4.73～)</font>
+       ->NOOPPoll             (DWORD  Default 1) NOOP命令内でのフォルダポーリング実行の有無  0:Disable, 1:Enable <font color="blue">(v4.44～)</font>
+       ->Broadcast            (DWORD  Default 1) 同一フォルダの操作情報を接続中の各セッションに同報するオプション <font color="blue">(v4.47～)</font>
+                                      0:Disable, 1:Enable
+       ->PutLockCount        (DWORD  Default 3)sec 同一フォルダの操作情報を接続中のセッションに同報する
+                                     排他用フラグチェックのタイムアウト値 <font color="blue">(v4.47～)</font>
+       ->AnyOtherFS           (DWORD  Default 0) NTFS以外のファイルシステムからのファイル一覧取得可能にする一覧ソート
+                                      0:NTFSのみ（従来） 1:NTFS以外 <font color="blue">(v4.61～)</font>
+       ->AuthLockOut          (DWORD  Default 0) 認証失敗時に接続元IPからの接続ロックアウト機能とロックアウトまでの回数 0:無効 <font color="blue">(v4.51～)</font>
+       ->AuthLockOutTime   (DWORD  Default 0)min  認証失敗時に接続元IPからの接続ロックアウト期間(単位:分) <font color="blue">(v4.51～)</font>
+       ->IPLockOut              (DWORD  Default 0) 指定時間内でのIP毎の同時接続可能数 0:制限無し <font color="blue">(v4.60～)</font>
+                                     ※下の設定とともに任意値設定で有効に働く。例・10,30（回）&quot;rejectimapip.dat&quot; にデータ蓄積
+       ->IPLockOutSPTime    (DWORD  Default 0)sec 同上サンプリング間隔(単位:秒) <font color="blue">(v4.60～)</font>
+                                     ※上の設定とともにサンプリング間隔設定で有効に働く。例・1(秒)
+       ->IPLockOutTime       (DWORD  Default 0)sec 同上ロックアウト時間(単位:秒) <font color="blue">(v4.60～)</font>
+                                     ※上2つの設定によるロックアウト時間。例・300,60 (秒)
+       ->BulkSearch           (DWORD  Default 1) SEARCH命令で検査対象のメールデータ読込みを1回で処理 1:する 0:しない <font color="blue">(v4.67～)</font>
+       ->BulkFetch            (DWORD  Default 0) FETCH ENVELOPE命令で取得のメールデータ読込みを1回で処理 0:しない 1:する <font color="blue">(v4.67～)</font>
+       ->FetchDisposition     (DWORD  Default 0) FETCH BODYSTRUCTURE命令応答でContent-Disposition:ヘッダの"filename="項目のみ出力か否かの選択
+                                    0:filenameのみ出力, 1:filename以外もあれば出力 <font color="blue">(v4.67～)</font>
+       ->BodyPeekCoolTime (DWORD  Default 0) FETCH命令で添付受信時にCPU負荷低減用調整値
+                                    0:調整しない, 調整値 50～65535 <font color="blue">(v4.68～)</font>
+                                    調整値50(10進)でCPU負荷は約半分、受信時間は約3倍
+                                    調整値100(10進)でCPU負荷は約6割、受信時間は約2倍
+                                    調整値500(10進)でCPU負荷は約8割、受信時間は約1.2倍
+       ->SendErrEscape      (DWORD  Default 1) FETCH応答時の通信エラーが発生しているとき送信を行わないでセッションを終了
+                                    1:中断する, 0:中断しない <font color="blue">(v4.69～)</font>
+       ->Parameters           (KEY)
+         ->PortNo                 (DWORD  Default 143) IMAP4ポート番号
+         ->Imap4LogEnabled  (DWORD  Default 0) IMAP4基本ログ  0:Disable, 1:Enable
+</small>
+<B>[VMCS]</B> (E-POST Virus Modify Client Service) (※Enterprise II 版のみ)
+<small>HKEY_LOCAL_MACHINE
+ SOFTWARE
+  ->CurrentControlSet
+   ->Services
+     ->VMCS                   (KEY)
+      ->ImagePath             (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+      ->ScanRequestTimeout    (DWORD  Default: 30000)msec ウイルスチェックでのリクエスト待ちタイムアウト時間(=30秒) 
+                               <font color="blue">(Kasp.exeのタイムスタンプ:2013-07-13～)</font>
+      ->FileKeepTimeout       (DWORD  Default: 900000)msec リクエスト前にスキャン対象ファイルがアクセス可能になるまでの
+                               待ち時間用タイマ値(=15分) <font color="blue">(Kasp.exeのタイムスタンプ:2013-07-13～)</font>
+</small>
+<B>[IPWCS]</B> (E-POST IPWatcher) (※E-Postクラスタ構成時のみ)
+<small>HKEY_LOCAL_MACHINE
+ SOFTWARE
+  ->EPOST
+   ->IPWCS
+      ->LogEnabled            (DWORD  Default 0) 動作ログの採取  0:しない, 1:する
+      ->Interval              (DWORD  Default 30)sec  仮想IP監視間隔（秒）
+      ->Balance               (DWORD  Default 0) 定期的に仮想IPを開放する  0:しない(Master), 1:する(Slave)
+      ->ReleaseTime           (DWORD  Default 60) 仮想IP開放サイクル（回）(例：60回×Interval値30秒＝約1800秒毎）
+      ->PingTimeout           (DWORD  Default 3)sec 監視先マシンの無応答タイムアウト時間（秒）
+      ->ReleaseIPCmd          (SZ   Default "arp -d") 仮想IPアドレス開放時に実行するコマンド
+                               デフォルト"arp -d" <font color="blue">(v1.13～)</font>
+      ->AddIPCmd              (SZ   Default "ping -n 2 [Add-IP]") 仮想IPアドレス取得時に実行するコマンド
+                               デフォルト"ping -n 2 [Add-IP]" [Add-IP]は取得IPアドレスが自動でセット <font color="blue">(v1.14～)</font>
+HKEY_LOCAL_MACHINE
+ SOFTWARE
+  ->CurrentControlSet
+   ->Services
+     ->IPWCS                  (KEY)
+      ->ImagePath             (SZ   Default NULL) サービスプログラムのインストール先フルパス表記
+</small>
+</pre>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

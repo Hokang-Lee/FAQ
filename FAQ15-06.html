@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SSL/TLS設定で認証局が発行するSHA2（sha256）の証明書に対応しているか <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+SSL/TLS通信設定時に認証局が発行するSHA2（sha256）の証明書に対応しているかについて説明します。<br>
+<br>
+これまでSSL/TLS通信時の証明書について、2016年1月以前は 64bit版 E-Post(x64)シリーズでは Openssl 0.9.8n を利用したDLLを使っており、32bit版 E-Postシリーズでは、Openssl 0.9.7m を利用したDLLを使っておりました。さらに E-Postシリーズ用SSLサーバ証明書の発行要求書の作成を行うには、「ダウンロード」公開ページに用意してある <b>SSL-Key.zip</b> から解凍して得られるバッチファイルをお使いいただいていましたが、そちらではバージョンが古く、SHA2で発行要求書が作れません。新しく用意した openssl.exe を組み込んだ <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> をダウンロードしていただき、&quot;CERTIFICATE.BAT&quot; バッチファイルから「公開鍵証明書」と「秘密鍵」を作成、SSLサーバ証明書の発行要求書を作成してください。<br>
+なお、2019年1月の最新差分（20181224差分）が適用された64bit版 E-Post(x64)シリーズおよび32bit版 E-Postシリーズのバージョンからは、Openssl 1.0.2q (1.0.2.17) のDLLに更新されOpenssl 1.1.1x系のDLLが新たに追加されています。これはTLS1.3を可能にしSSLv2を廃止するためOpensslライブラリを1.0.2系から1.1.1系に置換えることを目的としています。ちなみに2020年12月公開の最新差分ではOpenssl 1.1.1h (1.1.1.8) のDLLになっています。<br>
+TLS/SSL通信を行う環境を構築していて、E-Postシリーズの最新差分アップデート「20181224差分」（公開日: 2019-01-24）以降が適用された環境では、必ず <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> に含まれる &quot;CERTIFICATE.BAT&quot; バッチファイル（opensslコマンドを含む）を使って証明書を作り直すようにしてください。<br>
+<br>
+<a href="../download_x64.html#tool" target="_blank">「ダウンロード」公開ページ</a><br>
+<br>
+ちなみに、SHA2（sha256）の証明書に対応するのは、公式的には Openssl 0.9.8以降とされていますが、グローバルサインのクイックSSLで発行されたSHA2（sha256）で生成されているテスト証明書を使って見たところ、いずれも正常に動作することを確認しました。<br>
+今後のことを考えた場合、<b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> に含まれるバッチファイルを使っていただくことと合わせ、最新バージョンである Openssl 1.1.1x系以降のDLLを供給している 64bit版 E-Post(x64)シリーズ、32bit版E-Postシリーズの最新差分をダウンロードして適用するようにしてください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-13.html">SSL/TLS通信使用時にTLS1.3のみ有効にさせる方法について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

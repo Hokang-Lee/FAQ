@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-82</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAP4利用時にCPU高負荷状態になることを避けるオプション <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTIMAP4S v4.67/v4.68以降には、IMAP4利用時にCPU高負荷状態になることを避けるオプションがあります。万が一、IMAP4サービスのCPU使用率が100%になる高負荷状態になってしまう場合は、以下の設定をお試しください。<br>
+<br>
+<b>設定１．「FETCHコマンドのタイミング調整」</b><br>
+FETCH命令で添付受信時にCPU負荷が上がり過ぎる場合、負荷低減用調整値が設定可能になっています。v4.68 以降追加されました。レジストリによりこのCPU負荷低減用調整値を設定します。例として値：50や値：100を設定します。<br>
+※ユーザーによって数十MB程の大きなメール取得がある場合、実はIMAP4サービスの負担が大きな影響を与えます。サービスが大きなメール処理だけにかかりっきりにならないようにするのがこの設定の趣旨です。<br>
+<small><br>
+（レジストリ）※CPU負荷低減用調整値の設定（EPSTIMAP4S v4.68以降）<br>
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→BodyPeekCoolTime (DWORD Default 0) FETCH命令で添付受信時にCPU負荷低減用調整値<br>
+　　　　　　デフォルト 0:調整しない 調整値 50～65535<br>
+　　　　　　（調整値の目安）<br>
+　　　　　　50(10進)でCPU負荷は約半分程度、受信時間が3倍程度に伸びる<br>
+　　　　　　100(10進)でCPU負荷は約6割程度、受信時間が2倍程度に伸びる<br>
+　　　　　　500(10進)でCPU負荷は約8割程度、受信時間が1.2倍程度に伸びる<br>
+<br></small>
+「FETCHコマンドのタイミング調整」BodyPeekCoolTime（v4.68 以降）は、高速化を狙って検索（SEARCH命令）や読出し（FETCH命令）をメモリ上でファイル単位に処理することをデフォルトで行うようにしています。CPU使用率高負荷の現象は、他のI/O（DISK）アクセスでの待ち時間が減ると、CPUの占有率が見た目で上昇してしまうことが起こり得るためです。<br>
+<br>
+<b>設定２．「SEARCH命令で検査対象のメールデータ読込みを1回で処理（検索機能のチューニング）」</b><br>
+<br>
+「SEARCH命令で検査対象のメールデータ読込みを1回で処理（検索機能のチューニング）」BulkSearchです。これは対象ファイルの検索処理をメモリ読み込み後にメモリ上で行うかDISK上でファイルを読みながら行うかの選択オプションです。v4.67 以降追加されました。<br>
+先の「FETCHコマンドのタイミング調整」BodyPeekCoolTime の設定でもし改善されない場合、以下のレジストリ値 BulkSearch を'0'に設定することで、DISK上から順次ファイルのデータを読みながら検索させることになります。これにより、CPUとDISKアクセスに負荷を分散できます。<br>
+<br><small>
+（レジストリ）※SEARCH命令で検査対象のメールデータ読込みを1回で処理（EPSTIMAP4S v4.67以降）<br>
+HKEY_LOCAL_MACHINE<br>
+　→>SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→BulkSearch (DWORD Default 1）1:する 0:しない<br>
+　　　　　　これを'0'に設定するとDISK上から順次ファイルのデータを読みながら検索させる<br>
+<br></small>
+このレジストリ値 BulkSearch も、DISKアクセスを主体とするか、メモリアクセスを主体にするかの選択です。そのため場合によってはCPU使用率高負荷現象の低減には効果がある可能性があります。その分、I/O（DISK）アクセスに負荷が分散され、その間CPUの占有が解放されると言う意味です。 <br>
+<br>
+EPSTIMAP4S v4.67/v4.68以降の改修では、高速化を狙って検索（SEARCH命令）や読出し（FETCH命令）をメモリ上でファイル単位に処理することをデフォルトで行うようにしています。前述したように、CPU使用率高負荷の現象は、他のI/O（DISK）アクセスでの待ち時間が減ると、CPUの占有率が見た目に上昇することが起こり得ます。設けられたオプションを設定し、最大限に活用してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-15.html">E-Post Mail Server (x64) / E-Post SMTP Server (x64) で使用している設定ファイル＆レジストリ</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

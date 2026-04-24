@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-02</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Web管理を使ってユーザー自身が自分のパスワードを変更できるようにするには</b></FONT>
+<HR>
+<br>
+E-Post Mail Server・E-Post SMTP Serverのアカウントマネージャ操作画面は、どちらかというと、メールサーバ全体を管理するシステム管理者が行うべきもので、ユーザー自身が自分のパスワードのみ変更させるインターフェースになっていません。<br>
+<br>
+そこで、ユーザー自身が自分のパスワードのみを変更できるようにするには、標準で添付されているCGIプログラムの「Web管理」（webmanager）を利用することによって、ユーザーが自身のパスワードをブラウザから変更できるようになります。<br>
+<br>
+メールサーバマシンにIISかApacheのWebサーバを稼働させ、CGIプログラムのWeb管理（webmanager）を動作させるようにできれば、トップメニューから「ユーザー管理メニュー」を呼び出すことで、ユーザー自身が自分のパスワードを変更できます。<br>
+<br>
+<b>［Web管理画面］[1]</b>　（トップメニュー）<br>
+<p align="center"><img src="./img/userpassword0.jpg" border="0"></p>
+<b>［Web管理画面］[2]</b>　（ユーザー管理メニュー－既存のパスワードで認証）<br>
+<p align="center"><img src="./img/userpassword1.jpg" border="0"></p>
+<b>［Web管理画面］[3]</b>　（ユーザー管理メニュー－パスワード変更）<br>
+<p align="center"><img src="./img/userpassword2.jpg" border="0"></p>
+<br>
+ただし、ここであげたデフォルトのトップメニューでは、システム関連の操作メニューも見えてしまいますので、ユーザーに戸惑わせることなく、自分自身のパスワードを変更できるようにするには、上記の[1]画面の左側フレームから、「システム管理メニュー」「ドメイン管理者メニュー」を隠してしまえばよいでしょう。左側フレームのソースである"index_l.html"を編集してください。<br>
+あるいは、以下のように、ユーザーには"index_l_user.html"を直接開いてもらう方法でもよいかもしれません。ただし、直接開いた場合、「戻る」リンクが残るのでその部分を消しておくことが必要になること、フレーム構造を使わない画面での操作になるため、操作終了後の画面に「戻る」操作がブラウザのボタンに頼ることになり、オペレーション上支障が出ると判断された場合は、操作終了後の画面などにも「戻る」先を作っておく必要が出てきたりするでしょう。<br>
+このように、少し修正個所が多くなることに注意してください。<br>
+<br>
+<b>［Web管理画面］[4]</b>　［index_l_user.html］<br>
+<p align="center"><img src="./img/userpassword3.jpg" border="0"></p>
+<br>
+htmlファイル群はリネームを含め、カスタマイズ可能なので、使用環境や使用形態に合わせてうまく適用させてください。<br>
+なお、より詳細な情報として、技術資料『Web 管理 HTML カスタマイズガイド Rev1.0』がサポート２のダウンロードコーナーにアップされていますので参照してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

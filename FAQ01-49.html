@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-49</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDS（SMTP配送サービス）でアプリケーションエラーが発生した</b></FONT>
+<HR>
+<BR>
+EPSTDS（SMTP配送サービス）でアプリケーションエラーが発生した場合、以下のような運用を行っていないか確認してください。<br><br>
+<b>1.アンチウイルスソフトをサーバにインストールし、「メール作業フォルダ」をウイルススキャンしていないか？</b><br>
+<blockquote>アンチウイルスソフトをサーバにインストールしているとき、「メール作業フォルダ」内のウイルスチェックを定期的に行ったり、リアルタイムスキャンを行っている場合、メール送受信処理との間で「メール作業フォルダ」内ファイルの取り合い、いわゆる“ファイル競合”が発生します。<br>
+その結果、メール送受信を行っている最中に、予期せぬアプリケーションエラー（I/Oエラー）が発生してしまい、かなりの確率でEPSTDSサービスが停止してしまいます。<br>
+<br><b>[対策]「メール作業フォルダ」内のリアルタイムスキャンは絶対に行わないで、除外する設定を必ず行って下さい。</b><br>
+</blockquote>
+<b>2.不用意なタイミングで、サービスやOS（マシン）に対して、再起動をかけていないか？</b><br>
+<blockquote>EPSTDSがアプリケーションエラーは、配送中にサービスを意図的に停止させたり、配送セッションを強制的に停止させられたことによっても、発生することがまれにあります。<br>
+配送中にセッションを強制終了させられたとか、配送中にサービスの再起動、OSの再起動などをしたときなども含みます。<br>
+<br>
+<b>[対策]「メール作業フォルダ」内の &quot;incoming&quot; フォルダにメールデータが空であることを念のため確認してから、サービス停止・再起動してください。OSの再起動も同様です。</b><br>
+</blockquote>
+（関連FAQ）<br>
+●<a href="./faq03-08.html">メールサーバマシンにアンチウイルスソフトを同居させるときの注意点</a>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

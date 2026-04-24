@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-35</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post Mail Controlのバージョン情報でバージョン表示が &quot;unknown version&quot; となっている <font color="#ff0000">new!</font></b></FONT><br>
+<HR>
+<br>
+E-Post Mail Controlのバージョン情報でメインのバージョンやCOMPONENT LISTが &quot;unknown version&quot; の表示になってしまっている場合、アンインストールとインストールを続けたケースで、以前のレジストリ設定値が食い違った状態で残ってしまっている可能性があります。<br>
+<br>
+レジストリの設定値のうち、下記の設定値を確認してください。<br>
+<small>　HKEY_LOCAL_MACHINE<br>
+　->SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTRS<br>
+　　　　　->ImagePath       (文字列) サービスプログラムのインストール先フルパス表記<br>
+<br>
+　　　　->EPSTDS<br>
+　　　　　->ImagePath      (文字列)  サービスプログラムのインストール先フルパス表記<br>
+<br>
+　　　　->EPSTPOP3S<br>
+　　　　　->ImagePath      (文字列)  サービスプログラムのインストール先フルパス表記<br>
+<br>
+　　　　->EPSTIMAP4S<br>
+　　　　　->ImagePath      (文字列)  サービスプログラムのインストール先フルパス表記<br>
+</small><br>
+レジストリ設定値は、インストーラーに任せたデフォルト設定状態では、EPSTRSサービスを例にあげるなら、&quot;C:\PROGRA~1\EPOST\MS\epstrs.exe&quot; のようなショートファイルネームを利用したパスで設定されます。現行バージョンでは、これを &quot;C:\Program Files\EPOST\MS\epstrs.exe&quot; のようにロングファイルネームのパス表記に修正しても、ショートファイルネームのパス表記でもどちらでも有効です。<br>
+レジストリ設定値の上記４個所を確認し、正しい設定値になっていなければ、いったんE-Post Mail Control画面を閉じ、Windowsのサービス制御からサービス停止を確認した上で、レジストリを正しく設定してください。その後、E-Post Mail Control画面を開いて表示を確認してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

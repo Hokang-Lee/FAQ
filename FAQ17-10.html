@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-10</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>〔新機能〕POP3接続時の「IPロックアウト機能」について <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+E-Postシリーズに従来から実装されていた接続ロックアウト機能について、DDos攻撃のような連続無差別攻撃に対して有効なセキュリティ対策を強化するため、POP3認証接続時の認証接続ロックアウト機能に加える形で、新たにIPロックアウト機能が追加されました。<br>
+IPロックアウト機能では一定の時間（サンプリング間隔）の間に設定回数以上の連続した接続に対し、設定されたロックアウト時間の間、接続を拒絶します。このIPロックアウト機能により、特定のIPアドレスから繰り返されるDDos攻撃のような連続無差別攻撃に対しても、接続そのものを自動的に遮断できるようになります。その結果、サーバーの負荷を高めずにセキュリティ対策を強化できます。IPロックアウト機能を使用するには、以下を参照してください。<br>
+このIPロックアウト機能は、2019年6月20日に公開された最新差分アップデートでPOP3サービスに実装されています。機能を使うには20190606差分以降の最新差分アップデートの適用が必要です。<br>
+<br>
+<b>【基本機能と仕様】</b><br>
+<ol><li>POP3接続時の「IPロックアウト機能」は、レジストリ設定でキーを設定します。<br>
+<li>POP3接続時に &quot;IPLockOutSPTime&quot; で設定される一定の時間（サンプリング間隔）の間に &quot;IPLockOut&quot; で設定される設定回数以上の連続接続に対し、&quot;IPLockOutTime&quot; で設定されたロックアウト時間の間、接続を拒絶します。POP3接続時に特定の同一IPアドレスからの接続回数が設定された回数に達したとき、接続元IPアドレスと接続時間情報（シリアル値）をプログラムインストールフォルダ内に自動生成される <b>&quot;rejectpopip.dat&quot;</b> ファイルにテーブル情報として追記で記録します。右端に表記される <font color="#cc0000"><b>&quot;iplock&quot;</b></font> はIPロックアウト機能による拒絶の目印となります。<br>
+<li><b>&quot;rejectpopip.dat&quot;</b> ファイルはプログラムインストールフォルダ（既定値 C:\Program Files\EPOST\MS\）内に自動生成されます。設定ファイル <b>&quot;rejectpopip.dat&quot;</b> はメールサーバ管理者がダイレクトにメモ帳などのエディタで開いてください。<br>
+<li>&quot;IPLockOutTime&quot; で設定されたロックアウト期間＝接続拒絶期間の間、EPSTPOP3Sサービスは該当IPアドレスからの接続を一切拒絶し、接続時に強制切断します。これにより認証までに至らないPOP3接続のDDos攻撃に対して強力な威力を発揮します。<br>
+<li>&quot;IPLockOutTime&quot; で設定されたロックアウト期間＝接続拒絶期間をすぎると、自動的に再度接続が可能となります。再び &quot;IPLockOutSPTime&quot; で設定される一定時間（サンプリング間隔）の間に &quot;IPLockOut&quot; で設定される設定回数以上の連続接続があると、再度テーブル情報に記録、同様の拒絶動作が繰り返されます。<br>
+<li>メールサーバ管理者が <b>&quot;rejectpopip.dat&quot;</b> ファイルを編集し、記録された接続時間情報（シリアル値）部分をカット、接続元IPアドレスだけを残すと、該当IPアドレスからの接続は、永続的に拒絶されます。
+<li>メールサーバ管理者が <b>&quot;rejectpopip.dat&quot;</b> ファイルを編集し、記録された接続元IPアドレスおよび接続時間情報（シリアル値）部分を行ごと削除すれば、該当IPアドレスからの接続はリセット扱いされます。
+<li>メールサーバ管理者が <b>&quot;rejectpopip.dat&quot;</b> ファイルを編集し、接続を許可したい接続元IPアドレスを &quot;true&quot; 指定する方法で該当IPアドレスからの接続を永続的に許可するようになります。</ol>
+<b>【設定方法】</b><br>
+<ol>IPロックアウト機能を使用するには、下記のレジストリ設定で機能が有効に働くようになります。<br>
+<li>EPSTPOP3Sサービスを停止します。<br>
+<li><b>［POP3接続時の「IPロックアウト機能」のレジストリ設定］</b><br>
+<small>　HKEY_LOCAL_MACHINE<br>
+　->SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTPOP3S<br>
+　　　　　->IPLockOut      (DWORD) 指定時間内でのIP毎の同時接続可能数 デフォルト 0:制限無し<br>
+　　　　　->IPLockOutSPTime  (DWORD) サンプリング間隔(秒単位) デフォルト 0<br>
+　　　　　->IPLockOutTime  (DWORD) ロックアウト時間(秒単位) デフォルト 0<br></small>
+<li>IPLockOut は指定時間内でのIP毎の同時接続可能数を意味します。任意回数（例・10[回]とか30[回]など）をDWORD値（10進）で設定します。<br>
+合わせて IPLockOutSPTime のサンプリング間隔設定（例・1[秒]など）をDWORD値（10進）で設定します。<br>
+ロックアウト時間の IPLockOutTime は上2つの条件判定によるロックアウト時間をDWORD値（10進）で設定します。（例・300[秒]とか60[秒]など）。<br>
+<li>設定が終わったらEPSTPOP3Sサービスを再開します。
+<li>IPロックアウト機能で拒絶された情報は、&quot;C:\Program Files\EPOST\MS\rejectsmtpip.dat&quot;内に次の順で記載されテーブル情報の形でデータ蓄積されます。<br>
+このファイルはPOP3認証接続時の認証接続ロックアウト機能と共用です。<font color="#cc0000"><b>&quot;iplock&quot;</b></font>はIPロックアウト機能による拒絶の目印となります。<br>
+<small><blockquote>接続元IPアドレス<font color="pink">[TAB]</font>接続時間情報（シリアル値）<font color="pink">[TAB]</font>iplock<br>
+<img src="./img/faq17-09-01.jpg" width="540"></blockquote></small>
+<li>データは蓄積されていく一方ですので、ある程度日数が経過した古いテーブル情報は削除する、同一IPアドレスからの接続は一つにまとめシリアル値部分をカットすることにより永続的拒絶とするなど、システム管理者が定期的に手動で整理する必要があります。<br>
+<li>このPOP3接続時の「IPロックアウト機能」を使うには、20190606差分以降の最新差分アップデートを適用してください。<br>
+<b>[64bit版]</b><br>
+　●E-Post Mail Server Standard (x64) 20190606差分　以降のもの<br>
+　●E-Post Mail Server Enterprise II (x64) 20190606差分　以降のもの<br>
+　◆Web管理CGIプログラム (x64) 20190209差分　以降のもの<br>
+<b>[32bit版]</b><br>
+　●E-Post Mail Server Standard 20190606差分　以降のもの<br>
+　●E-Post Mail Server Enterprise II 20190606差分　以降のもの<br>
+　◆Web管理CGIプログラム 20190209差分　以降のもの<br>
+</ol>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-26.html">〔新機能〕POP3認証時の「認証接続ロックアウト機能」について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

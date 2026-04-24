@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-02</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windowsのドメイン管理者権限では権限が不足、ローカル管理者権限が必須</b></FONT>
+<HR>
+<br>
+E-Post Mail Server (x64) インストール時や、Windows Serverログイン時および E-Post Mail Control を起動する際に、ドメイン管理者権限では基本的に権限が不足します。特に Active Directory のメンバーサーバとなっているマシンでインストールしたり、運用するときには注意してください。ローカル管理者権限、もしくはローカル管理者権限が付与されている Administrator で行う必要があります。<br>
+<br>
+たとえば、E-Post関連のサービスが稼働中であるにもかかわらず、E-Post Mail Control 画面にあるサービスのボタンが［登録］の表示になってしまう場合、その原因の一つに E-Post Mail Control（Epstcontrol.exe）がローカル管理者権限で実行されていないことが理由になることがあります。<br>
+また、インストール時に作成される「E-Post Mail Server Enterprise for JP」アイコンから E-POST Mail Control を起動するときには、明示的に右クリックメニューから「管理者として実行」を選択するようにしてください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

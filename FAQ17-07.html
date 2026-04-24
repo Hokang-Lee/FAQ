@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-07</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAP対応Webメール[1]: RainLoop でユーザーログインが失敗する場合</b></FONT>
+<HR>
+<br>
+Webメールの RainLoop では、SMTP認証を実施しないアカウントでのユーザーログインを行う場合、ユーザーログイン時の認証が初期状態で &quot;PLAIN&quot; を優先してログインしているようで、そのことが原因で失敗するケースがあるようです。以下のどちらかの設定を試してください。<br>
+<br>
+<b>１．SMTP認証を実施しないままの場合はアカウント単位で「SMTP-AUTH & APOPを使用する」をオンにする</b><br>
+<br>
+SMTP認証を実施しない非認証有効のままの場合は、Account Managerから開いたアカウント単位で「SMTP-AUTH & APOPを使用する」をオンにします。その後、表示される「認証ファイルの設定」ダイアログボックスからパスワードを入力します。<br>
+「SMTP-AUTH & APOPを使用する」設定がオンになることで、該当ユーザーのメールボックス内に認証ファイルである &quot;apop.dat&quot; が生成されます。それを使って &quot;PLAIN&quot; 認証でのログインが可能になります。<br>
+<br>
+<b>２．IMAP4サービスのレジストリ ImapAuthType を作成し &quot;LOGIN&quot; を記述する</b><br>
+<br>
+特に最新差分アップデート適用後、EPSTIMAP4S v4.58以降になってそのような事態になったと思われるときは、以下の設定を明示的に行って試してください。<br>
+下記レジストリ位置に ImapAuthType を文字列で定義して作成、セットする値として &quot;LOGIN&quot; のみを記述、その後 EPSTIMAP4S サービスを再起動します。<br>
+WebメールのRainLoopは初期状態でSMTP認証を実施しないアカウントでのユーザーログインを行う場合、&quot;PLAIN&quot; を優先してログインし失敗するようです。セットする値として &quot;LOGIN&quot; を明示的に記述することにより、&quot;PLAIN&quot; を禁止して従来バージョンと同等の状態でログインを許可する方法となります。ユーザーログインが失敗してうまく行かない場合は試してください。<br>
+<small><br>
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→ImapAuthType　［CAPABILITY 命令で応答する認証方法の制限指定］<br>
+　　　　　(文字列)　Default &quot;CRAM-MD5,LOGIN,PLAIN&quot;　→  <u>&quot;LOGIN&quot; のみを記述</u><br></small>
+<br>
+上記の設定の意図を説明すると、このレジストリのデフォルト値が EPSTIMAP4S モジュールのバージョンによって変更されたという経緯があります。<br>
+<blockquote>
+デフォルト:CRAM-MD5,LOGIN (EPSTIMAP4S v4.30～v4.57)<br>
+デフォルト:CRAM-MD5,LOGIN,PLAIN (EPSTIMAP4S v4.58～)<br>
+</blockquote>
+つまり、v4.57以前は &quot;CRAM-MD5,LOGIN&quot; だけで &quot;PLAIN&quot; がありませんでした。一方でv4.58以降は &quot;CRAM-MD5,LOGIN,PLAIN&quot; と &quot;PLAIN&quot; が加わっています。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-39</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Symantec Endpoint などサードパーティ製セキュリティソフトにより Epstrs.exe が隔離・除去されてしまう事態を防ぐ <font color="#ff0000">new!</font></b></FONT><br>
+<HR>
+<br>
+Symantec Endpoint などサードパーティ製セキュリティソフトにより EPSTRSサービスプログラム本体である「C:\program files\EPOST\MS\Epstrs.exe」が隔離・除去されてしまう事態が複数報告されました。<br>
+Symantec に限らず、一般的にアンチウイルス系のヒューリステック判定は、ネットワーク通信等の有無も加味されますので、アンチウイルスソフトベンダー側が仮に未認識のバイナリであった場合、誤認識してしまって、強制隔離してしまう事態は、一般的かつ論理的にあり得ます。<br>
+サードパーティ製セキュリティソフトの設定では、E-Postを構成しているサービスプログラム本体である下記の該当バイナリファイルを除外設定し、およびプログラムインストールフォルダ（C:\Program Files\EPOST\MS\）配下をまるごと除外設定を行っていただく必要があるものと考えます。<br>
+・Epstrs.exe<br>
+・Epstrs.dll<br>
+・Epstds.exe<br>
+・Epstds.dll<br>
+・Epstpop3s.exe<br>
+・Epstpop3s.dll<br>
+・Epstimap4s.exe<br>
+・Epstimap4s.dll<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-37.html">他社製ファイヤーウォールソフトを使う場合もWindowsファイヤーウォールと同様の除外設定が必要 </a><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

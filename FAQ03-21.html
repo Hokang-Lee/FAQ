@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-21</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Postクラスタ構成時にarpキャッシュが保持されてしまう対策について</b></FONT>
+<HR>
+<br>
+<b>E-Post方式クラスタ構成時にarpキャッシュが保持されてしまいアクティブ－スタンバイが正常に切り替わらない現象への対策方法について</b><br>
+<br>
+Windows 2008 （R2を含む）のドメイン傘下にあるメンバーサーバやドメインに入っているクライアントPCの環境、あるいはarpキャッシュ情報を保持する高機能L3スイッチのあるネットワーク環境などでは、E-Post方式クラスタ構成時にアクティブ－スタンバイが正常に切り替わらない状況が一部で発生することが確認されています。具体的には、クラスタ構成時に、2008AD傘下のクライアントにおいてarpキャッシュが保持されてしまい、ノード切り替えに必要な認識処理に最低でも約10分以上の時間がかかってしまう現象となります。<br>
+この対策として、以下の追加設定を行うことによって、フェールオーバー、フェールバックの切り替えが迅速にできます。<br>
+ただし、弊社検証環境で確認したレベルにすぎませんので、AD傘下のクライアント構成や、ネットワーク機器の設定などに影響を受けることは十分推測できます。特にarpキャッシュ機能のあるL3スイッチなどでの確認はしておりませんので、それらを理解の上、試してください。<br>
+<br>
+2008AD傘下のメンバーサーバやクライアントがあるときや、2008をドメインコントローラとしたAD連携＋E-Postクラスタ構成時に、仮想IPが切り替わったメールサーバからのpingコマンドによる指示で、同一セグメント内AD傘下のクライアントPCにおいて、arpキャッシュが強制的にクリアされることにより、切り替わりを仕様通りスムーズにさせるようにします。<br>
+<br>
+<b>(1)．以下のコマンドを含むバッチファイルを作成</b><br>
+以下のコマンドを含むバッチファイルをアクティブ・スタンバイそれぞれに作成し、プログラムインストール先フォルダなどの任意フォルダ内に保存します。<br>
+（※ブロードキャストアドレスを対象にpingコマンドを実行する方法では、１回の送信でタイムアウトになるまでの時間が3～4秒と長く、繰り返し回数を多くすると時間がかかる割に確実性が少ないようです。そのため、ここでは確実性を高める意図でクライアントのIPを直接指定しています。）<br>
+<br>
+（バッチファイルの書式）<br>
+　ping  -n  [回数]  <対象のクライアントIP>  -S  <取得済み仮想IP><br>
+<br>
+（バッチファイル例）［arpclear.bat］<br>
+　arp -d　　　　←この指定はなくても効果は同じだが、念のため<br>
+　ping -n 10 192.168.0.81 -S 192.168.0.190<br>
+　ping -n 10 192.168.0.82 -S 192.168.0.190<br>
+　ping -n 10 192.168.0.83 -S 192.168.0.190<br>
+　　　　：　　　←以下、必要に応じて指定<br>
+<p align="center"><a href="./img/faq03-21-001.jpg"><img src="./img/faq03-21-001s.jpg" border="0"></a></p>
+<br>
+<b>(2)．メールサーバ・スタンバイ側の「タスクスケジューラ」にバッチファイルを指定</b><br>
+次にスタンバイ側において、タスクスケジューラで前記のバッチファイル[arpclear.bat]を指定します。<br>
+（タスクスケジュールの指定例）<br>
+　以下のイベントをトリガーに指定<br>
+　タスクの開始：イベント時<br>
+　ログ：アプリケーション<br>
+　ソース：IPWCS<br>
+　イベントID:100（LogicalIP Add address時）<br>
+<p align="center"><a href="./img/faq03-21-002.jpg"><img src="./img/faq03-21-002s.jpg" border="0"></a></p>
+<p align="center"><a href="./img/faq03-21-003.jpg"><img src="./img/faq03-21-003s.jpg" border="0"></a></p>
+<br>
+<b>(3)．メールサーバ・アクティブ側の「タスクスケジューラ」にバッチファイルを指定</b><br>
+続いてアクティブ側において、前記のバッチファイル[arpclear.bat]をタスクスケジューラで指定します。<br>
+（タスクスケジューラの指定例）<br>
+　以下のイベントをトリガーに指定<br>
+　タスクの開始：イベント時<br>
+　ログ：アプリケーション<br>
+　ソース：IPWCS<br>
+　イベントID:100（LogicalIP Add address時）<br>
+<p align="center"><a href="./img/faq03-21-004.jpg"><img src="./img/faq03-21-004s.jpg" border="0"></a></p>
+<br>
+なお、アクティブ側のタスクスケジュール設定には、確実さを増すために、以下のトリガーも追加で指定します。<br>
+（タスクスケジューラの指定例）<br>
+　タスクの開始：スタートアップ時<br>
+　遅延時間を指定する：30秒<br>
+　繰り返し間隔：5分間<br>
+　継続時間：15分間<br>
+<p align="center"><a href="./img/faq03-21-005.jpg"><img src="./img/faq03-21-005s.jpg" border="0"></a></p>
+<p align="center"><a href="./img/faq03-21-006.jpg"><img src="./img/faq03-21-006s.jpg" border="0"></a></p>
+<br>
+弊社検証環境では、上記設定をアクティブ・スタンバイ側それぞれに行った結果、arpキャッシュが保持されてしまって切り替え時間がかかっていた2008AD傘下のXPクライアントでも、フェールオーバー、フェールバックの切り替えにかかる認識時間が、平均30～40秒程度になりました。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

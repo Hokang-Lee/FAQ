@@ -1,0 +1,703 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-04</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>Winsock エラーコード表</b></FONT>
+<HR>
+<br>
+<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）</a>や<a href="./faq05-10.html">配送時の詳細ログ（senderlog）</a>を取得している場合、SMTPプロトコルレベルではなく、Windows Sockets Error が記録されることがあります。何が起きているかは、Windows Sockets Error の内容を見きわめることで、ある程度の類推が効くケースもあります。下記の Winsock エラーコード表は、Windows Sockets Error Codes としてマイクロソフトが公開している内容です。Windows Sockets Error が記録されているときには、この表を参考にしてください。<BR>
+<BR>
+<TABLE border=1  cellspacing=0 cellpadding=2>
+<TR bgcolor="#CCCCCC">
+ <TH width="180">エラーコード/名称</TH>
+ <TH width="450">意味</TH>
+</TR>
+<TR>
+ <TD>10004<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEINTR">WSAEINTR</A>
+ </TD>
+ <TD>Interrupted system call<BR>
+ <b>システムコールの割り込みが発生した。</b><br>
+ WinSock 1.1 のブロッキング関数呼び出しが、WSACancelBlockingCall() によって中断された。
+ </td>
+</TR>
+<TR>
+ <TD>10009<BR><A HREF="http://www.sockets.com/err_lst1.htm#WSAEBADF">WSAEBADF</A> </TD>
+ <TD>Bad file number<BR>
+ <b>無効なファイルハンドル。</b><br>
+ ソケット関数に渡されたファイルハンドル（ソケットハンドル）が不正である。（WSAENOTSOCKと同義で用いられる）
+ </td>
+</TR>
+<TR>
+ <TD>10013<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEACCES">WSAEACCES</A>
+ </TD>
+ <TD>Permission denied<BR>
+ <b>アクセスが拒否された。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">connect()：ブロードキャストアドレスで接続しようとしたソケットの SO_BROADCASTオプション が有効になっていない。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">sendto()：ブロードキャストアドレスに送信しようとしたソケットの SO_BROADCASTオプションが有効になっていない。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">accept()：受付しようとした接続要求がすでにタイムアウトになっている、もしくは取り消されている。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10014<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEFAULT">WSAEFAULT</A>
+ </TD>
+ <TD>Bad address<BR>
+ <b>無効なバッファアドレス</b><br>
+ 関数に渡されたバッファを指すポインタが無効なアドレス空間を指している。またはバッファのサイズが小さすぎる。
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10022</font><BR><A HREF="http://www.sockets.com/err_lst1.htm#WSAEINVAL">WSAEINVAL</A> 
+ </TD>
+ <TD>Invalid argument<BR>
+ <b>無効な引数が渡された。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">listen()を呼び出さずにaccept()を呼び出した。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">バインド済みのソケットに対してbind()しようとした。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">listen()で待機中のソケットでconnect()しようとした。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top">関数に渡されたパラメータに無効な値が含まれている。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10024<BR><A HREF="http://www.sockets.com/err_lst1.htm#WSAEMFILE">WSAEMFILE</A> 
+ </TD>
+ <TD>Too many open files<BR>
+ <b>使用中のソケットの数が多すぎる。</b><br>
+ 同時に利用できるソケット数の最大に達しており、新たにソケットを作成できない。
+ </td>
+</TR>
+<TR>
+ <TD>10035<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEWOULDBLOCK">WSAEWOULDBLOCK</A> 
+ </TD>
+ <TD>Operation would block<BR>
+ <b>操作はブロッキングされる。</b><br>
+ ノンブロッキングモードでソケット関数が呼び出されため、関数は即座にリターンしたが要求された操作は完了していない。
+ </td>
+</TR>
+<TR>
+ <TD>10036<BR><A HREF="http://www.sockets.com/err_lst1.htm#WSAEINPROGRESS">WSAEINPROGRESS</A> 
+ </TD>
+ <TD>Operation now in progress<BR>
+ <b>すでにブロッキング手続きが実行されている。</b><br>
+ ブロッキング関数が実行中であるか、サービスプロバイダがコールバック関数を処理中である。WinSockでは<br>
+ １つのプロセスで同時に複数のブロッキング操作をすることはできないため、前回呼び出した操作が完全に<br>
+ 終了するまで次の操作を開始することはできない。
+ </td>
+</TR>
+<TR>
+ <TD>10037<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEALREADY">WSAEALREADY </A> 
+ </TD>
+ <TD>Operation already in progress<BR>
+ <b>要求された操作は既に実行中、または実行済み。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">キャンセルしようとした非同期操作が既にキャンセルされている。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">connect()を呼び出したが、既に前回の呼び出しによって接続処理中である。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10038</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENOTSOCK">WSAENOTSOCK</A> 
+ </TD>
+ <TD>Socket operation on non-socket<BR>
+ <b>指定されたソケットが無効である。</b><br>
+ ソケットハンドルとして無効な値がソケット関数に渡された。
+ </td>
+</TR>
+<TR>
+ <TD>10039<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEDESTADDRREQ">WSAEDESTADDRREQ</A> 
+ </TD>
+ <TD>Destination address required<BR>
+ <b>操作の実行に送信先アドレスが必要。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">接続先アドレスを渡さずにconnect()を呼び出した。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">送信先アドレスを渡さずにsendto()を呼び出した。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10040<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEMSGSIZE">WSAEMSGSIZE</A> 
+ </TD>
+ <TD>Message too long<BR>
+ <b>メッセージサイズが大きすぎる。</b><br>
+ 送信、または受信しようとしたメッセージが、基盤となるプロトコルのサポートしている最大メッセージ<br>
+ サイズを超えている。ioctlsocket()でバッファサイズを増やすことで回避可能なこともある。
+ </td>
+</TR>
+<TR>
+ <TD>10041<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEPROTOTYPE">WSAEPROTOTYPE</A> 
+ </TD>
+ <TD>Protocol wrong type for socket<BR>
+ <b>ソケットは要求されたプロトコルに適合していない。<br></b>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">socket()を呼び出すときに指定したプロトコルタイプがソケットタイ<br>
+    プと適合していない。メッセージ型プロトコルでストリームソケットを作成しようとした場合など。
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10042<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENOPROTOOPT">WSAENOPROTOOPT</A> 
+ </TD>
+ <TD>Bad protocol option<BR>
+ <b>不正なプロトコルオプション。</b><br>
+ 指定したソケットオプションまたはioctlsocket()での操作が、そのプロトコルではサポートされてない。<br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">ストリームソケットに SO_BROADCAST を指定しようとした。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10043<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEPROTONOSUPPORT">WSAEPROTONOSUPPORT</A> 
+ </TD>
+ <TD>Protocol not supported<BR>
+ <b>プロトコルがサポートされていない。</b><br>
+ サポートされていないプロトコルを指定した、またはプロトコルのサポートしていない操作を実行しようとした。
+ </td>
+</TR>
+<TR>
+ <TD>10044<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAESOCKTNOSUPPORT">WSAESOCKTNOSUPPORT</A> 
+ </TD>
+ <TD>Socket type not supported<BR>
+ <b>指定されたソケットタイプはサポートされていない。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10045<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEOPNOTSUPP">WSAEOPNOTSUPP</A> 
+ </TD>
+ <TD>Operation not supported on socket<BR>
+ <b>要求された操作はサポートされていない。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">バンド外データを送信/受信しようとしたソケットでそれがサポートされていない。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">非接続型(UDPなど)ソケットでaccept()を呼び出した。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10046<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEPFNOSUPPORT">WSAEPFNOSUPPORT</A> 
+ </TD>
+ <TD>Protocol family not supported<BR>
+ <b>プロトコルファミリがサポートされていない。</b>
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10047</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEAFNOSUPPORT">WSAEAFNOSUPPORT</A> 
+ </TD>
+ <TD>Address family not supported <BR>
+ by protocol family<BR>
+ <b>アドレスファミリがサポートされていない。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10048<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEADDRINUSE">WSAEADDRINUSE</A> 
+ </TD>
+ <TD>Address already in use<BR>
+ <b>アドレスは既に使用中である。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">bind()しようとしたアドレスは、既にほかのソケットで使われている。<br>
+    同じローカルアドレスを複数のソケットで使うためには、SO_REUSEADDRソケットオプションをTRUEにする必要がある。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10049</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEADDRNOTAVAIL">WSAEADDRNOTAVAIL</A> 
+ </TD>
+ <TD>Can't assign requested address<BR>
+ <b>無効なネットワークアドレス。</b><br>
+ ソケット関数に渡されたネットワークアドレスに無効な部分がある。
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10050</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENETDOWN">WSAENETDOWN</A> 
+ </TD>
+ <TD>Network is down<BR>
+ <b>ネットワークがダウンしている。</b><br>
+ ネットワークシステムが何らかの障害を起こし、機能停止しているため要求された操作が実行できない。
+ </td>
+</TR>
+<TR>
+ <TD>10051<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENETUNREACH">WSAENETUNREACH</A> 
+ </TD>
+ <TD>Network is unreachable<BR>
+ <b>指定されたネットワークホストに到達できない。</b><br>
+ WSAEHOSTUNREACHと同義で使われている。
+ </td>
+</TR>
+<TR>
+ <TD>10052<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENETRESET">WSAENETRESET</A> 
+ </TD>
+ <TD>Net dropped connection or reset<BR>
+ <b>ネットワーク接続が破棄された。</b><br>
+ キープアライブを行っている接続で、何らかの障害のためタイムアウトが検出され接続が閉じられた。
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10053</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAECONNABORTED">WSAECONNABORTED</A> 
+ </TD>
+ <TD>Software caused connection abort<BR>
+ <b>ネットワーク接続が破棄された。</b>
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10054</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAECONNRESET">WSAECONNRESET</A> 
+ </TD>
+ <TD>Connection reset by peer<BR>
+ <b>ネットワーク接続が相手によって破棄された。</b><br>
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>10055</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENOBUFS">WSAENOBUFS</A> 
+ </TD>
+ <TD>No buffer space available<BR>
+ <b>バッファが不足している。</b><br>
+ メモリ不足のためWinSockが操作に必要なバッファを確保することができない。または、バッファを必要と<br>
+ する関数呼び出しで、小さすぎるバッファが渡された。
+ </td>
+</TR>
+<TR>
+ <TD>10056<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEISCONN">WSAEISCONN</A> 
+ </TD>
+ <TD>Socket is already connected<BR>
+ <b>ソケットは既に接続されている。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">接続中のソケットに対してconnect()、listen()、bind()等の操作を行おうとした。</td>
+   </tr>
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">接続中のソケットでsendto()を実行しようとした。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10057<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENOTCONN">WSAENOTCONN</A> 
+ </TD>
+ <TD>Socket is not connected<BR>
+ <b>ソケットは接続されていない。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">接続されていないソケットでsend()、getpeername()等の接続されたソケットを必要と<br>
+    する操作を実行しようとした。
+    </td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10058<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAESHUTDOWN">WSAESHUTDOWN</A> 
+ </TD>
+ <TD>Can't send after socket shutdown<BR>
+ <b>ソケットはシャットダウンされている。</b><br>
+ 既にシャットダウンされて送信/受信が停止されているソケットで、送信または受信の操作を実行しようとした。
+ </td>
+</TR>
+<TR>
+ <TD>10059<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAETOOMANYREFS">WSAETOOMANYREFS</A> 
+ </TD>
+ <TD>Too many references, can't splice<BR>
+ <b>参照の数が多すぎる。</b><br>
+ </td>
+</TR>
+<TR>
+ <TD>10060<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAETIMEDOUT">WSAETIMEDOUT</A> 
+ </TD>
+ <TD>Connection timed out<BR>
+ <b>接続要求がタイムアウトした。</b><br>
+ connect()を呼び出して接続を試みたが、（相手の応答がない等で）処理がタイムアウトになり接続要求がキャンセルされた。
+ </td>
+</TR>
+<TR>
+ <TD>10061<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAECONNREFUSED">WSAECONNREFUSED</A> 
+ </TD>
+ <TD>Connection refused<BR>
+ <b>接続が拒否された。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10062<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAELOOP">WSAELOOP</A> 
+ </TD>
+ <TD>Too many levels of symbolic links<BR>
+ <b>ループ。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10063<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENAMETOOLONG">WSAENAMETOOLONG</A> 
+ </TD>
+ <TD>File name too long<BR>
+ <b>名前が長すぎる。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10064<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEHOSTDOWN">WSAEHOSTDOWN</A> 
+ </TD>
+ <TD>Host is down<BR>
+ <b>ホストがダウンしている。</b><br>
+ WSAETIMEDOUTと同義。
+ </td>
+</TR>
+<TR>
+ <TD>10065<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEHOSTUNREACH">WSAEHOSTUNREACH</A> 
+ </TD>
+ <TD>No Route to Host<BR>
+ <b>ホストへの経路がない。</b><br>
+ ネットワークの構造上到達できないホストに対して操作を実行しようとした。またはアドレスが不正である。
+ </td>
+</TR>
+<TR>
+ <TD>10066<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAENOTEMPTY">WSAENOTEMPTY</A> 
+ </TD>
+ <TD>Directory not empty<BR>
+ <b>ディレクトリが空ではない。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10067<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEPROCLIM">WSAEPROCLIM</A> 
+ </TD>
+ <TD>Too many processes<BR>
+ <b>プロセスの数が多すぎる。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">WSAStartup()：既にWinSockが管理できる最大プロセス数に達しており処理が実行できない。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10068<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEUSERS">WSAEUSERS</A> 
+ </TD>
+ <TD>Too many users<BR>
+ <b>ユーザの数が多すぎる。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10069<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEDQUOT">WSAEDQUOT</A> 
+ </TD>
+ <TD>Disc Quota Exceeded<BR>
+ <b>ディスク割り当てを超過。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10070<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAESTALE">WSAESTALE</A> 
+ </TD>
+ <TD>Stale NFS file handle<BR>
+ <b>実行しようとした操作は廃止されている。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10071<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAEREMOTE">WSAEREMOTE</A> 
+ </TD>
+ <TD>Too many levels of remote in path<BR>
+ <b>リモート。</b>
+ </td>
+</TR>
+<TR>
+ <TD>10091<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSASYSNOTREADY">WSASYSNOTREADY</A> 
+ </TD>
+ <TD>Network SubSystem is unavailable<BR>
+ <b>ネットワークサブシステムが利用できない。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">WSAStartup()：ネットワークサブシステムが利用できない、または正しくセットアップ<br>
+    されていないため機能していない。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10092<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAVERNOTSUPPORTED">WSAVERNOTSUPPORTED</A> 
+ </TD>
+ <TD>WINSOCK DLL Version out of range<BR>
+ <b>Winsock.dllのバージョンが範囲外である。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">WSAStartup()：要求したWinSockバージョンは、現在の実装ではサポートされていない。</td>
+   </tr>
+  </table msthemelist>
+ </td>
+</TR>
+<TR>
+ <TD>10093<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSANOTINITIALISED">WSANOTINITIALISED</A> 
+ </TD>
+ <TD>Successful WSASTARTUP not yet <BR>performed<BR>
+ <b>WinSockシステムが初期化されていない。</b><br>
+ WinSock関数を実行しようとしたが、WSAStartup()が正常に実行されていないため機能しない。
+ </td>
+</TR>
+<tr>
+ <td>10101<BR>
+ WSAEDISCON
+ </td>
+ <td>
+ <br><b>シャットダウン処理中。</b><br>
+ 接続が相手の処理によって切断されようとしている。
+ </td>
+</tr>
+<tr>
+ <td>10102<BR>
+ WSAENOMORE
+ </td>
+ <td>
+ <br><b>データはこれ以上存在しない。</b><br>
+ WSA_E_NO_MOREと同義。
+ </td>
+</tr>
+<tr>
+ <td>10103<BR>
+ WSAECANCELLED
+ </td>
+ <td>
+ <br><b>操作は取り消された。</b><br>
+ WSA_E_CANCELLEDと同義。
+ </td>
+</tr>
+<tr>
+ <td>10104<BR>
+ WSAEINVALIDPROCTABLE
+ </td>
+ <td>
+ <br><b>サービスプロバイダの関数テーブルが無効。</b>
+ </td>
+</tr>
+<tr>
+ <td>10105<BR>
+ WSAEINVALIDPROVIDER
+ </td>
+ <td>
+ <br><b>サービスプロバイダが無効。</b>
+ </td>
+</tr>
+<tr>
+ <td>10106<BR>
+ WSAEPROVIDERFAILEDINIT
+ </td>
+ <td>
+ <br><b>サービスプロバイダの初期化に失敗した。</b>
+ </td>
+</tr>
+<tr>
+ <td>10107<BR>
+ WSASYSCALLFAILURE
+ </td>
+ <td>
+ <br><b>システムコールに失敗した。</b><br>
+ 決して失敗しないはずのシステムコールが何らかの理由により失敗した。
+ </td>
+</tr>
+<tr>
+ <td>10108<BR>
+ WSASERVICE_NOT_FOUND
+ </td>
+ <td>
+ <br><b>サービスが見つからない。</b><br>
+ 要求されたサービスが標準的なサービスでなく、指定した名前空間からサービスを見つけることができない。
+ </td>
+</tr>
+<tr>
+ <td>10109<BR>
+ WSATYPE_NOT_FOUND</td><td><br><b>タイプが見つからない。</b>
+ </td>
+</tr>
+<tr>
+ <td>10110<BR>
+ WSA_E_NO_MORE</td><td><br><b>データはこれ以上存在しない。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">WSALookupServiceNext()：情報はこれ以上存在しない。</td>
+   </tr>
+  </table>
+ </td>
+</tr>
+<tr>
+ <td>10111<BR>
+ WSA_E_CANCELLED
+ </td>
+ <td>
+ <br><b>検索がキャンセルされた。</b><br>
+  <table border="0" cellpadding="0" cellspacing="0" width="90%">
+   <tr>
+    <td valign="baseline" width="12">・</td>
+    <td valign="top" width="100%">WSALookupServiceNext()：サービスの検索途中に、WSALookupServiceEnd()によって処理がキャンセルされた。</td>
+   </tr>
+  </table>
+ </td>
+</tr>
+<tr>
+ <td>10112<BR>
+ WSAEREFUSED
+ </td>
+ <td>
+ <br><b>操作は拒否された。</b>
+ </td>
+</tr>
+<TR>
+ <TD>11001<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSAHOST_NOT_FOUND">WSAHOST_NOT_FOUND </A> 
+ </TD>
+ <TD>Host not found<BR>
+ <b>ホストが見つからない。</b><br>
+ DNSなどの名前解決サービスが指定されたホストを見つけられなかった。プロトコルやサービスのクエリー操作においても返される。
+ </td>
+</TR>
+<TR>
+ <TD>11002<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSATRY_AGAIN">WSATRY_AGAIN </A> 
+ </TD>
+ <TD> Non-Authoritative Host not found<BR>
+ <b>指定されたホストが見つからない、またはサービスの異常。</b>
+ </td>
+</TR>
+<TR>
+ <TD>11003<BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSANO_RECOVERY">WSANO_RECOVERY </A> 
+ </TD>
+ <TD> Non-Recoverable errors: <BR>
+ FORMERR, REFUSED, NOTIMP<BR>
+ <b>回復不能なエラーが発生した。</b><br>
+ データベース検索の場合は、名前解決サービスが使用できないことを意味する。
+ </td>
+</TR>
+<TR>
+ <TD><font color=red>11004</font><BR>
+ <A HREF="http://www.sockets.com/err_lst1.htm#WSANO_DATA">WSANO_DATA<BR>
+ WSANO_ADDRESS </A> 
+ </TD>
+ <TD>* Valid name, no data record of requested type<BR>
+ <b>要求されたタイプのデータレコードが見つからない。</b>
+ </td>
+</TR>
+</table>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

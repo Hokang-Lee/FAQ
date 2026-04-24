@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-02</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>サービスを停止しないでバックアップを取った場合、リストア復旧されるデータでの危惧されるポイントは？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Postのサービスを停止しないでバックアップを取った場合、リストア用のデータとして考えた場合に、いちばん危惧すべきポイントは、メールがSMTP受信されたときの"B"で始まるメッセージIDの発番状態です。<br>
+SMTP受信されると、SMTP受信サービスにより"B"で始まるメッセージIDが発番され、カウント値がカウントアップされていきます。サービスが止められていない場合、バックアップ中のタイミング次第ではその間、メッセージIDの発番が進んでいることは十分に可能性があります。<br>
+<br>
+メッセージIDの発番は、メール作業用フォルダ下のある階層において"LastMsgId.1"のファイル内にカウント値が記録され、カウントアップされます。バックアップされた時点でカウントアップされる前の古いカウント値がバックアップされてしまった場合にリストアすると、カウント値が古いため、リストア復旧されたその後にSMTP受信されたメールの"B"から始まるメールデータファイル名が重複してしまう可能性が理論上ありえます。実際には下記FAQ記事にあるように上書き警告メッセージ
+が表示されますので、メッセージIDを重複しない番号に引き上げて変更する対応を行います。（下記記事参照）<br>
+<br>
+また、メーリングリスト使用時において、上記と似た考えのカウント値（Lists/MlId.1）ファイルがあります。これもバックアップされた時点でカウントアップされる古いカウント値がバックアップされた状態でリストアすると、同様にバックアップ時点での値のままになる可能性があります。メーリングリスト使用されていなければ関係ありません。<br>
+<br>
+もし、バックアップ時にサービスを完全停止することができないのあれば、メールの送受信がほとんど行われない深夜帯などの時間帯を選んでバックアップをお取りいただくのがベターです。
+<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-23.html">サーバをバックアップデータからリストアしたとき、メッセージ開始番号の上書き警告メッセージが表示されたときの対処方法について</a><br>
+●<a href="./faq15-15.html">メッセージIDを進めたり戻したりするときの動作と仕様について</a><br>
+●<a href="./faq05-15.html">E-Post Mail Server (x64) / E-Post SMTP Server (x64) で使用している設定ファイル＆レジストリ</a><br>
+※"LastMsgId.1"や"MlId.1"は冒頭4分の1までのところに出てきます。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

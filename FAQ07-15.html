@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-15</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>[32bit版][64bit版] 修正差分アップデート前に切り戻す方法について</b></FONT>
+<HR>
+<br>
+修正差分アップデート適用する際、アップデート適用以前に切り戻すために準備する方法の一案について説明します。<br>
+まず修正差分アップデートでのターゲットフォルダは、下記の通りプログラムインストールフォルダです。<br>
+（既定インストール先フォルダ）<br>
+・[E-Post 64bit版（64bitOS）の場合]… C:\Program Files\EPOST\MS\<br>
+・[E-Post 32bit版（64bitOS）の場合]… C:\Program Files (x86)\EPOST\MS\<br>
+・[E-Post 32bit版（32bitOS）の場合]… C:\Program Files\EPOST\MS\<br>
+差分アップデートの適用を行うと、上記フォルダ内のexeやdllなどのサービスプログラム本体や実行型モジュールのファイルが更新されますが、アカウントデータやdatなどの設定ファイル類ならびにレジストリには特別な影響を与えない作りになっています。<br>
+<br>
+適用前に切り戻したい場合、Windowsバックアップツールを使ってのリストア作業を行うことで戻すことは可能ですが、もっと手早く戻したいときは、修正差分アップデート適用以前のプログラムインストールフォルダ（ C:\Program Files\EPOST\MS\ ）を別の場所にバックアップしておき、設定ファイル類であるdatファイルは戻さないで実行型モジュールファイルのみをコピーして戻せばよいことになります。
+ただし、コピーして戻すときは必ずE-Post関連のサービスを停止させた状態で行う必要があります。また、Mail ControlやAccount Managerのツール類も閉じておいてください。<br>
+ちなみに、この作業方法において、E-Post 64bit版とE-Post 32bit版とでやり方の違いがあるわけではありません。基本はまったく同じ方法によりアップデート適用以前に戻すことが可能です。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-50</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>「ORDBによる制限」からordb.orgの指定をはずすには</b>	</FONT>
+<HR>
+E-Post SMTP Serverシリーズ、E-Post SMTP Serverシリーズ、SPA PRO Mail@Solomonの各メールサーバソフトでは、SPAMメールを防止するため、インストール時の既定の設定で、メールサーバにある中継の制限機能を使い、“オープンリレーデータベース(ORDB)”への問い合わせを行うように設定されています。<br>
+しかしながら、これまで不正中継を許すメールサーバのデータベースを提供してきた非営利組織「ORDB.org」が、2006年12月をもって活動を停止し、すでにサイトが閉鎖されています。<br>
+既定の設定のまま、メールサーバを運用されますと、返答をしないordb.orgへ問い合わせするため、時間がよぶんにかかり、メール送信が遅延するなどの現象が発生することが予想されます。つきましては、リスト上からordb.orgを削除してください。<br>
+場合によっては別のオープンリレーデータベースのRBLをお探しの上、設定してください。<br>
+<ol>
+<b>（E-Post Mail Server・E-Post SMTP Serverの場合）</b><br>
+<li>E-Post Mail Controlを起動し、「中継の制限」タブを選択<br>
+<li>「ORDBによる制限」ボタンをクリック<br>
+<li>メモ帳で表示された「ordb.dat」のリストにある「relays.ordb.org」をコメントアウトするか、削除し、保存<br><br>
+</ol>
+<ol>
+<b>（SPA-PRO Mail@Solomonの場合）</b><br>
+<li>SPA-PRO Controlを起動し、「中継の制限」タブを選択<br>
+<li>「ORDBによる制限」ボタンをクリック<br>
+<li>メモ帳で表示された「ordb.dat」のリストにある「relays.ordb.org」をコメントアウトするか、削除し、保存<br>
+<br>
+</ol>
+関連するFAQ<br>
+<a href="./faq01-04.html">クライアントからのメール送信が遅いケースとhostsファイルの必要性</a><br>
+</BODY>
+</HTML>

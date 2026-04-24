@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ02-21</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>作成済みメーリングリスト名を変更するには</b></FONT>
+<HR>
+<br>
+アカウントマネージャのメーリングリスト設定画面から、作成済みメーリングリスト名を変更しようとして、「メーリングリスト変更」から作成済みメーリングリスト名を変更しようと操作を行った場合、下記のような結果となります。<br>
+<ul>
+・従来からのメーリングリストがそのまま一覧に残る。<br>
+・新しい名前のメーリングリストが一覧に追加される。<br>
+・しかし新しい名前のメーリングリスト設定を確認すると、従来のメンバーリストが引き継がれておらず、その他の設定は引き継がれている状態となる。<br>
+</ul>
+現状では、アカウントマネージャの「メーリングリスト変更」からメーリングリスト名の変更を行うことはできません。これは現行バージョンでの仕様です。<br>
+あまりスマートな方法ではありませんが、メーリングリスト名を変更するための代用案として、以下の方法を提示いたします。<br><ol>
+<li>メーリングリストの使用を一斉に止めるか、事前にEPSTRS/EPSTDSのサービスを停止させ、アクセスを止める。
+<li>E-Post Mail Controlおよびアカウントマネージャを閉じる。
+<li>メール用作業フォルダ（例 C:\mail）を開く。
+<li>メール用作業フォルダ下の reg\SOFTWARE\EMWAC\IMS\Lists フォルダを開く。
+<li>変更元のメーリングリスト名のフォルダを探し、フォルダ名を新しいメーリングリト名に変更する。
+<li>&quot;[変更元のメーリングリスト名]＠[ドメイン名]MlId_RW.lck&quot;ファイルと&quot;[変更元のメーリングリスト名]＠[ドメイン名].lck&quot;ファイルを探し、それぞれのファイル名の＠より前の部分について新しいメーリングリト名となるように変更する。
+<li>アカウントマネージャを開いて、同じ設定内容のままでメーリングリスト名が変更されているかどうかを確認する。
+<li>サービスを停止していたときは再開する。
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

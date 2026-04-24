@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<a name="top">
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>[32bit版] 修正差分プログラム適用方法について </b></FONT>
+<HR>
+<br>
+<small><ul><li><a href="#msstd32">E-Post Mail Server Standard　修正差分プログラムを適用する方法</a><br>
+<li><a href="#msent32">E-Post Mail Server Enterprise II　修正差分プログラムを適用する方法</a><br>
+<li><a href="#ssstd32">E-Post SMTP Server Standard・BossCheck Server　修正差分プログラムを適用する方法</a><br>
+<li><a href="#ssent32">E-Post SMTP Server Enterprise II　修正差分プログラムを適用する方法</a><br>
+</ul></small>
+<br>
+<a name="msstd32">
+<b>［E-Post Mail Server Standard  修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>”E-POST Mail Control”画面を開き、［サービス制御］タブにある"EPSTRS","EPSTDS","EPSTPOP3S","EPSTIMAP4S"各サービスを停止。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"(IP Watcher)サービスを「コンピュータの管理」から停止させる。<br>
+<li>”E-POST Mail Control”および”E-POST Account Manager”を閉じる。<br>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/MS/」が表示されているが、プログラムインストール先が変更されている場合もある。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\MS\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\MS\<br>
+<li>”E-POST Mail Control”を開き停止した各サービスを再開する。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"サービスも忘れず再開する。<br>
+<li>［バージョン情報］タブで修正された結果のバージョンを確認する。<br>
+</ol>
+<b>［上記シリーズ用 Web管理CGIプログラム 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/」が表示されているが、32bit版OSか64bitOS環境かによって、プログラムインストール先は下記の通り変わる。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\<br>
+<font color="red">&quot;ms\&quot;フォルダではなく、一階層上になりますので注意してください。</font><br>
+<li>Web管理メニューをブラウザで開き、［システム管理メニュー］→［バージョン情報］を選択。表示される COMPONENT LIST のバージョン表記を確認。<br>
+Web管理CGIプログラム本体は、”EPST UserCGI”として表示される。<br>
+<br>
+</ol><a name="msent32">
+<b>［E-Post Mail Server Enterprise II  修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>”E-POST Mail Control”画面を開き、［サービス制御］タブにある"EPSTRS","EPSTDS","EPSTPOP3S","EPSTIMAP4S","VMCS"の各サービスを停止。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"(IP Watcher)サービスを「コンピュータの管理」から停止させる。<br>
+<li>”E-POST Mail Control”および”E-POST Account Manager”を閉じる。<br>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/MS/」が表示されているが、プログラムインストール先が変更されている場合もある。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\MS\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\MS\<br>
+<li>”E-POST Mail Control”を開き停止した各サービスを再開する。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"サービスも忘れず再開する。<br>
+<li>［バージョン情報］タブで修正された結果のバージョンを確認する。<br>
+</ol>
+<b>［上記シリーズ用 Web管理CGIプログラム 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/」が表示されているが、32bit版OSか64bitOS環境かによって、プログラムインストール先は下記の通り変わる。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\<br>
+<font color="red">&quot;ms\&quot;フォルダではなく、一階層上になりますので注意してください。</font><br>
+<li>Web管理メニューをブラウザで開き、［システム管理メニュー］→［バージョン情報］を選択。表示される COMPONENT LIST のバージョン表記を確認。<br>
+Web管理CGIプログラム本体は、”EPST UserCGI”として表示される。<br>
+<br>
+</ol><a name="ssstd32">
+<b>［E-Post SMTP Server Standard・BossCheck Server 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>”E-POST Mail Control”画面を開き、［サービス制御］タブにある"EPSTRS","EPSTDS"各サービスを停止。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"(IP Watcher)サービスを「コンピュータの管理」から停止させる。<br>
+<li>”E-POST Mail Control”および”E-POST Account Manager”を閉じる。<br>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/MS/」が表示されているが、プログラムインストール先が変更されている場合もある。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\MS\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\MS\<br>
+<li>”E-POST Mail Control”を開き停止した各サービスを再開する。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"サービスも忘れず再開する。<br>
+<li>［バージョン情報］タブで修正された結果のバージョンを確認する。<br>
+</ol>
+<b>［上記シリーズ用 Web管理CGIプログラム 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/」が表示されているが、32bit版OSか<br>
+64bitOS環境かによって、プログラムインストール先は下記の通り変わる。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\<br>
+<font color="red">&quot;ms\&quot;フォルダではなく、一階層上になりますので注意してください。</font><br>
+<li>Web管理メニューをブラウザで開き、［システム管理メニュー］→［バージョン情報］を選択。表示される COMPONENT LIST のバージョン表記を確認。<br>
+Web管理CGIプログラム本体は、”EPST UserCGI”として表示される。<br>
+<br>
+</ol><a name="ssent32">
+<b>［E-Post SMTP Server Enterprise II 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a><br>
+<ol>
+<li>”E-POST Mail Control”画面を開き、［サービス制御］タブにある"EPSTRS","EPSTDS","VMCS"の各サービスを停止。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"(IP Watcher)サービスを「コンピュータの管理」から停止させる。<br>
+<li>”E-POST Mail Control”および”E-POST Account Manager”を閉じる。<br>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/MS/」が表示されているが、プログラムインストール先が変更されている場合もある。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\MS\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\MS\<br>
+<li>”E-POST Mail Control”を開き停止した各サービスを再開する。<br>
+※E-Post方式クラスタ構成の場合は"IPWCS"サービスも忘れず再開する。<br>
+<li>［バージョン情報］タブで修正された結果のバージョンを確認する。<br>
+</ol>
+<b>［上記シリーズ用 Web管理CGIプログラム 修正差分プログラムを適用する方法］</b>　　<a href="#top">[▲先頭へ戻る]</a>
+<ol>
+<li>修正差分プログラムを実行。<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにインストール先フォルダを［Browse］ボタンで参照、フォルダを指定して最後に［Unzip］ボタンで解凍を実行する。<br>
+※デフォルトで「/Program Files/EPOST/」が表示されているが、32bit版OSか64bitOS環境かによって、プログラムインストール先は下記の通り変わる。<br>
+※（32bitOSでの場合の既定インストール先フォルダ）<br>
+　C:\Program Files\EPOST\<br>
+※（64bitOSでの既定インストール先フォルダ）<br>
+　C:\Program Files (x86)\EPOST\<br>
+<font color="red">&quot;ms\&quot;フォルダではなく、一階層上になりますので注意してください。</font><br>
+<li>Web管理メニューをブラウザで開き、［システム管理メニュー］→［バージョン情報］を選択。表示される COMPONENT LIST のバージョン表記を確認。<br>
+Web管理CGIプログラム本体は、”EPST UserCGI”として表示される。<br>
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

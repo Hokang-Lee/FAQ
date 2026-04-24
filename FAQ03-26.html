@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-26</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ショートファイルネームが無効にされたDドライブをプログラムインストールフォルダ先にすると問題を与える可能性</b></FONT><br>
+<HR>
+<br>
+Windows Server 2012 R2以降のOS（Windows Server 2016/2019/2022/2025）を導入している最近のサーバでは、一部の機種において、追加したDドライブでファイルシステムのショートファイルネームが無効にされているものがあります。プログラムインストール先のドライブをそうしたドライブに指定した場合、このことがE-Postシリーズの一部サービスや、ツール・ユーティリティの動作に問題を与えるおそれがあります。これまで判明しているのはEnterprise IIでのVMCSサービスなどですが、他のツールやユーティリティにどんな影響があるのかわかりません。（※VMCSサービスでは最新差分で対策を取っています）<br>
+もしも、プログラムインストール先のドライブにおいて、ショートファイルネームが無効にされている場合は、OSのインストールドライブであるCドライブなどの既定値である「ショートファイルネーム有効」に同じように設定変更することを強く推奨します。ちなみに、問題がおきる可能性があるのは、プログラムインストールフォルダ先のドライブであり、メール作業用フォルダ・メールボックスフォルダに指定するドライブは特に関係ありません。<br>
+<br>
+<b>１．プログラムインストールフォルダ先ドライブがショートファイルネームを有効にしているか確認</b><br>
+プログラムインストール先のドライブがショートファイルネームが使えるかどうかを確認するには、プログラムインストール先フォルダのショートファイルネームでのパス表記を確認します。ショートファイルネームのフォルダ名は、コマンドプロンプトを開き、dir /x コマンドで確認できます。<br>
+<br>
+（例）インストール先が D:\Program Files\EPOST\MS の場合　→　D:\PROGRA~1\EPOST\MS<br>
+<br>
+ショートファイルネームが表示されている場合は有効に設定されています。<br>
+一方でショートファイルネームがない場合、ショートファイルネーム無効になっている可能性があります。次の２の手順でショートファイルネームが有効か無効を確認した上で、続いて３の手順で有効にします。<br>
+<br>
+<b>２．ショートファイルネームの有効か無効かの確認</b><br>
+コマンドプロンプトより次のコマンドを実行します。以下の例は「ボリューム2」＝「Dドライブ」でショートファイルネームが有効か無効かを確認しています。<br>
+<br>
+<b>〔Windows Server 2012 R2（2016/2019/2022/2025）の場合〕</b><br>
+　---------------------------------------------------------------<br>
+　C:\&gt; <b>fsutil 8dot3name query D:</b> [Enter]<br>
+　ボリュームの状態は 1 です (8dot3 名の作成は無効です)。<br>
+　レジストリの状態は 2 です (ボリューム単位で設定します - 既定値)。<br>
+　上の 2 つの設定に基づいて、8dot3 名の作成は D: で無効です<br>
+　---------------------------------------------------------------<br>
+<br>
+<b>３．ショートファイルネームの有効化</b><br>
+以下の例は「ボリューム2」＝「Dドライブ」でショートファイルネーム無効になっているのを有効に変更する方法です。<br>
+コマンドプロンプトより次のコマンドを実行、ショートファイルネーム有効にする設定値「0」を設定して、マシンを再起動します。<br>
+<br>
+<b>〔Windows Server 2012 R2（2016/2019/2022/2025）の場合〕</b><br>
+　---------------------------------------------------------------<br>
+　C:\&gt; <b>fsutil 8dot3name set 2</b> [Enter]<br>
+　現在のレジストリの状態は 2 です (ボリューム単位で設定します - 既定値)。<br>
+　C:\&gt; <b>fsutil 8dot3name set D: 0</b> [Enter]<br>
+　8dot3name の生成が D: で有効になりました<br>
+　---------------------------------------------------------------<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-24.html">Enterprise II でアンチウイルスが働かず、記録ログがDドライブ直下にできたり、パターンファイルダウンロードができないときには</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

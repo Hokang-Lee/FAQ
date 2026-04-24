@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-17</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>OP25B対策としてサブミッションポート（Port587）を併用設定するには</b></FONT>
+<HR>
+<br>
+インターネットプロバイダ等で迷惑メール撲滅を理由に、外向けのSMTPサーバーについて、25番ポートブロック【OP25B】が順序実施されるようになって来ています。<br>
+<br>
+その場合、メールクライアントが、OP25Bが実施されているプロバイダ経由で、SMTPサーバー（25番ポート）に接続して、メールを送信することができなくなりますが、そうした環境下でもE-Post Mail Server／E-Post SMTP Serverシリーズ製品では、代替ポートとして587番ポートでのメールクライアントからの送信を受けられるように併用設定することが可能です。詳細は下記リンクを参照してください。<br>
+<p align="left">［技術資料(PDF)］<br>
+■<A HREF="../doc/setup_port587.pdf" target="_blank" onClick="window.open("../doc/setup_port587.pdf","_blank")">サブミッションポート（Port587）の併用設定について (PDF)</A><br></p>
+併用設定を行うと、メールクライアント側のSMTPサーバーポート番号を587と変更することにより、OP25Bを実施しているプロバイダからでも、587 番ポートを使ってのメール送信が可能になります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-60</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>ORDBによる制限から relays.ordb.org の設定をはずしてください</b></FONT>
+<HR>
+<BR>
+2008年3月26日から27日にかけて、弊社E-Post Mail Serverシリーズ、E-Post SMTP Serverシリーズ、SPA-PRO＠Solomonシリーズをお使いのユーザー様から、SMTP受信部との接続時に切断されてしまう現象の報告やお問い合わせをたくさんいただきました。<br>
+調査の結果、「中継の制限」－「ORDBによる制限」機能の中に、relays.ordb.org が設定として残っていると、全てがブラックリストIPとして応答されてしまうことが判明しております。必ず、「ORDBによる制限」から relays.ordb.org の設定をはずしてご利用くださるようお願い申し上げます。<br>
+実は、relays.ordb.org　自体、2006年12月にサービス停止したはずでしたが、同上の時期に、DNS上で突然アクティブになりました。また、このサービスの応答でブラックリストIPを判定しようとすると、すべてのIPでブラックリストと見なす判定がされてしまいます。そのため、サーバマシンそのものとSMTP受信部との接続自体ができなくなります。このサイトはご利用にならないでください。<br>
+<br>
+弊社のE-Post Mail Serverシリーズの設定および対応策は次のとおりです。<br>
+<ol>
+<li>Mail Controlの「中継の制限」タブを開く。<br>
+<li>「ORDBによる制限」ボタンをクリック。<br>
+<li>「ordb.dat」ファイルが表示されるので、該当行がコメントアウトされていなければコメントアウト。<br>
+　　'relays.ordb.org<br>
+<li>「サービス制御」タブに切り替え、EPSTRSを再起動、念のため他のサービスも再起動。<br>
+<li>サービスの接続が切断されないか、メールサーバマシン自体からtelnetで接続してみる。<br>
+　（例）telnet　xxxxx.jp　smtp<br>
+</ol>
+接続メッセージが表示されれば、サービスへの接続は正常と判断できます。<br>
+その後、メールクライアントからの接続、外部からの接続など試してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

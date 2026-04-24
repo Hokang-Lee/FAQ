@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-62</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>senderlogに“451 Requested action aborted：error in processing.（code=183/ffffffff）”が記録されている <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+<a href="./faq05-10.html">配送時の詳細ログ（senderlog）</a>に“451 Requested action aborted：error in processing.（code=183/ffffffff）”が記録される場合について説明します。同タイプのエラーについて以下のようなものがあります。<br>
+-------------------------------------------------------------------------<br>
+451 Requested action aborted: error in processing. (code=183/0)<br>
+451 Requested action aborted: error in processing.（code=183/ffffffff）<br>
+-------------------------------------------------------------------------<br>
+基本的に、この記録は相手側の応答ではなくE-Post側で配送処理中に何らかの処理エラーが発生した可能性を示しており、“451 Requested action aborted: error in processing.”は 処理中にエラーが発生したため要求された処理を中断したという意味のE-Postが内部で自動生成した一時的エラーを示す応答コードメッセージです。<br>
+そして（　）内のcode=はWindowsのエラーコードです。よく見られる10053、10054、10060などはWindows Socketエラーコードですが、<b>ここではSocketエラーではなくシステムエラーの部類です。</b><br>
+本件では、記録されている<b>code=183</b>はWindowsのシステムエラーコード<b>ERROR_ALREADLY_EXISTS（183／0xB7）</b>に該当します。これは<b>「既に存在するファイルを作成することはできません」</b>という意味です。<br>
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/debug/system-error-codes--0-499-">https://learn.microsoft.com/ja-jp/windows/win32/debug/system-error-codes--0-499-</a><br>
+つまりこれはE-Post側の送信処理中（SendMailMess）に、キュー／リトライ／一時ファイルリネーム等の“ファイル操作”が衝突して失敗し、このシステムエラーが記録されたと考えられます。<br>
+<br>
+<b>よくある原因例</b><br>
+・ウイルス対策ソフト／セキュリティソフト／バックアップソフト等によるファイル競合<br>
+　一時ファイル作成やリネームの瞬間にロックされ、結果的に作成・更新に失敗するケース。<br>
+・ディスクファイルシステム問題<br>
+　容量ひっ迫、I／O遅延、ファイルシステムエラー、権限不整合など<br>
+<br>
+<b>確認手順</b><br>
+<b>１．同じメール（同じ配送案件）で繰り返し出るか確認</b><br>
+・senderlog上で該当行の前後を見て、同一の宛先・同一の配送試行で連続発生していないか確認します。<br>
+・1回だけなら偶発（瞬間的なロック等）で、再試行で自然復旧することもあります。<br>
+・可能なら同時刻のWindowsイベントログ（Application／System）もあわせて確認します。<br>
+<b>２．ウイルス対策／セキュリティソフト／バックアップの除外設定を確認</b><br>
+・E-Postの「メール作業フォルダ（C:\mail\）」配下や「メールボックスフォルダ」をリアルタイムスキャン対象から外すと改善することがあります。<br>
+・特に「ファイルが大量に生成・移動されるフォルダ」はファイル競合が出やすいです。<br>
+<b>３．ディスク空き容量・ファイルシステム健全性・権限を確認</b><br>
+・空き容量、ディスクエラー、NTFS権限（サービス実行権限）を点検します。<br>
+・I／Oが不安定なストレージ（遅延が大きい、瞬断がある等）でも再現しやすくなります。<br>
+<br>
+<b>・一度記録された：</b>451は一時エラーなので、再試行し様子見します。<br>
+<b>・同じエラーが何度か繰り返す：</b>ディスクI／O・権限・セキュリティ製品によるファイルの取り合いを疑い、総点検します。<br>
+<br>
+<b>183／ffffffff と 183／0 の違いについての詳細</b><br>
+後ろの ffffffff や 0 は“付随の通信系コードが「取得できていない／0扱い」”という意味程度の差で、原因の本質はどちらも183（ファイル作成衝突）です。<br>
+<b>・(code=183/0) ＝（エラーコード＝183）／0バイト受信</b><br>
+前半「183」は、Winsockの典型的なソケットエラー（10054等）ではなく、Windowsのシステムエラー183（ERROR_ALREADY_EXISTS：既に存在するため作成できない）に該当します。<br>
+そのため、配送処理（SendMailMess）中に、キュー／一時ファイル／ログ等の作成・リネームなどのファイル操作で衝突が起き、処理を中断した可能性が考えられます。<br>
+後半「0」は受信サイズが0バイトであったことを示し、相手からSMTP応答を受信する前にセッションが終了した（あるいは処理中断により受信に至らなかった）状況を示します。 <br>
+<b>・(code=183/ffffffff) ＝（エラーコード＝183）／-1</b><br>
+前半「183」の意味は上記と同様で、ファイル作成系の衝突（既に存在）を示唆します。<br>
+後半「ffffffff」は受信サイズ ffffffff＝-1 を意味し、ソケット受信を行わなかった／受信できなかったことを示します。これは無通信タイムアウトによる切断を示します。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-95.html">senderlogに記録された "451 Requested action aborted error in processing.(code=10054/ffffff)" の意味</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

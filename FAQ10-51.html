@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-51</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>エラーメールのメッセージに他のエラー発生時の情報が混入する現象について</b></FONT>
+<HR>
+<br>
+エラーメールのメッセージに、他のエラー発生時の情報が混入する現象が下記の状況に限定して起きることがあります。これは、送信元に戻ってくるエラーのリターンメールのメッセージに、&quot;user unknown&quot;など他のエラーメールのエラーが出た際の送信先アドレスが混ざって載る現象が発生するというものです。<br>
+<br>
+この問題の対策が取られているのは、EPSTDSのバージョン4.49以降です。「サポート２」より最新差分アップデートプログラムを適用し、最新のモジュールに置き換えてください。なお、以降の最新版では累積的に適用されています。<br>
+<br>
+過去に対策が取られたEPSTDSの修正点<br>
+--------------------------------------------------------------------<br>
+ [EPSTDS]<br>
+ v4.49 2010.01.18<br>
+  1.過去の同報送信での送信エラー情報がクリアされずに、新たなセッションでの送信エラーにその情報が反映されてしまう可能性がある不具合を修正。<br>
+--------------------------------------------------------------------<br>
+<br>
+（この現象の詳細と原因について）<br>
+この現象は、エラーメール全般に起こるわけではなく、<u>&quot;RCPT TO:&quot;の送信でエラーを返された後、&quot;MAIL FROM:&quot;の送信でエラーを返される</u>パターンが、かなりの回数分、繰り返されて連続しているときに限り、事象が発生することがわかっています。その他の手順であったり、どちらかでエラーを返されただけの場合は、現象は起きません。また、このパターンに該当する場合でも繰り返し回数が少ないときは、現象は発生しません。<br>
+ちなみに、&quot;RCPT TO:&quot;の送信でエラーを返される典型例は、&quot;user unknown&quot;のエラーを相手側から返されるケースです。<br>
+一方、&quot;MAIL FROM:&quot;の送信でエラーを返される典型例は、SMTP認証エラーを返されるケースです。<br>
+その２つのパターンが、異なるセッションで、ほぼ同時にかなりの回数分、繰り返し処理されているときに、この現象が発生します。<br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

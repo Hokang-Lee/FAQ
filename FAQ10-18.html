@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-18</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>255byte超の送信先エンベロープでEPSTRSがエラーを起こし停止する</b></FONT>
+<HR>
+<br>
+255byteを超える送信先、送信元エンベロープのメールを受領したとき、EPSTRS（SMTP受信サービスプログラム）がエラーを起こして停止してしまう現象が発生する場合、バージョンが古いままで使用していないか確認してください。既に過去に以下のような対策が取られています。<br>
+<br>
+エンベロープのロングネーム（255Byte超）への対策は、4.54以降からです。早急に「サポート２」より最新差分アップデートプログラムを適用し、最新のモジュールに置き換えてください。なお、最新版では累積的に適用されています。<br>
+<br>
+過去に対策が取られたEPSTRSの修正点<br>
+--------------------------------------------------------------------<br>
+[EPSTRS]<br>
+Ver.4.54　2008.02.18.修正<br>
+・メールアドレス長がバッファ長以上のときの対処。<br>
+・エンベロープが255byte（RFC2821規定）を超えた場合、拒否するようにした。<br>
+--------------------------------------------------------------------<br>
+※対象となるエンベロープは、送信元、送信先、共に255byteを超えるアドレスです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-34</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>自動応答機能の本文が文字化けするときの対策・基本設定について</b></FONT>
+<HR>
+<br>
+自動応答機能の本文をキーボードからそのまま日本語入力して設定すると、自動応答で返ってくる本文内容が文字化け状態となってしまいます。正しくエンコードしたものを入力するには次の手順を取ってください。<br>
+既出の「メールサーバ構築ガイド」にある通り、自動応答の本文・タイトル部分は、JISにてエンコードして保存する必要があります。なお、Web管理ツールから応答文を作成すれば、そこで自動的に強制でJISエンコードして保存してくれます。<br>
+自動応答のメッセージを日本語表記にする場合、Shift-JISで保存せず、JISコード（ iso-2022-jp ）形式にエンコードしてから保存します。具体的な操作方法は下記記事をご参照ください。また、自動応答文を全角文字の日本語にするとき、次のFAQ記事にあるレジストリ設定が事前に必要になります。<br>
+<br>
+<b>（参考）</b><br>
+■<a href="../epmsent_construct_guide/kouchiku20.html" target="NEW2">メールサーバ構築ガイド－20.自動応答を設定してみよう</a><br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-63.html">自動応答メールの文字コードが西ヨーロッパ言語になっていてメーラで文字化けする</a><br>
+<br>
+自動応答のメッセージを日本語表記で保管する方法については次の二通りがあります。<br>
+<blockquote>
+<b>１．Web管理ツールの「自動応答」機能から応答文を設定する</b><br>
+Account Managerからは、JISにエンコードするには、何らかのツールの手助けを借りなくてはなりませんが、Web管理ツールから応答文を作成すれば、そこで自動的に強制でJISエンコードして保存してくれます。利用するには、事前にWeb管理ツールの最新差分を適用してください。Web管理ツールの最新差分は「サポート２」にあります。<br>
+<b>２．ツールやメーラーを使ってエンコードされた文字列を貼り付ける</b><br>
+「サポート２」にあるツールの"UnicodeConv.exe "を使ってJISエンコードされた文字列を件名と応答文項目に貼り付ける方法か、あるいは構築ガイドにあるように、メーラーを利用してJISエンコードされた文字列を貼り付ける方法を取ってください。</blockquote>
+※変換ツールに頼らなくてよい１がお薦めです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

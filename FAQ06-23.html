@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b> EPSTDMARC を使って受信メールヘッダに付与されたタグに基づいてメールフィルタ機能で受信拒否する方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+アドインツール EPSTDMARC を使い受信メールヘッダに付与されたタグに基づいて、E-Post本体側のメールフィルタ機能【mail.dat】で受信拒否する方法を解説します。<br>
+<br>
+E-Postシリーズでメールを受信し、アドオンツール EPSTDMARC によって、dmarcの検証が失敗した場合、p=noneで指定していますので、dmarc に失敗しても推奨されるアクションはありません。そのため、実際に受信拒否しようとすれば、p=rejectで指定した場合も同様に拒否等の動作をメールフィルタ機能【mail.dat】で設定しておく手順が必要になります。<br>
+<br>
+ここでメール送受信時に動作するアドオンツールの働きやE-Post本体に備わっているメールフィルタ機能の概要を整理しておきましょう。<br>
+<ol>
+<li>E-Postからの送信時<br>
+アドオンツール EPSTDKIM：<br>
+送信時にDKIMのヘッダをつける （付与されるヘッダは秘密鍵をもとに生成したシグネチャなど）<br>
+<li>E-Postの受信時<br>
+アドオンツール EPSTDMARC：<br>
+DNSのDKIMとメールヘッダに基づいてタグを付与する（付与されるタグは p=none, quarantine, reject）<br>
+<li>E-Postの受信時<br>
+メールフィルタ機能【mail.dat】：<br>
+メールに付与されたタグ（p=none, quarantine, reject）に基づいて配送動作を制御<br>
+</ol>
+ヘッダーに &quot;p=reject&quot; で指定した場合も、同様にその後の拒否等の動作をメールフィルタ機能【mail.dat】で行う手順と設定事例を以下に2例示します。<br>
+<br>
+<b>（【mail.dat】設定例その1）</b><br>
+Authentication-Resultsヘッダの &quot;dmarc=reject&quot; があれば受信拒否しメールをviruslogフォルダへバックアップする<br>
+<small>'------------------------------------------------------<br>
+Virus:Reject dmarc<br>
+Level:110<br>
+Unique-Header:Authentication-Results:dmarc=reject<br>
+Warning:<br>
+[!]WARNING[!]<br>
+DMARC拒絶対象のため隔離しました<br>
+WarningEnd:<br>
+VirusEnd:<br>
+'------------------------------------------------------</small><br>
+<b>（解説）</b>Level:110 の 1xx で拒絶、x1x でviruslogフォルダへの保管を指示しています。<br>
+&quot;dmarc=reject&quot; の語句は、実質的に前後をワイルドカードで囲んだと同義での部分一致検索が実行されます。ワイルドカード（*）自体を書くことは無効です。<br>
+Warning:～WarningEnd:句の指示により、viruslogフォルダへ保管されるエンベロープファイルである .RCPファイル内へ指定された語句が追加挿入されます。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./FAQ01-81.html">メールフィルタ【mail.dat】の設定事例</a> →ケース6に任意ヘッダーの指定例<br>
+●<a href="./FAQ04-13.html">メールフィルタ設定の Warning: は何のために用意されている？</a><br>
+<br>
+<b>（【mail.dat】設定例その2）</b><br>
+Authentication-Resultsヘッダの &quot;dmarc=reject&quot; があれば受信拒否しメールをviruslogフォルダへバックアップする。<br>
+（※隠し機能コマンドComp:1を有効にしてワイルドカードを指定する方法）<br>
+<small>'------------------------------------------------------<br>
+Virus:Reject dmarc<br>
+Comp:1<br>
+Level:110<br>
+Unique-Header:Authentication-Results:*dmarc=reject*<br>
+Warning:<br>
+[!]WARNING[!]<br>
+DMARC拒絶対象のため隔離しました<br>
+WarningEnd:<br>
+VirusEnd:<br>
+'------------------------------------------------------</small><br>
+<b>（解説）</b>隠し機能コマンドComp:1は、通常は無効であり、下記に示す設定方法で有効に設定することが必要条件になります。<br>
+&quot;dmarc=reject&quot; の語句前後にワイルドカード指定がされていますが、これは隠し機能コマンドComp:1が指定されているときのみ有効です。これらの機能や設定はこれまでのFAQ記事には記載しておりません。<br>
+<br>
+<b>［隠し機能コマンドComp:1を有効にする設定］</b><br>
+メールフィルタの隠しオプション Comp:1 を利用するためには設定ファイル内に以下の設定を行うことが必要になります。<br>
+<br>
+　　[メール作業フォルダ]\reg\SOFTWARE\EMWAC\IMS\MailFilterUp.1<br>
+<br>
+該当フォルダ内に”MailFilterUp.1”ファイルを作成し、ファイル内に"1"を入力（末尾の改行はありません）<br>
+※設定ファイルの拡張子種類は、次の通り値の型を表わす。<br>
+ （ .0 = BINARY, .1 = DWORD,  .2 = STRING及びその他の形式 ）<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

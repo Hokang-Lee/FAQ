@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-69</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>EPSTRSとlibeary32.dllが停止する現象への対応について</b></FONT>
+<HR>
+<br>
+EPSTRS.exeとlibeary32.dllが停止する現象の報告がありました。Windowsイベントログで見たところ、障害が発生したと記録されているモジュールlibeay32.dllとはSSL関係のDLLであり、OpenSSL用モジュールの一つです。記録によると、SMTP受信サービスプログラムであるEPSTRS.exeから呼び出されたlibeay32.dllが停止、EPSTRS.exeも一緒に停止していることを表していました。<br>
+この原因についてですが、libeay32.dllを含む各モジュールのバージョンが古いままである可能性があります。<br>
+<br>
+まず最初にMail Control「バージョン情報」タブからEPSTRSを始めとする各コンポーネントのバージョンを確認してください。DLLのバージョンはここには表示されませんが、各サービスのバージョンがわかれば、DLLも同時期のバージョンのものが含まれていることになります。また、SSL関連のDLLであるssleay32.dll/libeay32.dllをファイルのプロパティでバージョンを確認することもできます。<br>
+これらのDLLについては、弊社が年数回のペースで提供している最新差分アップデートプログラムで合わせて更新しています。最新差分アップデートを適用すると、ssleay32.dll/libeay32.dll の２つも一緒にアップされます。<br>
+ちなみに2018-10-22掲載の20181004差分を適用すると、ファイルプロパティでの両DLLのバージョン表記はv1.0.2o（1.0.2.15）となります。<br>
+基本的には、この現象が発生した場合は、最新差分アップデートを適用してから、その後のようすを見ていただくよう案内させていただいております。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

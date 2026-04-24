@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールクライアントから587番でSTARTTLSを利用する場合、証明書が必要だとは思うが、利用ポートが465番に変わるのか？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+STARTTLSは、同一ポートで行われます。<br>
+25番で接続すれば、25番で暗号通信のネゴシェーション後、途中から暗号化された通信に変わります。<br>
+587番で接続すれば、587番で暗号通信のネゴシェーション後、途中から暗号化された通信に変わります。<br>
+同じポート番号のまま、途中から自動で切り替わる仕組みがSTARTTLSと言えます。<br>
+<br>
+したがって、SMTP over SSL/TLSを使わない場合は、465番ポートをあける必要はありません。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-17.html">OP25B対策としてサブミッションポート（Port587）を併用設定するには</a><br>
+●<a href="./faq17-39.html">暗号化通信を使って送受信する際、使用するポートをどのように設定しどのように運用すればよいか？</a><br>
+●<a href="./faq15-59.html">STARTTLSを有効にするためのE-Postでの仕様と設定について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

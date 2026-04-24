@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-29</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証の設定をしたのに認証なしで送信できてしまう</b></FONT>
+<HR>
+デフォルトでは、Mail Controlの[サービス制御]タブにある[セキュリティレベル]が[非認証有効]となっているため、SMTP認証でなくても送信可能な設定となっています。<br>
+<br>
+そこで、内部ユーザーからの送信をSMTP認証のみで行う場合、次のように設定した後、EPSTRSの再起動を行ってください。<br>
+Mail Control<br>
+　->[サービス制御]<br>
+　　->[セキュリティレベル]　を　[認証ファイル]<br>
+<br>
+続いて、Account Manager から、各ユーザーの設定で[SMTP-AUTH & APOPを使用]チェックボックスをオンにしてください。<br>
+<br>
+※ または、該当ユーザーのメールボックスフォルダを開き、直接"APOP.DAT"ファイルを作成し、ファイル中にSMTP認証時のパスワードを平文で入力しておく作業を行ってもかまいません。<br>
+<br>
+なお、[SMTP-AUTH & APOPを使用]チェックボックスをオフにしているユーザーについては、[セキュリティレベル]が[認証ファイル]で指定されていれば、認証なしの送信が許可されるようになります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

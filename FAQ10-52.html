@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-52</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SSLの設定時にCSRの鍵長に関する警告メッセージが表示された場合</b></FONT>
+<HR>
+<br>
+SSLの設定では、<a href="../../../download.html#tool" target="_blank">「ダウンロード」公開ページ</a>に用意してある <b>SSL-Key</b> をダウンロードし、解凍してください。<br>
+（※2018年12月現在、新しい openssl.exe を組み込んだ <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b>を用意してあります。）<br>
+このとき、解凍された&quot;CERTIFICATE.BAT&quot;を使って、&quot;myreq.pem&quot;を作成、認証局のCSR情報を&quot;myreq.pem&quot;の内容をコピーして入力すると、認証局によっては「CSRの鍵長は2048bit（または1024bit）以上でなければならない」旨の警告メッセージが表示されることがあります。そのような場合は、以下の手順でバッチファイルの&quot;CERTIFICATE.BAT&quot;と、設定ファイルの&quot;openssl.cnf&quot;を書き換えてください。<br>
+これは、&quot;SSL-Key.zip&quot;に含まれるバッチファイルおよび設定ファイルの状態では、CSRの鍵長が512bitで作成されるようになっているためです。下記の通り、2つのファイルのそれぞれ１個所ずつを修正し、CSRの鍵長を2048bit（または1024bit）に変更して対応します。<br>
+（※SSL-Key-SHA2a.zipもしくはSSL-Key-SHA2.zip の方ではCSRの鍵長を最初から2048bitに設定しています。）<br>
+<br>
+<ol type="A">
+<li> <b>CERTIFICATE.BAT</b> の書き換え<br>
+<br>
+メモ帳かテキストエディタで、2行目の<u><i>&quot;rsa:512&quot;</i></u>を<u>&quot;rsa:2048&quot;(または&quot;rsa:1024&quot;)</u>に変更します。<br>
+<br>
+<b>【CERTIFICATE.BAT】</b><br>
+<hr width="90%" align="left">
+openssl req -config openssl.cnf -new -nodes -keyout cakey.pem -x509 -out cacert.pem<br>
+openssl req -config openssl.cnf -new -nodes -newkey <u><i>rsa:512</i></u> -keyout mykey.pem -out myreq.pem<br>
+openssl ca -config openssl.cnf -in myreq.pem -keyfile cakey.pem -cert cacert.pem -out mycert.pem<br>
+<hr width="90%" align="left">
+<br>
+<li> <b>openssl.cnf</b> の書き換え<br>
+<br>
+マイコンピュータやエクスプローラからの表示上は、&quot;openssl&quot;になっており、拡張子は見えませんが、実際は拡張子.cnfが含まれます。<br>
+この設定ファイルにも、デフォルトで512bitになっている部分が88行目にありますので、同様にメモ帳かテキストエディタで、2048bit(または1024bit)の設定に変更します。<br>
+　旧　default_bits  = <u><i>512</i></u><br>
+　新　default_bits  = <u>2048(または1024)</u><br>
+<br>
+<b>【openssl.cnf】</b>　（※表示上はopenssl）<br>
+<hr width="90%" align="left">
+[ req ]<br>
+default_bits = <u><i>512</i></u><br>
+default_keyfile = privkey.pem<br>
+distinguished_name = req_distinguished_name<br>
+attributes = req_attributes<br>
+x509_extensions = v3_ca	# The extentions to add to the self signed cert<br>
+<hr width="90%" align="left">
+</ol>
+これらの作業後、鍵を作成し直し、作成されたCSRを提示してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

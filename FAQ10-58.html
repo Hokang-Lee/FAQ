@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-58</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>SSL/TLS設定で中間CA証明書を設定するには</b></FONT>
+<HR>
+<br>
+SSL/TLS通信時における認証局と中間CA証明書について<br>
+<br>
+E-Post Mail Server / E-Post SMTP Serverでは、EPSTRSのバージョン4.60以降（2009.01.21リリース）で、中間証明書のある３階層の証明書まで、プログラムとしては既に対応済みです。ただし、Mail Controlの「SSL設定」タブ画面では設定できる証明書ファイルが１つに限られていますので、事前の作業として、証明書ファイルに中間証明書の内容を結合させる手順が必要になります。<br>
+<br>
+具体的にはたとえば、テキストエディタで開いた３階層の証明書ファイル内の行末に、同じくテキストエディタで開いた中間CA証明書の（-----BEGIN CERTIFICATE-----）　から　（-----END CERTIFICATE-----）までをそれぞれコピーしたものを貼り付けます。つまり、３階層目の部分を上に、２階層目の中間証明書の部分を下にする形です。<br>
+Mail Controlの「SSL設定」タブ画面では、そのようにして作業を行って保存した証明書ファイルを指定するようにします。<br>
+<br>
+なお、具体的な設定方法については、SSL認証局各社サイトをご覧になるか、直接おたずねください。設定方法としては、Apache＋OpenSSLで中間CA証明書を使うようにする設定方法の説明が、LinuxとWindowsの違いこそあるものの、ある程度参考になるものと思われます。<br>
+<br>
+　　<a href="http://jp.globalsign.com/support/server/03.html" target="_blank">グローバルサインの例</a><br>
+　　<a href="https://knowledge.digicert.com/ja/jp/solution/SO23580.html" target="_blank">ディジサートの例</a><br>
+<br>
+なお、これは当然ですが、正式利用の前に必ずテスト証明書での検証試験をしていただくようお願いします。また、SSL認証局によっては、WebサーバのSSLはサポート対応しても、メールサーバのSSLについては、サポート対応しないところがあるようです。その点も合わせて確認してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-07.html">グローバルサイン認証局の証明書を利用したSSL/TLS設定事例</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

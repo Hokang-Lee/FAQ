@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-05</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	dd {
+		padding:0;
+		margin:0 0 0.5em 0em;
+		padding:3px;
+		background:#f4f3e8;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>他社製品（サービス）に実装されている「外部POPサーバ設定」機能はないのか、なければ代替する方法はないのか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+他社製品であるXMailにはオプション機能として「POPクライアント機能」という外部POPサーバからメールを取得し、ローカルのメールボックスに配信する機能があります。<br>
+<br>
+E-Post Mail Server (x64) シリーズであれば、通常は外部サーバ側が内側のメールサーバに対して、SMTPプロトコルで強制的に配送する（フォワードする）ようにしておけば問題ないことではあります。<br>
+しかし、このXMailの「POPクライアント機能」に該当する機能はE-Post Mail Server (x64) シリーズには実装されていません。次に、代替の方法として挙げられるものを紹介します。<br>
+これは導入後の製品FAQ記事内に、既存のメールサーバから未読のPOP3メールデータをすべて受信し、新サーバへ移行させるための方策としてバッチファイル事例を用意しているものです。<br>
+<br>
+（参考FAQ）<br>
+●<a href="./faq17-78.html">POP3メールデータ取得バッチファイル事例</a><br>
+<br>
+この「POP3メールデータ取得バッチファイル事例」を参考にして、任意の外部POPからメールを取得するためのバッチファイル作成を検討してください。<br>
+上記で示したバッチファイル事例では、新旧サーバ間の移行を想定しているため、RETRコマンドによるPOP受信のみしかしていません。<br>
+多くのクライアントはRETRコマンドに続けてDELEコマンドを出し、サーバからメールを削除する命令も実行させていますが、上記バッチファイル事例ではそれを行っていません。また、RETRコマンドでメールデータ取得した後、取得元のメールボックスフォルダから、DELEコマンドを出して、サーバからメールを削除するようにバッチファイルを作り変える必要があります。さらに、サーバ移行では一度だけのバッチファイル実行で用が足りますが、「POPクライアント機能」を代用するには、永続して定期的に動かす工夫が必要となるため、タスクスケジューラにバッチファイルを登録、定期的に起動するように設定することが必要となってきます。<br>
+<br>
+下記事例では、上記バッチファイル事例をさらに発展させRETRコマンドに続けてDELEコマンドを実行するように改訂しました。<br>
+合わせて1回だけのPOP3受信は問題ないのですが、取り込んだE-Post側のメールボックスからメールクライアントが受信しないで残っているケースでバッチファイルを定期的に動かしている場合、次のタイミングで新しいメールをコピーしたとき、ファイル名が同一になって上書きコピーされることを防ぐ対策も必要になります。そこで下記バッチファイル事例では、同名受信しないようUID値を取得し、UID値によるファイル名になるよう改訂を加えてあります。<br>
+【get_pop_data3_del.bat】を「POPクライアント機能」の代用可能なバッチファイル事例として紹介します。なお、バッチファイル中、POP3受信を担う中心は、Windowsに用意されているcurlコマンドの処理に依存しています。curlコマンドの使い方や機能については、一般サイトをご参照ください。<br>
+<br>
+<small>※curlプログラムの新しいバージョン（8.11.1以降）をダウンロードしてください。Windows 11/Windows Server 2022 に用意されている、curl 8.9.1やcurl 8.7.1では、POP3プロトコル時にDELEコマンドを実行すると正常終了できない不具合があると確認されています。curlプログラムの新しいバージョン（8.11.1以降）が用意されているダウンロードサイトから、最新バージョン8.11.1以降をダウンロードし、任意フォルダに解凍して、その任意フォルダのパスを指定して実行するよう、バッチファイルを書き換えてください。<br>
+<a href= "https://curl.se/windows/" >https://curl.se/windows/</a><br>
+ちなみにサンプルバッチの事例では、curlプログラムは、C:\curl-8.11.1_3-win64-mingw\bin\ 下に収めてあるものを実行しています。<br></small>
+<br>
+<dl>
+<dd>
+<b>【get_pop_data3_del.bat】</b> POP3メールデータ取得・サーバメール削除バッチファイル事例 下線部書き換え<br>
+@echo off<br>
+<br>
+setlocal enabledelayedexpansion<br>
+<br>
+rem userlist.txtへカンマ区切りで保存右記の書式で保存 ユーザアカウント,パスワード,保存先フォルダ <br>
+rem 接続アドレス:ポート<br>
+set adr=pop3://<u>10.0.1.9</u>:110/<br>
+<br>
+rem ユーザリストuserlist.txtからID,PWを取得し順次保存<br>
+for /f "tokens=1,2,3 delims=, " %%a in (userlist.txt) do (<br>
+<br>
+echo %%a<br>
+echo %%b<br>
+echo %%c<br>
+<br>
+mkdir %%c<br>
+curl -u "%%a:%%b" %adr% -X "UIDL" -o list.txt<br>
+<br>
+for /f "tokens=2" %%d in (list.txt) do (<br>
+<br>
+<br>
+set num=000000000%%d<br>
+set num=!num:~-9,9!<br>
+rem echo !num!<br>
+<br>
+curl -v -u "%%a:%%b" %adr% -X "RETR 1" -o %%c%%d.MSG<br>
+C:\curl-8.11.1_3-win64-mingw\bin\curl -v -u "%%a:%%b" %adr% -X "DELE 1"<br>
+)<br>
+)<br>
+<br>
+endlocal<br>
+<br>
+</dl>
+</dd>
+<small>※上記 -X "DELE 1" が受信後のメール削除のDELE命令です。接続のたびに先頭となるメールを1ずつ消していく方式になります。<br>
+※「保存先フォルダ」指定ですが、E-Post Mail Server (x64) の各アカウントメールボックスフォルダ位置をそれぞれ指定することになります。メールボックスフォルダの位置についての理解は、次の記事を確認してください。<br></small>
+<br>
+（参考FAQ）<br>
+●<a href="./faq10-11.html">方式の違いによるメールボックスフォルダの作成位置について</a><br>
+●<a href="./faq10-12.html">ドメインの管理方法を共通ボックス方式から接続ドメイン/IPで区別する方式へ移行するとき</a><br>
+●<a href="./faq15-30.html">inboxフォルダ（メールボックスフォルダ）配下に格納されるデータファイルについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

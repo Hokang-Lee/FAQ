@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-13</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>VBScriptでの追加処理プログラムを利用して空メールから送信元アドレスを取得する方法</b></FONT>
+<HR>
+<br>
+弊社メールサーバー製品に対応した空メールでのアドレス取得処理方法を以下に紹介します。<br>
+<br>
+<B>「メール制御」の設定</B><br>
+1.任意のメールアドレスについて、「メール制御」の設定を行い、自動応答または自動転送を許可します。<br>
+2.「メール制御」ダイアログボックス内の「追加処理プログラム」欄に、以下の方法で設定を完了した追加処理プログラムを指定します。<br>
+<br>
+事前にダウンロードコーナーから「追加処理プログラム作成キット2　SPA-DLL-PWRAPPER（※1）」をダウンロードし、&quot;pwrapper.dll&quot; を取り出して、プログラムインストールフォルダにコピーしてください。追加処理プログラム自体は、Windowsに含まれる &quot;cscript.exe&quot;（※2）からVBScriptを呼び出す方法で行います。<br>
+（※1 32bit版専用DLLはダウンロードコーナーに用意されていますが、64bit版専用DLLを入手する場合はお問い合わせが必要です）<br>
+（※2 Windows 2000以降に含まれ、コマンドプロンプトで動作するVBScript実行用インタプリタプログラム）<br>
+<br>
+<B>「メール制御」の追加処理プログラム欄に設定する内容</B><br>
+フォルダ名については実際の環境を確認した上で正しく指定してください。32bit版E-Postシリーズを64bitOS環境にインストールしている場合は、&quot;C:\Program Files (x86)\&quot;になっています。<br><small>
+・E-Post Mail Server シリーズ／E-Post Mail Server (x64) シリーズ<br>
+<HR width=95% align="left" size="1" noshade>
+&quot;C:\Program Files\EPOST\MS\pwrapper.dll&quot;　c:\winnt\system32\cscript.exe?GetRecipentAddr.vbs<br>
+<HR width=95% align="left" size="1" noshade>
+</small><br>
+以下は、VBScript サンプルプログラムのソースです。<br>
+拡張子".MSG"を".$CP"に変更すると、処理中の".RCP"ファイル内の送信元レシピエントの保存ファイルが取得できますので、空メールからのアドレス自動取得処理がVBScriptで可能になります。<br>
+<br><small>
+<B>VB Script サンプルソース</B> (GetRecipentAddr.vbs)<br>
+<HR width=95% align="left" size="1" noshade>
+Set A=WScript.Arguments<br>
+Set fs = WScript.CreateObject("Scripting.FileSystemObject")<br>
+<br>
+' Argumentから対象のRCPファイル(.$CP)をファイルの位置を割り出す<br>
+mMSG = A(1)<br>
+n = InStrRev(mMSG, ".", -1)<br>
+mRCP = Mid(mMSG , 1, n ) + "$cp"<br>
+<br>
+' トリガとなったMSG,RCP($CP)ファイルのフォルダ位置をファイルに保存<br>
+' 空メールアドレスのみ記録したいなら以下の4行は不要<br>
+set fout= fs.CreateTextFile("C:Program Files\EPOST\MS\filename.txt")<br>
+fout.Write mMSG & vbCr <br>
+fout.Write mRCP & vbCr <br>
+fout.Close<br>
+<br>
+' RCP($CP)ファイルから送信元エンベロープを取り出す<br>
+Set fin = fs.OpenTextFile(mRCP, 1)<br>
+mMID = fin.ReadLine<br>
+mRP  = fin.ReadLine<br>
+fin.Close<br>
+email = InStr(mRP, " ")<br>
+<br>
+' 送信元エンベロープをファイルに保存（空メールアドレス取得）<br>
+set fout= fs.CreateTextFile("C:Program Files\EPOST\MS\recpient.txt")<br>
+fout.Write Mid(mRP, email+1) & vbCr <br>
+fout.Close<br>
+<HR width=95% align="left" size="1" noshade>
+（注意）このサンプルプログラムは、受領した「メール」のアドレスをrecpient.txtに保管します。<br>
+新たな「メール」が受領された場合は、上書きされますので目的に応じて処理内容を書き換えてください。<br>
+</small>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

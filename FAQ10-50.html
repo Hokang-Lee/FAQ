@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-50</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>サービス[停止]ボタンをクリックしたとき、メッセージが表示されたり、ボタンが正常表示されないことがある</b></FONT>
+<HR>
+<br>
+サービスを停止するため、「サービス制御」タブにある[停止]ボタンクリックをしたとき、停止できない旨のメッセージが表示されたり、停止できても、ボタンの表示が正常に[開始]に変わらないことがあります。なお、Mail Controlの「サービス制御」ではなく、Windowsの管理ツール「サービス」で確認すると、サービス停止中のステータスが表示されるため、状態を確認しやすくなります。<br>
+<br>
+具体的な例では、以下のようなケースが当てはまります。なお、これらについては、サービス制御の原理的な仕組みからして、どうしても避けることができません。そのため、仕様としてご理解ください。<br>
+<ul>
+<li>EPSTDSの[停止]ボタンをクリックしたとき「サービスが停止できません」とメッセージが出る<br>
+<br>
+EPSTDSによる配送セッションが活動中の場合、それぞれの配送セッションが完了するまで、サービス停止の動作はウエイトされます。ちょうどその状態の最中に、[停止]ボタンクリックによる停止操作を行ったとき、上記の「サービスが停止できません」というメッセージが表示されます。<br>
+メッセージが表示されても、異常な状態ではありません。なお、停止要求は受け付けています。<br>
+しばらく時間をおいてから、Mail Controlをいったん閉じて再度起動し、「サービス制御」タブを開くと、EPSTDSが停止された状態になっていることが確認できます。<br>
+<br>
+<li>EPSTRSの[停止]ボタンをクリックしたとき、[開始]と表示されるはずのボタンが[登録]と表示されることがある<br>
+<br>
+EPSTRSによる受信セッションが活動中で、サービス停止の動作がウエイトされる場合がまれにあります。このようなタイミングで、サービスの状態が正しく応答されないときに、[開始]と表示されるはずのボタンが「登録」と表示されることがあります。<br>
+こちらについても、しばらく時間をおいてから、Mail Controlをいったん閉じて再度開き直し「サービス制御」タブを選択すると、EPSTRSが停止された状態になっていることが確認できるようでしたら問題はありません。<br>
+一方、再度Mail Controlを開き直して確認してみてもボタンが「登録」のまま変わらない場合は、Windowsの管理ツール「サービス」で確認してください。ステータスが停止中のままになっていて、サービスが停止できない状態の場合は以下のFAQ記事を参照してください。<br>
+</ul>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-17.html">サービスを停止しようとしても停止できない状態になる</a><br>
+<br>
+</ul>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-24</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>getattach.exe 導入時には、CGIプログラムとしてファイル読み書き削除可能な権限設定を行うことが必要 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+『添付ファイル分離配送＆ファイル受信通知機能 SMTP ゲートウェイ 構築運用ガイド』の7ページには、次の記述があります。<br>
+「設定するCGI（getattach.exe）には、WebサーバIISから使用可能なCGIプログラムとして"ファイルの読み書き削除"可能な権限が与えられている必要があります。」<br>
+CGIプログラムとして getattach.exe を導入するためには、cgi-binフォルダの設定、getattach.exe への"ファイルの読み書き削除"可能な権限設定が必要です。この必要な権限設定を行うには、Web管理ツールの設定内容を参考に同様の設定をしてください。<br>
+<br>
+下記記事の「2.ISAPIおよびCGIの制限への設定」を参照<br>
+(1) インターネットインフォメーションサービス（IIS）マネージャーの起動<br>
+(2)「機能ビュー」より「ISAPIおよびCGIの制限」をダブルクリック<br>
+(3)「操作」パネルより「追加...」をクリック<br>
+(4) ISAPIおよびCGIの制限の追加」ダイアログボックスが表示されるので「ISAPIまたはCGIパス」項目にある「参照」ボタンをクリック<br>
+(5) "C:\Program Files\EPOST\cgi-bin"フォルダを開き、拡張子*.exeのファイルを参照、表示される"getattach.exe"を選択する<br>
+(6) ファイル選択後のフルパス表記を確認し、CGIプログラムの「説明」を入力、「拡張パスの実行を許可する」チェックボックスをオンにして、最後に「OK」ボタンクリック<br>
+<br>
+下記記事の「3.ハンドラマッピングへの設定」を参照<br>
+(1)「機能ビュー」より「ハンドラマッピング」をダブルクリック<br>
+(2) "CGI-exe"を選択し、「操作」パネルより「機能のアクセス許可の編集」をクリック<br>
+(3) 機能のアクセス許可の編集」ダイアログボックスが表示されるので、いちばん下の「実行」チェックボックスもオンにして、「OK」ボタンをクリック<br>
+<br>
+下記記事の「7.最後にブラウザより接続し・・・」を参照<br>
+(1) コンテンツビュー」で、仮想ディレクトリ"cgi-bin"を選択し右クリック、表示されるメニューより「アクセス許可の編集...」を選択<br>
+(2)「cgi-binのプロパティ」ダイアログボックスより「セキュリティ」タブに切り替え、「編集」ボタンをクリック、続いて表示される「アクセス許可」ダイアログボックスより、インターネットゲストアカウント（IUSR）を追加、「フルコントロール」「変更」チェックボックスをオンに設定、“フルコントロール”のアクセス許可権限を与える<br>
+(3)「機能ビュー」に切り替え、「認証」をダブルクリック<br>
+(4)「匿名認証」を選択し、「操作パネル」の「編集..」をクリック<br>
+(5)「匿名認証編集」ダイアログボックスが表示されるので、「特定のユーザー」選択状態で「設定」ボタンをクリックし、表示されるダイアログボックスでAdministratorアカウントとパスワードを入力、「OK」ボタンを続けてクリック<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./FAQ09-04.html">Windows Server 2012R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</a><br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

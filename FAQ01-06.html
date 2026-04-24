@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTRS/EPSTPOP3S/EPSTIMAP4Sのサービスが起動できず開始されない </b></FONT>
+<HR>
+<BR>
+サービス開始を行っても、サービスがうまく起動できず、開始されない場合は、以下の点について再確認してください。<br>
+ちなみに、E-Post Mail Control画面では、状態がよくわからない場合でも、Windows Serverの「サービス」で確認すると、途中のステータスが確認でき、「開始」したが起動できず、「開始中」のまま途中で止まっている状態などが判別できます。Windowsの「サービス」で確認することをお薦めします。<br>
+<br>
+<b>１．既にSMTP（Port 25）、POP3（Port 110）、IMAP4（Port 143）を占有している別のサービスが起動している</b>
+<blockquote>
+・SPA-PRO Mail＠Solomonからの移行を行った場合や、他社製メールサーバソフトからの移行を行っている場合、従来のサービスが自動で起動されていませんか？<br>
+・Windows Server標準のSMTPサービスを導入したとき、サービスが自動で開始されていませんか？<br>
+・その他、上記のポート番号を塞いでいるファイヤーウォールソフトや、ポート番号を占有するプログラムが稼働していませんか？<br>
+</blockquote>
+<b>２．「IP version：」が空白のままだったり、IPv6サービスが組み込まれていないのに、&quot;IPv4/6&quot;や&quot;IPv6 Only&quot;を指定している</b>
+<blockquote>
+・Mail Control画面の「ドメイン管理」タブにある「IP version：」が空白のままになっていませんか？「IP version：」が空白のままだと、IPv4もIPv6もどちらも使えない状態です。通常の場合はIPv4使用の環境でしょうから、&quot;IPv4 only&quot;を選択してください。<br>
+・IPv6サービスが組み込まれていないのに、&quot;IPv4/6&quot;や&quot;IPv6 Only&quot;を指定しているときも、使用できない環境と判断され、各サービスプログラムは起動できません。ただしEPSTDSサービスだけは例外で、自律的に動作するために無関係に動きます。<br>
+・上記IPv6サービスが組み込まれていない場合は、&quot;IPv4 only&quot;で使用する必要があります。<br>
+</blockquote>
+<b>３．各サービスの「詳細設定」「IP設定」関係に正しくないIPアドレスが登録されている</b>
+<blockquote>
+・E-Post Mail Controlの「サービス制御」タブ画面を開き、各サービスの［詳細］ボタンクリックで表示される「詳細設定」ダイアログボックスにおいて、「一覧のアドレスに応答する」設定を行っている場合、「IP設定」関係に正しくないIPアドレスが登録されているときは、サービスが正常に開始できません。<br>
+・メールサーバマシンのIPアドレスを変更した場合など、以前のIPアドレスや正しくないIPアドレスが、上記の「詳細設定」ダイアログボックスに設定されたままだと、各サービスがうまく起動できません。なお、この場合もEPSTDSサービスだけは例外で、自律的に動作するために、IPアドレス設定とは無関係に動きます。<br>
+</blockquote>
+<b>４．サービスプログラムが各設定フォルダに読み書きできる権限がない</b>
+<blockquote>
+・メール作業フォルダ・メールボックスフォルダに設定されているフォルダは正しいか、サービスプログラムレベルからアクセスできるか、確認してください。具体的には、現在の権限で正常にフォルダに読み書きできるか確認してください。下記のいずれかが、サービスプログラムレベルでアクセスできなければ、サービスプログラムは正常に開始できません。
+<blockquote>
+メール作業フォルダ（E-Post Mail Control－「サーバ設定」タブ）<br>
+メールボックスフォルダ（E-Post Mail Control－「サーバ設定」タブ）<br>
+アカウントフォルダ（E-Post Mail Control－「ドメイン管理」タブ）<br>
+</blockquote>
+・E-Post方式のクラスタ構成にする場合、上記のフォルダはいずれも共有ディスク先になりますので、サービスの登録は必ず「Administrator」で行う必要があります。ローカルシステム（LocalSystem）では権限が足りません。ちなみに、シングルサーバ構成やMSFC・MSCSクラスタ構成の場合、サービスプログラムを起動する権限は、ローカルシステム（LocalSystem）のままでかまいません。</blockquote>
+<b>５．Windowsのログインアカウントはドメイン管理者権限では不足、ローカル管理者権限が必須</b>
+<blockquote>
+・シングルサーバ構成やMSFC・MSCSクラスタ構成の場合、サービスプログラムを起動する権限は、ローカルシステム（LocalSystem）のままでかまいませんが、Windowsのログインアカウント権限が十分か確認してください。<br>
+・サービスプログラムを動かすには、<font color="#ff0000">Windowsのログインアカウントがドメイン管理者権限では権限が不足</font>します。ビルトインされているローカルのAdministratorに備わる、ローカル管理者権限が必須です。<br>
+</blockquote>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

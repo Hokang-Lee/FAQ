@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-51</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>「Active Directoryユーザーとコンピュータ管理」からユーザー追加、メール送受信を行うと &quot;[<i>user account</i>]'s logon overlap .&quot;メッセージが表示される</b></FONT>
+<HR>
+Active Directory連携を行っている環境では、Windows Serverの「Active Directoryユーザーとコンピュータ管理」を使って、IMSUsersグループに所属するメールユーザーを追加することができます。<br>
+しかし、追加されたユーザーが、メールクライアントから初回にメール送信をそのまま行おうとすると、上記のエラーメッセージ &quot;[<i>user account</i>]'s logon overlap .&quot;が表示されてしまうことがあります。<br>
+<br>
+この現象は、「Active Directoryユーザーとコンピュータ管理」からIMSUsersグループに所属するメールユーザーを追加した場合、本来ならメールサーバ側のアカウントマネージャでユーザーを追加したときにアカウントフォルダも一緒に作成されるところが、アカウントフォルダまでは一緒に作成されないことが原因で起きることがわかっています。<br>
+<br>
+対応策は次のように行ってください。<br>
+<ol>
+<li>アカウントマネージャ側で作成した既存ユーザーを選択、右クリックメニューから「エクスプローラ」を選び、アカウントフォルダの階層構造を確認してください。<br>
+（例・INBOXフォルダ->ドメイン名フォルダ->ユーザー名のフォルダ、という階層構造など。）<br><br>
+<li>確認したアカウントフォルダと同様に、「Active Directoryユーザーとコンピュータ管理」から新しく作成したユーザーについても、設定された場所にユーザー名のフォルダを同じように作成してください。<br>
+</ol>
+※注意：ユーザー名のフォルダがどこにどのように作成されているかは、Mail Controlでの設定方法や、シングル構成かHAクラスタ構成かなどによって変わってきます。<br>
+<br>
+なお、この問題に対応した差分アップデートプログラムがリリースされています。（2007年10月1日）。<br>
+サポート２に掲載されている「E-Post Mail Server (Enterprise) 20070928差分」または「E-Post SMTP Server (Enterprise) 20070928差分」アップデートプログラムを適用すると、現象が改善されるようになります。<br>
+上記より新しい差分アップデートプログラム、また、上記より新しい製品版をご購入された方は、この問題への対応はすべて含まれた形で適用済みです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

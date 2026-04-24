@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-21</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アドオンツール EPSTDMARC 組み込み後の動作確認チェックリスト <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+アドオンツール EPSTDMARC 組み込み完了後の動作確認を行う際のチェックリストは以下の通りです。<br>
+<br>
+<b>EPSTDMARC動作確認(0)</b><br>
+epstdmarc.exe コマンドによる署名の検証：コマンドプロンプトからオプションを指定して epstdmarc.exe コマンドを実行、eml形式の任意メールデータファイルを使い署名の検証を行います。<blockquote>《コマンド書式》<br>
+epstdmarc.exe [送信元IP] [送信元エンベロープ(From address)] [eml形式のメールデータファイル] [実行したマシン名FQDN]</blockquote>
+→コマンドを実行すると、指定されたeml形式ファイルのヘッダに &quot;DKIM-Signature: &quot; に続くヘッダが記載されます。&quot;verify&quot; が記述されている行と一致した場合、&quot;Authentication-Results: &quot; のヘッダが追加されます。<br>
+※E-Postシリーズで管理している拡張子.MSGのメールデータファイルは、eml形式ファイルです。.MSGファイルをそのまま指定しても実行可能です。<br>
+※うまく実行できない場合やエラーになる場合、プログラムファイル名やメールデータファイル名をフルパスで指定してください。<blockquote>（コマンドプロンプトからの実行例）C:\Program Files\EPOST\MS\epstdmarc＞<br>
+&quot;C:\program files\epost\ms\epstdmarc\epstdmarc.exe&quot; 210.xxx.xxx.xxx user1@abc_domain.jp &quot;c:\mail\inbox\test-sample.jp\user2\B0000123456.MSG&quot; test-sample.jp</blockquote>
+<b>EPSTDMARC動作確認(1)</b><br>
+通常の受領：Gmailから送信、E-Post側で受信したときの送信ヘッダ<br>
+→受信したメールのヘッダに dkim=pass / spf=pass が記載されていることを確認します。<br>
+<br>
+<b>EPSTDMARC動作確認(2)</b><br>
+通常の送信：E-Post側から送信、Gmailで受信したときの送信ヘッダ<br>
+→受信したメールのヘッダに dkim=pass / spf=pass が記載されていることを確認します。<br>
+<br>
+<b>EPSTDMARC動作確認(3)</b><br>
+偽装送信の受領：SPF/DKIMが定義されていないIPからの偽装送信ヘッダをE-Postが受領したときのヘッダ<br>
+→エンベロープFROMを偽装して手入力でtelnetコマンドで偽装送信するか、偽装送信テスト用スクリプトを用意してコマンドラインから実行、受信したメールのヘッダに dkim=fail または dkim=natural のいずれかが記載されていることを確認します。dkim=pass 以外が出れば偽装送信の可能性ありという判断がされます。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,233 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-20</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+<!--
+	body {
+		background-color: #ffffff;
+		font-size: small;
+		line-height:normal;
+		margin: 10px;
+	}
+-->
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>SPADS（配送エージェント）の配送性能について</b></FONT>
+<HR>
+<BR>
+(2003.02.26)公開にて、SPADS（配送エージェント）のチューニングを行い、配送性能の計測を行ってみた結果です。<BR>
+メールマガジンなどの配送の際の参考にして下さい。<BR>
+<BR>
+[配送時間算出法]<BR>
+　配送処理結果(outlog)の１行目と最後の行の時間差<BR>
+　# 詳細ログは未チェックにて計測。# 配送メールは４ＫＢ。<BR>
+<BR>
+[実測環境１]  (LAN/100BASE)<BR>
+　(P3-500M/MEM128M) 配送サーバー／ＭＸ解決用DNSは本マシン内に設定<BR>
+　　　+<BR>
+　　　HUB(WN-B11/BBRH I/O DATA製)<br>
+　　　　　　　+--受信サーバーＡ(P4-1.6G/MEM256)５ドメイン×1000ユーザー<BR>
+　　　　　　　+--受信サーバーＢ(P1-133M/MEM128)５ドメイン×1000ユーザー<BR>
+<BR>
+[実測結果１]<BR>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR>
+ <TD ALIGN="MIDDLE" COLSPAN="2">１０００本(同報なし)</TD>
+ <TD ALIGN="MIDDLE" COLSPAN="2">１０００本(同報なし)</TD>
+</TR>
+<TR>
+ <TD ALIGN="MIDDLE" COLSPAN="2" bgcolor="#CCCCCC">受信サーバー(ダミーレシーバー)<br>Ａ・Ｂへ500本づつの場合</TD>
+ <TD ALIGN="MIDDLE" COLSPAN="2" bgcolor="#CCCCCC">受信サーバー(SPA-RS・Pro版レシ<br>ーバー)Ａ・Ｂへ500本づつの場合</TD>
+</TR>
+<TR>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">スレッド数</TD>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">配送時間(秒)</TD>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">スレッド数</TD>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">配送時間(秒)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">10</TD>
+ <TD ALIGN="RIGHT">112(s)</TD>
+ <TD ALIGN="RIGHT">10</TD>
+ <TD ALIGN="RIGHT">144(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">20</TD>
+ <TD ALIGN="RIGHT">58(s)</TD>
+ <TD ALIGN="RIGHT">20</TD>
+ <TD ALIGN="RIGHT">99(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">30</TD>
+ <TD ALIGN="RIGHT">43(s)</TD>
+ <TD ALIGN="RIGHT">30</TD>
+ <TD ALIGN="RIGHT">92(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">40</TD>
+ <TD ALIGN="RIGHT">37(s)</TD>
+ <TD ALIGN="RIGHT">40</TD>
+ <TD ALIGN="RIGHT">90(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">50</TD>
+ <TD ALIGN="RIGHT">36(s)</TD>
+ <TD ALIGN="RIGHT">50</TD>
+ <TD ALIGN="RIGHT">91(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">80</TD>
+ <TD ALIGN="RIGHT">35(s)</TD>
+ <TD ALIGN="RIGHT">80</TD>
+ <TD ALIGN="RIGHT">95(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">100</TD>
+ <TD ALIGN="RIGHT">35(s)</TD>
+ <TD ALIGN="RIGHT">100</TD>
+ <TD ALIGN="RIGHT">92(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">150</TD>
+ <TD ALIGN="RIGHT">32(s)</TD>
+ <TD ALIGN="RIGHT">150</TD>
+ <TD ALIGN="RIGHT">89(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">200</TD>
+ <TD ALIGN="RIGHT">32(s)</TD>
+ <TD ALIGN="RIGHT">200</TD>
+ <TD ALIGN="RIGHT">95(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">250</TD>
+ <TD ALIGN="RIGHT">31(s)</TD>
+ <TD ALIGN="RIGHT">250</TD>
+ <TD ALIGN="RIGHT">未計測</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">300</TD>
+ <TD ALIGN="RIGHT">29(s)</TD>
+ <TD ALIGN="RIGHT">300</TD>
+ <TD ALIGN="RIGHT">未計測</TD>
+</TR>
+</TABLE>
+※１<A HREF="../bin/spa-rs-dummy.zip">ダミーレシーバー</a>は、できるだけ受信サーバー側の負荷要因を排除して配信自体の性能を測定するためにファイル保存をしないようにSPA-RS(Pro版)を改造したテスト用レシーバー。<BR>
+<BR>
+[実測環境２]  (LAN/100M)<BR>
+　(P3-500M/MEM128M) 配送サーバー／ＭＸ解決用DNSは本マシン内に設定<BR>
+　　　+<BR>
+　　　HUB(WN-B11/BBRH I/O DATA製)<br>
+　　　　　+--受信サーバーＡ(P4-1.6G/MEM256)１０ドメイン×1000ユーザー<BR>
+<BR>
+[実測結果２]<BR>
+<TABLE border=1 cellspacing=0 cellpadding=2>
+<TR>
+ <TD ALIGN="MIDDLE" COLSPAN="2">１０００本(同報なし)</TD>
+</TR>
+<TR>
+ <TD ALIGN="MIDDLE" COLSPAN="2" bgcolor="#CCCCCC">受信サーバー(ダミーレシーバー)Ａへ1000本の場合</TD>
+</TR>
+<TR>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">スレッド数</TD>
+ <TD ALIGN="MIDDLE" bgcolor="#CCCCCC">配送時間(秒)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">10</TD>
+ <TD ALIGN="RIGHT">110(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">20</TD>
+ <TD ALIGN="RIGHT">54(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">30</TD>
+ <TD ALIGN="RIGHT">44(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">40</TD>
+ <TD ALIGN="RIGHT">39(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">50</TD>
+ <TD ALIGN="RIGHT">37(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">80</TD>
+ <TD ALIGN="RIGHT">36(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">100</TD>
+ <TD ALIGN="RIGHT">37(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">150</TD>
+ <TD ALIGN="RIGHT">37(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">200</TD>
+ <TD ALIGN="RIGHT">29(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">250</TD>
+ <TD ALIGN="RIGHT">27(s)</TD>
+</TR>
+<TR>
+ <TD ALIGN="RIGHT">300</TD>
+ <TD ALIGN="RIGHT">26(s)</TD>
+</TR>
+</TABLE>
+<br>
+実測環境２でその他本数の実測値<BR>
+　　１００本/50スレッドで約　　　３秒<BR>
+　１０００本/50スレッドで約　　３７秒<BR>
+１００００本/50スレッドで約　９４０秒（１５分４０秒）<BR>
+<BR>
+[ベストなスレッド数]<BR>
+今回スレッド数を変えて送信試験を行ったところ本計測に関しては、一般的なマシンスペックでの運用では、５０～７０スレッド程度がベストのようです。<BR>
+なお、今回の試験では、２台のマシンにマルチドメインにて処理をさせているため、受け手のサーバーに負荷が通常の運用以上にかかっていると思われます。<BR>
+１０ドメインを１０台のマシンに分散させ送信を行った場合は、もっと良い結果が出ると予想されます。<BR>
+速度性能として条件がよければ（回線に混雑がなく、エラーアドレスがなく、配送先サーバーが高速に処理）、上記実測からの計算上から、1000/26(s)=38, 36×3600(s)=１３万／１時間の配送能力はあると予想されます。<BR>
+また、同一ドメインの配送先を同報処理させた場合は、上記より短い時間で配送可能であることも付け加えておきます。<BR>
+<BR>
+もっと、配送速度を上げるならDISKアクセスがボトルネックになりますから、以下の方法などをとることでメールサーバー自体のパフォーマンスを向上させます。<BR>
+<ol><li>DISKはシークタイムが最速のものを選ぶ。
+<li>DISKのRAID化を行う。<BR>
+<li>RAMディスクドライバにてメモリの一部をホットファイル操作用に利用する。(メール作業フォルダとして割り当てる。NTFSフォーマットで行わないとパフォーマンスは上がらない。ただしCPUに負荷がかかる。）<BR>
+<li>シリコン(半導体)ディスクを使う。<BR>
+</ol>
+[追加計測]<BR>
+(2003.03.06)公開でのＭＬでの配送時にドメイン単位に自動振分けして同報する場合の速度について<BR>
+<BR>
+[実測環境]  (LAN/100BASE)<BR>
+　(P3-500M/MEM128M) 配送サーバー<BR>
+　　　　+<BR>
+　　　　HUB-+--(P4-1.6G/MEM256)１０ドメイン×1000ユーザー<br>
+　　　　(SPA-RS・Pro版レシーバーにて測定)<BR>
+１００００本/50スレッド/ドメイン単位/分割数　１で約１６６秒=６０アドレス/秒＝216,000アドレス/時間<BR>
+１００００本/50スレッド/ドメイン単位/分割数　２で約１９７秒=５０アドレス/秒＝180,000アドレス/時間<BR>
+１００００本/50スレッド/ドメイン単位/分割数１０で約３００秒=３３アドレス/秒＝118,000アドレス/時間<BR>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

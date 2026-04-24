@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-46</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler自動判定で処理されたメールをメーラーから承認・拒否しても後出しとなり無効となってしまう <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Post Mail Server (x64) に Secure Handler (x64) を組み合わせている環境で、インバウンドメールについて自動判定で処理され、メーラーから「承認」もしくは「拒否」を押すと「承認依頼」のメールが届き、それを開いて確認して「承認」もしくは「拒否」を押しているのだが、果たしてこれは必要な動きなのか？　ブラウザから Secure Handler (x64) の「承認」を押した段階で、受信者にはメールが届いているからなのだが、という質問を受けたことがあります。<br>
+<br>
+手順通り、自動判定のバッチをタスクスケージューラに登録していると思われますが、その場合は承認依頼メールが届くより先に自動判定で処理されてしまうこととなり、メーラーから「承認」もしくは「拒否」を実行する判定指示をしても、後出しの指示になるのでメールでの指示は無効になります。<br>
+<br>
+下記にも記すように、できればメーラーでの「承認」もしくは「拒否」を実行する操作をメインにせず、サーバ側にIIS（Webサーバ）を設定した上で、ブラウザでの「メール承認管理」を開き、保留メールの「承認」や「拒否」を指示操作することをメインにしてください。<br>
+ブラウザでの「メール承認管理」では、判定後のメールデータの復元、つまり隔離一覧を参照し回復操作することができます。<br>
+さらに「メール承認管理」画面では、管理者だけが管理できる「許可アドレス一覧」＝〔ホワイトリスト〕、「拒否アドレス一覧」＝〔ブラックリスト〕、「保留アドレス一覧」＝〔自動判定のバッチ securehandler.bat による保留リスト〕などの管理ができます。<br>
+この「保留アドレス一覧」「保留題名一覧」ですが、自動判定時に怪しいと推定されたメールの題名やアドレスが自動記録されます。管理者がもし、正しいメールなのに「保留アドレス一覧」に入っていることに早めに気づいたなら、拒否アドレスに入ってしまう前に「許可アドレス一覧」の方に記録を移し変えたりもできます。<br>
+<br>
+ちなみに、ユーザーリストの設定をしておけば、設定しておいたメールアドレスとパスワードで各ユーザーがログインすることにより自分宛ての「保留」メールを許可や拒否ができるようになります。<br>
+一方で各ユーザーからは「許可アドレス一覧」「拒否アドレス一覧」「保留アドレス一覧」などの管理者だけに権限が与えられている管理操作はできません。<br>
+<br>
+ブラウザでの「メール承認管理」を操作できるようにするためには、サーバ側にIISを設定することが必要ですが、FAQ記事を参照の上、設定するようにしてください。<br>
+ブラウザから「メール承認管理」を操作できる状況でしたら、メーラーによる承認依頼メールでの「承認」「拒否」の操作は不要です。届いたメール自体は、動作記録といった位置づけで管理してください。<br>
+<br>
+ブラウザでの「メール承認管理」画面から呼び出すことができる「許可アドレス一覧」「拒否アドレス一覧」については、管理者であれば追加・削除などを行い、保存することが可能です。<br>
+「許可アドレス一覧」の書式は、[許可したいアドレス:0]<br>
+「拒否アドレス一覧」の書式は、[拒否したいアドレス:-1]<br>
+と記述するようにします。「:0」「:-1」は「必ず」付けてください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq16-43.html">E-Post Secure Handler (x64) のWeb管理「メール承認管理」を設定する</a><br>
+●<a href="./faq09-04.html">Windows Server 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</a><br>
+●<a href="./faq16-44.html">Secure Handler (x64) 設定時・運用時での各項目について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

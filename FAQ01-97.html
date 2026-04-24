@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-97</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>受信拒否時の送信リトライ回数をなぜ &quot;0&quot; にできない？</b></FONT>
+<HR>
+<br>
+Mail Controlの「サービス制御」タブ画面にあるEPSTDSの「詳細」ボタンで表示される「詳細設定」ダイアログボックスでは、「リトライ回数（受信拒否）」の設定値によって、500番台での受信拒否時の送信リトライ回数を設定できますが、500番台での受信拒否時の送信リトライ回数を &quot;0&quot; に設定することはできません。<br>
+現在のバージョンでは、&quot;0&quot; を入力すると、設定不可のメッセージが表示されます。<br>
+「リトライ回数（受信拒否）」回数は、最低でも &quot;1&quot; 以上を設定する必要があります。<br>
+<br>
+過去のバージョンでは、&quot;0&quot; が入力可能でしたので、古いバージョンから使い続けている場合は、そのような設定値で使い続けていないか確認してください。万が一、&quot;0&quot; の設定がされていると、事実上、無限リトライ（2<sup>32</sup>回）になってしまいます。<br>
+<br>
+万が一、大量にメールを送信している環境で、リトライ回数が事実上無限に行われて使い続けた場合、リトライデータがたまり続けてしまい、放置すると深刻な状況を招くことが考えられます。<br>
+<br>
+Windowsのファイルシステムは、大量のファイルが1つのフォルダ下におかれると深刻なパフォーマンス低下を引き起こすことがわかっています。最悪の結果、メールサーバの処理がほとんど止まってしまう現象になってしまうことが考えられます。<br>
+<br>
+なお、現行バージョンでは、「リトライ回数（受信拒否）」回数には、&quot;0&quot; を入力したときには、メッセージが表示され、強制的に&quot;1&quot; がセットされます。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-50.html">内部アカウントどうしの送信しかない環境のためリトライ回数・リトライ期間を最小限にしたい</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

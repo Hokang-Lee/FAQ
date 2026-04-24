@@ -1,0 +1,163 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-79</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDKIMを使ってDKIMによる送信ドメイン認証を導入する方法について <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+EPSTDKIMを使ってDKIMによる送信ドメイン認証を導入するには、「サポート２」より ドメイン認証（DKIM）アドオンツール <b>EPSTDKIM v1.04a</b> をダウンロードするか、新たに公開した送信ドメイン認証（DMARC）アドオンツール <b>EPSTDMARC v1.06c</b> をダウンロードしてください。<br>
+2020年2月よりSMTP受信時において DMARC/DKIM/SPF すべてのチェックが可能な送信ドメイン認証（DMARC）アドオンツール <b>EPSTDMARC v1.00</b> を公開、2023年12月 <b>EPSTDMARC v1.04</b> にアップ、2024年1月 <b>EPSTDMARC v1.05c</b> にアップ、2024年6月 <b>EPSTDMARC v1.06c</b> にアップしました。「サポート２」の「ダウンロード－[32bit][64bit]ツール・ユーティリティ」をご覧ください。<br>
+この <b>EPSTDMARC v1.06c</b> を導入すれば、DKIMのチェックが可能な送信ドメイン認証アドオンツール EPSTDKIM や、SPFのチェックが可能な送信ドメイン認証（SPF）アドオンツールの組み込みは不要</b>になります。送信ドメイン認証 DMARC へ対応したヘッダ記載（シグネチャ及び判定ヘッダ）機能と履歴ファイル作成機能があり、メール受信時にはこのプログラムのみで SPF/DKIM/DMARC の3つすべての判定結果のヘッダへの記載が可能になるほか、かつメール送信時はDKIM用のシグネチャヘッダの記載を実施することができるようになります。詳細は EPSTDMARC に付属する readme.html をご覧ください。<br>
+<br><br>
+<HR width="30%" align="left">
+<b>参考・［EPSTDKIMのインストールと設定］</b><br>
+<HR width="30%" align="left">
+<OL>
+<li>初めに、署名、検証用の秘密鍵、公開鍵を作成するため、コマンドプロンプトよりインストールフォルダへ移動し &quot;sign.bat&quot; を実行します。<br>
+<br>
+実行書式<br>
+sign.bat [セレクタ名]<br>
+<br>
+実行例<br>
+sign.bat test<br>
+<br>
+上の例だとフォルダ内にtest.private（秘密鍵）、test.public（公開鍵）の２つのファイルが作成されることを確認してください。<br>
+<br>
+<li>次に、作成した公開鍵（test.public）をDNSサーバに定義します。</li>
+test.public をエディタで開き、先頭行の &quot;-----BEGIN PUBLIC KEY-----&quot; および最終行の &quot;-----END PUBLIC KEY-----&quot; をカット、各行末の改行コード（LFコード）を除去し、１行にしたものを定義します。<br>
+なおWindowsのメモ帳では、LFコードを改行と見なせないため、１行につながっているように見えます。エディタでの編集が確実です。<br>
+<br>
+<b>作成された公開鍵（test.public）の例</b><br>
+<span style="color:#000000; background-color:#FFCBCB;">-----BEGIN PUBLIC KEY-----<br></span>
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtK9uRps4+UCQ8+bMtK5l3fZQP<span style="color:#0000ff; background-color:#FFCBCB;">　</span><br>
+[中略]：<span style="color:#0000ff; background-color:#FFCBCB;">　</span><br>
+[中略]：<span style="color:#0000ff; background-color:#FFCBCB;">　</span><br>
+oQm5sqLjz2eU76GlJwIDAQAB<span style="color:#0000ff; background-color:#FFCBCB;">　</span><br>
+<span style="color:#000000; background-color:#FFCBCB;">-----END PUBLIC KEY-----<br></span>
+　　↓ <br>
+<b>ピンク部分の先頭行と最終行をカット、各行末の改行コード（LFコード）を削除し１行にした例</b><br>
+<font color="#0000ff">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtK9uRps4+UCQ8+bMtK5l3fZQP....oQm5sqLjz2eU76GlJwIDAQAB</font><br>
+<br>
+<b>［DNSサーバ（BIND）への設定例（試験運用時 t=y）］</b><br>
+test._domainkey.xxxxx.jp. 300 IN TXT &quot;v=DKIM1; k=rsa; t=y; p=<font color="#0000ff">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtK9uRps4+UCQ8+bMtK5l3fZQP...[中略]....oQm5sqLjz2eU76GlJwIDAQAB</font>&quot;<br>
+<br>
+<b>［DNSサーバ（BIND）への設定例（正式運用時 t=y を削除）］</b><br>
+test._domainkey.xxxxx.jp. 300 IN TXT &quot;v=DKIM1; k=rsa; p=<font color="#0000ff">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCtK9uRps4+UCQ8+bMtK5l3fZQP...[中略]....oQm5sqLjz2eU76GlJwIDAQAB</font>&quot;<br>
+<br>
+<b>［DNSサーバ（Windows Server）への設定例（試験運用時 t=y）］</b><br>
+「その他の新しいレコード」→「Text（TXT）」<br>
+エイリアス名：e0001<br>
+完全装飾ドメイン名（FQDN）：e0001._domainkey.test-sample00.jp<br>
+テキスト：&quot;v=DKIM1; k=rsa; t=y; p=<font color="#0000ff">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDcnEGdTHJL3KQg6byIqejf+/qn...[中略]....w2J0nXPU5qwn7NpMrwIDAQAB</font>&quot;<br>
+<br>
+<b>［DNSサーバ（Windows Server）への設定例（正式運用時 t=y を削除）］</b><br>
+「その他の新しいレコード」→「Text（TXT）」<br>
+エイリアス名：e0001<br>
+完全装飾ドメイン名（FQDN）：e0001._domainkey.test-sample00.jp<br>
+テキスト：&quot;v=DKIM1; k=rsa; p=<font color="#0000ff">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDcnEGdTHJL3KQg6byIqejf+/qn...[中略]....w2J0nXPU5qwn7NpMrwIDAQAB</font>&quot;<br>
+<br>
+<li>次に、DKIMの実行動作を規定する定義ファイル dkim.iniをメモ帳などのエディタで開き、署名する接続許IPアドレスや送信元エンベロープを定義します。</li></ol>
+<HR width="30%" align="left">
+<b>［epstdkim.ini ファイル定義例］</b><br>
+<HR width="30%" align="left">
+<OL>
+（書式）<br>
+' [Sign IP or エンベロープFROM]<font color="pink">[tab]</font>[ACTION]<br>
+' [ACTION]は,none,verify,セレクタ（DNSに定義した名称）のいずれかを記載<br>
+'  none = 何もしない<br>
+'  verify = 検証<br>
+'  その他の文字列 = 記載した文字列をセレクタとして署名<br>
+'  @e-postinc.jp<font color="pink">[tab]</font>test　　←エンベロープの送信元が @e-postinc.jp の全てのメールアドレスにセレクタ名 test で署名<br>
+'  *<font color="pink">[tab]</font>verify　　←上記以外、外部からのインバウンドメールを検証（検証不要の場合は削除またはnoneを指定）<br>
+※内部からの送信時にDKIMのヘッダを挿入せず、外部からのインバウンドメールについて検証のみしたいときは、最終行の *<font color="pink">[tab]</font>verify のみを有効にします。<br>
+<br>
+（例）<br>
+@test-sample00.jp<font color="pink">[tab]</font>test<br>
+192.168.0.xx<font color="pink">[tab]</font>test<br>
+127.0.0.1<font color="pink">[tab]</font>none<br>
+*<font color="pink">[tab]</font>verify<br></li>
+</OL>
+<br>
+<HR width="30%" align="left">
+<b>［EPSTDKIMの動作確認方法］</b><br>
+<HR width="30%" align="left">
+<OL>
+<li>署名と検証</li>
+コマンドプロンプトよりプログラムインストールフォルダへ移動します。<br>
+任意のEML形式のメールデータファイルを用意し、以下の命令を実行します。EML形式のファイルであればよいので、E-Postシリーズで管理している拡張子.MSGのメールデータファイルでもかまいません。<br>
+<br>
+（書式）<br>
+epstdkim &lt;送信元IP&gt; &lt;送信元エンベロープ(From address)> &lt;EML形式のファイル名&gt; &lt;実行したマシン名FQDN&gt;<br>
+（実行例）<br>
+epstdkim 192.168.0.xx info@test-sample00.jp B0000320738.MSG Epost01<br>
+<br>
+実行すると、指定したEML形式のファイル名のヘッダに、&quot;DKIM-Signature: &quot; に続くヘッダが記載されます。<br>
+例では、epstdkim.iniファイルで指定した、送信元IPもしくは送信元エンベロープでアクションとして "test" が記載されている行と一致した場合にヘッダが追加されることになります。<br>
+<p align="center"><img src="./img/faq15-79-01.jpg" width="540"></p>
+また、&quot;verify&quot; が記述されている行と一致した場合、&quot;X-Authentication-Results: &quot; のヘッダが追加されます。<br></OL>
+<br>
+<HR width="75%" align="left">
+<b>［E-Post Mail Server / E-Post SMTP Serverシリーズへのアドイン方法］</b><br>
+<HR width="75%" align="left">
+<OL>
+<li>epstrs.exeのバージョンは、v4.78以降で利用可能になります。バージョンが古い場合は動作しませんのでご注意ください。<br>
+<li>以下のレジストリ値を新規に作成し、値を設定します。<br>
+　HKEY_LOCAL_MACHINE<br>
+　→ SYSTEM<br>
+　　→ CurrentControlSet<br>
+　　　→ Services<br>
+　　　　→ EPSTRS<br>
+　　　　　→ <B>OnDKIM</B><br>
+　　　　　　DWORD値 (SPF確認の有無 0:しない / 1:する）1 を設定<br>
+　　　　　→ <B>DomainAUTHDKIM</B><br>
+　　　　　　文字列 (フルパスでepstdkim.exeを指定。メールサーバのプログラムインストールフォルダ（空白の含まれるパス）に保管した場合はショートパス名 &quot;C:\PROGRA~1\EPOST\MS\epstdkim.exe&quot; を設定）<br>
+<li>設定後、EPSTRSを再起動します。</li>
+<br>
+<li>ログの取得について</li>
+epstdkim.exe インストールフォルダ下に &quot;dkimlog&quot; という名称でフォルダを作成すると、それ以降ログが出力されます。<br>
+ &quot;dkimlog&quot; フォルダを削除することにより、ログは記録されなくなります。<br>
+</OL>
+<HR width="20%" align="left">
+<b>［関連リンク］</b><br>
+<HR width="20%" align="left">
+<a href="http://www.openssl.org/">OPENSSL</a><br>
+<a href="http://libdkim.sourceforge.net/">LIBDKIM</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-70</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>VMCSを終了させた直後にVMCSを開始しようとすると起動できない</b></FONT>
+<HR>
+<BR>
+VMCSサービスを再起動するため、いったん終了し、直後に開始しようとすると、うまく開始できない場合があります。<br>
+<br>
+もし、このような事態に陥った場合は、タスクマネージャを開き、「全ユーザーのプロセスを表示する」チェックボックスをオンにした後、&quot;autoupdate.exe&quot;というプロセスが起動中であるか確認します。<br>
+起動していたら、&quot;autoupdate.exe&quot;のプロセスを終了させてください。その後、VMCSサービスがうまく開始できるようになります。
+<br>
+<br>
+また、VMCSサービスから&quot;VMCS error: 231 The named pipe could not be made.&quot;というエラーが返され、メールの送受信が不安定な状態となっているときも、上記と同じことを確認してください。<br>
+<br>
+このメッセージは、VMCSサービスプログラム（および関連するプロセスを含む）が起動中であることを示しています。上記の方法で&quot;autoupdate.exe&quot;のプロセスを終了させ、その後、VMCSサービスを開始するようにしてください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

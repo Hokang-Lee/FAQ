@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ08-17</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Journal Optionアンインストール時には事前にメールバックアップを必ずオフにしてください <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Journal Optionアンインストール時には、事前に「メールバックアップを有効にする」チェックボックスを必ずオフにしてから行ってください。<br>
+<br>
+もし、Journal Optionアンインストール時に「メールバックアップを有効にする」チェックボックスをオンにしたまま、Journal Optionをアンインストールした場合、Journal Option機能のレジストリ値である、MailBackup の値が１となったまま残ることになります。合わせて同機能の別レジストリ値 MailBackupDir 自体がないか、空白値だったりしたときは、E-Postサービスプログラム内部の初期値である %SystemRoot% フォルダ（通常は\Windows\System32フォルダ）に意図せずメールバックアップが実行され、System32フォルダ内に .EML .RCPファイルがどんどん蓄積されてしまうおそれが出てきます。<br>
+<br>
+以下のレジストリ値について確認し、レジストリ値 MailBackup の値が１になっている場合は Journal Optionのメールバックアップが有効のままになっていますから、値を 0 にすれば無効にすることができます。あるいはレジストリ値そのものを削除してもかまいません。レジストリ変更後は、EPSTRSサービスの再開を行ってください。<br>
+<br>
+<small>HKEY_LOCAL_MACHINE<br>
+→SYSTEM<br>
+　→CurrentControlSet<br>
+　　→Services<br>
+　　　→EPSTRS<br>
+　　　　→MailBackup (DWORD値) 0 or 1<br>
+　　　　→MailBackupDir (文字列) バックアップフォルダ<br>
+　　　　→MailBackupExtension (文字列) バックアップ拡張子　デフォルト=EML</small><br>
+<br>
+レジストリ変更後はEPSTRSサービスの再開が必要です。また、System32フォルダ内に .EML .RCPファイルが蓄積されていることがわかった場合は、それらは意図せずメールバックアップされたものですから、該当する拡張子のファイルはすべて削除してください。<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

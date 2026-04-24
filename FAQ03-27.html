@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-27</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>MSFCクラスタ構成メールサーバの仮想IPアドレスを変更するには</b></FONT><br>
+<HR>
+<br>
+MSFCクラスタ構成メールサーバの仮想IPアドレスを変更するにはどのような手順がベストかというご質問を受け、MSFCクラスタ構成で構築されたメールサーバの仮想IPアドレスを変更する手順について検証してみました。<br>
+当初は、役割の停止・開始やクラスタサービスの停止・開始を使って、メールサービスを止めることなく変更ができるかどうか検討してみましたが、結論から言って、それらを考慮して作業しようとしてもなかなかうまくいきません。メールサーバとしてのサービス完全停止時間が発生しますが、下記のような方法しかよい方法はないとの結論に至りました。<br>
+<ul><b>（ポイント）</b><br>
+<li>E-Postの設定変更時にはメール作業用フォルダやアカウントフォルダ、メールボックスフォルダ等の共有ディスクが必ず割り当てられた状態にしておくこと。<br>
+<li>メールサーバサービス稼働中には割り当てられいるIPアドレスを変更することは禁則であるため、必ずサービス停止状態にてIPアドレスが変更されるようにすること。<br>
+</ul><ol><b>（手順の概要）</b><br>
+<li>アクティブ側かスタンバイ側のいずれか片方のノードをシャットダウン。シングル稼働状態＋共有ディスク割り当て状態にしておく。<br>
+<li>稼働状態のマシンにログインし、MSFCクラスタマネージャからノードの中に割り当てられた［リソース］－［役割］の中の E-Post 各サービスをオフライン。<br>
+<li>紐付けされたIPアドレス（メールサーバの仮想IPアドレス）もオフラインにしておき、プロパティからIPアドレスを変更。残りのIPアドレスも変更されたことを確認。<br>
+<li>E-Post Mail Control を開き、メールサーバのIPアドレスの設定がされている部分を変更する。設定ない場合は飛ばしてOK。<ul type="disc">
+<li>ドメイン管理の詳細画面に設定されているIPアドレス</li>
+<li>サービス制御の設定画面に設定されているIPアドレス</li>
+<li>【effect.dat】に設定されているIPアドレス etc.</li></ul>
+<li>シャットダウンし、もう片方のノードを立ち上げる。<br>
+<li>起動されたマシンにログインし、MSFCクラスタマネージャからノードの中に割り当てられた［リソース］－［役割］の中の E-Post 各サービスをオフライン。紐付けされたIPアドレスが既に変更されており同時にオフラインになっていることを確認。<br>
+<li>E-Post Mail Control を開き、メールサーバのIPアドレスの設定がされている部分を変更する。設定ない場合は飛ばしてOK。<ul type="disc">
+<li>ドメイン管理の詳細画面に設定されているIPアドレス</li>
+<li>サービス制御の設定画面に設定されているIPアドレス</li>
+<li>【effect.dat】に設定されているIPアドレス etc.</li></ul>
+<li>MSFCクラスタマネージャからノードの中に割り当てられた［リソース］－［役割］の中の E-Post 各サービスをオンライン。紐付けされたIPアドレスがオンラインになっていることを確認。<br>
+<li>［リソース］－［サーバ名］&quot;E-PostMailServer&quot; をオンライン。<br>
+<li>E-Post各サービスが開始されていることをWindowsサービス制御画面より確認。必要に応じてtelnetで変更されたIPアドレスに接続し応答があるかどうかを確認。<br>
+<li>シャットダウンしていたもう片方のノードを立ち上げ、クラスタが切り替わるようにして、10.で確認した作業を同様に行う。<br>
+</ol>これら一連の所要時間としては、シャットダウンや電源投入を絡めるため、最低でも15～30分は必要でしょう。<br>
+また、telnetでの接続確認とともに、メールの送受信チェック作業などをクラスタ切り替え確認と合わせて綿密に行いたいとか、トラブル時の対応などを考慮したいときは、さらに15～30分以上必要時間を加味してください。<br>
+<br>
+以上、作業手順の例を提示してみましたが、メールサーバ仮想IPアドレスを変更するとなると、メールサーバとしてのサービス完全停止時間が発生することはどうしても避けられません。それらを加味しつつ、IPアドレス変更作業の必要性有無を決めてください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

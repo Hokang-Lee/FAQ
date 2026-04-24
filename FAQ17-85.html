@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-85</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アンチウイルス機能が正しく動作しているのをコマンドやデバッグモードで確認するには <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Enterprise II 版に実装されているアンチウイルス機能（ウイルス検査や隔離・通知など）が正しく動作するのかをコマンドやデバッグモードで確認する事項をあげてみました。ここでは検査対象のファイルとしてテストウイルスが用意されていることを前提に説明してみました。<br>
+<br>
+<b>(a). VMCSサービスが停止している場合と起動している場合の違い</b><br>
+管理者権限でコマンドプロンプトを開き、カレントディレクトリを &quot;C:\Program Files\EPOST\MS&quot; に移動したら、コマンド &quot;kasp&quot; を呼び出し、検査対象のファイルであるテストウイルスなどを引数に指定して実行すると、VMCSサービスが停止しているときはパイプ通信のエラー &quot;pipe err = 2&quot; が出力されます。VMCSサービスが起動しているときは同エラーは出力されず、ウイルスが見つかったことを示す &quot;nResult = 0&quot; が出力されます。なお、ウイルスが見つからなかった場合は &quot;nResult = 1 ()&quot; が出力されます。<br>
+<small> --------------------------------------------------------<br>
+ VMCSサービス（スキャンエンジン）が停止している場合<br>
+ --------------------------------------------------------<br>
+C:\Program Files\EPOST\MS&gt; kasp C:\mail\eicar\eicar.com<br>
+[eicar] argv[1] = C:\mail\eicar\eicar.com<br>
+[eicar] Source = C:\mail<br>
+[eicar] Start Virus scan.<br>
+[eicar] pipe err = 2　　←※パイプ通信での通信ができない表示<br>
+[eicar] End Virus scan.(C:\mail\eicar\eicar.com, )<br>
+[eicar] nResult = 1 ()<br>
+ --------------------------------------------------------<br>
+ VMCSサービス（スキャンエンジン）が起動している場合<br>
+ --------------------------------------------------------<br>
+C:\Program Files\EPOST\MS&gt; kasp C:\mail\eicar\eicar.com<br>
+[eicar] argv[1] = C:\mail\eicar\eicar.com<br>
+[eicar] Source = C:\mail<br>
+[eicar] Start Virus scan.<br>
+[eicar] End Virus scan.(C:\mail\eicar\eicar.com, VIRUSBATEICAR-TEST-FILE)<br>
+[eicar] nResult = 0 (VIRUSBATEICAR-TEST-FILE)<br>
+[eicar] send alert = C:\mail\eicar\eicar.com<br>
+[eicar] _execl(vcpisc &quot;C:\PROGRA~1\EPOST\MS\vcpisc.exe&quot; tsuchisaki@eposttest.jp -subject=&quot;ウイルス警告 VIRUSBATEICAR-TEST-FILE&quot; -message=&quot;ウイルスが発見されました。(Message-ID: eicar)&quot;<br>
+ -attach=&quot;C:\mail\eicar\eicar.txt&quot;<br>
+※最下行はウイルス発見の通知メール指定が設定されているときの表示<br>
+----------------------------------------------------------<br></small>
+<br>
+<b>(b). VMCSサービス（スキャンエンジン）を停止させた上でデバッグモードで確認<br></b>
+VMCSサービス（スキャンエンジン）をデバッグモードで確認することができます。<br>
+VMCSサービスをデバッグモードで確認するには、VMCSサービスをいったん停止させた上で、管理者権限のコマンドプロンプト1つめを開き、&quot;modifys -debug&quot; よりデバッグモードを開始、ウイルス検査を実行しているときの挙動を確認することができます。<br>
+まず &quot;modifys -debug&quot; によりデバッグモードを開始したら、&quot;Skip download diff database....&quot; が表示されるまで待ちます。<br>
+<small>　---コマンドプロンプトその1（管理者権限）-----------<br>
+　C:\Program Files\EPOST\MS&gt; modifys -debug<br>
+　　　：<br>
+　　　：<br>
+　　　：<br>
+　[12:33:04:522] Skip download diff database....<br>
+　--------------------------------------------------------<br></small>
+<br>
+次に管理者権限のコマンドプロンプト2つめを開きます。上記 (a).で解説した内容の通り、コマンド &quot;kasp&quot; を呼び出し、検査対象のファイルであるテストウイルスなどを引数に指定して実行、ウイルス検査を行ってみます。<br>
+このとき、コマンドプロンプトその2側から、コマンドプロンプトその1側にスキャン要求が届くと、スキャン検査内容がコマンドプロンプトその1に表示されるのを確認することができます。その2で検査を実施、その1のスキャン検査という一連の流れを見てください。<br>
+<small>
+　---コマンドプロンプトその2（管理者権限）-----------<br>
+　C:\Program Files\EPOST\MS&gt; kasp C:\mail\eicar\eicar.com<br>
+　　　：<br>
+　[eicar] nResult = 0 (VIRUSBATEICAR-TEST-FILE)<br>
+　　　：<br>
+　--------------------------------------------------------<br>
+　　　↓ &quot;C:\mail\eicar\eicar.com&quot; のスキャン依頼のパイプ通信<br>
+　---コマンドプロンプトその1（管理者権限）-----------<br>
+　Scan file readmemory. ok.<br>
+　Scanning... C:\mail\eicar\eicar.com<br>
+　Scan file readmemory. ok.<br>
+　Check PLAIN_DB<br>
+　　　：<br>
+　　　：<br>
+　Scanner() end.<br>
+　--------------------------------------------------------<br></small>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-71.html">アンチウイルス機能の有効化と検出ログを確認するには</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

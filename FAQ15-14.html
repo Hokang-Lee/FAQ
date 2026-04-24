@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-14</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証パスワードとPOP3/IMAP4パスワードを別々に設定する方法について</b></FONT>
+<HR>
+<br>
+Account Managerでは、アカウントの登録をインポートや手動登録で行う普通の方法では、POP3/IMAP4のパスワードとSMTP認証パスワードを通常、一緒にして管理しています。ところが、Account Managerから一定の操作方法をとることにより、POP3/IMAP4のパスワードとは異なる内容で別にSMTP認証パスワードを設定することができます。<br>
+<br>
+その方法の一つは、「（POP3/IMAP4）パスワード」設定済みの状況で、いったん「SMTP AUTH & APOPを使用する」をオフにした後、再度オンにし直してから、表示されるダイアログ内でSMTP認証パスワードを新たに入力する方法です。この操作方法によってSMTP認証パスワードとPOP3/IMAP4のパスワードとを別々に管理することができます。<br>
+もう一つの方法は、該当ユーザーアカウントを選択して右クリックメニューから「エクスプローラ」を選択、該当アカウントのメールボックスフォルダを開いたときに置かれている&quot;apop.dat&quot;ファイルをメモ帳で直接編集し、SMTP認証用のパスワードを平文で入力する方法です。この方法でも、SMTP認証パスワードとPOP3/IMAP4のパスワードとを別々に管理することができるようになっています。<br>
+<br>
+ただし、Web管理ツールから該当ユーザーアカウントのパスワードを変更すると、SMTP認証パスワードとPOP3/IMAP4のパスワードとが別々に管理されていても、両方のパスワードがいっしょに同じ内容で変更されてしまいますので注意が必要です。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

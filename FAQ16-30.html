@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-30</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>BossCheck Server 承認依頼メールで quoted-printable でエンコードされた件名が文字化けや文字欠けする現象について</b></FONT>
+<HR>
+<br>
+BossCheck Server 承認依頼メールで quoted-printable でエンコードされた件名が文字化けや文字欠けする現象が起きることがあります。これは、送信クライアント側の仕様や特性により、quoted-printable でエンコードされた件名部分のパックされた各行末尾に空白スペースが入れられているために、文字化けや文字欠けが発生するためです。<br>
+送信クライアント側の特殊な仕様により quoted-printable でエンコードされた件名部分の各行末尾に空白スペースが入れられている状況でも、E-Post側で対策を取り、対応する修正モジュールをリリースしています。20151225修正差分プログラム以降を適用することで、この問題を解決できます。適用後のEPSTRSのバージョンはv4.92になります。ちなみにそれ以降のバージョンでもこの対策は入っています。<br>
+<br>
+<b>[64bit版]</b><br>
+　●E-Post SMTP Server Standard （E-Post BossCheck Server）20151225差分　掲載日：2016年1月12日<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

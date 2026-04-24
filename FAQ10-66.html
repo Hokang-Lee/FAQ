@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-66</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windowsの管理ツール「サービス」とE-Post Mail Controlの「サービス制御」との操作上の違いは？</b></FONT>
+<HR>
+<br>
+Windowsの管理ツール「サービス」と、E-Post Mail Controlの「サービス制御」との操作上の違い、区別についてですが、「サービスを開始」したり「サービスを停止」したりする用途としては、両者に違いはありません。どちらをお使いになってもけっこうです。<br>
+<br>
+ただし、両者の機能面から、操作する場面やメールサーバの使用環境に応じて、使い分けた方が好ましいこともあります。どのような違いがあるのか、表にまとめてみました。<br>
+<br>
+<table border=1 cellpadding=0 cellspacing=0 width=560>
+ <caption><b>Windowsの管理ツール「サービス」と<br>E-Post Mail Controlの「サービス制御」との違い</b></caption>
+ <tr height=70>
+  <th bgcolor="#CCCCCC" width=140 height=70>機　　能</th>
+  <th bgcolor="#CCCCCC" colspan=2 width=210>Windowsの管理ツール「サービス」</th>
+  <th bgcolor="#CCCCCC" colspan=2 width=210>E-Post Mail Controlの<br>「サービス制御」</th>
+ </tr>
+ <tr height=64>
+  <td width=140 height=64>サービス開始</td>
+  <td align=center width=20>○</td>
+  <td width=190><small>E-PostクラスタのIPWatcherも操作可能。</small></td>
+  <td align=center width=20>○</td>
+  <td width=190><small>E-PostクラスタのIPWatcherは対象外。</small></td>
+ </tr>
+ <tr height=64>
+  <td width=140 height=64>サービス停止</td>
+  <td align=center width=20>○</td>
+  <td width=190><small>E-PostクラスタのIPWatcherも操作可能。</small></td>
+  <td align=center width=20>○</td>
+  <td width=190><small>E-PostクラスタのIPWatcherは対象外。</small></td>
+ </tr>
+ <tr height=64>
+  <td height=64>サービス再起動</td>
+  <td align=center>○</td>
+  <td><small>サービス停止／開始で操作しなくても、一回の操作で再起動できる。</small></td>
+  <td align=center>×</td>
+  <td>　</td>
+ </tr>
+ <tr height=64>
+  <td height=64>サービス削除</td>
+  <td align=center>×</td>
+  <td>　</td>
+  <td align=center>○</td>
+  <td><small>サービス削除するとライセンス登録状態もクリアされるので要注意。</small></td>
+ </tr>
+ <tr height=64>
+  <td height=64>サービス登録</td>
+  <td align=center>×</td>
+  <td>　</td>
+  <td align=center>○</td>
+  <td><small>サービス削除後か、サービスが登録されていないときに可能。</small></td>
+ </tr>
+ <tr height=120>
+  <td height=120>サービス開始中・停止中のステータス</td>
+  <td align=center>○</td>
+  <td><small>サービス開始中や停止中のステータスが表示されるため、トラブルがあるときの状態を確認しやすい。<br></small></td>
+  <td align=center>×</td>
+  <td>　</td>
+ </tr>
+ <tr height=100>
+  <td height=100>スタートアップの種類（自動／手動／無効）</td>
+  <td align=center>○</td>
+  <td><small>MSFCクラスタでは、スタートアップを手動設定する必要があるためこの機能を利用する。<br></small></td>
+  <td align=center>×</td>
+  <td>　</td>
+ </tr>
+ <tr height=64>
+  <td height=64>ログオンアカウント及びパスワード</td>
+  <td align=center>○</td>
+  <td><small>サービスを削除しないまま設定が可能。</small></td>
+  <td align=center>○</td>
+  <td><small>サービスを削除し、その後サービスを登録するときに設定が可能。</small></td>
+ </tr>
+ <tr height=64>
+  <td height=64>自動回復</td>
+  <td align=center>○</td>
+  <td><small>サービス再起動などの自動回復オプションを設定可能。</small></td>
+  <td align=center>×</td>
+  <td>　</td>
+ </tr>
+ <tr height=100>
+  <td height=100>メールサーバの諸設定</td>
+  <td align=center>×</td>
+  <td>　</td>
+  <td align=center>○</td>
+  <td><small>サービス「終了」し、Mail Controlでメールサーバの諸設定を行い、変更後に「適用」しサービス「開始」できる。<br></small>
+    </td>
+ </tr>
+ <tr height=180>
+  <td height=180><small>MSFCクラスタでのスタンバイ時にメール作業フォルダが割り当てられていないときの注意</small></td>
+  <td align=center>○</td>
+  <td><small>MSFCクラスタでのスタンバイ時にメール作業フォルダが割り当てられていないときでも、特に影響を与えずサービスの制御が可能。<br></small></td>
+  <td align=center>△</td>
+  <td><small>MSFCクラスタでのスタンバイ時にメール作業フォルダが割り当てられていないとき、Mail Controlを開いて「OK」や「適用」ボタンをクリックすると、設定状態が変わりデフォルト状態に戻ってしまう。<br></small>
+    </td>
+ </tr>
+</table>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

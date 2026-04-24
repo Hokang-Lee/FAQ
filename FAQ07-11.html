@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>[32bit版][64bit版] MSFCクラスタ構成時の修正差分アップデートプログラム適用手順について</b></FONT>
+<HR>
+<br>
+E-PostシリーズのMSFCクラスタ構成時の最新差分アップデートプログラム適用手順については、次の通りです。<br><small>
+・E-Post Mail Server Standard (x64) / E-Post Mail Server Enterprise II (x64) <br>
+・E-Post SMTP Server Standard (x64) / E-Post BossCheck Server (x64) / E-Post SMTP Server Enterprise II (x64) <br>
+・E-Post Mail Server Standard / E-Post Mail Server Enterprise II<br>
+・E-Post SMTP Server Standard / E-Post BossCheck Server / E-Post SMTP Server Enterprise II <br></small>
+<br>
+<b>（副系側の操作）</b><br>
+<ol type=1>
+<li>待機時の副系マシンにログインし、Windowsの［管理ツール］-［サービス］から、E-Post 関連の全サービスが停止されているのを確認する。<br>
+※待機時には、”E-POST Mail Control”および”E-POST Account Manager”を開かないようにしてください。仮に間違って開いた場合は、すべて[閉じる］ボタンで閉じてください。<br>
+<li>E-Post各シリーズ用修正差分プログラムを実行。（例）jp-mail@epostmsstd-diff-201xmmdd.exe<br>
+<li>インストール済みのドライブ・フォルダを事前に確認しておき、上書き更新されるようにする。<br>
+※たとえば、デフォルトで「/Program Files/EPOST/MS」が表示されていますが、E-Postシリーズ32bit版を32bit版OSか64bitOSにインストールした環境によりプログラムインストール先は「C:\Program Files\EPOST\MS」または「C:\Program Files (x86)\EPOST\MS」と変わります。E-Postシリーズ64bit版では、プログラムインストール先は「C:\Program Files\EPOST\MS」です。<br>
+ここは［Browse］ボタンでフォルダ参照させるのが確実です。フォルダを指定したら［Unzip］ボタンで解凍を実行します。<br>
+<li>Web管理ツールを使用している場合は、各シリーズ用Web管理用修正差分プログラムを実行。<br>
+（例）jp-webman@epostmsstd-diff-201xmmdd.exe<br>
+<li>Web管理ツールの修正差分プログラムの指定先フォルダは一階層上です。E-Postシリーズ32bit版を32bit版OSか64bitOSにインストールした環境によりプログラムインストール先は「C:\Program Files\EPOST」または「C:\Program Files (x86)\EPOST」となります。E-Postシリーズ64bit版では、プログラムインストール先は「C:\Program Files\EPOST」です。いずれにしても一階層上になります。<br>
+ここは［Browse］ボタンでフォルダ参照させるのが確実です。フォルダを指定したら［Unzip］ボタンで解凍を実行します。<br>
+<li>フェイルオーバークラスターマネージャー（クラスタアドミニストレータ）から、正系マシンの「クラスタサービスの停止」を実行し、副系に強制的に制御が切り替わるように実施する。<br>
+<li>制御が切り替わったのを確認したら、副系の”E-POST Mail Control”を開き、共有ドライブの設定状態やサービス開始状態を確認。<br>
+<li>［バージョン情報］タブに表示されるCOMPONENT LISTでのバージョン表記を確認する。<br>
+</ol>
+<b>（正系側の操作）</b><br>
+<ol type=1 start=9>
+<li>上記までの状態を継続したまま、待機時の正系マシンにログインし、Windowsの［管理ツール］-［サービス］から、E-Post関連サービスが停止されているのを確認する。<br>
+<li>上記(2)～(5)の手順を再度行う。<br>
+<li>フェイルオーバークラスターマネージャー（クラスタアドミニストレータ）から、正系マシンの「クラスタサービスの開始」を実行し、正系に制御が戻るように実施する。<br>
+<li>制御が切り替わったのを確認したら、正系の”E-POST Mail Control”を開き、共有ドライブの設定状態やサービス開始状態を確認。<br>
+<li>［バージョン情報］タブに表示されるCOMPONENT LISTでのバージョン表記を確認する。<br>
+</ol>
+Enterprise II版の場合、次年度更新ライセンスキーを入力される場合は、副系側は(7)のタイミングで、正系側は稼働時の任意のタイミングか(12)のタイミングで行うとよいでしょう。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

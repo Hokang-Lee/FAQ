@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-39</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>先進認証やSMTPリレーへの対応に伴い【gateway.dat】の書式指定方法が大幅に拡張されました <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Post Mail Control「サーバー設定」タブにある「テーブル編集」ボタンで編集できる【gateway.dat】は、多くのユーザー様に配送振り分け先テーブルとして既に有効活用していると考えますが、2024年12月から2025年6月にかけて、先進認証やSMTPリレーへの対応に伴い【gateway.dat】が機能強化され、書式指定方法が大幅に拡張されました。機能強化された【gateway.dat】では、エンベロープFROMの送信元の条件も追加可能にしたり、認証データ保存方式に XOAUTH2 などの認証方式指定オプションを追加可能にしています。<br>
+<br>
+これは、2023年8月にE-Postシリーズに実装されたOAuth 2.0［オー・オース］先進認証機能を利用するためのGateway設定方法を説明した<b>『OAuth 2.0（オー・オース）Gateway設定ガイド』（PDF）</b>、ならびに2025年6月以降にM365 のSMTPリレーの設定方法とE-Post側【gateway.dat】の設定方法を説明した<b>『M365 のSMTPリレーによるGateway 設定ガイド』（PDF）</b>、さらにOAuth 2.0認証共有による拡張設定方法を説明した<b>『M365 のOAUTH2認証共有によるGateway 設定ガイド』（PDF）</b>を公開したことに伴うものです。<br>
+機能拡張された【gateway.dat】書式指定方法については、上記ガイドの該当ページを参照いただきたいですが、【gateway.dat】の書式指定方法がどのように拡張されたかは、次の最新差分プログラム更新情報に掲載されている修正履歴にも掲載されています。<br>
+<br><small>
+※最新差分プログラム更新情報より<br>
+-------------------------------------------------------------<br>
+[EPSTDS]<br>
+　v4.82 2024.12.17<br>
+　5. gateway.dat に<b>エンベロープの送信元の条件も追加可能</b>に拡張した。（対象ドメインの後部に<b>'|'で区切り対象となるエンベロープの送信元を指定</b> ['*'ワイルドカード指定可能]）<br>
+　6. gateway.dat に<b>認証データ保存方式に認証方式指定オプションを追加可能</b>に拡張した。（認証データ保存方式に連続してSMTP認証方式を指定 PLAIN LOGIN CRAM-MD5 XOAUTH2 複数指定は半角スペース区切り）<br>
+　[新書式]<br>
+　'対象ドメイン(|エンベロープの送信元),ゲートウェイ先(FQDN or IP)|[0,1,2,3](認証方式 PLAIN LOGIN CRAM-MD5 XOAUTH2)|([ID]|[PW])or(BASE64([ID]|[PW])or(BASE64(Original encoding([ID]|[PW]))),接続ポート(*)<br>
+　v4.83 2025.06.01<br>
+　2. <b>OAUTH2</b>でのアクセストークンとリフレッシュトークンを<b>特定のメールアドレスを参照先とする機能</b>を gateway.dat に追加。<br>
+　[新書式]<br>
+　'対象ドメイン(|エンベロープの送信元),ゲートウェイ先(FQDN or IP)|[0,1,2,3](認証方式 PLAIN LOGIN CRAM-MD5 XOAUTH2)|([ID]|[PW or 認可メールアドレス])or(BASE64([ID]|[PW or 認可メールアドレス])or(BASE64(Original encoding([ID]|[PW or 認可メールアドレス]))),接続ポート(*)<br>
+-------------------------------------------------------------</small><br>
+<br>
+<b>（参考）</b><br>
+『OAuth 2.0（オー・オース）Gateway設定ガイド』PDF版で解説されている OAuth2.0での接続方法と、『M365 のSMTPリレーによるGateway 設定ガイド』 PDF版で解説されている SMTPリレーでの接続方法とは、そもそも別々に想定されているM365への接続方法ですので、両者を混同しないようにしてください。<br>
+1. OAuth2.0を使う場合、上記設定ガイドにあげたメール設定に加え、E-Post側のメール作業用フォルダ（既定値 C:\mail\）下に指定された[ドメイン別\アカウント名\フォルダ]下に"アクセストークン"と"リフレッシュトークン"の２つの情報をM365側の認可機能をhttps経由で設定しておく必要があります。<br>
+※こちらの方法は E-Postサーバは固定IPアドレスである必要はありません。<br>
+2. SMTPリレーによる接続の場合は、SMTP先進認証自体は不要ですので、「サービス制御」タブにあるEPSTDSの「詳細設定」からダイアログボックスを呼び出し、ESMTPで送信をONにする、SMTP認証方法をNOにして、M365で取得しているドメインのMXレコードを nslookup コマンドなどで参照して【gateway.dat】ファイル内に接続先として記述、設定すれば作業が完了します。<br>
+　※こちらの方法は E-Postサーバは固定IPアドレスが必要で、しかも逆引き可能なアドレスからの送信である必要があります。[契約されているサブドメイン].onmicrosoft.comをお持ちのユーザー様であれば、こちらの設定は認証が必要ではなく、設定作業も楽です。<br>
+<br>
+<b>（参考）</b><br>
+●<a href="../download_x64.html#oauth" target="_blank"><b>製品評価版ダウンロード｜関連ドキュメント</b></a><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

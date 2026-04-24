@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Postクラスタ構成をAdministratorsグループの別名アカウントで設定したが、サービス開始できない、設定も保存できない <font color="#ff0000">new!</font></FONT></b><br>
+<HR>
+<br>
+E-Postクラスタ構成をAdministratorsグループの別名アカウントで設定したが、サービス開始できない、設定も保存できないと問い合わせを受けたことがあります。<br>
+<br>
+まず、ローカルのAdministratorと完全無欠に同一の権限をもつユーザーでなくては、権限が絶対的に不足します。Administratorsグループに入っている別名アカウントでも、ローカルセキュリティポリシー設定やユーザーアカウント制御機能によって、ローカルのAdministratorのもつ権限と同一ではなく、実際にははるかに下げられた権限しか与えられていないことを知る必要があります。できればローカルのビルトインAdministratorでログインし、設定も運用もしていった方が何の問題もなく、楽に管理ができますので、弊社としてはそちらをお薦めしています。<br>
+<br>
+そのためサービスが開始できない理由は、何を置いてもまっ先に権限不足です。E-Postサービスプログラムの権限不足は重大なことを引き起こします。仮にサービスは動作できたとしても、「メール用作業フォルダ」に指定した共有フォルダへ書き込むフルアクセス権限が確保できませんから、さまざまな問題を引き起こします。<br>
+『クラスタリングメールサーバ構築ガイド』（P.15-P.17）の中では、インストールや設定作業をローカルのビルトインAdministratorでログインして進め、E-Post各サービスのログイン権限をLocal SystemからローカルのAdministratorに変更する手順が書かれております。そちらをご参照になってください。<br>
+<br>
+またさらに設定が保存されない状況の原因は、「メール用作業フォルダ」に指定した共有フォルダへのアクセス権限が不足しており、開くことができないために起こります。「メール用作業フォルダ」に指定した共有フォルダへのアクセスについて、登録したE-Postサービスやツール類から権限が不足していることが何より原因です。<br>
+Administratorsグループの別名アカウントについて、ローカルセキュリティポリシー設定やユーザーアカウント制御機能によって、ローカルのAdministratorのもつ権限と同一に設定できる方法が完璧にわかるならそれでもよいですが、マイクロソフトからの情報が限られています。できればローカルのビルトインAdministratorでログインし、設定および運用をしていくことをお薦めします。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-22.html">Windows Server ドメイン管理下のAdministratorsグループの別ユーザーで動作させるときのサポートの方針について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

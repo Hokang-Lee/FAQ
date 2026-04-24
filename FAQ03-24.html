@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-24</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールサーバマシンにESET FileSecurityを同居させるときの注意点<font color="red">（重要）</font></b></FONT><br>
+<HR>
+<br>
+E-Post Mail Server／SMTP Serverを導入・構築したサーバマシンにアンチウイルスソフト ESET FileSecurity をインストールして使用する場合、特に注意すべき点があることがわかりました。<br>
+<br>
+実は、ESET FileSecurity 側にある除外設定機能、いわゆる例外管理機能では、フォルダ単位の除外設定をする際、メールボックスフォルダ配下にあるサブフォルダすべてを指定することは事実上不可能で、仮にメールボックスフォルダのトップを指定しても、実際の設定では、”C:\mail\inbox\domain.jp\*.*” あるいは”C:\mail\inbox\*.*”となってしまい、各アカウント単位で生成されるメールボックスフォルダを除外設定することは、実用上困難です。<br>
+（※ESET FileSecurity for Microsoft Windows Server 4.5 で確認を行いました）<br>
+<br>
+メールボックスフォルダを除外設定することなく使い続け、さらにメールボックスに大量のメールデータを残した運用方法をとっている場合、ESETとのファイル取り合いによって、メールボックスフォルダにアクセスするPOP3サービスが最悪停止してしまうおそれがあります。<br>
+<br>
+なお、一方、メール作業フォルダ下のサブフォルダについても同様のことが言えますが、こちらは各アカウント単位でのフォルダは存在せず、サブフォルダを一つずつ明示的に指定しても、最大で22 個の指定ですむことから、メール作業フォルダの除外設定は問題にはならないでしょう。<br>
+<br>
+ ESET FileSecurity をインストールする場合、以下の設定（ａ）を必ず実施してください。さらに、念のため（ｂ）の2014年7月1日公開の20140623差分アップデートも実施していただくことを推奨いたします。<br>
+<br>
+<b>（ａ）ESET FileSecurity の拡張子による設定を追加する</b><br>
+<br>
+ESET FileSecurity の「設定」には、ファイル拡張子を指定することで検査対象外を指定できる部分があります。既定では、EDB、EML、TMP の3 種類が設定されていますが、ここにMSG を追加指定してください。<br>
+指定することで、E-Post Mail Server のメールデータである拡張子.MSG を除外設定できるようになります。<br>
+<ol>
+<li>「設定」→コンピュータ保護→ウイルス・スパイウェア対策→リアルタイムファイルシステム保護
+<li> ThreatSenseエンジンのパラメータ設定：［設定］ボタンをクリック
+<li> 拡張子：[ MSG ] を入力して［追加］ボタンをクリック
+</ol>
+<b>（ｂ）2014年7月1日公開の20140623差分アップデートを適用</b><br>
+<br>
+E-Post Mail Server シリーズ用の「20140623差分アップデート」、あるいはE-Post Mail Server (x64) シリーズ用の「20140623差分アップデート」を適用してください。<br>
+<br>
+差分アップデート適用により、対応策を施したEPSTPOP3S 4.32 のモジュールに差し替えられます。ESETに限らず、サードパーティ製ソフトウェアによって、万が一メールボックスフォルダにあるメールデータのファイルを横取りされ、ファイル拡張子を強制的に変えられたり、リネームされるなどのイリーガルな行為があっても、サービス停止に至ることは回避される見込みです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

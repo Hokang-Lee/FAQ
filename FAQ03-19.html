@@ -1,0 +1,127 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-19</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windows Server 2016 / 2019 / 2022 / 2025 への導入時の注意 <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+Windows Server 2016 / 2019 / 2022 / 2025 の環境で 64bit版 E-Post (x64) シリーズを導入するときは、Administratorでのインストールやサービス起動時の権限（または利用制限）についての十分な確認が必要です。<br>
+<br>
+Windows Server では、Administratorアカウントでインストール・動作しているときでも、<b>User Account Control（UAC）</b>が有効となっているときは、Administratorアカウントでもサービス登録や操作ができないか、その都度確認メッセージが表示されます。そのためUACを無効化してから、インストールや、プログラムの操作、サービスプログラムの起動を行う必要があります。<br>
+また、AdministratorではないAdministrator権限の別名アカウントでインストールしたり、プログラムの操作やサービスプログラムの起動を行うときは、<b>常に「管理者として実行」を選択</b>して実行する必要があります。<br>
+また、Windowsファイアウォールの設定で E-Post (x64) シリーズが使用するポートを許可設定すること、サービスプログラム本体の通信許可設定も忘れないようにしてください。サードパーティ製のファイアウォール機能を有するツールやサービスを使うときも、これは同様の設定が必要になります。<br>
+<ol>
+<li><b>［UACの無効化］</b><br>
+・Windows Server 2016 / 2019 / 2022 / 2025 では［UACの無効化］を次のように行います。<br>
+(1) コントロールパネル → ユーザアカウント → ユーザアカウント → <b>ユーザーアカウント制御設定の変更</b> を開きます。<br>
+(2) ［ユーザーアカウント制御設定の変更］でいちばん下の「以下の場合でも通知しない」にスライドバーを下げます。<br>
+<br>
+<li><b>［ローカル管理者としての完全なAdministrator権限］</b><br>
+・ドメイン管理者では絶対的に権限が不足します。ローカル管理者としての完全なAdministrator権限が必要です。<br>
+・特にAdministrator権限の別名アカウントでインストール・実行するときには以下の注意が必要です。<br>
+(a)．Administrator権限の別名アカウントでインストールする時、.msiファイルやsetup.exeを実行するときに右クリックメニューから、<b>「管理者として実行」</b>を選択して実行します。<br>
+(b)．Administrator権限の別名アカウントでインストールしたときは、Mail Controlを開くとき、Mail Serverアイコンをダブルクリックして実行せず、右クリックメニューから<b>「管理者として実行」</b>を選択します。<br>
+　また、Administrator権限の別名アカウントでインストールしたとき、サービスプログラムの起動権限が<b>「Local System」</b>になっていないことがあります。Windows Severの「サービス」で確認し、E-Post関連サービスの起動権限が「Local System」になっていないときは、「ローカルシステムアカウント」を選択してすべて変更しておくことが必要になります。<br>
+(c)．Administratorでインストールし、Administrator権限の別名アカウントで登録・運用するときは、スタートメニューや、デスクトップ上のアイコンが登録されないため、プログラムインストールフォルダ〔 C:\Program Files\EPOST\MS または C:\Program Files (x86)\EPOST\MS 〕内の&quot;EpstControl.exe&quot;を選択、右クリックメニューから<b>「管理者として実行」</b>を選択します。<br>
+<br>
+<li><b>［Windowsファイアウォールの許可設定］/［サードパーティ製ファイアウォール機能を使う場合の許可設定］</b><br>
+・Windowsファイアウォール、ならびにサードパーティ製ファイアウォール機能の許可設定が必要です。Windowsファイアウォールの設定を開き、必要に応じて SMTP（ポート番号：25）・Submission（同：587）・POP3（同：110）・IMAP4（同：143）など、各プロトコルが利用するローカルポートのポート番号について受信・送信ともに通信許可をそれぞれ追加します。SSL/TLS使用時にはさらに通信許可を与えるポート番号を追加します。<br>
+・通信許可を与えるポート番号<br>
+ <ul type="disc">
+  <li>ポート番号（プロトコル名称）<br>
+  <li> 25（SMTP）<br>
+  <li>587（Submission）<br>
+  <li>110（POP3）<br>
+  <li>143（IMAP4）<br>
+  <li>465（SMTP over SSL/TLS）※SSL/TLS使用時<br>
+  <li>995（POP3 over SSL/TLS）※SSL/TLS使用時<br>
+  <li>993（IMAP4 over SSL/TLS）※SSL/TLS使用時<br>
+ </ul>
+<br>
+・サービスプログラムや管理ツールへの通信許可設定<br>
+ <ul type="disc">
+  <li>Epstrs.exe（SMTP受信サービスプログラム）<br>
+  <li>Epstds.exe（SMTP配送サービスプログラム）<br>
+  <li>Epstpop3s.exe（POP3サービスプログラム）<br>
+  ※E-Post Mail Server (x64)シリーズのみ。SMTP Serverには非搭載。<br>
+  <li>Epstimap4.exe（IMAP4サービスプログラム）<br>
+  ※E-Post Mail Server (x64)シリーズのみ。SMTP Serverには非搭載。<br>
+  <li>modifys.exe（ウイルスパターン更新サービスプログラム） および<br>
+  autoupdate.exe（パターンファイルダウンロードプログラム）<br>
+  ※Enterprise II 版のみ。Standard版には非搭載。Enterprise II 版では ウイルスパターン更新プログラムへの通信許可が必須。<br>
+  <li>ipwcs.exe（IP監視サービスプログラム）※E-Postクラスタ構成時のみ<br>
+  <li>EpstControl.exe（管理ツール：E-Post Mail Control）<br>
+  ※ライセンスキー登録を行う際、80番ポートでイー・ポスト認証サイトへの通信を行うため通信許可が必須。<br>
+  <li>Manager.exe（管理ツール：E-Post Account Manager）<br>
+  <li>loganalyzer.exe（付属ツール：E-Post LogAnalyzer）<br>
+ </ul>
+<br>
+<li>E-Postクラスタ構成では「ファイルとプリンターの共有（エコー要求-ICMPv4受信）」有効<br>
+・Windows Server 2016 / 2019 / 2022 / 2025 に装備されている<b>「セキュリティが強化されたWidowsファイアウォール」</b>では、ICMPプロトコルが無効にされており、pingに応答しない設定になっています。そのままの設定では、E-Postクラスタ構成時に導入するIPWacher（IP監視サービスプログラム）が正常に働きません。<br>
+・E-Postクラスタ構成時には、デフォルトで無効になっている<b>「ファイルとプリンターの共有（エコー要求-ICMPv4受信）」および「仮想マシンの監視（エコー要求-ICMPv4受信）」を有効に設定</b>してください。同じ項目名で（ICMPv6受信）もありますが、そちらはIPv6用のものであり、IPWatcherはIPv6に対応していないので変更しなくてかまいません。ちなみにIPWatcherはIPv4のみの対応です。IPv6のみの構成にした場合では使えないので注意が必要です。<br>
+<br>
+<li>必要に応じて機能や役割の追加<br>
+デフォルトで組み込まれない機能や役割を利用する場合、必要に応じて機能や役割の追加が必要です。<br>
+(1) 機能の追加　<b>telnetクライアント</b><br>
+　…　サーバ自身でtelnetコマンドを使ってメールサーバへ接続確認作業するために必要<br>
+(2) 役割サービスの追加　<b>Webサーバ（IIS）</b><br>
+　…　Web管理CGIプログラムを導入する場合は必要<br>
+<br>
+<li><b>［Windows Defender ウイルス対策のリアルタイムスキャン除外設定］/［サードパーティ製アンチウイルスソフトのスキャン除外設定］</b><br>
+サードパーティ製アンチウイルスソフトを併用する場合、スキャン除外設定が必須です。それと同じように Windows Server に標準で備わっている Windows Defender ウイルス対策についても、同じことが言えます。「除外」-「除外の追加」で以下の設定を行ってください。<br>
+<ul type="disc">〔E-Post Mail Server (x64) ／ SMTP Server (x64) シリーズ共通〕<br>
+ <li><b>メール作業フォルダ（既定値）　　&quot;C:\mail&quot;</b><br>
+ <li><b>メールボックスフォルダ（既定値）　&quot;C:\mail\inbox\%USERNAME%&quot;</b><br>
+〔E-Post方式クラスタ構成時は次を追加〕<br>
+ <li><b>[プログラムインストールフォルダ]\temp　&quot;C:\Program Files\EPOST\MS\temp&quot;</b><br>
+〔Enterprise II (x64) シリーズの場合は次を追加〕<br>
+ <li><b>一時展開する作業フォルダ（既定値）　&quot;%ALLUSERSPROFILE%\wct\&quot;</b> <small>※</small><br>
+ <li><b>パターンファイル保管フォルダ（既定値）　&quot;C:\Program Files\EPOST\MS\database&quot;</b><br>
+ <li><b>パターン更新ログフォルダ（既定値）　&quot;C:\Program Files\EPOST\MS\log&quot;</b> <br>
+<small> ※) OS環境によって変わりますが大多数は&quot;C:\ProgramData\wct\&quot;となります。<br>
+</small><br></ul></ol>
+この内容をPDF化したドキュメントがあります。参照するには次のリンクをご覧ください。<br>
+<p align="left">■<a href="../doc/WS2025_dounyu_chuui_16.pdf" target="_blank" onClick="window.open("../doc/WS2025_dounyu_chuui_16.pdf","_blank")">技術資料『Windows Server 2025 環境での導入時の注意』 Rev1.6</a><br>
+■<a href="../doc/WS2022_dounyu_chuui_15a.pdf" target="_blank" onClick="window.open("../doc/WS2022_dounyu_chuui_15a.pdf","_blank")">技術資料『Windows Server 2022 環境での導入時の注意』 Rev1.5a</a><br>
+■<a href="../doc/WS2019_dounyu_chuui_14a.pdf" target="_blank" onClick="window.open("../doc/WS2019_dounyu_chuui_14a.pdf","_blank")">技術資料『Windows Server 2019 環境での導入時の注意』 Rev1.4a</a><br>
+■<a href="../doc/WS2016_dounyu_chuui_13a.pdf" target="_blank" onClick="window.open("../doc/WS2016_dounyu_chuui_13a.pdf","_blank")">技術資料『Windows Server 2016 環境での導入時の注意』 Rev1.3a</a><br>
+■<a href="../doc/WS2012_dounyu_chuui_12.pdf" target="_blank" onClick="window.open("../doc/WS2012_dounyu_chuui_12.pdf","_blank")">技術資料『Windows Server 2012 環境での導入時の注意』 Rev1.2</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

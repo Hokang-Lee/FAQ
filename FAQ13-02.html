@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ13-02</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">Standard版と他社製ウイルス検出プログラムとを同じサーバマシン内にインストールしてはいけませんか？ </FONT>
+<HR>
+<br>
+Standard版と他社製ウイルス検出プログラムとを同じサーバマシン内にインストールすること自体は、特に問題はありませんが、下記のメールサーバが使用するフォルダに対してのリアルタイムスキャンの除外設定は必須です。<br>
+<br>
+他社製ウイルス検出プログラムがコンピュータをリアルタイムでスキャンするとき、<b>メールボックスフォルダ（既定値で C:\mail\inbox\[ドメイン名]\）</b>および<b>メール作業フォルダ（既定値で C:\mail\）</b>の場所に対して、ウイルス検出の対象外にすることを必須条件としています。その理由ですが、メールサーバが、ウイルス入りメールを受信もしくは送信している最中に、ウイルス検出プログラムがメールデータから検出するために、ファイルの排他問題、いわゆる取り合いが発生してしまうと、メールサーバの各サービスプログラムが停止してしまったり、負荷が高止まりになってしまって停滞や滞留が発生してしまう現象が発生する可能性があるからです。<br>
+<br>
+以上のことから他社製ウイルス検出プログラムをメールサーバマシンに導入するときは、メールボックスフォルダおよびメール作業フォルダの場所に対して、<b>リアルタイムスキャンの対象から除外する</b>ことを必須条件にしています。<br>
+なお、原理的にプロキシタイプのものであれば、問題が起きる可能性はなくなります。複合機能が実装されているものでは、ポート監視だけにとどめておくようにお願いしています。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

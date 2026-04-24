@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ08-18</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>オプション系インストーラ（Journal Option, BossCheck Option, LGWAN Option）をインストール後、管理者権限で実行するよう注意 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+<a href="./faq03-19.html">「Windows Server 2016 / 2019 / 2022 / 2025 への導入時の注意」</a>にもあるように、Administrator権限の別名アカウントでインストールする際 .msiファイルやsetup.exeを実行するときに右クリックメニューから、「管理者として実行」を選択して実行するよう注意を促しています。これは、Administrator権限でインストールしていても、できたデスクトップのアイコンでは、プログラム実行権限が下げられることがあるからです。<br>
+<br>
+しかし、2024年12月まで既存のオプション系インストーラ（Journal Option, BossCheck Option, LGWAN Option）を Windows Server 2016 / 2019 / 2022 へインストールした際、インストール後のショートカットアイコンの右クリックメニュー内には「管理者として実行」が表示されません。<br>
+このとき、下記の設定を行うことにより、ショートカットアイコンのプロパティを常に「管理者として実行」することができます。<br>
+<br>
+ショートカットアイコンの右クリックメニューからプロパティを選択<br>
+　→「互換性」タブをクリック<br>
+　　→「設定」内の「管理者としてこのプログラムを実行する」チェックボックスをオンにする<br>
+　　　→右下の［適用］ボタンをクリック、続いて［OK］ボタンをクリック<br>
+<br>
+なお、2024年12月以降、オプション系インストーラ（Journal Option, BossCheck Option, LGWAN Option）を下記の通り、順次更新します。以降は上記オプション系インストーラを使ってインストールした後、ショートカットアイコンの右クリックでは「管理者として実行」が表示されるようになります。ちなみにいずれもインストーラだけの修正で、各機能には変更はありません。<br>
+<ul><li>Journal Option　…　2024年12月16日以降、修正したインストーラを「サポート2」-「ダウンロード」にアップします。<br>
+<li>BossCheck Option　…　2024年12月16日以降、修正したインストーラを公開「ダウンロード」ページ、及び「サポート2」-「ダウンロード」にアップします。<br>
+<li>LGWAN Option　…　2024年12月16日以降、出荷されるパッケージについて更新します。<br>
+</ul>
+この内容をPDF化したドキュメントがあります。参照するには次のリンクをご覧ください。<br>
+<br>
+<p align="left">■<a href="../doc/WS2025_dounyu_chuui_16.pdf" target="_blank" onClick="window.open("../doc/WS2025_dounyu_chuui_16.pdf","_blank")">技術資料『Windows Server 2025 環境での導入時の注意』 Rev1.6</a><br>
+■<a href="../doc/WS2022_dounyu_chuui_15a.pdf" target="_blank" onClick="window.open("../doc/WS2022_dounyu_chuui_15a.pdf","_blank")">技術資料『Windows Server 2022 環境での導入時の注意』 Rev1.5a</a><br>
+■<a href="../doc/WS2019_dounyu_chuui_14a.pdf" target="_blank" onClick="window.open("../doc/WS2019_dounyu_chuui_14a.pdf","_blank")">技術資料『Windows Server 2019 環境での導入時の注意』 Rev1.4a</a><br>
+■<a href="../doc/WS2016_dounyu_chuui_13.pdf" target="_blank" onClick="window.open("../doc/WS2016_dounyu_chuui_13.pdf","_blank")">技術資料『Windows Server 2016 環境での導入時の注意』 Rev1.3a</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-44</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>接続時の応答メッセージから製品名やバージョンを非表示にしたい場合</b></FONT>
+<HR>
+<BR>
+各サービス（SMTP/POP3/IMAP4）に接続セッションが発生すると、デフォルトでは、応答メッセージ（グリーティング）として、製品名およびバージョンなどの表示が返されます。<br>
+セキュリティの関係上、これらの応答メッセージ（グリーティング）から、製品名やバージョンなどを非表示にしたい場合、以下のレジストリの設定をすることで応答メッセージ内に情報を表示しなくなります。<br>
+非表示を設定するには、事前に対応するサービス（EPSTRS/EPSTPOP3S/EPSTIMAP4S）を停止させ、レジストリ値を設定した後、サービスを再開します。<br>
+該当製品：<br>
+・E-Post Mail Server Enterprise II / Standard<br>
+・E-Post SMTP Server Enterprise II / Standard　（EPSTRS）<br>
+・E-Post BossCheck Server　（EPSTRS）<br>
+<blockquote><small>
+<HR size="1" noshade>
+[SMTPレシーバーサービスの応答メッセージ非表示]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　-&gt;CurrentControlSet<br>
+　　-&gt;Services<br>
+　　　-&gt;EPSTRS<br>
+　　　　-&gt;HidesGreeting (DWORD)　&lt;= 手動で作成<br>
+　　　　　デフォルト値 0（表示する）／ 1:非表示<br>
+<HR size="1" noshade>
+[POP3サービスの応答メッセージ非表示]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　-&gt;CurrentControlSet<br>
+　　-&gt;Services<br>
+　　　-&gt;EPSTPOP3S<br>
+　　　　-&gt;HidesGreeting (DWORD)　&lt;= 手動で作成<br>
+　　　　　デフォルト値 0（表示する）／ 1:非表示<br>
+<HR size="1" noshade>
+[IMAP4サービスの応答メッセージ非表示]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　-&gt;CurrentControlSet<br>
+　　-&gt;Services<br>
+　　　-&gt;EPSTIMAP4S<br>
+　　　　-&gt;HidesGreeting (DWORD)　&lt;= 手動で作成<br>
+　　　　　デフォルト値 0（表示する）／ 1:非表示<br>
+<HR size="1" noshade>
+</small></blockquote>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

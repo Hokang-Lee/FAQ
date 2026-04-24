@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-21</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Mail Controlの設定変更とサービス再開との関連について</b></FONT>
+<HR>
+<br>
+E-POST Mail Control の[OK]ボタンをクリックして、閉じようとすると「変更した設定はサービスの再開後に有効になります」と表示されますが、何も変更していない場合、メッセージを無視して、そのまま閉じてかまいません。<br>
+<br>
+一方、設定を変更した場合、どのサービスを再開すればよいかの目安を説明します。設定変更個所とサービス再開（サービスプログラム再起動）との関連については、おおむね次の通りです。<br>
+なお、サービスの開始・停止については、Mail Controlの「サービス制御」で行う場合と、Windowsの「コンピュータの管理」－「サービス」で行う方法と、どちらの方法を使っても結果は同じです。<br>
+<br>
+●「メールフィルタ」関連　→ EPSTRS<br>
+●「中継の制限」関連　→ EPSTRS<br>
+●「エイリアス」関連　→ EPSTRS、EPSTDS<br>
+●「メーリングリスト」関連　→ EPSTRS、EPSTDS<br>
+●「サーバー設定」<br>
+　　システム管理パスワード　→ E-Post Mail Control<br>
+　　SMTPゲートウェイ関係　→ EPSTRS、EPSTDS<br>
+　　メール作業フォルダ　→ 全サービス<br>
+　　メールボックスフォルダ　→ 全サービス<br>
+　　DNSサーバ　→ EPSTRS、EPSTDS<br>
+●「ドメイン管理」<br>
+　　アカウントフォルダー　→ 全サービス<br>
+　　管理者アカウント　→ EPSTRS、EPSTDS<br>
+　　運用ドメイン設定　→ 全サービス<br>
+●「サービス制御」<br>
+　　SMTP認証方法およびセキュリティレベル　→ EPSTRS<br>
+　　Received:ヘッダ　→ EPSTRS<br>
+　　各サービスの詳細　→ 各サービス<br>
+●「ログ設定」（※かっこはレジストリで設定）<br>
+　　SMTP受信ログ、接続マシンログ、（SMTP受信詳細ログ）　→ EPSTRS<br>
+　　SMTP送信ログ、配送時の詳細ログ、失敗ログ　→ EPSTDS<br>
+　　POP3ログ、（POP3詳細ログ）　→ EPSTPOP3S<br>
+　　IMAP4ログ、（IMAP4詳細ログ）　→ EPSTIMAP4S<br>
+　　受信メールの複写　→ EPSTRS<br>
+●「SSL設定」<br>
+　　SMTP関連　→ EPSTRS、EPSTDS<br>
+　　POP3関連　→ EPSTPOP3S<br>
+　　IMAP4関連　→ EPSTIMAP4S<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>BossCheck Serverで開封通知メールをそのまま送ると添付ファイル付き承認条件に引っかかる</b></FONT>
+<HR>
+<br>
+BossCheck Serverで開封通知メールをそのまま送ると、添付ファイル付き承認条件に引っかかる場合、2009.11.05（EPSTRS v4.63）以降の差分アップデートでは、対策が取られていますので、差分アップデートを適用してください。<br>
+<br>
+<b>●開封通知メールを送ると添付ファイル付き承認条件に引っかかる理由</b><br>
+開封通知メールのヘッダ構造は、&quot;Content-Type: multipart～&quot;メールヘッダが加えられ、添付ファイルと似通った構造をしています。<br>
+そのため、上記バージョン以前のBossCheck Serverの仕様では、開封通知メールも、添付ファイル付きメールとして判断していたのがその理由です。<br><small>
+<br>
+<hr width="95%" align="left" size="1" noshade>
+（開封通知メールのヘッダ構造より抜粋）<br>
+Content-Type: multipart/report; report-type=&quot;disposition-notification&quot;; boundary=&quot;------_4A7158F5000000005681_MULTIPART_REPORT_&quot;<br>
+（一般的な添付ファイル付きメールのヘッダ構造より抜粋）<br>
+Content-Type: multipart/mixed; boundary=&quot;------_4A793C2C000000000FF9_MULTIPART_MIXED_&quot;<br>
+<hr width="95%" align="left" size="1" noshade>
+</small><br>
+この開封通知メール問題への対策版は、差分アップデートの中に対策として既に盛り込まれています。<br>
+BossCheck Server上長承認機能の添付メール保留オプションで、Content-typeヘッダに 'report-type=disposition-notification'の指定がある場合、開封確認メールとして認識し、このコードが含まれるメールは添付対象から除外するオプションを追加しています。この問題の対策がEPSTRS 4.63以降で取られています。<br>
+<br>
+<b>●過去に対策が取られたEPSTRSの修正点</b><br>
+------------------------------------------------------------<br>
+E-Post SMTP Server Standard 20091126差分<br>
+バージョン:2009-11-26　掲載日: 2009-12-02<br>
+------------------------------------------------------------<br>
+[EPSTRS]<br>
+v4.63 2009.11.05<br>
+2. 上長承認オプション機能使用時に、添付ファイル付きメールを保留する条件設定を行う際、 Content-typeヘッダに 'report-type=disposition-notification' の指定がある場合、開封通知確認メールとして添付対象から除外するオプションを追加。<br>
+<small>[メール作業フォルダ]\REG\SOFTWARE\EMWAC\IMS\MailApprovalNotification.1<br>
+（デフォルト値=1 / 1:除外する, 0:除外しない）<br></small>
+------------------------------------------------------------<br>
+「サポート２」より差分アップデートプログラムを適用してください。なお、上記以降のバージョンでは累積的に適用されています。差分アップデートの適用後、設定方法を次の通り行ってください。<br>
+<br>
+<b>●基本的な設定手順</b><br>
+<ol>
+<li type="1">下記のフォルダ位置に設定ファイル &quot;MailApprovalNotification.1&quot; をテキストファイルとして作成。<br>
+<small>[メール作業フォルダ]\REG\SOFTWARE\EMWAC\IMS\MailApprovalNotification.1<br></small>
+<li type="1">上記1.のテキストファイル内に記述する設定値を"1"と記述。文末の改行はしない。（デフォルト値=1 ／ 1:除外する, 0:除外しない）<br>
+<li type="1">以下の設定を行ったら、EPSTRSのサービス再起動を行う。<br>
+</ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-32</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>エイリアスインポート後にエイリアスの二重登録状態になっている</b></FONT>
+<HR>
+<br>
+エイリアスインポートを行った後にエイリアスの二重登録状態になってしまうことがあります。<br>
+これは既存のエイリアス設定がある状態で、テキストファイルにエクスポートしてあったエイリアス設定をそのままインポートしたためであると考えられます。既存のエイリアス設定がある状態でインポートを実行すると、同一レコードがあるものは上書きしないで、レコードをどんどん追加されていく仕様であることがその理由です。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-13.html">エイリアスの一括登録方法とインポートの仕様について</a><br>
+<br>
+エイリアスのインポートを実行すると、エイリアスの二重登録状態になってしまうのは、E-Postシリーズでのエイリアス設定がデータベースで管理されておらず、フォルダの連番名で管理されているため、同じアカウント・エイリアス名の設定がいくらでも重複して登録されていくためです。<br>
+なお、エイリアスの二重登録状態を放置しておいても、エイリアス機能としては正常に働きますし、特別な問題が発生することはないと考えますが、管理者の混乱を避けるという意味でも、エイリアス設定がユニークになるよう整理していくことをお薦めします。<br>
+Account Managerの方ですと、エイリアス項目部分でクリックすることで、エイリアス名の昇順にソートできます。ソートしてやることで重複しているエイリアス設定が確認しやすくなります。重複している片側（強いて言うなら下のもの）を削除して対処してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

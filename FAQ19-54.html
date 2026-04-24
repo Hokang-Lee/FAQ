@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-54</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>イントラ側（E-Post）で特定アカウントを管理し、クラウド側（Exchange Online）と接続するための設定例 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+データ主権を考慮し、レガシー環境のイントラ側（E-Post）で特定アカウントを管理、クラウド側（EXO = Exchange Online）と接続するための設定概要事例を説明します。なお、ここでの諸設定を有効に働かせるためには、20250620差分以降の最新差分適用されていることが必要です。<br>
+-----------------------------------------------------------------------------------------<br>
+<b>イントラ側（E-Post）で特定のアカウントを管理し、クラウド側と接続するための設定例</b><br>
+-----------------------------------------------------------------------------------------<br>
+1. E-Post内にイントラ用のサブドメイン（例: intra.hogehoge.jp）を作成し、アカウントを登録する。<br>
+　（例）<br>
+　　vip1＠intra.hogehoge.jp , legacy＠intra.hogehoge.jp など<br>
+<br>
+2. クラウド上で公開しているドメイン名を外部エイリアスとして紐づけ設定。Account Managerからでなく、E-Post Mail Control の［エイリアス設定］タブ画面を開き、下記の設定を追加する。<br>
+　（例）<br>
+　　エイリアス：vip1＠hogehoge.jp　→　実アドレス vip1＠intra.hogehoge.jp<br>
+　　エイリアス：legacy＠hogehoge.jp　→　実アドレス legacy＠intra.hogehoge.jp<br>
+<br>
+3. E-Post Mail Control の［サーバ設定］タブ画面を開き［テーブル編集］をクリックして【gateway.dat】ファイルを編集、接続先のSMTPサーバの設定を行う。<br>
+　（例）<br>
+　　【gateway.dat】に記述。送信元 hogehoge.jp メールはクラウド側（EXO = Exchange Online）に送信する場合の設定。<br>
+　　（例）<br>
+　　*|[yourdaccount]＠hogehoge.jp,[yourdomain].mail.protection.outlook.com,25 // SMTPリレー設定例<br>
+　　または<br>
+　　*|[yourdaccount]＠hogehoge.jp,smtp.office365.com|1XOAUTH2|....,587 // XOAUTH2設定例<br>
+<br>
+4. クラウド側（EXO = Exchange Online）からの転送メールを許可（信頼）設定を【effect.dat】に指定する。<br>
+　E-Post Mail Controlの［中継の制限］タブ画面を開き［マシン毎の中継］ボタンをクリックして【effect.dat】ファイルを編集、送信の無条件許可を与えるエンベロープ送信元の許可設定を行い、送信元IP（接続元IP）アドレスでの無条件許可設定を行う。<br>
+　（例1）エンベロープの送信元で無条件許可する例<br>
+　　--------【effect.dat】-----------<br>
+　　vip1＠intra.hogehoge.jp true<br>
+　　legacy＠intra.hogehoge.jp true<br>
+　　-----------------------------------<br>
+　　<small>※ここではあくまで個別アカウントの無条件許可指定にとどめるようにし、ドメイン名の無条件許可指定はしないように注意してください。</small><br>
+　（例2）送信元IPアドレスで無条件許可する例（送信元IPアドレスを xxx.xxx.xxx.xxx としたケース）<br>
+　　--------【effect.dat】-----------<br>
+　　　xxx.xxx.xxx.xxx true<br>
+　　----------------------------------<br>
+<br>
+5. クラウド側（EXO = Exchange Online）でイントラへ転送したいメールアカウント毎にイントラ側のSMTPアドレスを指定した転送設定を行う。<br>
+-----------------------------------------------------------------------------------------<br>
+<br>
+<b>（参考ページ）</b><br>
+上記の参考となる技術資料：『OAuth 2.0（オー・オース）Gateway設定ガイド』（PDF）,『M365 のSMTPリレーによるGateway 設定ガイド』（PDF）,『M365 のOAUTH2認証共有によるGateway 設定ガイド』（PDF）は、下記公開ダウンロードページよりダウンロードしてください。<br>
+なお「サポート2」内では、上記技術資料はすべて［ダウンロード］-［運用ガイド・関連ドキュメント］より直接ダウンロードが可能です。<br>
+<a href="https://www.e-postinc.jp/download_x64.html#oauth" target="_blank">製品評価版ダウンロード｜技術資料</a><br>
+<a href="https://www.e-postinc.jp/download_x64.html#tool" target="_blank">製品評価版ダウンロード｜共通ツール・ユーティリティ</a><br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

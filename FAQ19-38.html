@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-38</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>OCN宛のメールが同じメッセージIDのメールとして複数送信される <font color="#ff0000">new!</font></b></FONT>
+<HR>
+OCN宛てのメールが同じメッセージIDで複数送信される現象の原因は、SMTP配送サービス EPSTDS v4.82以前において「"EHLO"送信完了時に（途中で）接続が切れた場合、現メールのリトライメールの格納処理に伴って行われるはずの現メールの破棄処理が抜けていた」ことによるものです。<br>
+2025.6.20 （2025.7.25公開）以降の差分アップデートを適用してください。<br>
+<br>
+【最新差分プログラム修正履歴より】<br>
+<small>------------------------------------------------------------<br>
+　v4.83 2025.06.01<br>
+　1. ESMTP送信時にEHLO送信完了後にソケットが切断された場合、EPOST側が現配送処理を終了せずリトライ処理の生成を行い重複メールが発生する不具合の修正。<br>
+------------------------------------------------------------<br></small>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

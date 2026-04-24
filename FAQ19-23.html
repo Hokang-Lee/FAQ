@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-23</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールサーバ(E-Post)とSMTPゲートウェイの構成で、配送不能なエラーメールが帰ってこないときの原因の調べ方 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+SMTPゲートウェイにおいて外部への送信が許可されていないユーザーに対し、送信依頼を拒絶した場合に、本来なら戻るはずのエラーメールがE-Post内の送信元アカウントのメールボックスまでエラーメールが返ってこない現象を調べるポイントとして、下記の点を順番に確認します。<br>
+<br>
+<B>1．［エンベロープの送信元］（エンベロープFROM）へ返信できない状況についてその原因を大元にかえって調べる</B><br>
+<br>
+SMTPプロトコルにおいて、エラーメールは通常、メール送信時の［エンベロープの送信元］（エンベロープFROM）に返されます。<br>
+［エンベロープの送信元］（エンベロープFROM）は、メーラーで確認できるメールヘッダーに記載されている From:ヘッダーとは、まったく異なるものであることを十分理解しておく必要があります。（※エンベロープFROMは、メールサーバやSMTPサーバのMTAが用いる）<br>
+この［エンベロープの送信元］（エンベロープFROM）が、もし仮に&quot;&lt;&gt;&quot;空白で送信されている場合、エラーメールの返信は発生しません。<br>
+つまり、MTAはエンベロープFROMに基づいてエラーメールを返そうとしても返せないことになると同時に、エラーメールを返さなくてよいという指示がメールクライアントから与えられているということになります。<br>
+こういったことはルール上も認められており、よく行われる内容です。<br>
+よって、まずはメールクライアントから送信指示された大元のメールがどのような［エンベロープの送信元］（エンベロープFROM）で送られているのかをE-Postのログで確認する必要があります。<br>
+<br>
+［エンベロープの送信元］（エンベロープFROM）が確認できるのは、次のログです。<br>
+<ul>
+<li>inlog（SMTP受信ログ）　　※エンベロープFROMは、「送信元アドレス」で記録されます。</li>
+<li>receivelog（SMTP受信詳細ログ）(※フォルダ手動作成で取得可能)　　※エンベロープFROMは、「MAIL FROM: &lt;xxxx@yyy.yyy.jp&gt;」という命令で指示されます。</li>
+<li>outlog（SMTP送信ログ）　　※エンベロープFROMは、from「送信元アドレス」で記録されます。</li>
+<li>senderlog（SMTP配送時の詳細ログ）　　※エンベロープFROMは、「SendMailMess:MAIL From: &lt;yyy＠yyy.yyy.jp&gt;」という命令で指示されます。</li>
+</ul>
+<br>
+<B>2．管理者アカウントに返されたエラーメールがあるか調べる</B><br>
+
+E-Postの設定、E-Post Mail Controlの「ドメイン管理」タブには、[管理者アカウント]の設定と「管理者にもエラーメールを送信する」の設定があります。<br>
+[管理者アカウント]を設定されており、「管理者にもエラーメールを送信する」チェックボックスをオンに設定している場合、エラーメールが返されてきているのであれば、[管理者アカウント]宛てにもエラーメールが送られることになります。<br>
+管理者アカウント宛のメールも念のため確認し、エラーメールが返されていないか確認します。<br>
+この場合、[管理者アカウント]は、E-Post内（Account Manager）で登録済みのアカウントであることが前提です。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-04.html">SMTP受信ログ（inlog）について</a><br>
+●<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）について</a><br>
+●<a href="./faq05-07.html">SMTP送信ログ（outlog）について</a><br>
+●<a href="./faq05-10.html">配送時の詳細ログ(senderlog)について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

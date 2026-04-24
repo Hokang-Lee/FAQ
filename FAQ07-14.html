@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ07-14</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>[32bit版][64bit版] MSFCクラスタ構成でサーバ移行時のバックアップ作業前に行うサービス停止について</b></FONT>
+<HR>
+<br>
+サーバ移行手順では、事前にメールサーバのメール用作業フォルダやメールボックスフォルダや設定ファイルのバックアップ作業を行います。そのとき、シングルサーバではいつでもE-Postのサービス停止が可能ですが、MSFCクラスタ構成にしている場合は、E-Postのサービス停止をするとクラスタの制御が自動的に切り替わってしまい、合わせて共有ディスクの認識も切り替わってしまいます。<br>
+MSFCクラスタ構成の場合は、クラスタマネージャから、アクティブ側のメールサーバに役割として設定されているE-Postサービスをオフラインにすることで、共有ディスクを認識したまま、E-Postサービスを停止状態にさせることができますので、その状態でバックアップ作業をするようにします。<br>
+<ol>［手順概要］
+<li>フェイルオーバクラスタマネージャ→ノード→アクティブ側のノードマシンを選択<br>
+「リソース」タブの「役割」にある各サービスをオフライン<br>
+<li>E-Postのサービス停止がされるので、メールボックスフォルダ、メール作業用フォルダ、アカウントデータフォルダのバックアップ作業を行う<br>
+<li>バックアップ作業が終わり次第、オンラインに戻す<br>
+<li>E-Postのサービスが再開されるのを確認<br>
+<li>クラスタの制御を切り替え、今度はスタンバイ側で同じ作業を繰り返す<br>
+</ol>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

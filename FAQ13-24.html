@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ13-24</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">E-Post方式クラスタ構成でフェイルオーバー／フェイルバック構成のとき、切り替わったことを通知する機能はありますか？ </FONT>
+<HR>
+<br>
+E-Post Mail Server (x64) 、E-Post SMTP Server (x64) シリーズ製品のE-Post方式クラスタ機能は、IPアドレスを監視してフェイルオーバーとフェイルバックを行っていますが、切り替わったときの通知機能は特に持っていません。<br>
+<br>
+簡易的に調べる方法は、ノードマシンのコマンドプロンプトから、ipconfig /all コマンドを入力し、仮想IPアドレスが取得されているかどうかを確認します。仮想IPアドレスが取得されているときは、手元のノードマシンに制御が移っている（ある）ことを表わします。<br>
+<br>
+また、サードパーティ製のネットワーク監視ツールを導入すれば、E-Post方式クラスタ構成にしているメールサーバのノードが切り替わったことを通知したり、動きを確認できるようです。ネットワーク監視ツールを導入したとき、監視対象にする項目は、各ノードの実IPアドレスと、HAクラスタ構成化されたメールサーバが持っている仮想IPアドレスでよいでしょう。<br>
+各サービスプログラムを監視対象にすべきかどうかについてですが、E-Postシリーズ製品に含まれるEPSTDS、EPSTRS、POP3S、IMAP4Sなどの各サービスプログラムは、マスター側（アクティブ側）のサービスは、稼働しているときは応答するので監視対象に入れても差し支えありません。しかし、スレーブ側（スタンバイ側）のサービスは停止しているわけではなく、アイドリング状態にあるため、監視対象に入れても区別がつきません。実際は、スレーブ側（スタンバイ側）のサービスは、切り替わらない限り、応答しない"hidden"に設定されていますので、監視対象に入れるのはむずかしくなります。<br>
+一方、メールサーバが持っている仮想IPアドレス管理下にある各サービスを監視するのは、よいと思われます。<br>
+<br>
+詳細については、各社からリリースされているネットワーク監視ツールの機能をご確認ください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

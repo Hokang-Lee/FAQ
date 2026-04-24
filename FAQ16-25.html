@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-25</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>BossCheck Server 承認依頼メールのmailto リンクの生成時の文字コードを変更するには </b></FONT>
+<HR>
+<br>
+E-Post BossCheck Server (x64) で自動生成される承認依頼メールでは、mailto リンクの生成時の文字コードは、デフォルトでShift-JISで固定されています。これは、Windows環境で最も多く利用されるOutlookExpress系のWindows Mail や、Office Outlook などでは、承認・却下メール送信時に本文中に表示されるSubject部分などの日本語文字がShift-JIS の文字コードでなければ正しく表示されないためです。<br>
+<br>
+しかし一方で、メーラーからmailto リンク部分がクリックして承認・却下ができるにもかかわらず、mailto リンク部分の文字コードをUTF-8 とみなしているThunderBird などのメーラーや、一部Web メールソフトが存在し、そうした使用環境では、承認・却下メール送信時に本文中に表示されるSubject 部分などの日本語文字が文字化け表示されていました。<br>
+<br>
+こうした状況に対して、なお、20150216修正差分プログラム以降を適用することで、EPSTRSのバージョンはv4.88以上になりますが、合わせて下記設定を行えば、他の文字コードを指定することができるようになりました。<br>
+<br>
+●E-Post SMTP Server Standard (x64)（E-Post BossCheck Server (x64)）<br>
+差分アップデートプログラム（20150216 差分）<br>
+<br>
+差分適用後、下記の設定ファイルを記述することにより、Shift-JIS 以外の文字コードに変更することができます。<br>
+<br>
+<table border="1" cellspacing="0" cellpadding="2" width="480">
+ <tr>
+  <td><small>
+  <メール作業フォルダ>\REG\SOFTWARE\EMWAC\IMS\ MailApprovalCodepage.1<br>
+  (DWORD Default 932) mailto リンク生成時の文字コードテーブルを変更<br>
+  <br>
+  　　[Codepage]<br>
+  　　Shift-JIS → 932 (デフォルト）<br>
+  　　UTF-8 → 65001<br>
+  　　JP_EUC → 20932<br>
+  　　JP_JIS → 50220 or 50222<br></small>
+  </td>
+ </tr>
+</table>
+<br>
+“<メール作業フォルダ>\reg\SOFTWARE\EMWAC\IMS\”フォルダ内の位置に“MailApprovalCodepage.1”の設定ファイルを作成、ファイルに数値を記述して保存します。<br>
+たとえばmailto リンクをUTF-8 でエンコードしたいときには65001 を記述します。その際、数字の末尾に改行を加えないようにしてください。<br>
+<br>
+（※注意）<br>
+この設定オプションが有効なバージョンは、EPSTRS v4.86 以降です。ファイルが存在しないときのデフォルト値は、'932'として動作します。<br>
+なお、設定後は必ずEPSTRSサービスの再起動が必要になります。<br>
+変更後は、承認依頼メールの一部にではなく、全ての承認依頼メールに反映されます。従って、メーラーが混在している環境では、ご使用判断に十分留意なさってください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

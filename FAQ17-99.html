@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-99</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>マルチドメイン設定時に送信元IPとしてデフォルトIP以外の追加IPを設定する方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Postシリーズでマルチドメイン設定しているとき、送信元IPとしてネットワーク設定に登録されたデフォルトIPで強制的に送信されることになります。これはE-Postシリーズの仕様です。<br>
+しかしながら、場合によってはデフォルトIPではなく、追加したIPを送信元IPに設定する必要性が出てくるケースがあります。たとえば、マルチドメイン設定時にそれぞれのドメインにDMARCを設定する際は、メールサーバ側の受信IPと送信元IPもそれぞれドメイン毎に異なるIPを割り当てておく必要が出てくるケースがあるかもしれません。<br>
+<br>
+E-Postシリーズでマルチドメイン設定時に、送信IPをデフォルトIPではなく、追加したIPに設定したい場合の具体的な手順は以下の通りです。1．については既出記事でよく知られていますが、特に 2．の設定作業が重要になります。<br>
+<br>
+<b>1. ［接続ドメイン/IPで区別する］方式でマルチドメイン作成</b><br>
+受信IPについては、元あるドメインも追加する新規ドメインもどちらも［接続ドメイン/IPで区別する］方式の設定にしておき、先行のドメインに割り当てたデフォルトのIPアドレスとは異なるIPアドレスを追加し、その追加IPアドレスを割り当て設定します。<br>
+　※下記に引用したマルチドメイン設定時のFAQ記事をご参照ください。<br>
+<br>
+<b>2. 送信元IPをレジストリで設定</b><br>
+送信元IPについては以下レジストリ値を設定し、それぞれのドメインに対するIPアドレスを明示設定しておきます。<br>
+　※未設定では、SMTP送信時には、Windowsネットワーク設定にあるデフォルトのIPアドレスが送信元IPとして固定されてしまうためです。これはE-Postシリーズの仕様なのですが、実は下記に述べているようにレジストリで変更可能です。<br>
+以下のレジストリを記述設定、まず 設定Aで MTAIPOn=1 を設定し、続いて設定Bでエンベロープの送信元ドメインに対するIPアドレスをバイナリ値で手動設定します。設定後は、EPSTDSサービスの再起動が必要です。<br>
+<small>-----------------（設定A）--------------------<br>
+"MTAIPOn"をDWORD値(32ビット)で作成、設定値を 1 にする。<br>
+〔レジストリ〕<br>
+HKEY_LOCAL_MACHINE<br>
+→SYSTEM<br>
+　→CurrentControlSet<br>
+　　→Services<br>
+　　　→EPSTDS<br>
+　　　　→MTAIPOn  (DWORD) 0:しない 1:する （デフォルト:0）<br>
+-------------------------------------------------<br>
+------------------（設定B）--------------------<br>
+"MTAIP"のキーを作成、送信元エンベロープのドメイン名をバイナリ値で定義して、バイナリ値を入力、ドメイン毎の送出IPを指定する。<br>
+〔レジストリ〕<br>
+HKEY_LOCAL_MACHINE<br>
+→SOFTWARE<br>
+　→EPOST<br>
+　　→IMS<br>
+　　　→Domain<br>
+　　　　→MTAIP<br>
+　　　　　→[送信元エンベロープのドメイン名] 送信IPアドレス バイナリ値<br>
+[例] [送信元エンベロープのドメイン名]が&quot;hogehoge.jp&quot;で送出IP=(172.20.116.4)とする場合（バイナリ値で指定）。<br>
+　　 →hogehoge.jp 値=&quot;31 37 32 2e 32 30 2e 31 31 36 2e 34&quot;<br>
+-------------------------------------------------</small><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-15.html">E-Post Mail Server (x64) / E-Post SMTP Server (x64) で使用している設定ファイル＆レジストリ</a><br>
+●<a href="./faq01-22.html">別々のIPで複数ドメインを割り当てる場合（グローバルIPで直接公開）</a><br>
+●<a href="./faq01-21.html">別々のIPで複数ドメインを割り当てる場合（ローカルIPをルータの静的マスカレード機能で割当て公開）</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

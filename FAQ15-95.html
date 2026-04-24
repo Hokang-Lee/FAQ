@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-95</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Loganalyzerの新機能でユーザーへのメールボックス使用量警告メールのスケジュール変更しようとするとコマンドプロンプトがロックする場合</b></FONT>
+<HR>
+<br>
+Loganalyzerを使ってユーザーへのメールボックス使用量警告メール機能のスケジュール変更しようとするとコマンドプロンプトがロックする現象が報告されています。<br>
+具体的には、 E-Post Loganalyzer のメイン画面「ログの種別」から［メール送信設定］をクリックすると「メール送信設定画面」が表示されますが、「送信設定」画面上部にある「スケジュールする」チェックボックスをオフからオンにしたり、オンのまま「集計時間」を変更しようとすると、コマンドプロンプトが開いてロックされる状態になることがあります。<br>
+この現象が起きたときは、次の操作を行ってください。<br>
+<ol><li>Windows Server側のタスクスケージューラを開き、タスクスケジューラに登録されている”E-Post Loganalyzer”の項目をいったん削除します。</li>
+<li>タスクスケジューラから削除した後、再び Loganalyzerから「スケジュールする」チェックボックスをオンにしたり、オンのまま「集計時間」を変更しても、正常に設定できるようになります。</li></ol>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-81.html">〔新機能〕メールボックス使用状況レポート機能およびユーザーへのメールボックス使用量警告メール機能</a><br>
+●<a href="./faq15-96.html">Loganalyzerの新機能でユーザーへのメールボックス使用量警告メールのスケジュールが機能しないときのチェック項目</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

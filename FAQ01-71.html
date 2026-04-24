@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-71</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アンチウイルス機能の有効化と検出ログを確認するには</b></FONT>
+<HR>
+<BR>
+Enterprise / Enterprise II 版でのアンチウイルス機能の有効化とウイルス検出ログの確認は次のように行います。<br>
+<br>
+<b>［アンチウイルス機能の開始と検出ウイルスメールの隔離］</b>
+<ol>
+<li>「Virus Check」タブの「アンチウイルスを有効にする」チェックボックスをオンする。必要に応じて「ログを残す」チェックボックスもオンにする。<br>
+<li>［メールフィルタ］タブにある「メールフィルタ機能を使用する」チェックボックスがオンのときはそのままで、オフのときはメール作業フォルダ（C:\mail）下に&quot;viruslog&quot;という名前のフォルダを作成する。<br>
+<li>「サービス制御」タブから各サービスを停止→開始で再起動する。<br>
+</ol>
+<b>［検出されたウイルスメールの確認・メンテナンス］</b>
+<ol>
+<li>メール作業フォルダ（C:\mail）下にある&quot;viruslog&quot;フォルダ内に、検出されたウイルスメールがメールデータの形、すなわち .RCPファイルと .MSGファイルとの一対になっている形で格納されているのを確認する。（※ファイル名はメッセージIDと同一）<br>
+　●メッセージデータファイルの例　　：B0000123123.MSG<br>
+　●送受信エンベロープファイルの例　：B0000123123.RCP<br>
+<li>必要に応じて、メールデータの該当ファイルをメモ帳などで開いて確認する。アンチウイルス機能による結果理由は、.RCPファイル内の末尾に&quot;Warning:&quot;記述が書き加えられているので、参照する。<br>
+<li>メールデータの該当ファイルが不要であることがわかり次第、削除する。<br>
+</ol>
+<b>［ウイルス検出動作のログ］</b>
+<ol>
+<li>メール作業フォルダ（C:\mail）下に&quot;3rd-party&quot;という名前のフォルダを作成する。<br>
+<li>EPSTRSサービスを再起動、必要に応じて各サービスを再起動する。<br>
+<li>&quot;3rd-party&quot;-&gt; &quot;コンピュータ名&quot;のフォルダ内にウイルス検出ログが記録されているのを確認する。<br>
+ウイルス検出ログに記録された内容のうち、コードの意味は下記の通り。<br>
+・<b><u>Return code = 1 </u>　…　「ウイルス未検出（発見しなかった）」</b><br>
+　<a href="#code1">［ウイルス未検出時（Return code = 1）のログ事例］</a>参照<br>
+・<b><u>Return code = 0 </u>　…　「ウイルス検出（発見した）」</b><br>
+　<a href="#code0">［ウイルス検出時（Return code = 0）のログ事例］</a>参照<br>
+<br>
+また、ウイルス検出ログに記録される初期化エラーを起こすケースは次の通り。<br>
+<!--・<b>initializing...failed (ret code = 0x80004005)</b>　…「アンチウイルスDBのデータが空か不整合が原因のエラー」<br>
+　<a href="#codeerr">［ウイルス検出ログに（ret code = 0x80004005）が記録されているとき］</a>参照<br>-->
+・<b>initializing...failed (ret code = 0x8004025d)</b>　…「ライセンス切れ」<br>
+</ol>
+<b><a name="code1"></a>［ウイルス未検出時（Return code = 1）のログ事例］</b>
+<HR size="1" noshade width="98%">
+  <blockquote>
+  Source = C:\mail<br>
+  _spawnl() &quot;C:\PROGRA~1\EPOST\MS\kasp.exe&quot; C:\mail\temp\B0000099998.MSG<br>
+  [B0000099998] argv[1] = C:\mail\temp\B0000099998.MSG<br>
+  [B0000099998] Source = c:\mail<br>
+  [B0000099998] Start Virus scan.<br>
+  [B0000099998] End Virus scan.(C:\mail\temp\B0000099998.MSG, )<br>
+  [B0000099998] <u>nResult = 1 ()　</u><br>
+  <u>Return code = 1　</u><br>
+  </blockquote>
+<HR size="1" noshade width="98%"><br>
+<b><a name="code0"></a>［ウイルス検出時（Return code = 0）のログ事例］</b><br>
+<HR size="1" noshade width="98%">
+  <blockquote>
+  Source = C:\mail<br>
+  _spawnl() &quot;C:\PROGRA~1\EPOST\MS\kasp.exe&quot; C:\mail\temp\B0000099999.MSG<br>
+  [B0000099999] argv[1] = C:\mail\temp\B0000099999.MSG<br>
+  [B0000099999] Source = c:\mail<br>
+  [B0000099999] Start Virus scan.<br>
+  [B0000099999] End Virus scan.(C:\mail\temp\B0000099999.MSG, Trojan-Spy.Win32.Xxxx.xxx)<br>
+  [B0000099999] <u>nResult = 0 (Trojan-Spy.Win32.Xxxx.xxx)　</u><br>
+  [B0000099999] send alert = C:\mail\temp\B0000099999.MSG<br>
+  [B0000099999] _execl(vcpisc &quot;C:\PROGRA~1\EPOST\MS\vcpisc.exe&quot; user@domain.jp -subject=&quot;ウイルス警告 Trojan-Spy.Win32.Xxxx.xxx&quot; -message=&quot;ウイルスが発見されました。(Message-ID: B0000099999)&quot;<br>
+   -attach=&quot;C:\mail\temp\B0000099999.txt&quot;<br>
+  <u>Return code = 0　</u><br>
+  </blockquote>
+<HR size="1" noshade width="98%"><br>
+なお、ウイルス検査が正しく動作するのかを確認するための簡易テストは、次のように行います。<br>
+<br>
+<b>［ウイルス検査が正しく動作するか確認する方法］</b>
+<ol>
+<li>管理者権限でコマンドプロンプトを開き、カレントディレクトリをプログラムインストールフォルダに移動する。<br>
+（32bitOSでは C:\Program Files\EPOST\MS 、64bitOSでは C:\Program Files (x86)\EPOST\MS ）
+<li>コマンドラインから　下記のように入力し、実行結果が &quot;nResult = 1 ()&quot; と表示されるか確認する。<br>
+<br>
+<b>ファストスキャン版アンチウイルスエンジンアップグレード適用後</b>
+  <blockquote>
+  C:\Program Files\EPOST\MS ><b>kasp unmail.dll</b> [Enter]<br>
+  -------------------------------------------------<br>
+  [unmail] argv[1] = unmail.dll<br>
+  [unmail] Source = unmail.dll<br>
+  [unmail] Start Virus scan.<br>
+  [unmail] End Virus scan.(unmail.dll, )<br>
+  [unmail] nResult = 1 ()<br>
+  -------------------------------------------------<br>
+  </blockquote>
+<b>アンチウイルスエンジン Ver.7/Ver.8アップデート適用後</b>
+  <blockquote>
+  C:\Program Files\EPOST\MS ><b>kasp arj.ppl</b> [Enter]<br>
+  -------------------------------------------------<br>
+  [arj] argv[1] = arj.ppl<br>
+  [arj] Source = arj.ppl<br>
+  [arj] Start Virus scan.<br>
+  [arj] End Virus scan.(arj.ppl, )<br>
+  [arj] nResult = 1 ()<br>
+  -------------------------------------------------<br>
+  </blockquote>
+</ol>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-85.html">アンチウイルス機能が正しく動作しているのをコマンドやデバッグモードで確認するには</a><br>
+●<a href="./faq01-72.html">ウイルスパターンファイル更新の記録を取るには</a><br>
+●<a href="./faq01-58.html">アンチウイルス機能を有効にしても、［メール作業フォルダ］下に&quot;viruslog&quot;というフォルダが自動的に作成されない</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

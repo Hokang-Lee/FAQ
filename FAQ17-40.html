@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Enterprise II 版のパターンファイル更新を構内の代表サーバなど別マシンで行う応用例について <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Enterprise II のパターンファイル更新について、仮にインバウンド通信可能な構内の代表サーバにパターンファイルをダウンロードして、内部ネットワーク経由によるFTPや、Windowsのファイルコピーや移動などで、E-Postシリーズ Enterprise II 版がインストールされたサーバマシンへファイル授受する形は可能かどうかの質問を受けたことがあります。<br>
+通常は、Enterprise II 版をインストールしたマシンは、何らかの形でインターネットに接続していることを前提としていますので、あくまで通常とは異なる方法として、技術上こうすれば可能という応用例を提示させていただきます。<br>
+まずE-Post Mail Server Enterprise II (x64) / E-Post SMTP Server Enterprise II (x64) シリーズとしては、このような使用を想定した特別なツールを用意していません。ただし、以下のようにすれば、構内の代表サーバにウイルスDB更新データをいったん再配置し、そこからE-Post Mail Server Enterprise II (x64) / E-Post SMTP Server Enterprise II (x64) シリーズがダウンロードするようにさせて運用することは可能です。<br>
+<b>[設定の概要]</b><br>
+----------------------------------------------------------<ol>E-Postシリーズ製品には特別なツールや標準機能としては用意していませんが、下記の設定手順によって、任意の代表にダウンロード用のWebサーバを立ち上げて、既定のWebフォルダ(/database/update-av61/)内に更新データを外部の公開サーバからアップロードして保存するようにさせることで、外部へアクセスできない環境でのE-Post Mail Server Enterprise II (x64) / E-Post SMTP Server Enterprise II (x64) シリーズがウイルスDB更新データを行うことができます。<br>
+</ol>
+<b>[設定の手順]</b><br>
+----------------------------------------------------------<ol><b><li> [E-Post Mail Server Enterprise II (x64) / E-Post SMTP Server Enterprise II (x64) ]側の設定</li></b>
+  プログラムインストールフォルダ内にある &quot;Autoupd.ini&quot; を編集、下記例のようにあらかじめ設定されている fastscan.on.coocan.jp 部分をカット、構内サーバのドメイン名に変更します。（※hogehoge.jp＝[構内サーバ]）<br>
+  ------ [Autoupd.ini] ----------<br>
+  hogehoge.jp<br>
+  /database/update-av61/<br>
+  -------------------------------<br>
+<br>
+<b><li> [構内の代表サーバ]側の設定</li></b>
+  公開しているサーバから定期的にデータをダウンロードして以下のリンクに一致するように構内の代表サーバで稼働しているWebサーバを設定しておきます。（※hogehoge.jp＝[構内サーバ]）<br>
+  http://hogehoge.jp/database/update-av61/<br>
+<br>
+  続いて以下のバッチファイル実行により定期的にDBサーバからファイルをダウンロードできるようにします。（※DBサーバは公開）バッチファイルは下記内容で作成しそれをタスクスケジューラに登録します。タスクスケジューラ登録によって自動で構内サーバから定期的にダウンロードを行うことが可能になります。<br>
+  下記は download.bat の二つの例です。（※f:\database\update-av61に保存する想定）<br>
+<br>
+一つめはcurlコマンドを使った例です。curl.exeは2018年のWindows 10 Ver.1803（RS3）以降に追加されています。Windows Serverに入っていない場合は別途入手してください。curl.exeについての詳細は、関連サイトをご参照ください。<br>
+<br>
+<b>[download.bat] 例1</b><br>
+<small>-----ここから-------<br>
+cd f:\database\update-av61<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/wte.zip<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/wte.htm<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/nam.zip<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/nam.html<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/diff.zip<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/diff.html<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/database.zip<br>
+curl -O http://fastscan.on.coocan.jp/database/update-av61/index.html<br>
+-----ここまで-------<br></small>
+<br>
+二つめはwget.exeを入手し記述した例です。wget.exeは以下からダウンロードできます。wget.exeについての詳細は、関連サイトをご参照ください。<br>
+<a href="http://gnuwin32.sourceforge.net/packages/wget.htm">http://gnuwin32.sourceforge.net/packages/wget.htm</a><br>
+<br>
+<b>[download.bat] 例2</b><br>
+<small>-----ここから-------<br>
+cd f:\database\update-av61<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/wte.zip -O wte.zip<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/wte.htm -O wte.html<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/nam.zip -O nam.zip<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/nam.html -O nam.html<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/diff.zip -O diff.zip<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/diff.html -O diff.html<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/database.zip -O database.zip<br>
+wget http://fastscan.on.coocan.jp/database/update-av61/index.html -O index.html<br>
+-----ここまで-------<br></small>
+</ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

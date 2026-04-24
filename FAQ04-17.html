@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ04-17</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールフィルタ設定をしたところ、受信したはずのメールがどこにも着信されず receivelog に&quot;err=(183)&quot;が記録されている</b></FONT>
+<HR>
+<BR>
+メールフィルタ設定をしたところ、受信したはずのメールがどこにも着信されておらず、receivelogを調べてみると、MoveFileEx()の部分で、&quot;err=(183)&quot;が記録されている場合、以下のとおり、メールフィルタ設定で正しい記述をしているか確認してください。<br>
+まず、メールフィルタの動きを指定する際、処理レベルとして&quot;Level:5xx～7xx&quot;の設定をしているにもかかわらず、&quot;Forward:&quot;句を何も指定しない設定にしてないか確認してください。処理レベル&quot;Level:5xx&quot;、&quot;Level:6xx&quot;、&quot;Level:7xx&quot;の設定は、いずれも&quot;Forward:&quot;句の設定が必須です。&quot;Forward:&quot;句が必須である&quot;Level:5xx～7xx&quot;の指定をしながら、&quot;Forward:&quot;句を書かないときには、Forward先を明示的に空欄指定する意味である&quot;Forward:&quot;と等価となり、結果的にどこにも転送されず受信したメールがそのまま廃棄される動きとなります。そのとき、receivelogには、MoveFileEx()の部分で&quot;err=(183)&quot;が記録されます。<br>
+<ul><b>（メールフィルタの処理レベル）</b><br>
+<li>Level:5xx　…&quot;Forward:&quot;で指定したアドレスへ転送する<br>
+<li>Level:6xx　…Subject:へ&quot;Tag:&quot;で指定した文字列の挿入を行い、&quot;Forward:&quot;で指定したアドレスへ転送する<br>
+<li>Level:7xx　…ヘッダとして&quot;Tag:&quot;で指定した文字列の挿入を行い、&quot;Forward:&quot;で指定したアドレスへ転送する<br>
+</ul><ul>
+<b>（&quot;Level:6xx&quot;の指定をしながら&quot;Forward:&quot;句が書かれていないメールフィルタ設定例）</b><br>
+'------------------------------------------------------<br>
+Virus:body_spam<br>
+Level:600<br>
+Body:<br>
+xxyyzz<br>
+BodyEnd:<br>
+Tag:[spam_phrase]<br>
+VirusEnd:<br>
+'------------------------------------------------------<br>
+</ul>
+上記例では、&quot;Forward:&quot;句が必須である&quot;Level:600&quot;の指定をしながら、&quot;Forward:&quot;句が書かれてないため、Forward先を明示的に空欄指定する意味である&quot;Forward:&quot;と等価となります。そして結果としてメールはどこにも転送されずメールサーバ内でそのまま廃棄されます。このとき、receivelogには、MoveFileEx()の部分で&quot;err=(183)&quot;が記録されます。<br>
+上記例であげた処理レベル&quot;Level:6xx&quot;の設定を生かしたいときには、&quot;Forward:user＠domain.jp&quot;というように隔離先用のアドレスを必ず加えるようにしてください。あるいは、「Subject:へ&quot;Tag:&quot;で指定した文字列の挿入を行い通過させる」だけでよいときには、処理レベル&quot;Level:3xx&quot;に設定変更してもよいでしょう。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq04-12.html">メールフィルタ設定で拒絶のエラー応答を返さないで受信メールを廃棄するには</a><br>
+●<a href="./faq01-81.html">メールフィルタ（mail.dat）の設定事例</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>Apache 2.2.x でMobile Mailerを動作させるには</b></FONT>
+<HR>
+<br>
+Mobile Mailerを Apache 2.2.x で動作させるには、下記の通り、httpd.confファイルにエイリアスの設定に加え、関連する権限の設定を新たに追加することが必要になります。<br>
+下記のどちらかの方法で記述します。この記述により、Apache 2.2.6で動作することを弊社でも確認しています。<br>
+<small><br>
+<hr align="left" width="80%" size="1" noshade>
+&lt;IfModule alias_module&gt;<br>
+　：<br>
+　# エイリアスを追加<br>
+　Alias /webmail/ &quot;c:/program files/epost/webmail/&quot;　<font color="red">←追加</font><br>
+　：<br>
+&lt;/IfModule&gt;<br>
+<br>
+# &lt;Directory&gt; ディレクティブを追加<br>
+&lt;Directory &quot;c:/program files/epost/webmail&quot;&gt;　<font color="red">←</font><br>
+　Allow from all　　　　　　　　　　　　　　　　　<font color="red">｜ ---- 追加</font><br>
+&lt;/Directory&gt;　　　　　　　　　　　　　　　　　 <font color="red">←</font><br>
+<hr align="left" width="80%" size="1" noshade>
+あるいは<br>
+<hr align="left" width="80%" size="1" noshade>
+&lt;IfModule alias_module&gt;<br>
+　　：<br>
+　# エイリアスを追加<br>
+　Alias /webmail/ &quot;C:/Program Files/EPOST/webmail/&quot;　<font color="red">←追加</font><br>
+　　：<br>
+&lt;/IfModule&gt;<br>
+<br>
+# &lt;Directory&gt; ディレクティブを追加<br>
+&lt;Directory &quot;C:/Program Files/EPOST/webmail&quot;&gt;　<font color="red">←</font><br>
+　AllowOverride None　　　　　　　　　　　　　　　<font color="red">｜</font><br>
+　Options None　　　　　　　　　　　　　　　　　　<font color="red">｜ ---- 追加</font><br>
+　Order allow,deny　　　　　　　　　　　　　　　　 <font color="red">｜</font><br>
+　Allow from all　　　　　　　　　　　　　　　　　　<font color="red">｜</font><br>
+&lt;/Directory&gt;　　　　　　　　　　　　　　　　　　 <font color="red">←</font><br>
+<hr align="left" width="80%" size="1" noshade>
+注：アクセス権の定義部分のフルパス末尾は、ディレクトリ記号のスラッシュ"/"を記述しません。<br>
+</small><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

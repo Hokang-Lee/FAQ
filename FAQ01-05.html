@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-05</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>イベントビューアのアプリケーションログにEPSTDSの警告が２分おきにでる</b></FONT>
+<HR>
+<br>
+イベントビューアのアプリケーションログを確認したときに、サービスプログラムepstdsをソースとして「win32API routine &quot;MOVE FILE&quot; failed 既に存在するファイルを作成することはできません」という警告メッセージが表示されている場合。<br>
+<br>
+[原因]<br>
+サービス交換する時に、メール作業フォルダ下にある &quot;incomingフォルダ&quot; &quot;domainsフォルダ&quot; &quot;holdingフォルダ&quot; などの各フォルダ内に（Bxxxxxxxx.MSG や Bxxxxxxxx.RCPなどの）ファイルが残ってしまって、番号のアサインがダブっている場合に発生するようです。<br>
+<br>
+[対処]<br>
+EPSTDSサービスを停止した後、いったん、上記フォルダの中身について、ファイルを削除するか、別の場所に待避させるなどの方法で、中身をクリアしておいて、サービスを再スタートするようにして下さい。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

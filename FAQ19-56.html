@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-56</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>M365 のSMTPリレーによるゲートウェイ設定のとき [youraccount] 個所でメールアドレスごと1行ずつ設定するのか、それともドメイン単位で設定が可能なのか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+M365 のSMTPリレーによるゲートウェイ設定のとき、『M365 のSMTPリレーによるGateway 設定ガイド』（PDF）P.4 に記述されている以下の部分について、【gateway.dat】内での [youraccount] 個所では、メールアドレスごと1行ずつ設定するのか、それともドメイン単位で設定が可能なのか、質問を受けました。<br>
+<blockquote>
+E-Postでの設定は【gateway.dat】に以下の内容を定義します。<br>
+【gateway.dat】への設定<br>
+*|[youraccount]@[yourdomain].onmicrosoft.com,[yourdomain].mail.protection.outlook.com,25<br>
+</blockquote>
+質問の趣旨は、中継対象メールのFrom:メールアドレスごとに「[youraccount]」箇所を適宜書き換えし、1行ずつ設定を追加することになるのだろうかということと、これはまた Exchange Online 側というよりは、E-Post SMTP Server 側での処理に必要という理由だからであろうかということでした。<br>
+なぜそう考えたかについて、M365 のSMTPリレーによるゲートウェイ設定で提示しているSMTPリレー方式の場合、Exchange Online 側ではIPアドレス認証しか行わないように読み取れるため、個別記述の必要性が疑問だったこと、さらにもしかすると先頭のアスタリスク記号とパイプ記号のところで「任意From:メールアドレス」にマッチさせていて「個別記述はいらない」ととも読み取れたということでした。<br>
+<br>
+これに対する答えは以下の通りです。<br>
+中継対象メールのFrom:メールアドレスごとに1行設定を追加することになる（「[youraccount]」箇所を適宜書き換え）に関して、この質問趣旨の理解の通りであると言えます。「[youraccount]」箇所をメールアドレスごと1行ずつ書いていく設定でも問題はありませんが、設定ガイドの書式を書き直し、下記のような書式でドメイン単位での設定をする指定も可能です。<br>
+<blockquote>
+*|*@[yourdomain].onmicrosoft.com,[yourdomain].mail.protection.outlook.com,25<br>
+</blockquote>
+<b>（参考）</b><br>
+ 【gateway.dat】[最新書式]（EPSTDS v4.83 2025.06.01 以降で機能強化）<br>
+<small><blockquote>対象ドメイン(|エンベロープの送信元),ゲートウェイ先(FQDN orIP)|[0,1,2,3](認証方式 PLAIN LOGIN CRAM-MD5 XOAUTH2)|([ID]|[PW or 認可メールアドレス])or(BASE64([ID]|[PW or 認可メールアドレス])or(BASE64(Originalencoding([ID]|[PW or 認可メールアドレス]))),接続ポート(*)</blockquote></small>
+※この最新書式が記述できるには最新差分アップデートである20250620差分以降が適用済みであることが必要です。また、最新書式は一目見るだけでも長大なため混乱しがちですが、おおもとの【gateway.dat】の基本書式は、"," （カンマ）で区切られた以下が基本です。最新差分アップデートの20250620差分以降、"|" （パイプ区切り）で拡張され機能強化された形となります。<br>
+【gateway.dat】[基本書式]<br>
+<small><blockquote>「対象ドメイン」or「メールアドレス」,「ゲートウェイ先(FQDN or IP)」,「接続ポート(*)」</blockquote></small>
+<b>（参考ページ）</b><br>
+<a href="https://www.e-postinc.jp/download_x64.html#oauth" target="_blank">製品評価版ダウンロード｜技術資料</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

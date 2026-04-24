@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-08</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>クラスタ構成下でのアカウント管理方式をActive Directory連携方式とSoft Account（独自アカウント）方式の間で切り替える手順</b></FONT>
+<HR>
+<br>
+<b>◆クラスタ構成下でのアカウント管理方式をActive Directory連携方式からSoft Account（独自アカウント）方式に切り替える手順</b><br>
+MSFCクラスタ構成におけるアカウント管理方式をActive Directory連携方式からSoft Account（独自アカウント）方式に切り替える手順のポイントです。<br>
+この手順は、2008R2のMSFCクラスタ、2012R2のMSFCクラスタ、さらにE-Postクラスタ構成ともに共通する説明です。<br>
+<ol>
+<li> アクティブ側（正系）のみ起動。スタンバイ側（副系）シャットダウン。<br>
+<li> MSFCクラスタの場合は、フェールオーバークラスタマネージャより「サービスとアプリケーション」からオフラインにし、E-Post関連サービスもオフラインにする。<br>
+E-Post関連サービスすべてが終了されていることを確認する。停止していないときはE-Post関連サービスすべてを終了させる。このとき共有ディスクは認識されている状態にしておく。<br>
+E-Postクラスタの場合は、Windowsのサービス制御からE-Post関連サービスすべてを終了させる。<br>
+<li>  管理者権限でAccount Managerを開く。ユーザーを選択し、「アカウント－ユーザー－ユーザーエクスポート」を実行する。テキストファイルに出力。<br>
+<li> 出力されたテキストファイルをエディタで編集し、伏せ字になっているパスワード部分を正しいものに書き換える。<br>
+<li> Account Managerから「設定－アカウント管理」を選択。<br>
+<li> 管理方法を「Windows account」から「Soft account」に変更。<br>
+「アカウントフォルダー」の指定は、たとえば[共有ディスク]\mail\db\ といったクラスタで共有可能なフォルダを指定する。最後の&quot;\&quot;は必ず付ける。<br>
+<li>  最後に「OK」ボタンで閉じ、Account Managerも閉じる。<br>
+<li> 再度、Mail ControlとAccount Managerを開く。<br>
+<li> Account Managerから、表示されるユーザーが 0 になったのを確認したら、6.で操作したアカウント管理方法が反映されているかどうかを確認する。<br>
+<li> Mail Controlの「ドメイン管理」タブを開き、「アカウントフォルダー」項目に、同じ上の指定が反映されているか確認する。<br>
+<li> Account Managerから作成済みドメインのユーザーを選択した状態で、「アカウント－ユーザー－ユーザーインポート」を実行する。<br>
+<li> 4.で修正したテキストファイルを選択。<br>
+<li> インポートが正常に終了したら、Account Managerのユーザーに正しく取り込まれたかどうかを確認する。<br>
+<li> 2.の手順で落としたサービスを開始させる。サービスが正常に起動されるかを確認する。<br>
+<li> アクティブ側（正系）シャットダウン。スタンバイ側（副系）起動。<br>
+<li> スタンバイ側（副系）のMail ControlとAccount Managerを開き、同じ設定が反映されているかどうかを確認する。<br>
+※アカウント管理方法の情報については、[メール用作業フォルダ]\regフォルダ下にある設定ファイルの中に格納されている。そのため、アクティブ側で設定が終われば、基本的にスタンバイ側に切り替わったときには、そのまま設定が引き継がれることとなる。<br>
+<li> アクティブ側（正系）も起動。<br>
+</ol>
+<br>
+<b>◆クラスタ構成下でのアカウント管理方式をSoft Account（独自アカウント）方式からActive Directory連携方式に切り替える手順</b><br>
+MSFCクラスタ構成におけるアカウント管理方式をSoft Account（独自アカウント）方式からActive Directory連携方式に切り替える手順のポイントです。<br>
+こちらの手順も、2008R2のMSFCクラスタ、2012R2のMSFCクラスタ、さらにE-Postクラスタ構成ともに共通する説明です。<br>
+<ol>
+<li> アクティブ側（正系）のみ起動。スタンバイ側（副系）シャットダウン。<br>
+<li> MSFCクラスタの場合は、フェールオーバークラスタマネージャより「サービスとアプリケーション」からオフラインにし、E-Post関連サービスもオフラインにする。<br>
+E-Post関連サービスすべてが終了されていることを確認する。停止していないときはE-Post関連サービスすべてを終了させる。このとき共有ディスクは認識されている状態にしておく。<br>
+E-Postクラスタの場合は、Windowsのサービス制御からE-Post関連サービスすべてを終了させる。<br>
+<li>  管理者権限でAccount Managerを開く。管理方法を「Soft account」から「Windows account」に変更。「PDC」としてActive DirectoryのWindowsドメイン名を直接入力する。ローカルグループは「IMSUsers」のままでよい。<br>
+<li> 最後に「OK」ボタンで閉じ、Account Managerも閉じる。<br>
+<li> 再度、Mail ControlとAccount Managerを開く。<br>
+<li> Account Managerから、ユーザーが表示されるのを確認したら、3.で操作したアカウント管理方法が反映されているかどうかを確認する。<br>
+<li> Mail Controlの「ドメイン管理」タブを開き、画面の項目名表示が変更され、同じ上の指定が反映されているか確認する。<br>
+※Active Directory連携になると、画面の項目名表示が変更される。「所属ドメインのアカウントを使用する」が 3.で指定したActive DirectoryのWindowsドメイン名になっており、「メールユーザーとなるローカルグループ名」が「IMSUsers」となっていることを確認する。<br>
+<li> 2.の手順で落としたサービスを開始させる。サービスが正常に起動されるかを確認する。<br>
+<li> アクティブ側（正系）シャットダウン。スタンバイ側（副系）起動。<br>
+<li> スタンバイ側（副系）のMail ControlとAccount Managerを開き、同じ設定が反映されているかどうかを確認する。<br>
+※アカウント管理方法の情報については、[メール用作業フォルダ]\regフォルダ下にある設定ファイルの中に格納されている。そのため、アクティブ側で設定が終われば、基本的にスタンバイ側に切り替わったときには、そのまま設定が引き継がれることとなる。<br>
+<li> アクティブ側（正系）も起動。<br>
+</ol>
+<b>【重要】</b><br>
+どちらの手順においても、変更作業をする時点で［メール用作業フォルダ］に設定されている共有ディスクが正しく認識されていることが必要なポイントになります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

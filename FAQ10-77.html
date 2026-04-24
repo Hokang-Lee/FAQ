@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-77</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証パスワードをapop認証パスワードと別々に設定する方法</b></FONT>
+<HR>
+<br>
+各ユーザーのメールボックスフォルダに格納されている"apop.dat"は、SMTP認証パスワードとapop認証パスワードを兼用する「認証ファイル」ですが、レジストリを記述することにより、SMTP認証パスワードとapop認証パスワードを別々にすることができます。<br>
+<br><small>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　->CurrentControlSet<br>
+　　　->Services<br>
+　　　　->EPSTRS<br>
+　　　　　->PasswordFile (文字列)　デフォルト：&quot;apop.dat&quot;<br>
+<br>
+※&quot;PasswordFile&quot;を文字列値で作り、この値を&quot;smtpauth.dat&quot;のように記述して設定します。<br>
+　設定した後は、EPSTRSサービスを再起動します。</small><br>
+<br>
+この後、該当メールボックスフォルダ内にある&quot;apop.dat&quot;とは別に、&quot;smtpauth.dat&quot;をテキストファイルで作成します。ファイル内には平文で&quot;apop.dat&quot;の内容とは異なる別のパスワードをメモ帳など手動で設定します。それに合わせてメールクライアント側のSMTP認証パスワード設定も変更してください。<br>
+<br>
+ただし、あくまでも新しい設定ファイルである&quot;smtpauth.dat&quot;内に記述するパスワードは、メモ帳などから手動で変更するようにしてください。<br>
+<br>
+もし、アカウントマネージャから「SMTP AUTH & APOPを有効にする」チェックボックスをオンにした直後に表示されるダイアログ内で入力した場合は、&quot;apop.dat&quot;と&quot;smtpauth.dat&quot;の内容は、両方とも同じ内容に変更されてしまうことになります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

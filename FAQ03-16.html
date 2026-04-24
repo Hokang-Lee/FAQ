@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-16</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>Windows Vistaへの導入時の注意</b></FONT>
+<HR>
+<br>
+Windows Vista では、Administratorアカウントについても、User Account Control（UAC）が有効となっていると、Administratorアカウントでもサービス登録や操作ができませんので、UACの設定を解除してから、インストールやプログラムの起動や操作を行う必要があります。<br>
+<br>
+■Windows Vistaに導入する前の操作　[UACの解除]<br>
+　Administratorアカウントでログイン<br>
+　　コントロールパネル<br>
+　　　→　ユーザアカウント<br>
+　　　　→　ユーザーアカウント制限の有効化または無効化<br>
+　　　　　→　[ユーザーアカウント制御(UAC)を使ってコンピュータの<br>
+　　　　　　　保護に役立たせる]チェックボックスをオフにする<br>
+　設定後には必ずシステムを再起動してください。<br>
+<br>
+■インストールとファイヤウォールなどの設定<br>
+　再起動後には以下の操作を行います。<br>
+<ol><li>Administratorアカウントでログイン<br>
+<li>E-Post Mail Serverシリーズをインストール<br>
+<li>Windowsファイヤウォール設定でSMTP/POP3/IMAP4ポートの許可を追加<br>
+<li>各サービス（SMTP/POP3/IMAP4）を開始<br>
+</ol>
+なお、Windows Vista Home Basic、Windows Vista Home Premium は、ドメインに参加できない仕様のため、当然の結果として、Active Directory（AD）によるアカウント連携での運用はできませんので注意してください。<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-17</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<hr>
+<font size="4" color="#000000"><b>アカウント管理方法をSoft Account（独自アカウント）に移行する場合</b></font>
+<hr>
+<br>
+Active Directoryと連携させ、ユーザー管理をWindowsドメインによる管理に合わせていたときや、Windowsのローカルユーザー管理に合わせていたときから、E-Post独自のユーザー管理に変更する場合は、「Windowsアカウント」から「Soft Account（独自アカウント）」へアカウント管理方法を移行します。移行方法は、以下の手順にて行ってください。<br>
+<ol>
+<li><b>アカウントのエクスポート</b><br>
+まず、Windowsアカウントでの管理状態で、アカウントマネージャにてエクスポートするドメインを選択、[User]を選択し、右クリックします。<br>
+表示されるメニューから[ユーザーエクスポート]を選択し、任意のテキストファイルにアカウントをエクスポートします。<br>
+※Windowsアカウントによる管理を行っている状態からのエクスポートされるデータには<u>パスワードは出力されません</u>。<br>
+<br>
+<li><b>エクスポートデータの編集</b><br>
+エクスポートされたデータをインポートする前に、メモ帳やエクセルなどを用いて、パスワードを編集し、保存してください。<br>
+ファイル形式は、タブ区切りテキストファイルです。<br>
+エクスポートされたパスワード内容は、&quot;*****&quot;と表示されていますので、その部分をそれぞれ正しいパスワードに平文で書き直してください。<br>
+※Soft Account（独自アカウント）管理でエクスポートを行うときは、<U>パスワードを含めてエクスポートされるようになります</U>。<br>
+<br>
+<li><b>サービスの停止</b><br>
+アカウント管理を切り替える際、一時的に全ユーザーが存在しない状態が発生しますので、「Mail Control」を開き、いったん各サービスを[停止]します。<br>
+<br>
+<li><b>アカウント管理方法の切り替え</b><br>
+「アカウントマネージャ」を起動し、Soft Account（独自アカウント）管理方法に切り替えます。<br>
+「アカウントマネージャ」のメニューから[設定]->[アカウント管理]を選択します。<br>
+表示される[アカウントの管理方法]ダイアログボックスで"Soft Account"を選択、[アカウントフォルダ]を指定した後、ＯＫボタンをクリックしします。<br>
+※アカウントフォルダは、デフォルトではプログラムインストールフォルダです。<br>
+<small>（32bit版E-Postシリーズ－32bitOS環境の場合 C:\Program Files\EPOST\MS\<br>
+　32bit版E-Postシリーズ－64bitOS環境の場合 C:\Program Files (x86)\EPOST\MS\<br>
+　64bit版E-Post(x64)シリーズの場合 C:\Program Files\EPOST\MS\ ）<br></small>
+<br>
+<li><b>アカウントのインポート</b><br>
+「アカウントマネージャ」にてアカウントをインポートするドメインを選択、[User]を選択し、右クリックします。<br>
+表示されるメニューから[ユーザーインポート]を選択し、編集が完了したタブ区切りテキストファイルからアカウントをインポートします。<br>
+<br>
+<li><b>サービスの開始（再開）</b><br>
+「Mail Control」に切り替え、各サービスを［開始］して再開します。<br>
+以降、独自アカウント管理方法にてメールサービスが行われるようになります。<br>
+</ol>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

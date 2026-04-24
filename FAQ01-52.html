@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-52</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>クライアントからPOP3受信を行うと"&lt;user account&gt;'s logon overlap."エラーメッセージが表示される</b></FONT>
+<HR>
+<br>
+POP3で受信を行ったときに、"&lt;user account&gt;'s logon overlap."エラーメッセージが表示されるときは、メールクライアントから二重ログインしようとしている可能性があります。<br>
+<br>
+POP3ではそもそも二重ログインが禁止されていますが、エラーメッセージが表示されるときは、その前に、ログインしながら、ログアウト（QUIT）しないで、再度ログインしようとしている、いわゆる「二重ログイン」状態の可能性があります。<br>
+万が一、二重ログインが発生すると、再ログインしようとしたときにデフォルトで５分間、ログインが禁止されます。メールのクライアントソフトに加え、メールチェッカーなどのソフトを併用しているときは、二重ログインになっている可能性がないか調べてみるとよいでしょう。<br>
+<br>
+何らかの事情で、正常にログアウト(QUIT)されずに、セッションを中断した場合などは、メールサーバマシン側のmailboxのユーザーフォルダ内に"＄lockfile"というファイルが残る場合があります。通常は、一定期間（デフォルト5分）を過ぎると、再度のログイン－ログアウトにて自動的に削除されるようになっていますが、フォルダ内に"＄lockfile"ファイルが、もし残っているようであれば、サービスを止めてからファイルを削除し、その後サービスを再開してください。二重ログイン状態が解消されます。<br>
+<br>
+なお、Active Directory連携を行っている環境では、Windows Serverの「Active Directoryユーザーとコンピュータ管理」を使って、IMSUsersグループに所属するメールユーザーを追加し、追加されたユーザーが、メールクライアントから初回にメール送信をそのまま行おうとすると、このメッセージが表示されることがありましたが、これは旧バージョンの不具合です。<br>
+<br>
+万が一、Active Directory連携を行っている環境でこのメッセージが表示されたときは、サポート２に掲載されている「E-Post Mail Server (Enterprise) 20070928差分」「E-Post SMTP Server (Enterprise) 20070928差分」差分アップデートを適用してください。なお、これ以降の差分アップデートには、この対策内容はすべて含まれています。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

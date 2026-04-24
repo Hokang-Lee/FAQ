@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-13</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SSL/TLS通信使用時にTLS1.3のみ有効にさせる方法について <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<br>
+E-PostシリーズのSSL/TLS暗号化通信については、openssl のライブラリを使用しています。openssl のライブラリはデフォルトでのコンパイルであり、デフォルトに含まれている暗号化方式はすべて利用可能な状態となっています。メールサーバの暗号化通信のセキュリティを高めるため、旧来のSSLを禁止するだけにとどまらず、TLSのバージョンまで限定する必要があるときには、以下のように行います。<br>
+<br>
+<img src="./img/faq17-13-001s.jpg" align="right">E-Post Mail Server / E-Post SMTP Serverシリーズに実装されているSMTP受信サービス・SMTP配送サービスでのSSL/TLS暗号化通信においてTLSのバージョンまで限定する必要があるとき、2018年12月以降の最新差分アップデート適用で openssl のライブラリが openssl 1.1.1系となり、さらに2023年9月以降は  openssl 3.x系 となります。これらのバージョン以降、下記にあげた SecureLayOption 設定により、TLS1.3での通信のみ有効にさせることが可能になります。<br>
+<br>
+なお、openssl のライブラリバージョンが openssl 3.x系に変更されていて、2024.05.25（2024.06.20公開）以降の差分アップデートが適用されていれば、SecureLayOption 以外に SecureLevel という値を設定する方法もあります。こちらは通信のセキュリティを強化するためのポリシーを簡単に設定できる仕組みです。具体的には、暗号化アルゴリズムや鍵の強度、プロトコルのバージョンなどに関する最低基準を定義します。これにより、セキュリティ要件を満たさない接続を拒否することができます。詳細は下記レジストリ項目と設定値を参照してください。<br>
+それから上記に対応できる openssl.exe を組み込んだ <b>SSL-Key-SHA2a.zip</b>もしくは<b>SSL-Key-SHA2.zip</b> をダウンロードして &quot;CERTIFICATE.BAT&quot; バッチファイルから「公開鍵証明書」と「秘密鍵」を作成しておくようにしてください。<br>
+<br>
+EPSTRSについて、TLS1.3での通信のみ有効にする方法は下記のレジストリを設定します。レジストリに SecureLayOption エントリ値がない場合は Default:3 で扱われており SSL2.0 及び SSL3.0 の使用は無効です。TLS1.3 のみ有効にさせる設定を行うためには、SecureLayOption に 31(10進)〔1f(16進)〕を設定、EPSTRS サービスの再起動を行う手順です。この設定が有効なのは、2018.12.24（2019.1.24公開）以降の差分アップデートが適用されていて、EPSTRS v4.A2以降になっていることが必要です。<br>
+次にもう一つの設定方法です。レジストリに SecureLevel エントリ値がない場合は、Default:0 で扱われ レベル0（SecureLevel=0）に設定されていて、TLS1から1.3までが有効範囲です。レベル1（SecureLevel =1）に変更すると、TLS1.2、TLS1.3 のみ有効となります。この設定が有効なのは、2024.05.25（2024.06.20公開）以降の差分アップデートが適用されていて、EPSTRS v4.AI以降になっていることが必要です。<br>
+E-Postシリーズでは、レジストリにエントリ値自体がなければDefault値が適用されるという動きになっています。手動でエントリ値を作成、その後値を入力してください。<br>
+<blockquote><small>
+[EPSTRS]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTRS<br>
+　　　　　→SecureLayOption　　<font color="blue">v4.A2～</font><br>
+　　　　　(DWORD  Default:3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止<br>
+　　　　　 7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止 31:TLS1.2以前禁止<br>
+　　　　　※10進指定によるもの。<b>&quot31&quotの指定でTLS1.2以前が禁止となり、TLS1.3以降のみの許可となる。</b><br>
+　　　　　　ちなみに&quot15&quotの指定でTLS1.1以前が禁止、TLS1.2以降の許可となる。<br>
+　　　　　→SecureLevel　　<font color="blue">v4.AI～</font><br>
+　　　　　(DWORD default:0)(レベル:0～5）SSL_CTX_set_security_levelの設定に相当<br>
+　　　　　※いずれも変更後のサービス再起動が必要。<br>
+</small></blockquote>
+EPSTDSについて、TLS1.3での通信のみ有効にする方法は下記のレジストリを設定します。レジストリに SecureLayOption エントリ値がない場合は Default:3 で扱われており SSL2.0 及び SSL3.0 の使用は無効です。TLS1.3 のみ有効にさせる設定を行うためには、SecureLayOption に 31(10進)〔1f(16進)〕を設定、EEPSTDS サービスの再起動を行う手順です。この設定が有効なのは、2018.12.24（2019.1.24公開）以降の差分アップデートが適用されていて、EPSTDS v4.67以降になっていることが必要です。<br>
+次にもう一つの設定方法です。レジストリに SecureLevel エントリ値がない場合は、Default:0 で扱われ レベル0（SecureLevel=0）に設定されていて、TLS1から1.3までが有効範囲です。レベル1（SecureLevel =1）に変更すると、TLS1.2、TLS1.3 のみ有効となります。この設定が有効なのは、2024.05.25（2024.06.20公開）以降の差分アップデートが適用されていて、EPSTDS v4.81以降になっていることが必要です。<br>
+E-Postシリーズでは、レジストリにエントリ値自体がなければDefault値が適用されるという動きになっています。手動でエントリ値を作成、その後値を入力してください。<br>
+<blockquote><small>
+[EPSTDS]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTDS<br>
+　　　　　→SecureLayOption　　<font color="blue">v4.67～</font><br>
+　　　　　(DWORD  Default:3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止<br>
+　　　　　 7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止 31:TLS1.2以前禁止<br>
+　　　　　※10進指定によるもの。<b>&quot31&quotの指定でTLS1.2以前が禁止となり、TLS1.3以降のみの許可となる。</b><br>
+　　　　　　ちなみに&quot15&quotの指定でTLS1.1以前が禁止、TLS1.2以降の許可となる。<br>
+　　　　　→SecureLevel　　<font color="blue">v4.81～</font><br>
+　　　　　(DWORD default:0)(レベル:0～5）SSL_CTX_set_security_levelの設定に相当<br>
+　　　　　※いずれも変更後のサービス再起動が必要。<br>
+</small></blockquote>
+E-Post Mail Serverシリーズに実装されているPOP3サービス・IMAP4サービスでのSSL/TLS暗号化通信においてTLSのバージョンまで限定する必要があるとき、2018年12月以降の最新差分アップデート適用で openssl のライブラリが openssl 1.1.1系となり、さらに2023年9月以降は  openssl 3.x系 となります。このバージョン以降、TLS1.3での通信のみ有効にさせることが可能になります。<br>
+<br>
+EPSTPOP3Sについて、TLS1.3での通信のみ有効にする方法は下記のレジストリを設定します。レジストリに SecureLayOption エントリ値がない場合は Default:3 で扱われており SSL2.0 及び SSL3.0 の使用は無効です。TLS1.3 のみ有効にさせる設定を行うためには、SecureLayOption に 31(10進)〔1f(16進)〕を設定、EPSTPOP3S サービスの再起動を行う手順です。この設定が有効なのは、2018.12.24 （2019.1.24公開）以降の差分アップデートが適用されていて、EPSTPOP3S v4.43以降になっていることが必要です。<br>
+次にもう一つの設定方法です。レジストリに SecureLevel エントリ値がない場合は、Default:0 で扱われ レベル0（SecureLevel=0）に設定されていて、TLS1から1.3までが有効範囲です。レベル1（SecureLevel =1）に変更すると、TLS1.2、TLS1.3 のみ有効となります。この設定が有効なのは、2024.05.25（2024.06.20公開）以降の差分アップデートが適用されていて、EPSTPOP3S v4.50以降になっていることが必要です。<br>
+E-Postシリーズでは、レジストリにエントリ値自体がなければDefault値が適用されるという動きになっています。手動でエントリ値を作成、その後値を入力してください。<br>
+<blockquote><small>
+[EPSTPOP3S]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTPOP3S<br>
+　　　　　→SecureLayOption　　<font color="blue">v4.43～</font><br>
+　　　　　(DWORD  Default:3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止<br>
+　　　　　 7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止 31:TLS1.2以前禁止<br>
+　　　　　※10進指定によるもの。<b>&quot31&quotの指定でTLS1.2以前が禁止となり、TLS1.3以降のみの許可となる。</b><br>
+　　　　　　ちなみに&quot15&quotの指定でTLS1.1以前が禁止、TLS1.2以降の許可となる。<br>
+　　　　　→SecureLevel　　<font color="blue">v4.50～</font><br>
+　　　　　(DWORD default:0)(レベル:0～5）SSL_CTX_set_security_levelの設定に相当<br>
+　　　　　※いずれも変更後のサービス再起動が必要。<br>
+</small></blockquote>
+EPSTIMAP4Sについて、TLS1.3での通信のみ有効にする方法は下記のレジストリを設定します。レジストリに SecureLayOption エントリ値がない場合は Default:3 で扱われており SSL2.0 及び SSL3.0 の使用は無効です。TLS1.3 のみ有効にさせる設定を行うためには、SecureLayOption に 31(10進)〔1f(16進)〕を設定、EPSTIMAP4S サービスの再起動を行う手順です。この設定が有効なのは、2018.12.24（2019.1.24公開）以降の差分アップデートが適用されていて、EPSTIMAP4S v4.59以降になっていることが必要です。<br>
+次にもう一つの設定方法です。レジストリに SecureLevel エントリ値がない場合は、Default:0 で扱われ レベル0（SecureLevel=0）に設定されていて、TLS1から1.3までが有効範囲です。レベル1（SecureLevel =1）に変更すると、TLS1.2、TLS1.3 のみ有効となります。この設定が有効なのは、2024.05.25（2024.06.20公開）以降の差分アップデートが適用されていて、EPSTIMAP4S v4.70以降になっていることが必要です。<br>
+E-Postシリーズでは、レジストリにエントリ値自体がなければDefault値が適用されるという動きになっています。手動でエントリ値を作成、その後値を入力してください。<br>
+<blockquote><small>
+[EPSTIMAP4S]<br>
+HKEY_LOCAL_MACHINE<br>
+　SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTIMAP4S<br>
+　　　　　→SecureLayOption　　<font color="blue">v4.59～</font><br>
+　　　　　(DWORD  Default:3) 1:SSL2.0禁止 2:SSL3.0禁止 3:SSL2.0-3.0禁止(SSL3.0以前禁止) 4:TLS1.0禁止<br>
+　　　　　 7:TLS1.0,SSL2.0-3.0禁止(TLS1.0以前禁止) 8:TLS1.1禁止 15:TLS1.1以前禁止 16:TLS1.2禁止 31:TLS1.2以前禁止<br>
+　　　　　※10進指定によるもの。<b>&quot31&quotの指定でTLS1.2以前が禁止となり、TLS1.3以降のみの許可となる。</b><br>
+　　　　　　ちなみに&quot15&quotの指定でTLS1.1以前が禁止、TLS1.2以降の許可となる。<br>
+　　　　　→SecureLevel　　<font color="blue">v4.70～</font><br>
+　　　　　(DWORD default:0)(レベル:0～5）SSL_CTX_set_security_levelの設定に相当<br>
+　　　　　※いずれも変更後のサービス再起動が必要。<br>
+</small></blockquote>
+<b>（参考）</b><br>
+SecureLevel について [OpenSSL ドキュメント3.0]（英語）<br>
+<a href="https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour">https://docs.openssl.org/3.0/man3/SSL_CTX_set_security_level/#default-callback-behaviour</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-40.html">SMTP/POP3/IMAP4 over SSL/TLS設定方法</a><br>
+●<a href="./faq15-06.html">SSL/TLS設定で認証局が発行するSHA2（sha256）の証明書に対応しているか</a><br>
+●<a href="./faq17-28.html">opensslコマンドでTLSバージョンを指定して疎通確認する方法について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+</body>
+</html>

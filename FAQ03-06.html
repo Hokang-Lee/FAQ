@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+<!--
+	body {
+		background-color: #ffffff;
+		font-size: small;
+		line-height:normal;
+		margin: 10px;
+	}
+-->
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">別マシンへの移行手順について</FONT>
+<HR>
+<BR>
+別のマシンへメールサーバーを同一の状態にて移行するには、以下の点に注意して行う必要があります。<BR>
+<BR>
+1.使用中のフォルダをコピーして移行する<BR>
+　a.「メール作業フォルダ」下のまるごと。<BR>
+　b.「メールボックスフォルダ」<BR>
+2.使用中のファイルをコピーして移行する<BR>
+　c.「アカウントデータ」ファイル<br>
+　d.「プログラムインストールフォルダ」にある&quot;*.dat&quot;の設定ファイル群<br>
+<BR>
+3.使用しているレジストリの移行<BR>
+　e.レジストリエディタを起動し、レジストリをエクスポート。<BR>
+<small><br>
+　1.[HKEY_LOCAL_MACHINE\SOFTWARE\EMWAC\IMS]以下および、<BR>
+　2.<BR>
+　　(SPA-MS v1,v2の場合)<BR>
+　　 [HKEY_LOCAL_MACHINE\SOFTWARE\SPA]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPARS]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPADS]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAPOP3S]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAIMAP4S]<BR>
+<BR>
+　　(SPA-PRO/@SOLOMON の場合)<BR>
+　　 [HKEY_LOCAL_MACHINE\SOFTWARE\SPA-Pro]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPARS-PRO]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPADS-PRO]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAPOP3S-PRO]<BR>
+　　 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SPAIMAP4S-PRO]<BR>
+<BR></small>
+　f.移行先のマシンのレジストリエディタを起動し、このデータをインポート。<BR>
+<BR>
+4.メールサーバをインストール<BR>
+<BR>
+以上で、マシン移行は完了です。<BR>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

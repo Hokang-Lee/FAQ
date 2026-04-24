@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-69</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>STARTTLS命令を無効に設定するには</b></FONT>
+<HR>
+<br>
+E-Post Mail Serverシリーズ／E-Post SMTP Serverシリーズで、STARTTLS命令を無効にし、明示的に利用しない設定方法は次のように行います。<br>
+<br>
+以下の通り、レジストリを操作してDWORD値10進で作成、値を手動で登録します。変更後はEPSTRSおよびEPSTDSサービスの再起動が必要です。この設定はSTARTTLSが実装されたバージョンEPSTRS 4.62、EPSTDS 4.46以降で有効です。<br>
+<br>
+&quot;UsedSTARTTLS&quot;は、デフォルトで作成されていませんので、DWORD値10進で作成します。値を&quot;0&quot;に設定してください。<br>
+変更したら、EPSTRSおよびEPSTDSを再起動してください。その後は、STARTTLS命令を使用しなくなります。<br>
+<br>
+<small><b>[EPSTRS] (E-POST SMTP Receiver)</b><br>
+HKEY_LOCAL_MACHINE<br>
+→SYSTEM<br>
+　→CurrentCntrolSet<br>
+　　→Services<br>
+　　　→EPSTRS<br>
+　　　　→UsedSTARTTLS<br>
+　　　　　 (DWORD) (設定値:0)<br>
+<br>
+<b>[EPSTDS] (E-POST SMTP Delivry Agent)</b><br>
+HKEY_LOCAL_MACHINE<br>
+→SYSTEM<br>
+　→CurrentControlSet<br>
+　　→Services<br>
+　　　→EPSTDS<br>
+　　　　→UsedSTARTTLS<br>
+　　　　　 (DWORD) (設定値:0)<br></small>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

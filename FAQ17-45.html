@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-45</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アカウント管理方法の違いと特徴について <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メールサーバセットアップ時に行うアカウント管理方法の違いと、状況によってどちらを選択されるべきなのか、そのときの選択理由や必要性などを含め、アカウント管理方法の違いと特徴について説明します。<br>
+ここでは、ウィザード（簡単セットアップ）で選択するアカウント管理方法の選択、Account Managerでのアカウント管理の選択、マニュアルなどの呼称について、下記にまとめてみました。<br>
+<br>
+<table border=1 cellspacing=0 cellpadding=2>
+<tr bgcolor="#CCCCCC">
+ <th>ウィザード（簡単セットアップ）</th>
+ <th>Account Manager「アカウント管理」</th>
+</tr>
+<tr>
+ <td>(1) 複数のドメインでアカウントを管理</td>
+ <td>(1) Soft Account（E-Post独自方式）</td>
+</tr>
+<tr>
+ <td>(2) Windows ローカルアカウントとの連携<br>
+ (3) ActiveDirectory アカウントとの連携</td>
+ <td>(2)(3) Windows Account ※</td>
+</tr>
+</table>
+　　　　　　　　　　　　　　　　　　　※(2)(3)どちらの設定でもこの表示がされます。<br>
+<br>
+(2)はADのドメインコントローラサーバ自体か、またはWindows Serverのローカルユーザーに連携させるときであり、一方で(3)はマシンがADのメンバーサーバであり、ADのユーザーと連携させたいときに選択する選択肢となります。
+E-Postにしてみれば、どちらも「AD連携の設定」（もしくはそれに近い同等の設定）状態となります。違いとしてはローカルマシン自体にあるWindowsユーザーと連携させるのか、ADのメンバーサーバからADのユーザーに連携させるのかという違いだけです。<br>
+特別な意図や目的がない限り、(1)の複数ドメインでアカウント管理＝Soft Account方式（E-Post独自方式）を選択していただいた方が賢明です。<br>
+もちろんWindows Server で管理しているローカルユーザーとの連携設定をできないわけではありませんし、禁止しているわけではございません。これまでのサポート案件の中で、何も意図しないでWindowsローカルアカウント管理を選択して構築したために、Windows Server で管理しているAdministratorアカウントも有効なメールアカウントとして生きていることを気づかないで運用しつづけたケースがありました。その事例ではメールの不正利用の事態が発覚して初めて気が付きました。<br>
+このときは、Windowsローカルアカウントでのアカウント管理が必須要件ではありませんでしたので、安全のためにSoft Account方式（E-Post独自方式）に切り替えていただいて対処しました。<br>
+簡単セットアップからは、複数ドメインでアカウント管理（E-Post形式）を選択して設定する場合は、Account Managerからは「Soft Account管理」とも呼んでいますが、E-Post方式でのアカウントデータ形式（拡張子.idxファイル）で保管されることになります。このアカウントデータは、デフォルトではプログラムインストールフォルダ内に保管される動きとなります。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-74.html">Active Directory連携やWindowsアカウント連携のときは管理するドメインのメールボックス方式に注意</a><br>
+●<a href="./faq01-17.html">アカウント管理方法をSoft Account（独自アカウント）に移行する場合</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-01</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>遠隔からの管理について</b></FONT>
+<HR>
+<br>
+<b>１．遠隔からの管理方法とCGIプログラムの「Web管理」</b><BR>
+<BR>
+離れた環境よりメールサーバを操作する方法としては、以下の方法があります。利用環境にあわせて遠隔管理する方法を検討してください。<br>
+<ul>
+ <li>リモートデスクトップ接続を許可、離れた環境よりリモートデスクトップ接続より操作する。
+ <li>サードパーティーのリモート接続製品を導入し、離れた環境より接続可能にし、操作できるようにする。
+ <li>Webサーバを構築設定し、付属のCGIプログラム「Web管理」を設置してWeb経由で操作できるようにする。
+</ul>
+前２つの方法は、それぞれ関連資料を参考にしていただき、ここでは最後の「Web管理」を利用する方法についてふれます。<br>
+E-Post Mail Server・E-Post SMTP Server・E-Post BossCheck Serverシリーズには、Webから管理するためのCGIプログラム「Web管理」が用意されています。<br>
+Webサーバを利用し、メールサーバを管理する場合は、メールサーバーマシン上にWebサーバを設定・構築し、用意されているCGIプログラム及びHTMLファイルを設置することで、以下のようなメールサーバ操作がWeb上から可能になります。<br>
+<p align="center"><a href="./img/faq09-01-01.gif"><img src="./img/faq09-01-01s.gif" border="0"></a></p>
+<ul>
+ <li>環境設定　　・・・・・・・メールサーバの運用環境設定を行います。
+ <li>サービス制御・・・・・・各サービスのサービス起動・停止制御を行います。
+ <li>バージョン情報・・・・・各プログラムバージョンの情報を表示します。
+ <li>ドメイン管理　・・・・・・管理するドメインの参照・登録・削除を行います。
+ <li>ユーザー管理・・・・・・実ユーザー（アカウント）の参照・登録・削除を行います。
+ <li>エイリアス管理・・・・・エイリアスの参照・登録・削除を行います
+ <li>メーリングリスト管理・・メーリングリストの参照・登録・削除を行います。
+</ul>
+E-Post Mail Server・E-Post SMTP Server・E-Post BossCheck Serverシリーズでは、「Web管理」CGIプログラムは標準装備されており、インストール時でいっしょにプログラムインストールフォルダ内にコピーされます。<br>
+なお、ユーザー管理のうち、アカウントマネージャにある「自動応答」設定機能に該当する項目について、EpstUser v4.21以降は、メール自動応答オプションの設定ができるようになっています。<br>
+<br>
+<b>２．「Web管理」CGIプログラムを使う</b><BR>
+事前にWebサーバのIISを設定・構築しておき、動作させてください。PerlやPHPなどは不要です。
+Web管理のCGIプログラムの設定方法は、いっしょにインストールされる readme.html ファイルに設定方法が書かれていますので参照してください。readme.html ファイルは、プログラムインストールフォルダ下のwebmanagerフォルダ内にコピーされています。（例・C:\Program Files\EPOST\webmanager\reame.html）<br>
+readme.html にもふれられていますが、IISで「Web管理」CGIプログラムを動作させるには、下記の点が重要なポイントになります。
+<ul>
+ <li>IIS 6.xの場合・・・「Webサービス拡張」で「すべての不明なCGI拡張」を［許可］設定にする必要があります。
+<p align="center"><a href="./img/faq09-01-02.gif"><img src="./img/faq09-01-02s.gif" border="0"></a></p>
+ <li>IIS 7.xの場合・・・IISのモジュールとして、CGI・ISAPフィルタ・ISAPI拡張機能などを追加しておく必要があります。さらに、拡張子 .exe のファイルが、CGIプログラムとして実行可能になるようs設定する必要があります。
+<p align="center"><a href="./img/faq09-01-03.gif"><img src="./img/faq09-01-03s.gif" border="0"></a></p>
+</ul>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./FAQ09-04.html">Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

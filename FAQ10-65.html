@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ10-65</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAPサーバで扱うメールデータ数や同時接続数、運用パフォーマンスとの関係について</b></FONT>
+<HR>
+<br>
+IMAPサーバで扱うメールデータ数や同時接続数、運用パフォーマンスとの関係について、弊社試験環境で検証試験を重ねたところ、おおむね次のような傾向が明らかになっています。IMAPサーバを利用する際は、こうした傾向に注意を払い、<b>メールボックスの保管メールデータ数が膨大になってきたときは、できるだけフォルダに分けてメールを分類・整理する運用方法</b>を強く推奨いたします。<br>
+<ul>
+ <li>500メール数程度なら同時接続数が150、200と増えても、１回あたりの処理時間はさほど下がらず、同時接続数の増加はさほど問題にならない。
+ <li>同時接続数が増えることより、一度に受信する<b>メールの数が1000メール数程度以上</b>になると、パフォーマンスがやや下がる傾向がある。特に、一度IMAP受信したことがあるときより、初めての受信で時間がかかる傾向にある。
+ <li>メールボックスのメールデータ数が1000以上と多いときでも、フォルダに分けて整理しているときは、パフォーマンス低下は見られないが、フォルダに分けて整理していない状態でメールデータ数が1000以上と多いときにはその傾向が顕著である。
+ <li>こうしたパフォーマンス低下は、Windows Serverのファイルシステムに起因する要素がきわめて大きいと考えられ、サーバのメモリ実装容量やCPUパワーにあまり大きく左右されていない。メモリ容量を変化させた別の検証からもこのことが裏付けられている。
+</ul>
+なお、この検証試験結果の元になったデータとグラフは次の通りです。<br>
+<br>
+<table border=1 cellpadding=0 cellspacing=0 width=519>
+ <b>　　IMAP4負荷試験接続１回当たり処理時間（各100回連続実行の平均）</b><br>
+ <small>　　１回当たり処理時間（単位：秒）　　　　　　　　　　　　　　　1メール=約1.5KB</small>
+ <tr height=54>
+  <th bgcolor="#CCCCCC" width=90 height=54><small>同時接続数<br>
+  </small></th>
+  <th bgcolor="#CCCCCC" width=85><small>メールボックス<br>
+    メール数=0</small></th>
+  <th bgcolor="#CCCCCC" width=85><small>メールボックス<br>
+    メール数=100<br>
+    [既0/未100]</small></th>
+  <th bgcolor="#CCCCCC" width=85><small>メールボックス<br>
+    メール数=500<br>
+    [既0/未500]</small></th>
+  <th bgcolor="#CCCCCC" width=85><small>メールボックス<br>
+    メール数=1000<br>
+    [既500/未500]</small></th>
+  <th bgcolor="#CCCCCC" width=85><small>メールボックス<br>
+    メール数=1000<br>
+    [既0/未1000]</small></th>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=5</small></th>
+  <td align=right><small>0.042 </small></td>
+  <td align=right><small>0.054 </small></td>
+  <td align=right><small>0.064 </small></td>
+  <td align=right><small>0.070 </small></td>
+  <td align=right><small>0.084 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=10</small></th>
+  <td align=right><small>0.043 </small></td>
+  <td align=right><small>0.053 </small></td>
+  <td align=right><small>0.069 </small></td>
+  <td align=right><small>0.078 </small></td>
+  <td align=right><small>0.089 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=25</small></th>
+  <td align=right><small>0.044 </small></td>
+  <td align=right><small>0.055 </small></td>
+  <td align=right><small>0.077 </small></td>
+  <td align=right><small>0.084 </small></td>
+  <td align=right><small>0.099 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=50</small></th>
+  <td align=right><small>0.047 </small></td>
+  <td align=right><small>0.057 </small></td>
+  <td align=right><small>0.077 </small></td>
+  <td align=right><small>0.093 </small></td>
+  <td align=right><small>0.110 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=100</small></th>
+  <td align=right><small>0.053 </small></td>
+  <td align=right><small>0.069 </small></td>
+  <td align=right><small>0.087 </small></td>
+  <td align=right><small>0.104 </small></td>
+  <td align=right><small>0.124 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=150</small></th>
+  <td align=right><small>0.055 </small></td>
+  <td align=right><small>0.068 </small></td>
+  <td align=right><small>0.097 </small></td>
+  <td align=right><small>0.111 </small></td>
+  <td align=right><small>0.138 </small></td>
+ </tr>
+ <tr height=18>
+  <th bgcolor="#CCCCCC" height=18><small>同時接続数=200</small></th>
+  <td align=right><small>0.062 </small></td>
+  <td align=right><small>0.073 </small></td>
+  <td align=right><small>0.106 </small></td>
+  <td align=right><small>0.173 </small></td>
+  <td align=right><small>0.190 </small></td>
+ </tr>
+</table>
+<br>
+<a href="./img/faq10-65-001.jpg"><img src="./img/faq10-65-001s.jpg" border="0" width="460"></a>
+<br>
+<br>
+<b>接続１回あたりの処理時間のグラフから読みとれること</b><br>
+１．500メール数程度なら同時接続数が150、200と増えても、１回あたりの処理時間は、0.1秒前後ときわめて良好なパフォーマンスを示している。同時接続数の増加はさほど問題にならない。<br>
+２．同時接続数が150、200と増え、さらに1000メール数のメールを初めてIMAP受信するときに（既0/未1000のケース）、負荷が かかっていることが読みとれる。このとき１回あたりの処理時間は、0.2秒近くまでになり、100回連続実行した全体の処理時間で１時間以上かかっている。このようにメール数が1000個以上になると、パフォーマンスがやや下がる傾向がある。 <br>
+３．1000メール数でも半分の500メールを一度IMAP受信したことがあるときには、初めてIMAP受信する場合よりも、少しパフォーマンスが上がっている。（既500/未500のケース）<br>
+<br>
+<small>※ここでの「既読0/未読1000」とは、POP3メールボックスにメールデータが格納されているがIMAP4でまだ接続していないため、IMAP4用のメールボックスにはメールデータ0個であることを表わす。IMAP4で接続されたタイミングで、POP3用メールボックスから、IMAP4用のールボックスに向けて、メールデータ1000個がコピーされ、IMAP受信される動きとなる。<br></small>
+<br>
+<table border=1 cellpadding=0 cellspacing=0 width=460>
+ <tr>
+  <td width=120 valign="top" bgcolor="#CCCCCC"><small>実 行 環 境</small><td>
+  <td width=340><small>E-Post Mail Server Standard　<br>
+  （AD連携＋E-Postクラスタ構成 [正系側で検証]）<br>
+  メール作業フォルダ：ネットワーク共有ドライブを使用</small></td>
+ </tr>
+ <tr>
+  <td width=120 valign="top" bgcolor="#CCCCCC"><small>Ｏ　　　Ｓ</small><td>
+  <td width=340><small>Windows Server 2008 R2  (base on Hyper-V)</small></td>
+ </tr>
+ <tr>
+  <td width=120 valign="top" bgcolor="#CCCCCC"><small>ドメインコントローラ</small><td>
+  <td width=340><small>Windows Server 2008 R2  (base on Hyper-V)</small></td>
+ </tr>
+ <tr>
+  <td width=120 valign="top" bgcolor="#CCCCCC"><small>ホストマシン</small><td>
+  <td width=340><small>CPU:XeonクアッドコアX3323 2.5GHz　<br>
+  MEM:16GB (仮想マシン割り当ては各1GB）</small></td>
+ </tr>
+ <tr>
+  <td width=120 valign="top" bgcolor="#CCCCCC"><small>IMAP4クライアント</small><td>
+  <td width=340><small>弊社製IMAP4 DOS版クライアントツール<br>
+  &quot;imap4ClientDos.exe&quot;を任意回数分呼び出すバッチファイルを<br>
+  同時接続分だけ複数作成し、同一マシンから一気に実行した</small></td>
+ </tr>
+</table>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

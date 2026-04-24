@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ15-75</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Active Directory傘下のメンバーサーバでhostsファイルの記述よりドメインコントローラの名前解決が優先されてしまう</b></FONT>
+<HR>
+<br>
+Active Directory傘下のメンバーサーバでメールサーバを設定している環境で、ローカルマシン内のhostsファイルの記述よりドメインコントローラの名前解決が優先されてしまうことがあることが E-Postシリーズ 64bit版の一部バージョンで確認されました。ちなみにこれはActive Directory傘下のメンバーサーバである環境のときであり、メールサーバのアカウント管理方式がActive Directory連携か、E-Post方式（Soft Account）かは関係がありません。<br>
+この問題は最新差分アップデートで対応されています。2017年12月20日公開の20171212差分のアップデートプログラムを適用し、EPSTRSのバージョンをv4.98以降にすることで正しい動作が得られます。<br>
+<small>　－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－<br>
+　[EPSTRS]<br>
+　v4.98 2017.12.12<br>
+　1.ADに参加したマシンでhostsに設定した情報がHELO/EHLOに続くFQDNとして反映されない不具合の修正。<br>
+　－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－</small><br>
+最新差分アップデートを適用することにより、仕様通りローカルマシン内のhostsファイルの記述がドメインコントローラの名前解決より優先されるようになります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

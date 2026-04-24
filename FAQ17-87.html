@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ17-87</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post方式クラスタ構成時のウイルスメール隔離用 &quot;viruslog&quot; フォルダは［プログラムインストールフォルダ］下になる <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メールサーバがシングル構成の場合、見つかったウイルスメールは、[メール作業フォルダ]下の &quot;viruslog&quot; フォルダに隔離されますが、E-Post方式クラスタ構成の場合は、[プログラムインストールフォルダ]下の &quot;viruslog&quot; フォルダに隔離されることになります。<br>
+<br>
+さらに、ウイルス判定時に見つかったウイルスメールを &quot;viruslog&quot; フォルダに隔離するためには、シングル構成の場合なら [メール作業フォルダ] 下の &quot;temp&quot; フォルダ内にあるファイルでスキャンを実行する必要があり、E-Post方式クラスタ構成の場合は、[プログラムインストールフォルダ] 下の &quot;temp&quot; フォルダ内にあるファイルでスキャンを実行する必要があります。そのプロセスを経なければ &quot;viruslog&quot; フォルダに隔離することができません。<br>
+<br>
+E-Post方式クラスタ構成時にウイルススキャンを実行する &quot;temp&quot; フォルダやウイルスメールを隔離する &quot;viruslog&quot; フォルダがローカルドライブの [プログラムインストールフォルダ]下に決められている理由としては、E-Post方式クラスタ構成時の [メール作業用フォルダ] は、UNC名でアクセスするネットワーク共有ドライブのため、その場所でファイルの操作を行うとレスポンスが悪くなることがあり、受領が完了するまではローカルドライブ内で処理させてレスポンス向上をはかっていることが大きな理由です。<br>
+ちなみにMSFC方式クラスタ構成時では、[メール作業フォルダ] は UNC名ではなく、ローカルドライブと同様のドライブレターが割り当てられますので、シングル構成時と状況は同じになっています。<br>
+<br>
+管理者権限で開いたコマンドプロンプトからコマンドでウイルススキャンを確認する方法ですが、シングル構成とE-Post方式クラスタ構成の場合はそれぞれ下記のようになります。<br>
+（シングル構成の場合）<br>
+kasp [メール作業フォルダ]\temp\[スキャン対象ファイル名]<br>
+（E-Post方式クラスタ構成の場合）<br>
+kasp [プログラムインストールフォルダ]\temp\[スキャン対象ファイル名]<br>
+<br>
+ウイルスメールが見つかった場合のウイルス隔離フォルダは、シングル構成とE-Post方式クラスタ構成の場合はそれぞれ下記のようになります。<br>
+（シングル構成の場合）<br>
+[メール作業フォルダ]\viruslog<br>
+（E-Post方式クラスタ構成の場合）<br>
+[プログラムインストールフォルダ]\viruslog<br>
+<br>
+なお、メールフィルタ機能を有効にせず、アンチウイルス機能のみ有効に設定する場合は、&quot;viruslog&quot; フォルダを手動作成する必要があるのは、シングル構成のとき、E-Post方式クラスタ構成のときにかかわらずどちらも同じです。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-58.html">アンチウイルス機能を有効にしても［メール作業フォルダ］下に&quot;viruslog&quot;というフォルダが自動的に作成されない</a><br>
+●<a href="./faq01-10.html">メールサーバーで使用しているフォルダについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

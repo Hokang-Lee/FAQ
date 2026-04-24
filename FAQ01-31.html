@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-31</TITLE>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000"><b>ローカルエリア(イントラネット)のみで利用したい。</FONT>
+<HR>
+<PRE>
+SPA(-PRO) メールサーバーをローカルエリア(イントラネット)のみで利用し、外部にメールが配送されないようにするには、
+「ネットワークを物理的に隔離してしまう。」のがいちばん単純ですが、インターネットに接続された環境において且つ
+外部にメール配送したくないメールサーバーとする場合は、SPA Controlを起動し、以下の設定を行ってみてください。
+
+1.[サーバー設定]
+　SMTPゲートウェイ -> ＬＡＮ内のマシンが存在しないIPアドレス(eg. 192.168.xxx.xxx)
+　
+上記のように設定しますと外部への送信は、全てこのマシンが存在しないIPへ送信しようとして失敗し送信エラーとして返され
+るようになります。
+</PRE>
+</BODY>
+</HTML>

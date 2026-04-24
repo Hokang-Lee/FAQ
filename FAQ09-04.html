@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-04</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</b></FONT>
+<HR>
+<br>
+<b>Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を設定するときの補足・修正事項</b><br>
+<br>
+Web管理を設定する際には、プログラムインストールフォルダ下の webmanager フォルダにある『Web管理用CGI設定ガイド』（readme.html）を設定手順を説明したドキュメントとして利用していただいていますが、ドキュメントについて Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 での補足・修正事項及び注意点を記します。<br>
+<br>
+『Web管理用CGI設定ガイド』<br>
+&quot;C:\Program Files\EPOST\webmanager\readme.html&quot;<br>
+<br>
+---（以下は上記ドキュメントについて補足・修正する形でまとめたものです）---<br>
+<br>
+<b>「IIS7.xでの設定」に関連する<br>
+「1.インターネットインフォメーションサービス（IIS7）を起動」の補足・修正事項</b><br>
+<!--Windows Server 2008 R2 のIIS7でWeb管理を利用するには、事前に、Webサーバー（IIS）の役割サービスとして、［Webサーバー］→［アプリケーション開発］から「CGI」および「ISAPI拡張」を追加してください。<br>
+<p align="center"><a href="./img/faq09-04-010.jpg"><img src="./img/faq09-04-010s.jpg" border="0"></a><br>
+<small>▲役割サービスとしてIISを追加するとき「CGI」および「ISAPI拡張」もオンにする</small></p>-->
+Windows Server 2012 R2 / 2016 / 2019 / 2022 / 2025 のIISでWeb管理を利用するには、事前に「役割と機能の追加ウィザード」から「サーバの役割」を選択して［Webサーバー（IIS）］→［Webサーバー］→［アプリケーション開発］から「CGI」および「ISAPI拡張」を追加してください。<br>
+<p align="center"><a href="./img/faq09-04-040.jpg"><img src="./img/faq09-04-040s.jpg" border="0"></a><br>
+<small>▲IISを追加した後、「サーバの役割」から「CGI」および「ISAPI拡張」もオンにする</small></p>
+<b>「2.ISAPIおよびCGIの制限への設定」の補足・修正事項</b><br>
+インターネットインフォメーションサービス（IIS）を起動した後、ドキュメントでは、先に「機能設定の編集」を行ってから、CGIを追加していますが、CGIとして&quot;EpstUser.exe&quot;を先に追加して、後で「機能設定の編集」を行ってもかまいません。具体的な手順は次の通りです。<br>
+<!--<p align="center"><a href="./img/faq09-04-011.jpg"><img src="./img/faq09-04-011s.jpg" border="0"></a><br>
+<small>▲インターネットインフォメーションサービス（IIS）マネージャーの起動（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-041.jpg"><img src="./img/faq09-04-041s.jpg" border="0"></a><br>
+<small>▲インターネットインフォメーションサービス（IIS）マネージャーの起動（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<!--<p align="center"><a href="./img/faq09-04-012.jpg"><img src="./img/faq09-04-012s.jpg" border="0"></a><br>
+<small>▲インターネットインフォメーションサービス（IIS）マネージャー<br>
+「機能ビュー」より「ISAPIおよびCGIの制限」をダブルクリック（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-042.jpg"><img src="./img/faq09-04-042s.jpg" border="0"></a><br>
+<small>▲インターネットインフォメーションサービス（IIS）マネージャー<br>
+「機能ビュー」より「ISAPIおよびCGIの制限」をダブルクリック（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<p align="center"><a href="./img/faq09-04-013.jpg"><img src="./img/faq09-04-013s.jpg" border="0"></a><br>
+<small>▲「操作」パネルより「追加...」をクリック</small></p>
+<p align="center"><a href="./img/faq09-04-014.jpg"><img src="./img/faq09-04-014s.jpg" border="0"></a><br>
+<small>▲「ISAPIおよびCGIの制限の追加」ダイアログボックスが表示されるので<br>
+「ISAPIまたはCGIパス」項目にある「参照」ボタンをクリック　　　　　　　</small></p>
+<p align="center"><a href="./img/faq09-04-015.jpg"><img src="./img/faq09-04-015s.jpg" border="0"></a><br>
+<small>▲&quot;C:\Program Files\EPOST\cgi-bin&quot;フォルダを開き、　　　　<br>
+拡張子*.exeのファイルを参照、表示される"EpstUser.exe"を選択する</small></p>
+<p align="center"><a href="./img/faq09-04-016.jpg"><img src="./img/faq09-04-016s.jpg" border="0"></a><br>
+<small>▲ファイル選択後のフルパス表記を確認し、CGIプログラムの<br>
+「説明」を画面例の通り入力、「拡張パスの実行を許可する」<br>
+チェックボックスをオンにして、最後に「OK」ボタンクリック</small></p>
+以降の画面では、「機能設定の編集」で「ISAPIまたはCGI制限の編集」設定を行い「特定できないCGIモジュールを許可する」「特定できないISAPIモジュールを許可する」それぞれをオンにしています。<br>
+<p align="center"><a href="./img/faq09-04-017.jpg"><img src="./img/faq09-04-017s.jpg" border="0"></a><br>
+<small>▲追加したCGIプログラムに対し、「操作」パネルより「機能設定の編集」をクリック</small></p>
+<p align="center"><a href="./img/faq09-04-018.jpg"><img src="./img/faq09-04-018s.jpg" border="0"></a><br>
+<small>▲「ISAPIまたはCGI制限の設定の編集」ダイアログボックスが表示されるので、<br>
+「特定できないCGIモジュールを許可する」および「特定できないISAPIモジュ<br>
+ールを許可する」チェックボックスをオンにして、最後に「OK」ボタンクリック</small></p>
+<b>「3.ハンドラマッピングへの設定」の補足事項</b><br>
+ドキュメント記載の「ハンドラマッピングへの設定」－「ハンドラアクセスの許可の編集」は、2012 R2 / 2016 / 2019 / 2022 / 2025 では「機能のアクセス許可の編集」という名称になっています。<br>
+以降の画面では、「機能のアクセス許可の編集」でアクセス許可として「実行」チェックボックスまでオンにして、CGIを動作可能にしているところです。<br>
+<!--<p align="center"><a href="./img/faq09-04-019.jpg"><img src="./img/faq09-04-019s.jpg" border="0"></a><br>
+<small>▲「機能ビュー」より「ハンドラマッピング」をダブルクリック（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-043.jpg"><img src="./img/faq09-04-043s.jpg" border="0"></a><br>
+<small>▲「機能ビュー」より「ハンドラマッピング」をダブルクリック（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<p align="center"><a href="./img/faq09-04-020.jpg"><img src="./img/faq09-04-020s.jpg" border="0"></a><br>
+<small>▲"CGI-exe"を選択し、「操作」パネルより「機能のアクセス許可の編集」をクリック</small></p>
+<p align="center"><a href="./img/faq09-04-021.jpg"><img src="./img/faq09-04-021s.jpg" border="0"></a><br>
+<small>▲「機能のアクセス許可の編集」ダイアログボックスが表示されるので、<br>
+いちばん下の「実行」チェックボックスもオンにして、「OK」ボタンをクリック</small></p>
+<b>「4.仮想ディレクトリ&quot;cgi-bin&quot;がない場合は・・・」の補足・修正事項</b><br>
+デフォルトでは、仮想ディレクトリ&quot;cgi-bin&quot;が作成されていない状態ですので、仮想ディレクトリ&quot;cgi-bin&quot;を作成してください。実フォルダへの割り当て先は &quot;C:\Program Files\EPOST\cgi-bin&quot; です。<br>
+<p align="center"><a href="./img/faq09-04-022.jpg"><img src="./img/faq09-04-022s.jpg" border="0"></a><br>
+<!--<small>▲[Default Web Site]を選択し、「コンテンツビュー」に切り替え、<br>
+「操作」パネルより「仮想ディレクトリの追加..」をクリック（2008 R2の場合）</small></p>
+<p align="center"><a href="./img/faq09-04-044.jpg"><img src="./img/faq09-04-044s.jpg" border="0"></a><br>-->
+<small>▲[Default Web Site]を選択し、「コンテンツビュー」に切り替え、<br>
+「操作」パネルより「仮想ディレクトリの追加..」をクリック（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<p align="center"><a href="./img/faq09-04-023.jpg"><img src="./img/faq09-04-023s.jpg" border="0"></a><br>
+<small>▲表示される「仮想ディレクトリの追加」ダイアログボックスでは、　　　　　　　<br>
+「エイリアス」として&quot;cgi-bin&quot;を入力、「物理パス」としてCGIプログラムの　　　<br>
+格納フォルダである&quot;C:\Program Files\EPOST\cgi-bin&quot;を参照して入力<br></small></p>
+仮想ディレクトリが割り当てられているかどうかは、[機能ビュー]/[コンテンツビュー]ボタンで切り替えて確認してください。<br>
+<!--<p align="center"><a href="./img/faq09-04-024.jpg"><img src="./img/faq09-04-024s.jpg" border="0"></a><br>
+<small>▲「コンテンツビュー」に切り替え、仮想ディレクトリ&quot;cgi-bin&quot;を選択し右クリック、<br>
+表示されるメニューより「仮想ディレクトリの管理」－「詳細設定...」を選択（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-045.jpg"><img src="./img/faq09-04-045s.jpg" border="0"></a><br>
+<small>▲「コンテンツビュー」に切り替え、仮想ディレクトリ&quot;cgi-bin&quot;を選択し右クリック、<br>
+表示されるメニューより「仮想ディレクトリの管理」－「詳細設定...」を選択<br>
+（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<!--<p align="center"><a href="./img/faq09-04-025.jpg"><img src="./img/faq09-04-025s.jpg" border="0"></a><br>
+<small>▲表示される「詳細設定」ダイアログボックスで割り当てられていることを確認（2008 R2の場合）<br>
+※x64版（64bitネイティブ版）では、&quot;C:\Program Files\EPOST\cgi-bin&quot;フォルダ</small></p>-->
+<p align="center"><a href="./img/faq09-04-046.jpg"><img src="./img/faq09-04-046s.jpg" border="0"></a><br>
+<small>▲表示される「詳細設定」ダイアログボックスで割り当てられていることを確認<br>
+（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）<br>
+※64bit版では、&quot;C:\Program Files\EPOST\cgi-bin&quot;フォルダ</small></p>
+同様にして、仮想ディレクトリ&quot;manager&quot;を追加、割り当てる物理パスとして &quot;C:\Program Files\EPOST\webmanager&quot;を指定します。このフォルダ階層下にはhtmlファイル群が格納されています。<br>
+仮想ディレクトリ&quot;cgi-bin&quot;と&quot;manager&quot;が作成できたら、&quot;cgi-bin&quot;実フォルダ下にある&quot;epst-manager.ini&quot;ファイルの内容を確認し、必要な場合は修正します。<br>
+<p align="center"><a href="./img/faq09-04-026.jpg"><img src="./img/faq09-04-026s.jpg" border="0"></a><br>
+<small>▲仮想ディレクトリ&quot;manager&quot;を同様の手順で追加<br>
+※仮想ディレクトリ&quot;cgi-bin&quot;の下に作成されないよう注意</small><br>
+<p align="center"><a href="./img/faq09-04-027.jpg"><img src="./img/faq09-04-027s.jpg" border="0"></a><br>
+<small>▲&quot;cgi-bin&quot;実フォルダ下にある&quot;epst-manager.ini&quot;ファイルの内容を<br>
+メモ帳で確認し、必要な場合は修正する　　　　　　　　　　　　　　　　　<br>
+1行目は実際にhtmlファイルが保管されている物理フォルダ位置<br>
+　例・&quot;C:\Program Files\EPOST\webmanager\&quot;　　　　<br>
+2行目はWeb管理ユーザーマネージャーを呼び出すURLパス　　　</small></p>
+<b>「7.最後にブラウザより接続し・・・」の補足・修正事項</b><br>
+ここまでの設定では、CGIを動かすためのアクセス許可の権利が不足します。<br>
+以下の手順でcgi-binフォルダの「アクセス許可の編集」を設定し、インターネットゲストアカウント（IUSR）を追加してフルコントロールに設定してください。<br>
+最後に、ブラウザで呼び出したとき、ブラウザで表示されるトップページ左側のフレームがCGIを呼び出す部分です。左側のフレームが表示されていれば、CGIが動作していると判断できます。<br>
+<!--<br>
+<b>（参考FAQ）</b><br>
+　<a href="./faq09-03.html">●Windows Server 2003 R2以降のIISでWeb管理を設定するときの注意点</a><br>
+<br>
+<p align="center"><a href="./img/faq09-04-028.jpg"><img src="./img/faq09-04-028s.jpg" border="0"></a><br>
+<small>▲「コンテンツビュー」で、仮想ディレクトリ&quot;cgi-bin&quot;を選択し右クリック、<br>
+表示されるメニューより「アクセス許可の編集...」を選択（2008 R2の場合）　　　</small></p>-->
+<p align="center"><a href="./img/faq09-04-047.jpg"><img src="./img/faq09-04-047s.jpg" border="0"></a><br>
+<small>▲「コンテンツビュー」で、仮想ディレクトリ&quot;cgi-bin&quot;を選択し右クリック、<br>
+表示されるメニューより「アクセス許可の編集...」を選択（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）　　　　</small></p>
+<!--<p align="center"><a href="./img/faq09-04-029.jpg"><img src="./img/faq09-04-029s.jpg" border="0"></a><br>
+<small>▲「cgi-binのプロパティ」ダイアログボックスより「セキュリティ」タブに切り替え、<br>
+「編集」ボタンをクリック、続いて表示される「アクセス許可」ダイアログボックスより、<br>
+インターネットゲストアカウント（IUSR）を追加、「フルコントロール」「変更」チェック<br>
+ボックスをオンに設定、“フルコントロール”のアクセス許可権限を与える（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-048.jpg"><img src="./img/faq09-04-048s.jpg" border="0"></a><br>
+<small>▲「cgi-binのプロパティ」ダイアログボックスより「セキュリティ」タブに切り替え、<br>
+「編集」ボタンをクリック、続いて表示される「アクセス許可」ダイアログボックスより、<br>
+インターネットゲストアカウント（IUSR）を追加、「フルコントロール」「変更」チェック<br>
+ボックスをオンに設定、“フルコントロール”のアクセス許可権限を与える<br>
+（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）　</small></p>
+<!--<p align="center"><a href="./img/faq09-04-030.jpg"><img src="./img/faq09-04-030s.jpg" border="0"></a><br>
+<small>▲「機能ビュー」に切り替え、「認証」をダブルクリック（2008 R2の場合）</small></p>-->
+<p align="center"><a href="./img/faq09-04-049.jpg"><img src="./img/faq09-04-049s.jpg" border="0"></a><br>
+<small>▲「機能ビュー」に切り替え、「認証」をダブルクリック（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）</small></p>
+<p align="center"><a href="./img/faq09-04-031.jpg"><img src="./img/faq09-04-031s.jpg" border="0"></a><br>
+<small>▲「匿名認証」を選択し、「操作パネル」の「編集..」をクリック</small></p>
+<!--<p align="center"><a href="./img/faq09-04-032.jpg"><img src="./img/faq09-04-032s.jpg" border="0"></a><br>
+<small>▲「匿名認証編集」ダイアログボックスが表示されるので、「特定のユーザー」選択状態で<br>
+「設定」ボタンをクリックし、表示されるダイアログボックスでAdministratorアカウントと<br>
+パスワードを入力、「OK」ボタンを続けてクリックする（2008 R2の場合）　　　　　　　　　　　<br>
+以上の手順で、AdministratorアカウントでCGIプログラムを実行できる設定となる</small></p>-->
+<p align="center"><a href="./img/faq09-04-050.jpg"><img src="./img/faq09-04-050s.jpg" border="0"></a><br>
+<small>▲「匿名認証編集」ダイアログボックスが表示されるので、「特定のユーザー」選択状態で<br>
+「設定」ボタンをクリックし、表示されるダイアログボックスでAdministratorアカウントと<br>
+パスワードを入力、「OK」ボタンを続けてクリックする（2012 R2 / 2016 / 2019 / 2022 / 2025 の場合）　　　　　　　　　　　　<br>
+以上の手順で、AdministratorアカウントでCGIプログラムを実行できる設定となる</small></p>
+<p align="center"><a href="./img/faq09-04-033.jpg"><img src="./img/faq09-04-033s.jpg" border="0"></a><br>
+<small>▲最後にブラウザを起動し&quot;http://[IPアドレス]/manager/index.html&quot;<br>
+または &quot;http://localhost/manager/index.html&quot; に接続して<br>
+左側のフレームを含む操作画面が表示されるようになれば設定完了</small></p>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

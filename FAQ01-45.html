@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ01-45</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>NASを利用する構成にするとサービスが開始中のまま開始されない</b></FONT>
+<HR>
+<BR>
+メール作業フォルダやメールボックスフォルダ、アカウントフォルダについて、NASに代表されるネットワーク共有ドライブの利用構成にしたとき、サービス開始中状態のままで、いつまでたってもサービス起動がされない場合は、下記の点を確認してください。<br>
+<br>
+●メール作業フォルダ・メールボックスフォルダ・アカウントフォルダの指定を割り当てたネットワークドライブ名で指定してしまい、UNC名で設定していないケース。<br>
+<blockquote>たとえば、「X:」のような割り当てたネットワークドライブ名は、サービスレベルでは認識できないため、各フォルダを見つけることができず、サービス開始中状態のままとなり、いつまでたってもサービス起動ができません。<br>
+NASのような共有ディスクに割り当てる場合は、必ずUNC名(\\コンピュータ名\フォルダ名)を指定します。<br>
+</blockquote>
+●サービスの登録時にローカルシステムで登録・開始してしまい、Administrator または .\Administrator で登録・開始していないケース。<br>
+<blockquote>サービスレベルで共有ディスクにフルアクセスするためには、Administrator または .\Administrator でサービスを登録・起動する必要があります。Local Systemでサービスを登録・起動したときは、サービスが開始できていても、書き込み権限などで権限が不足する可能性があります。</blockquote>
+※Linux系NASは、ファイルシステムの基本的挙動が異なるため、サポート対応いたしません。Windows系NASのみサポート対応する方針にしています。<br>
+※Windows系NASを使うときやWindows Serverによるネットワーク共有ドライブを使うとき、ファイルシステムはNTFSを選択してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

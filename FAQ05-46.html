@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ05-46</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	dd {
+		padding:0;
+		margin:0 0 0.5em 0em;
+		padding:3px;
+		background:#f4f3e8;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>イベントビューアーに記録されるイベントIDの一覧</b></FONT>
+<HR>
+<br>
+「ログ書込み失敗時に、イベントビューワに警告を記録」を有効にしたときのE-Post各サービスプログラムが出力するイベントIDとメッセージの一覧は下記の通りです。<br>
+<blockquote>
+-----------------------------------------------------------------<br>
+[サービス名] [イベントID] [メッセージ]<br>
+-----------------------------------------------------------------<br>
+EPSTRS 100 &quot;select() failed. error = [select失敗理由]&quot; <sup>(※1)</sup><br>
+　　※[select失敗理由]は以下の通り<br>
+　　WSANOTINITIALISED<br>
+　　WSAEFAULT<br>
+　　WSAENETDOWN<br>
+　　WSAEINVAL<br>
+　　WSAEINTR<br>
+　　WSAEINPROGRESS<br>
+　　WSAENOTSOCK<br>
+　　WSA OTHER<br>
+　　-------------------------------------------------------------<br>
+EPSTRS 101 &quot;Exceeded an expiration date.&quot; <sup>(※2)</sup><br>
+EPSTRS 102-104 inlog write fail.<br>
+EPSTRS 105-113 acceptlog write fail.<br>
+EPSTRS 115 receivelog write fail.<br>
+EPSTRS 202 The named pipe could not be made. <sup>(※3)</sup><br>
+-----------------------------------------------------------------<br>
+EPSTDS 102 senderlog write fail.<br>
+EPSTDS 103 outlocallog write fail.<br>
+EPSTDS 104 outllog write fail.<br>
+EPSTDS 105 faillog write fail.<br>
+-----------------------------------------------------------------<br>
+(※1) EPSTRSでのイベントID 100の警告が出力されるときは、主として以下のケースで起き得る可能性があります。<br>
+・EPSTRSの［詳細］で設定しているリッスンするIPアドレスとメールサーバマシンに割り当てているIPが一致していない可能性。<br>
+・他のサービスがSMTPの25番ポートを使用してしまっているおそれがあり、そのため使用できないことでサービスが正常に開始できない可能性。<br>
+(※2) 「評価版期限切れ」を意味します。ライセンス登録状態を確認してください。<br>
+(※3) イベントID 202は、EPSTRSサービス起動時に通信パイプが開かない場合に出力されます。<br>
+</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-45.html">イベントログに EPSTRS イベントID:100 の警告が多発している</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

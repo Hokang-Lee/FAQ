@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="index,follow">
+<TITLE>FAQ13-40</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="5" COLOR="#000000">送信ドメイン認証（DMARC/DKIM/SPF/ARC）への対応機能はありますか？</FONT>
+<HR>
+<br>
+SMTP受領時での送信ドメイン認証（DMARC/DKIM/SPF）への対応機能は、2024年6月に更新された送信ドメイン認証（DMARC/DKIM/SPF/ARC）アドオン ツール EPSTDMARC v1.06c を組み込むことにより対応が可能です。<br>
+EPSTDMARCは、Windows Server コマンドプロンプトで実行可能な送信ドメイン認証 DMARC(Domain-based Message Authentication, Reporting and Conformance)/DKIM/SPF/ARC 対応のE-Postシリーズ製品用のアドオンツールです。E-Postシリーズメールサーバ製品にアドインすることにより、メール受領時において送信ドメイン認証（DMARC/DKIM/SPF/ARC）を機能させることが可能になります。送信ドメイン認証 DMARC へ対応したヘッダ記載（シグネチャ及び判定ヘッダ）機能と履歴ファイル作成機能があり、メール受信時にはこのプログラムのみで、SPF、DKIM、DMARC、ARCの判定結果のヘッダへの記載が可能になるほか、かつメール送信時はDKIM用のシグネチャヘッダの記載を実施しますので、別途SPFやDKIMアドインプログラムの組み込みは不要になります。<br>
+2023.12.20に v1.04、2024.01.17に v1.05c、2024.01.26に v1.05d、2024.06.17に v1.06c を公開。v1.05d 以降 epstdmarc/epstarc の両方を用意しました。これにより、SPF、DKIM、DMARC、ARCの判定結果のヘッダへの記載に加え、ARCのヘッダ記載も可能になりました。<br>
+EPSTDMARCをE-Postシリーズに組み込んで動作させるためには、EPSTRS.exe のバージョンv4.78以降が必要です。くわしくは「サポート２」サイトからダウンロードし解凍して得られる readme.html ファイルを参照してください。<br>
+<br>
+その他送信ドメイン認証に対する従来からのツールとしては、DKIM対応ツールの送信ドメイン認証（DKIM）アドオン EPSTDKIM v1.04a、SPF対応ツールの送信ドメイン認証（SPF）アドオン GETSPF v1.07があります。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ09-11</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Web管理ツールで不向きな作業、Web管理ツールでできないことについて</FONT>
+<HR>
+<br>
+Web管理ツールからは、メールサーバの主要な設定変更はできるようになっていますが、メールサーバの移行作業のような大幅な設定変更をするケースなどでは不向きな場面も出てきます。<br>
+ここではWeb管理ツールで不向きな作業、あるいはWeb管理ツールでできないことをあげてみました。<br>
+<blockquote>
+例１）<br>
+Account Managerからは、メールボックスフォルダのフォルダ位置を確認するために、userを選択し右クリックメニューから「エクスプローラ」を選択することで、該当メールボックスフォルダを確認することができますが、Web管理ツールからはそのようにフォルダを直接開いて確認することはできません。<br>
+例２）<br>
+Account Managerからは、ユーザー（アカウント）のエクスポート・インポート、エイリアスのエクスポート・インポート、メーリングリスト設定のエクスポート・インポートなどが可能です。Web管理ツールからはそうした一連の作業はできません。<br>
+<font color="#cc0000">→Web管理CGIプログラム 20170908差分 を適用し、最新バージョンにアップデートすることにより、新たにユーザー（アカウント）のエクスポート・インポートが可能になりました。</font><br>
+例３）<br>
+E-Post Mail Controlでは、メール作業用フォルダやメールボックスフォルダ、アカウントフォルダの場所を変更した場合、続いて該当するフォルダを直接開いてファイルコピーする作業を行うことがありますが、Web管理ツールではそれらの設定項目自体は用意されているものの、Webからは設定したフォルダを直接開くことができないため、ファイルをコピーすることが必要とされるメールサーバ移行作業などには向いていません。<br>
+例４）<br>
+Web管理ツールからはログ設定や閲覧ができません。また、一部のログの中には、取得時に手動でフォルダを作成して対応するもの（receivelog）、レジストリを変更して対応するもの（outlocallog）などがありますが、Webからはそうした一連の作業ができません。ログ設定や閲覧する作業には不向きです。<br>
+<font color="#cc0000">→Web管理CGIプログラム 20170908差分 を適用し、最新バージョンにアップデートすることにより、新たに各種ログ設定や閲覧・削除が可能になりました。</font><br>
+</blockquote>
+できればメールサーバの移行作業のような大幅な設定変更を行う場合は、AdministratorにてWindowsにログオンし、Windowsエクスプローラからフォルダを確認しながら、E-Post Mail ControlとAccount Managerから進めることが基本となります。Web管理ツールを使うのは、通常運用を開始するようになってから、お使いになる場面を限定してでの使い方をお薦めします。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

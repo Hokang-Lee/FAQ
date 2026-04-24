@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-43</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Postクラスタ構成時、アクティブ・スタンバイの位置を入れ替える際にアクティブ側をシャットダウンさせない方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Postクラスタのアクティブ・スタンバイの位置づけを入れ替える際、シャットダウンを使わない方法としては下記の手順です。<br>
+<br>
+<B>【手順】</B><br>
+1. 現行スタンバイ側ノードのipwatcher用レジストリ値 Balance=1 を Balance=0 に変更→新アクティブになる<br>
+2. 現行アクティブ側ノードのipwatcher用レジストリ値 Balance=0 を Balance=1 に変更→新スタンバイになる<br>
+3. どちらのノードも、IPWatcherサービスプログラム（ipwcs.exe）を再起動。<br>
+　 しばらくして（数分かかる場合があります）制御が移り、仮想IPアドレスが新アクティブ側ノードに移っていることを ipconfig /all コマンドなどで確認する<br>
+<br>
+変更するレジストリ設定値Balanceの位置<br>
+<small>　HKEY_LOCAL_MACHINE<br>
+　　→SOFTWARE<br>
+　　　→EPOST<br>
+　　　　→IPWCS<br>
+　　　　　→Balance（DWORD）<br></small>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

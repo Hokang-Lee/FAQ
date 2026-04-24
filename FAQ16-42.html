@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-42</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post Secure Handler (x64) で使用している設定ファイル＆レジストリ <font color="#ff0000">updated!</font></b></FONT>
+<HR>
+<PRE>
+<B>■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定</B>
+    <small><font color="darkgreen">※設定ファイルの拡張子種類は、次の通り値の型を表わす。レジストリのBINARY,DWORD,STRINGの型に該当。
+       （ .0 = BINARY,  .1 = DWORD,  .2 = STRING及びその他の形式 ）
+     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font>
+
+[メール作業フォルダ]内
+->REG
+ ->SOFTWARE
+  ->EMWAC
+   ->IMS
+     ->MailApprovalReversType.1     (DWORD  Default 0)  0:送信しない, 1:送信元, 2:送信先指定
+                                                  セキュアハンドラによる承認依頼メール送信エラー時の通知先
+     ->MailApprovalReversFrom.2    (SZ  Default NULL) 上記2を指定した場合の送信先
+     ->SHDLCease.1                    (DWORD  Default 1) 1:隔離する 0:隔離しない
+                                                  自動判定でスパム判定されたメールの隔離有無の設定項目 <font color="blue">(admiappr v1.17～)</font>
+     ->SHDLHedearAdd.1             (DWORD  Default 0) 0:付加しない 1:付加する
+                                                  自動判定でヘッダを付加するための項目 <font color="blue">(admiappr v1.17～)</font>
+     ->SHDLHedear.2                  (SZ  Default "X-SECUREHNDLER-Result")
+                                                  自動判定で付加ヘッダの文字列指定項目 <font color="blue">(admiappr v1.17～)</font>
+     ->SHDLHSPAMTag.2              (SZ  Default NULL) 
+                                                  自動判定でSubjectヘッダに付加する文字列指定項目 <font color="blue">(admiappr v1.17～)</font>
+
+</small>
+<!--<B>■個別情報－レジストリに設定</B><small>
+HKEY_LOCAL_MACHINE
+ ->SOFTWARE
+  -><font color="blue">Wow6432Node （※32bit版を64bitOSにインストールするとき）</font>
+   ->EMWAC
+    -> (DWORD  Default 1)
+</small>-->
+</pre>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>
