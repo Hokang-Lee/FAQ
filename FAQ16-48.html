@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-48</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler 機能で機械判定による一括処理の時間間隔をデフォルト5分より短くしないでください<font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Secure Handler 設定時の securehandler.bat をタスクスケジューラに登録する際に、定期的に機械判定による一括処理の時間間隔をデフォルト5分より短くしないように注意してください。<br>
+<br>
+ユーザー様よりSecure Handler 機能を有効にしながら、メーリングリストを使った配送処理時に、まれにメールが届かない時があると報告がありました。原因を調べていくと、securehandler.bat をタスクスケジューラに登録する際に、定期的に機械判定による一括処理の時間間隔の設定値をデフォルト5分より短くしてあり、2分に設定していることが原因として疑われました。<br>
+<br>
+定期的に機械判定による一括処理の時間間隔とは、securehandler.bat をタスクスケジューラに登録する際の設定時間であり、デフォルト値は5分に設定されています。「メールの着信が5分遅れたり、最大の待ち時間が5分」という意味ではありません。だから待ち時間を少しでも早めようと2分に設定したということだったのですが、これは誤った認識です。Secure Handler 機能による「怪しい」メールの一時保留は、EPSTRSサービスによるSMTP受領時の前段階そのつど必ずチェックされるものであり、ここには設定値は直接関与いたしません。<br>
+まず、Secure Handler の第一段階は「怪しい」メールと判定して一時保留しているわけですが、第二段階としてやはりクロと判定、正式に隔離し拒絶アドレスや拒絶題名に情報を登録する、あるいは回復して配送という動きになるわけなのですが、その際の時間間隔として活用されているとご理解ください。ざっくり言うと、Secure Handler 機能が一時的に「怪しい」と思って一時留め置きしたメールを正式に「クロ」判定するまでの時間だという理解をしていただいてかまいません。<br>
+ですから、機械判定による一括処理の時間間隔とは、Secure Handler によりチェックされたメールがユーザーが自分のメールボックスに届くまでの着信待ちの時間というわけではないのです。<br>
+<br>
+そのため、マニュアルにはデフォルト値の5分で設定した例を記載しています。仮に2分のような短い時間を設定した場合、負荷がかかりすぎ、併せてメーリングリスト機能を使用している場合に展開処理に支障が出ることも考えられます。一方、設定値を延ばしていただく分には特別な支障はありません。デフォルトの5分、あるいは延ばして10分といった設定値でもかまいません。<br>
+<br>
+開発担当の見解では、securehandler.bat をタスクスケジューラに登録する際に機械判定による一括処理の時間間隔設定値がデフォルト5分になったのも、負荷のかかる処理の問題が起きにくいことを判断した結果ですので、デフォルト5分、あるいは延ばして10分といった設定値でお使いください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

@@ -61,7 +61,7 @@ IPロックアウト機能では一定の時間（サンプリング間隔）の間に設定回数以上の連続した
 合わせて IPLockOutSPTime のサンプリング間隔設定（例・1[秒]など）をDWORD値（10進）で設定します。<br>
 ロックアウト時間の IPLockOutTime は上2つの条件判定によるロックアウト時間をDWORD値（10進）で設定します。（例・300[秒]とか60[秒]など）。<br>
 <li>設定が終わったらEPSTPOP3Sサービスを再開します。
-<li>IPロックアウト機能で拒絶された情報は、&quot;C:\Program Files\EPOST\MS\rejectsmtpip.dat&quot;内に次の順で記載されテーブル情報の形でデータ蓄積されます。<br>
+<li>IPロックアウト機能で拒絶された情報は、&quot;C:\Program Files\EPOST\MS\rejectpopip.dat&quot;内に次の順で記載されテーブル情報の形でデータ蓄積されます。<br>
 このファイルはPOP3認証接続時の認証接続ロックアウト機能と共用です。<font color="#cc0000"><b>&quot;iplock&quot;</b></font>はIPロックアウト機能による拒絶の目印となります。<br>
 <small><blockquote>接続元IPアドレス<font color="pink">[TAB]</font>接続時間情報（シリアル値）<font color="pink">[TAB]</font>iplock<br>
 <img src="./img/faq17-09-01.jpg" width="540"></blockquote></small>

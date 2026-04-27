@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-49</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler使用時にメールが届かないときの原因の調べ方は？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Secure Handler 使用時に特定サーバからのメールが届かないとき E-Postのログから調べて原因がわかるかという質問を受けたことがあります。<br>
+acceptlogとreceivelogを調べたところ、先方からはエンベロープFROMが&lt;&gt;でメールが送られようとしており、その後、Secure Handlerによって拒絶をしているようでした。<br>
+<blockquote>
+MAIL FROM:&lt;&gt; SIZE=12427<br>
+550 5.1.1 Please mail to a valid e-mail address. approval filter. '' is entry in the blacklist.</blockquote>
+次にSecure Handlerの管理画面にて［拒否アドレス一覧］（ブラックリスト）に改行のみの行か、あるいは<br>
+:0<br>
+だけの行がないか、確認してください。もし、［拒否アドレス一覧］（ブラックリスト）に改行のみの行か「:0」だけの行が記載されている場合は、該当行を削除してください。<br>
+<br>
+（※エンベロープFROM&lt;&gt;のときの諸問題）
+<br>
+<br>
+さらに念のため中継の制限-マシン毎の中継【effect.dat】も確認してください。<br>
+-------------------------<br>
+#blank false<br>
+#&lt;&gt; default<br>
+-------------------------<br>
+上記の2行はデフォルトで用意した指定行ですので、これが残っていれば特に問題はありません。<br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

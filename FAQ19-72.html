@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-72</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Roundcube mail を E-Post と組み合わせて設定、添付ファイルを送信したときの問題 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Roundcube mail を E-Postと組み合わせて設定、添付ファイルを送信したとき "internal server error" のエラーが返される現象や、さらに Roundcube に添付ファイルをアップロードしたとき添付ファイル名がファイル名+[size=ファイルのバイト数]として変更されてしまう現象が報告されたことがありました。<br>
+これらの現象は最終的に解決したのですが、そのときのサポート担当・開発担当とユーザー様とのやり取りを参考までに掲載いたします。<br>
+<br>
+<b>添付ファイルを送信したとき "internal server error" のエラーが返される現象</b><br>
+<br>
+Roundcube mail にて添付ファイルを添付すると "internal server error" のエラーが返されるという現象については、Roundcube mail や E-Postのモジュールについて以下を見直しました。<br>
+・Roundcube mailのバージョン確認→ver1.6.9、ver1.6.11 <br>
+・php.iniファイルの内容<br>
+・defaults.inc.phpファイルの内容<br>
+・E-Post IMAP4サービス（EPSTIMAP4S）のバージョン確認と最新バージョン適用<br>
+<br>
+---------------（報告への初回返答）---------------<br>
+(1) 添付ファイルのサイズ上限設定として、[roundcubemailフォルダ]\config 下にdefaults.inc.php という設定ファイルがあるので、このファイル内に何らかの値が設定されていないか。<br>
+(2) Roundcube mail 及び EPSTIMAP4S バージョン確認。<br>
+(3) [roundcubemailフォルダ]\temp フォルダのセキュリティ設定において IIS_IUSRS で書き込み権限を与えているかどうか。<br>
+(4) 以下は未確認ながら下記URLでのやり取りにて添付ファイルサイズの設定値について情報あり。<br>
+<a href="https://www.roundcubeforum.net/index.php?topic=2398.0#:~:text=You%27ve%20to%20change%20the%20php%20parameters%20%22upload_max_filesize%22%20%26,within%20the%20.htaccess%20file%20in%20the%20roundcoube%20directory." target="_blank">[添付ファイルのサイズ制限について]</a><br>
+（※日本語訳）<br>
+phpフォルダの php.ini または roundcoubeフォルダの .htaccessファイル内でphpパラメータ "upload_max_filesize" と "post_max_size"を変更する必要があります。「upload_max_filesize」を何に変更するにしても、「post_max_size」は少なくとも1M高くする必要があります。<br>
+　　　　　　　　　↓<br>
+これについて、php.ini ファイルの"upload_max_filesize" と "post_max_size"を変更後、IISを再起動すれば、上限変更されるとの開発担当からの報告がありました。<br>
+<br>
+E-Post Mail Server (x64)の IMAP4サービス（EPSTIMAP4S）に組み合わせる形で、異なるOS環境でそれぞれ RoundCube mail のインストールと設定を行い、下記全てのOS環境で添付ファイルのアップロードが正常に行えることを確認しました。いずれも、"C:\Roundcubemail\temp"フォルダに対する「IIS_USERSを追加し、アクセス権で(読み書き）可能」の権限は与えており、さらに E-Post IMAP4サービス（EPSTIMAP4S）は ver4.71以降の最新モジュールを使いました。<br>
+Windows Server 2012R2 / 2016 / 2019 / 2022 / 2025<br>
+<br>
+（※補足情報）<br>
+php.ini にある"upload_tmp_dir ="の英文説明を見たところ、以下のように記載されていました。<br>
+; Temporary directory for HTTP uploaded files (will use system default if not<br>
+; specified).<br>
+; http://php.net/upload-tmp-dir<br>
+（※日本語訳）「指定されない場合、PHPはシステムのデフォルト設定を使用します。」<br>
+<br>
+「システムのデフォルト設定」がどのようになっているかを確認するため、Roundcubemail のルートフォルダに以下の内容の test.php を作成、デフォルト設定としてアサインされている一時フォルダを確認しました。<br>
+[test.php]<br>
+------------------------<br>
+&lt;?php<br>
+echo sys_get_temp_dir()<br>
+?&gt;<br>
+------------------------<br>
+ブラウザから "http://localhost/roundcubemail/test.php" で表示させたところ、デフォルト設定としてアサインされている一時フォルダが確認できます。<br>
+---[表示結果]-----------<br>
+C:\Windows\TEMP<br>
+---------------------------<br>
+"C:\Windows\TEMP" の該当フォルダに「IIS_USERSを追加し、アクセス権で(読み書き）可能」の権限を与えると、"upload_tmp_dir ="未定義とした場合でも、添付ファイルのアップロードが正常に行えるのを確認しました。php.ini の変更やフォルダへの権限変更があった後は、いずれの場合も、IISの再起動を行って試しました。<br>
+---------------（ここまで）---------------<br>
+<br>
+<b>添付ファイルをアップロードしたとき添付ファイル名がファイル名+[size=ファイルのバイト数]として変更されてしまう現象</b><br>
+<br>
+---------------（ユーザーの報告）---------------<br>
+phpフォルダの php.ini ファイル内の<br>
+;upload_tmp_dir =<br>
+コメントアウトされていましたので<br>
+upload_tmp_dir = c:\roundcubemail\temp<br>
+上記に編集したところ、添付ファイルの利用が可能になりました。<br>
+しかし、Roundcube にアップロードした添付ファイル名が以下のように Roundcube 上で変更されてしまいます。<br>
+（変更後の状態）ファイル名+[size=ファイルのバイト数]<br>
+（例）「test.txt」 を添付ファイルとしてアップロード送信後に Roundcube で表示されるファイル名が「test.txtsize=12」となる<br>
+ただし、Roundcubeから送信していても、受信先がGmailで閲覧しているユーザーのアカウントでは添付ファイルのファイル名は正常な表示となっています。<br>
+<br>
+---------------（上記報告への返答）---------------<br>
+Roundcube にアップロードした添付ファイルの名前が Roundcube 上で変更されてしまう現象ですが、 E-Post IMAP4サービス（EPSTIMAP4S）のモジュールが最新版のときは、ファイルのバイト数がファイル名の後ろに付いてファイル名表示が変わることは確認できませんでしたが、下記のように EPSTIMAP4Sのモジュールが古いときには、現象が確認でき、最新のものに適用したところ、改善されることが確認できました。<br>
+EPSTIMAP4S. v4.67 で自分宛にメール送受信したところ、ファイル名+[size=ファイルのバイト数]と表示されました。これは、EPSTIMAP4Sの旧バージョンが抱えている問題のようです。最新版EPSTIMAP4S v4.71以降に差し替えた結果、"ファイル名"だけの表示に改善されます。<br>
+もし別のメーラーで受信すると名称がおかしくなるというケースであれば、メールクライアント側の問題になります。<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

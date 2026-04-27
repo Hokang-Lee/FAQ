@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-71</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTPサーバでOAuth2の先進認証にて代表アカウントでの認証と代理送信をしているが、C:\mail\oauth2\[メールドメイン名] 下に送信元クライアント名の空のフォルダが生成される <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Post SMTP Serverを設定、OAuth2の先進認証にて代表アカウントでの認証と代理送信をしているが、C:\mail\oauth2\[メールドメイン名] 下に送信元クライアント名の空のフォルダが生成されるが、これはどうしてなのか、支障はないのかという質問を受けたことがあります。<br>
+実際にできる空のフォルダ名は、下記の例のように送信元アカウント名（メールアドレスの＠より前部分）となっており、各送信元アカウントのフォルダ内に access_token.dat、refresh_token.dat、xoauth2_code.dat のファイルができています。<br>
+　C:\mail\oauth2\[メールドメイン名]内に生成されたフォルダ<br>
+　　　smtp_relay.oauth01<br>
+　　　smtp_relay.oauth02<br>
+　　　smtp_relay.oauth03<br>
+　　　smtp_relay.oauth04<br>
+<br>
+上記のように、C:\mail\oauth2\[メールドメイン名]下に smtp_relay.oauth01 などの送信元クライアント名が付いた空のフォルダが生成される理由は、EPSTDSサービスにより、oauth2配送が行われる時点で「エンベロープの送信元」毎に作成される仕様のためです。<br>
+<br>
+実際の配送ですが、EPSTDSサービスが【gateway.dat】を参照して、代表アカウントでメール送信を行っている場合は、認証アカウントとして使っていない送信元アカウント用のフォルダへのトークン生成は行われないので、空のフォルダのままでまったく問題はありません。<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
