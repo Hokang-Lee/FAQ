@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-67</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証パスワードについて複数のドメインを登録しているが、同名ユーザーアカウントの認証パスワードを分けたいのに一緒になってしまう <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+複数のドメインに同名ユーザーがいる場合のパスワードの管理において、「アカウントマネージャで同名ユーザーアカウントのSMTP認証パスワードを分けたいのに一緒になってしまう」というご相談を受けたことがあります。<br>
+<br>
+例えば、<br>
+ドメインA　user1＠example-a.jp<br>
+ドメインB　user1＠example-b.jp<br>
+ドメインC　user1＠example-c.jp<br>
+のように複数ドメインで「user1」という名前のユーザーを運用している状態を前提とします。<br>
+Mail Control画面の「ドメイン管理」タブ画面を開き、運用中のドメイン一覧から作成されたドメインを選択して［詳細］ボタンをクリック。開かれた「詳細」ダイアログボックス上でドメイン管理方法がどうなっているか確認します。<br>
+<br>
+<b>A.「共通ボックス（区別しない）」になっている場合</b><br>
+この運用の場合、ドメインごとにユーザー領域を分けず、共通のメールボックス／共通の認証情報を見るようになります。つまり、同名ユーザーは“同じユーザー”として扱われます。<br>
+　　C:\mail\inbox\[ユーザ名]\apop.dat<br>
+上記ファイル（apop.dat）がSMTP認証用ファイルとなります。表向き3種類のドメインである、example-a.jp、example-b.jp、example-c.jpの同名ユーザー（user1）はいずれも同じファイルがSMTP認証用に使用されることになります。<br>
+<br>
+<b>B.「接続ドメイン/IPで区別する」になっている場合</b><br>
+この運用の場合、ドメインごとにユーザー領域を分けて、個別のメールボックス／個別の認証情報を見るようになります。つまり、同名ユーザーであっても“異なるユーザー”として扱われます。<br>
+　　C:\mail\inbox\[ドメイン名]\[ユーザ名]\apop.dat<br>
+上記ファイル（apop.dat）がSMTP認証用ファイルとなります。表向き3種類のドメインである、example-a.jp、example-b.jp、example-c.jpに同名ユーザー（user1）が存在しても異なるファイルがSMTP認証用に使用されることになります。<br>
+<br>
+このように、「共通ボックス（区別しない）」方式を選択しているか「接続ドメイン/IPで区別する」方式を選択しているかによって、メールボックスフォルダの位置が変わります。それによりSMTP認証パスワードを登録している認証ファイル（apop.dat）も同一フォルダにある共通のものが使われたり、あるいは異なるフォルダにある異なるものが使われる仕組みです。<br>
+<br>
+<b>現状、「共通ボックス（区別しない）」方式を選択していた場合は、「接続ドメイン/IPで区別する」方式にドメイン管理方法を設定変更すれば、個別SMTP認証用ファイルが作成されます。それにより、複数ドメイン管理下でも、アカウントマネージャで同名ユーザーのSMTP認証パスワードを分けることが可能になります。</b><br>
+<br>
+※E-Post SMTP Serverであっても、メールの着信用に使われることはありませんが、ソフトウェアの仕様上メールボックスフォルダの位置は存在します。フォルダの位置についての詳細は下記記事をご参照ください。<br>
+※ドメイン管理方法を「共通ボックス（区別しない）」方式から「接続ドメイン/IPで区別する」方式に変更する場合は、サービスの停止・再開などの作業が必要になります。詳細は下記記事をご参照ください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-11.html">方式の違いによるメールボックスフォルダの作成位置について</a><br>
+●<a href="./faq10-12.html">ドメインの管理方法を共通ボックス方式から接続ドメイン/IPで区別する方式へ移行するとき</a><br>
+●<a href="./faq15-30.html">inboxフォルダ（メールボックスフォルダ）配下に格納されるデータファイルについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-75</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>outlogやoutlocallogを確認すると“B”で始まる「B000～」の連番について抜けがあるが問題はないか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+outlog や outlocallog を確認した際に、“B”で始まる「B000～」の連番（メッセージID）について、番号の抜け（欠番）が見受けられるが問題はないか、というご質問をいただいたことがあります。<br>
+<br>
+例：「B0000000088」の次の行が「B0000000091」<br>
+<br>
+結論として、特定のログ（outlog、outlocallog）だけを見て連番が飛んでいることは正常な動作です。<br>
+E-PostシリーズのメッセージID（B＋連番）は、SMTP受領のタイミングで1通ごとに付与される通し番号です。各ログには「そのログが対象とする処理に該当したメール」だけが記録されるため、1つの配送系ログ（outlog、outlocallog、senderlog など）だけを見ると、全メールの一部分しか載らず、番号が飛んで見えることがよくあります。<br>
+<u>問題があるかどうか</u>は、順番にログを確認して「欠番」を調査したうえで判断します。<br>
+まず前提として、E-Postのメール処理は次の2段階に分かれています。<br>
+<br>
+<b>第一段階</b>：SMTP受領　→　EPSTRS が外部からのメールを受け取り、受信キュー（incoming）へ格納します。<br>
+　　　　　（acceptlog、inlog、receivelog）<br>
+<b>第二段階</b>：SMTP配送　→　EPSTDS が受信キューのメールを宛先へ配送します。<br>
+　　　　　（outlog、outlocallog、senderlog、faillog）<br>
+<br>
+このうち outlocallog は、第二段階で「内部ドメイン宛」へ配送したメールの記録です。一方、outlog は「外部ドメイン宛」へ送信したメールの記録です。たとえば、outlocallog に「欠番」がある場合、その番号は次のどちらかに該当します。<br>
+<b>・（Ａ）</b>第一段階の受領で拒絶（abort）され、そもそも受信・配送されなかった。<br>
+<b>・（Ｂ）</b>第一段階で受領OK（ok）だが、配送段階で「外部ドメイン宛」に配送された、配送に失敗した、またはまだ配送中である。<br>
+該当のメッセージIDが、目的に応じて下記いずれかのログに記録されていることが確認できれば、問題ありません。<br>
+<br>
+【確認手順】<br>
+<b>ステップ１</b>：「欠番」となっているメッセージIDを控えます。<br>
+<br>
+<b>ステップ２</b>：受領されたかどうかを確認する。<br>
+　　　　　　inlog（SMTP受信ログ）に該当IDがあるか確認します。<br>
+　　　　　　記録あり → 正常に受領されています。ステップ３へ。<br>
+　　　　　　記録なし → 受領されなかった可能性が高い。次の acceptlog で確認します。<br>
+　　　　　　acceptlog（接続マシンログ）で、該当の接続が「ok」か「abort」かを確認します。「abort」であれば受領拒絶です。<br>
+　　　　　　拒絶理由の詳細は、receivelog（SMTP受信詳細ログ）で追跡します。「abort」された時刻と接続元IPアドレスを控え、receivelog でその時刻・IPのセッションを確認します。<br>
+<br>
+※拒絶（abort）されたメールは inlog には記録されません。abort の記録は acceptlog と receivelog に残ります。<br>
+<br>
+<b>ステップ３</b>：inlog に該当IDあり＝受領OKの場合、配送先・配送結果を確認する。<br>
+　　　　　　外部ドメイン宛に配送された → outlog（SMTP送信ログ）に記録されます。配送処理の詳細は senderlog（配送処理の詳細ログ）で追跡できます。<br>
+　　　　　　配送に失敗した → faillog（配送失敗ログ）に応答コード・理由とともに記録されます。<br>
+　　　　　　まだ配送が完了していない（再送待ち）→ senderlog にリトライ処理（RetryDomain など）が記録されます。<br>
+<br>
+いずれかのログで該当IDが確認できれば、outlocallog で番号が飛んでいても問題ありません。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq02-35.html">メーリングリストに登録されているアドレスに配送されているか、未登録のアドレスに配送されていることはないか、どのようにしてログで確認できるか</a><br>
+●<a href="./faq05-43.html">配送できなかったメールをログで確認する方法</a><br>
+●<a href="./faq05-30.html">該当メールをログから探し出す基本的な方法と手順</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

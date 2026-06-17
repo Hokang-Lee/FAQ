@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-68</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>中継の制限【effect.dat】で特定IPアドレスを“true”指定する以外に、送信元クライアント側のSMTP認証なしの設定でも接続を許可する方法はあるか？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+送信元クライアント側でのSMTP認証の有効／無効を問わず、すべての接続要求を許可する設定はあるかご質問を受けたことがあります。<br>
+【effect.dat】で特定IPアドレスを“true”指定する方法が一般的ですが、ほかに考えられる方法として以下の2通りがあります。<br>
+<br>
+<b>1.サーバ自体で設定する方法</b><br>
+Mail Controlの「サービス制御」タブ画面の［SMTP認証方法］下の［セキュリティレベル］を［非認証有効］とする。<br>
+設定変更後は必ずEPSTRSサービスを再起動。<br>
+これにより、メールクライアントはユーザー名・パスワードによるSMTP認証を行わずとも、サーバからメールを送信できるようになります。<br>
+<br>
+<b>2.【effect.dat】による記述で設定する方法</b><br>
+Mail Controlの「中継の制限」タブ画面の［マシン毎の中継］【effect.dat】にIPアドレスを無条件許可する方法以外に、［送信元エンベロープFROM］を無条件許可“true”設定することも可能です。<br>
+<font color="#cc0000">下記の例はドメイン名を“true”指定していますが、これは理論的に設定可能であるという意味で、実際に設定するとセキュリティ上問題を招きます。たとえば、この指定方法で内部ドメイン名を“true”設定してしまうと、内部ドメイン名を使って接続されるものは、無条件に受理され、しかもどんなアカウントでもSMTP認証設定に関係なく無条件送信できることになります。通常時には決してしないように十分注意してください。</font><br>
+<br>
+A.送信元エンベロープが特定のドメインの場合に受信を許可したいとき <font color="#cc0000">（※注意）</font><br>
+abc.co.jp<br>
+　　または<br>
+abc.co.jp  true<br>
+<br>
+B.特定の送信元エンベロープの場合に受信を許可したいとき<br>
+abc＠abc.co.jp<br>
+　　または<br>
+abc＠abc.co.jp  true<br>
+<br>
+C.ワイルドカードによる送信元エンベロープの場合に受信を許可したいとき<br>
+a*c＠abc.co.jp<br>
+　　または<br>
+a*c＠abc.co.jp  true<br>
+abc＠abc*.co.jp<br>
+　　または<br>
+abc＠abc*.co.jp  true<br>
+<br>
+※[送信元エンベロープFROM]は、送信元クライアントが指示するエンベロープFROMであり、ヘッダーFromのことではありません。通常、両者は概ね一致することが多いものですが、接続元は意図的に変更することもできるため、送信元クライアントが使う[エンベロープFROM]を明示指定することが肝要です。なお、E-Postのログ（inlogやreceivelog等）に記載されるのはすべてエンベロープFROMになります。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq04-01.html">中継の制限－マシンごとの中継【effect.dat】設定</a><br>
+●<a href="./faq19-69.html">クライアント側がSMTP認証要求する／しないが混在するとき、ユーザー毎に認証ファイルあり／なしで対応できるのに、非認証有効の選択がなぜあるのか</a><br>
+●<a href="./faq19-70.html">IISのSMTPサーバ機能では、匿名アクセスを設定していればクライアントから認証要求があっても無条件に許可ができていた。同じことができないか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

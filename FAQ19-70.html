@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-70</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IISのSMTPサーバ機能では、匿名アクセスを設定していればクライアントから認証要求があっても無条件に許可ができていた。同じことができないか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Windows Server内蔵のIIS「SMTPサーバ機能」における受信側設定［匿名アクセス］などで、クライアントから認証要求があっても無条件に許可する設定ができた。E-Postシリーズでも同じことが可能か。というご質問をいただいたことがあります。<br>
+<b>結論として、E-PostシリーズではIISのSMTPサーバの「匿名アクセス」と同じ動作はできません。</b><br>
+<br>
+まず、E-PostシリーズはIISのSMTPサーバと完全互換ではなく、開発思想も異なります。認証要求があるにもかかわらず、IISのSMTPサーバのように「匿名アクセス設定などにより無条件にアクセスを許可する」ことはE-Postではできません。E-Postシリーズは仕様上、クライアントからSMTP認証要求があると、それに従い必ず認証チェックが入ります。E-Post上のルールとして、このチェックを省略することはできません。<br>
+つまり、基本的に認証を行うかどうかを決めるのはクライアント側設定ということになります。<br>
+IISからの移行で同様の運用をしたい場合は、次の対応方法があります。<br>
+<br>
+・（Ａ）クライアント側の設定を「SMTP認証なし」にする<br>
+　　　　→認証を要求しなくなるため、E-Postの「非認証有効」で受け入れが可能です。<br>
+　　　　　非認証有効については、下記の記事を参考にしてください。<br>
+　　　　　※設定変更後は必ずEPSTRSサービスを再起動してください。<br>
+<br>
+・（Ｂ）クライアント側に正しいSMTP認証情報を設定する<br>
+　　　　→正しいユーザー名・パスワードを設定することでE-Postの認証チェックを通過できます。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-90.html">SMTP認証設定時に「認証ファイル」以外の「非認証有効」「認証専用」を選択するのはどのような場合か</a><br>
+●<a href="./faq19-68.html">中継の制限【effect.dat】で特定IPアドレスを“true”指定する以外に、送信元クライアント側のSMTP認証なしの設定でも接続を許可する方法はあるか？</a><br>
+●<a href="./faq19-69.html">クライアント側がSMTP認証要求する／しないが混在するとき、ユーザー毎に認証ファイルあり／なしで対応できるのに、非認証有効の選択がなぜあるのか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

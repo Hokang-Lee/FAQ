@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-69</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>クライアント側がSMTP認証要求する／しないが混在するとき、ユーザー毎に認証ファイルあり／なしで対応できるのに、非認証有効の選択がなぜあるのか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メールクライアント側の設定で、SMTP認証要求する／しないの設定が混在している場合において、アカウントマネージャの設定でユーザー毎に、「SMTP-AUTH ＆ APOPを使用する」チェックボックスをオン／オフすることにより、認証ファイルあり／なし対応ができるのに、Mail Control画面の［サービス制御］タブ、［セキュリティレベル］ラジオボタンで［非認証有効］の選択肢があるが、これはどのような想定で設けられているか。というご質問をいただいたことがあります。<br>
+<br>
+システム的な面から言えば、2つの設定は、相手にする対象が違います。<br>
+　・（Ａ）ユーザー毎の認証ファイル　　→　　認証してくる相手を、ユーザー単位でチェックする仕組み<br>
+　・（Ｂ）非認証有効　　→　　認証してこない相手を、サーバ全体として受け入れる仕組み<br>
+<br>
+「全機器が認証しないなら認証ファイルで対応できるのでは？」と思われがちですが、認証してこない相手は“誰か”が分からないため、ユーザー毎の認証ファイルでは制御できません。 <b>認証なしの相手を通すかどうかは「非認証有効」でしか決められないため、「非認証有効」という選択肢が別に必要ということになります。</b><br>
+<br>
+さらに、歴史的な面から言えば、E-Post SMTP Server/E-Post Mail Serverシリーズは、登場後20年以上経過しており、いろいろな使用形態で使われてきたことと関連します。<br>
+SMTP認証の仕組みが標準化された当初の時点では、まだまだ新しい仕組みであり、多くのクライアント側は、送信に認証をかけるという発想自体が一般的ではありませんでした。それ以前は接続元のネットワークを信頼して（社内LAN内のPCからの接続は全て信頼する、など）安全性を担保しており、認証に対応していないメールソフトも数多く存在しました。なのでサーバ全体として「非認証も受付可能」という対応ができるよう「非認証有効」が選択肢として設けられてきました。2000年代半ばに迷惑メールやなりすましが社会問題となり、認証なしの送信口が悪用される問題が深刻化したことで、送信には認証をかける運用が標準となりました。E-Postシリーズはそうした歴史的な経緯や環境を引き継いでいます。<br>
+なお、現在は多くの機器がSMTP認証に対応しているため、非認証有効を使う機会は減っていますが、SMTP認証の仕組みを持たない機器が、ユーザー名・パスワードなしでメールを送ってくるケースは存在します。たとえば複合機・スキャナ、監視カメラやセンサー機器など、ログインという概念が存在しない機器が該当します。使っている全機器が認証に対応できるのであれば、非認証有効を使う必要はないということになります。<br>
+
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-90.html">SMTP認証設定時に「認証ファイル」以外の「非認証有効」「認証専用」を選択するのはどのような場合か</a><br>
+●<a href="./faq19-68.html">中継の制限【effect.dat】で特定IPアドレスを“true”指定する以外に、送信元クライアント側のSMTP認証なしの設定でも接続を許可する方法はあるか？</a><br>
+●<a href="./faq19-70.html">IISのSMTPサーバ機能では、匿名アクセスを設定していればクライアントから認証要求があっても無条件に許可ができていた。同じことができないか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
