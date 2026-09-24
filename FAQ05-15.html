@@ -204,6 +204,7 @@ HKEY_LOCAL_MACHINE
        ->RecvDataBufferSize   (DWORD  Default 0) 0:システムに依存  socket受信バッファサイズ
        ->AcceptLimit            (DWORD  Default 0) 同時接続数 0:無制限
        ->AcceptlogEnabled     (DWORD  Default 0) 接続マシンログ(acceptlog) 0:Disable, 1:Enable
+       ->LogSyncEnabled      (DWORD  Default 0) ログ記載の排他同期 0:排他同期しない, 1:排他同期する <font color="blue">(v4.AN～)</font>
        ->SMTPAUTHOnly        (DWORD  Default 0) 0:両方 1:認証専用 2:認証ファイル毎  セキュリティレベル
        ->SMTPAUTHMode        (SZ     Default NO) PLAIN,LOGIN,CRAM-MD5  SMTP認証方式,  "XOAUTH2"を追加 <font color="blue">(v4.AG～)</font>
        ->ChallengeTokenLOGINUser (SZ Default Username:) AUTH LOGINでの応答時チャレンジ文字列設定 <font color="blue">(v4.AK～)</font>
@@ -293,6 +294,7 @@ HKEY_LOCAL_MACHINE
        ->MailFaillogEnabled    (DWORD  Default 0) SMTP配送失敗ログ(faillog) 0:Disable, 1:Enable
        ->SenderlogEnabled     (DWORD  Default 0) 配送時の詳細ログ(senderlog)長出力 0:Disable, 1:Level1ログ, 2:Level2ログ
        ->Sender2logEnabled    (DWORD  Default 1) 配送時の詳細ログ(senderlog)短出力 0:Disable, 1:Enable
+       ->LogSyncEnabled      (DWORD  Default 0) ログ記載の排他同期 0:排他同期しない, 1:排他同期する <font color="blue">(v4.84～)</font>
        ->SaveDead               (DWORD  Default 1) 0:しない 1:する deadフォルダに保管するか否か
        ->LogicalIP                (SZ   Default NULL) 空白(NULL)は常に配送実行、IPアドレスを設定すると該当IP獲得時のみ配送実行
                                       クラスタ構成（E-Post/MSFC）のとき獲得する論理IP（仮想IP）を設定
@@ -305,8 +307,9 @@ HKEY_LOCAL_MACHINE
                                     ※TLSv1.3の暗号組み合わせ名を&quot;:&quot;で区切る。以下が既定値
 <small>                         &quot;TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&quot;</small>
        ->SecureLevel          (DWORD  Default 0) SSL_CTX_set_security_levelの設定に相当 レベル:0 ～ 5 <font color="blue">(v4.81～)</font>
-       ->RecodeBadSTLSDomain  (DWORD  Default 1) STARTTLSで暗号化ネゴシェーションに失敗した宛先ドメイン
-                                     リスト作成と失敗先へのプレーン送信自動切替  1:切替する 0:切替しない <font color="blue">(v4.80～)</font>
+       ->RecodeBadSTLSDomain  (DWORD  Default 1) STARTTLS通信で暗号化ネゴシェーションに失敗した宛先ドメイン
+                                     リストを badstlsフォルダに作成し次回リトライ時へのプレーン送信自動切替
+                                     1:切替する 0:切替しない <font color="blue">(v4.80～)</font>
        ->ADRetryTime          (DWORD  Default 10) ADへのユーザ情報問合せリトライ回数
        ->ADRetryMSec          (DWORD  Default 1000)msec  ADへのユーザ情報問合せリトライ間隔時間(単位:ミリ秒)
        ->ADCashLiveTime      (DWORD  Default 0)sec AD連携のアカウント情報問合せ時のキャッシュ機能有効時間,
@@ -363,6 +366,7 @@ HKEY_LOCAL_MACHINE
        ->SendDataBufferSize  (DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ
        ->AcceptLimit            (DWORD  Default 0) 同時接続数 0:無制限
        ->AcceptlogEnabled    (DWORD  Default 0) POP3の詳細ログ(receivepop3) 0:Disable, 1:Enable
+       ->LogSyncEnabled      (DWORD  Default 0) ログ記載の排他同期 0:排他同期しない, 1:排他同期する <font color="blue">(v4.53～)</font>
        ->MailExtension        (SZ   Default "MSG") メールメッセージファイルの拡張子、デフォルト".MSG"
        ->ListenMode           (DWORD  Default 0) 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ
        ->ListenIP                (SZ   Default NULL) 指定IPアドレス：ポート設定
@@ -414,6 +418,7 @@ HKEY_LOCAL_MACHINE
        ->SendDataBufferSize (DWORD  Default 0) 0:システムに依存  socket送信バッファサイズ
        ->AcceptLimit             (DWORD  Default 0) 同時接続数 0:無制限
        ->AcceptlogEnabled    (DWORD  Default 0) IMAP4の詳細ログ(receiveimap4) 0:Disable, 1:Enable
+       ->LogSyncEnabled      (DWORD  Default 0) ログ記載の排他同期 0:排他同期しない, 1:排他同期する <font color="blue">(v4.74～)</font>
        ->MailExtension        (SZ   Default "MSG") メールメッセージファイルの拡張子、デフォルト".MSG"
        ->ListenMode           (DWORD  Default 0) 0:全てのIP許可, 1:指定IPのみ リッスンIPアドレス制限フラグ
        ->ListenIP                (SZ   Default NULL) 指定IPアドレス：ポート設定

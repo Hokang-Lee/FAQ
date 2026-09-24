@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-78</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メーリングリストを使ってのメール配送時にEPSTDSサービスが停止したことがある <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メーリングリスト宛のメールは受信できているのに、メンバーへの配送が行われない場合、EPSTDSサービス（SMTP配送サービス）が停止していることがあります。ログをたどる切り分けの基本手順は下記記事リンクFAQ02-38「メーリングリストアドレス宛に送信できているが、メーリングリスト登録メンバーに配送できていない、どこから切り分けで調べればよいか」を参照してください。本記事では、EPSTDSサービス停止の見分け方と、原因の点検について説明します。<br>
+<br>
+<b>症状の見分け方</b><br>
+EPSTDSサービスが停止していると、次のような症状がそろって現れます。<br>
+・incomingフォルダ（メールキュー）に、受信済みメールのデータ（B***.MSGと同名の.RCPファイル）が多数滞留している。<br>
+・クライアントからの送信は、エラーもタイムアウトも返らず正常終了になる（受信を担うEPSTRSは動作し、配送を担うEPSTDSだけが停止しているため）。<br>
+・当日分のログのうち、配送側（outlog・senderlog・outlocallog・faillog）だけが作られず、受信側（inlog・receivelog・acceptlog）は作られている。<br>
+この「受信側ログはあるのに配送側ログだけが無い」というかたよりが、EPSTDS停止の典型的な手がかりです。あわせて、Windowsのイベント ビューアー→Windowsログ→Applicationに、epstds.exeのApplication Errorが記録されていないかをご確認ください。EPSTDSサービスがクラッシュした場合、次のような記録が残ります。<br>
+---（例）------------<br>
+障害が発生しているアプリケーション名：epstds.exe<br>
+例外コード：0xc0000005<br>
+障害が発生しているモジュール名：epstds.exe<br>
+障害が発生しているアプリケーション パス：C:\PROGRA~1\EPOST\MS\epstds.exe<br>
+------------------------<br>
+<br>
+<b>復旧と原因の点検</b><br>
+EPSTDSサービスを再開すると配送が再開され、incomingフォルダに滞留していたメールは順次送出されて減っていきます。ただし再開は滞留の解消にすぎず、停止した原因は別途対処が必要です。特に次の点をご確認ください。<br>
+<b>まず、セキュリティ対策ソフトの除外設定です。アンチウイルスソフトやEndpoint系セキュリティソフト、Windows Defender等を利用している場合、E-Postのメール作業用フォルダ・メールボックスフォルダに加え、E-Postのサービスプログラム本体（実行ファイル）も除外する必要があります。除外が不完全だと、E-Post関連サービスが停止（クラッシュ）することがあります。</b>導入当初の除外設定が解除されていないかも含めてご確認ください。<br>
+<b>次に、モジュールバージョンです。古いモジュールのままだと、過去に修正済みの現象に該当する可能性があります。</b>E-Post Mail Controlの「バージョン情報」タブのCOMPONENT LISTで、EPSTRS・EPSTDSのバージョンをご確認ください。<br>
+最後に、次善の安全策として、Windowsの「サービス」でEPSTDS（表示名「E-Post SMTP Delivery Agent」）の「回復」タブで「サービスを再起動する」を設定しておくと、万一の停止時に自動復旧できます。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-49.html">EPSTDS（SMTP配送サービス）でアプリケーションエラーが発生した</a><br>
+●<a href="./faq03-29.html">アンチウイルスソフトをメールサーバマシンに入れる場合、除外設定を必須とする理由について</a><br>
+●<a href="./faq03-08.html">メールサーバマシンにアンチウイルスソフトを同居させるときの注意点</a><br>
+●<a href="./faq15-89.html">Windowsの「サービス」で「サービスを再起動する」設定しておくことをお薦め</a><br>
+●<a href="./faq02-38.html">メーリングリストアドレス宛に送信できているが、メーリングリスト登録メンバーに配送できていない、どこから切り分けで調べればよいか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

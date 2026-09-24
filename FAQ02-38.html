@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ02-38</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メーリングリストアドレス宛に送信できているが、メーリングリスト登録メンバーに配送できていない、どこから切り分けで調べればよいか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メーリングリストのアドレス宛にメールを送信することはできるものの、メーリングリストに登録されているメンバーへの実際の配送（メーリングリスト展開）が行われない、というお問い合わせをいただくことがあります。<br>
+「inlogは存在するがoutlogのファイル自体が見当たらない」「単純なSMTP送信もできていないように見える」といった症状で気づかれるケースです。<br>
+このようなときは、いきなりoutlogを調べるのではなく、受領から配送までの記録を段階を追って確認していくことが、解決への近道となります。以下、確認のポイントを順にご説明します。<br>
+<br>
+<b>inlogとoutlogは「別の段階」の記録</b><br>
+まず前提として、inlogとoutlog は記録している処理の段階が異なります。<br>
+・inlog（SMTP受信ログ）　　EPSTRS サービスが行うSMTP受領段階で、受領をOKした記録です。<br>
+・outlog（SMTP送信ログ）　　EPSTDS サービスが行う、外部宛への配送段階の記録です。<br>
+そのため、outlogが存在しないことをもって、ただちに「配送されていない」と判断することはできません。受領と配送の間の記録を確認し、処理がどの段階まで進んでいるのかを追跡する必要があります。<br>
+<br>
+<b>メーリングリストは通常の配送とは動きが異なる</b><br>
+もう一つ、重要な前提があります。メーリングリストが使われるときは、通常の1対1の配送とは動きが異なります。<br>
+メーリングリスト宛に届いたメールは、EPSTDSサービスが各メンバー宛に展開して送り出しますが、このとき、仮にメンバーが内部ドメイン内にいる場合でも、EPSTDSサービスから再度EPSTRSサービスが受領するという動きを示します。<br>
+さらに、内部ドメイン宛メンバーへの配送は、outlogではなくoutlocallogに記録されます。そのため、メンバーが内部ドメインに所属している構成では、outlogのファイル自体が作られないことは、必ずしも異常とは限りません。<br>
+<br>
+<b>確認していくログと手順</b><br>
+上記を踏まえ、以下のログを段階順に追って確認します。
+<br>
+■ 受領段階（EPSTRS サービス）で確認するログ<br>
+・inlog（SMTP受信ログ）　　　　　メーリングリストアドレス宛に、確かにメールが届いているかを確認します。<br>
+・receivelog（SMTP受信詳細ログ）　受領段階の詳細な記録です。<br>
+　※receivelog は「E-Post Mail Control」画面には項目が表示されませんが、切り分けにきわめて重要度の高いログです。取得するにはフォルダを手動で作成する必要があります。具体的な取得方法は下記の関連FAQをご参照ください。<br>
+<br>
+■ 配送段階（EPSTDS サービス）で確認するログ<br>
+・senderlog（SMTP配送詳細ログ）　　　配送段階の詳細な記録です。<br>
+・outlog（SMTP送信ログ）　　　　　　　外部ドメイン宛メンバーへの配送記録です。<br>
+・outlocallog（SMTPローカル送信ログ）　内部ドメイン宛メンバー（同一 E-Post 上のユーザー）への配送記録です。outlog ではなく、こちらに記録されます。<br>
+　※outlocallog も「E-Post Mail Control」画面には項目が表示されないログです。具体的な取得方法は下記の関連FAQをご参照ください。<br>
+<br>
+<b>メッセージ ID の「枝番」に注意</b><br>
+メーリングリスト配送では、配送先メンバーごとの処理の都合により、メッセージ ID の末尾に枝番が付与されます。<br>
+----------------------------------------------<br>
+（例）B1098639542-001.MSG　または　B1098639542-M00000001.MSG<br>
+----------------------------------------------<br>
+そのため、ログを検索する際は、「B」で始まる10桁の連番だけでなく、枝番の付いたIDも対象にして追跡してください。枝番の種類については、下記の関連FAQをご参照ください。<br>
+<br>
+<b>冗長構成の場合の補足</b><br>
+共通ストレージ＋メールサーバ 2 台といった冗長構成の場合は、実際に処理を行ったノード側のサービス（EPSTRS／EPSTDS）でログが記録されます。どちらのノードで受領・配送処理が行われたかを意識して、該当するノードのログをご確認ください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq02-35.html">メーリングリストに登録されているアドレスに配送されているか、未登録のアドレスに配送されていることはないか、どのようにしてログで確認できるか</a><br>
+●<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）について</a><br>
+●<a href="./faq05-08.html">SMTPローカル送信ログ（outlocallog）について</a><br>
+●<a href="./faq05-18.html">ログに記録されるメッセージIDの後の枝番種類について</a><br>
+●<a href="./faq01-26.html">メーリングリストから内部ユーザー宛の送信で再転送できない</a><br>
+●<a href="./faq02-03.html">メーリングリスト詳細設定の「未送信レポート先」が「返信しない」設定のとき、配信先SMTPサーバーに受信拒否される</a><br>
+●<a href="./faq02-06.html">メーリングリストにコメントを投稿したはずなのに、投稿者個人への返信メールになってしまう</a><br>
+●<a href="./faq19-78.html">メーリングリストを使ってのメール配送時にEPSTDSサービスが停止したことがある</a><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
