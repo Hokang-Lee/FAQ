@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-85</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body {
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height:2.0em;
+  margin: 10px;
+  padding: 5px;
+ }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>開封通知メールが正常に送信されたのか、メールサーバのログから確認する方法はあるか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+開封確認要求付きメールを受信した利用者が開封通知を送信したものの、送信元に開封通知が届いていない場合、E-Postのログから送信状況を確認できるか、その考え方と追跡手順を説明します。<br>
+<br>
+開封通知メールは、メールサーバ上では通常のメールと区別して処理されるものではありません。開封通知専用のログはなく、通常のメール送信と同じ方法で、SMTP受領段階とSMTP配送段階のログを順に追跡します。<br>
+<br>
+一般的な開封確認要求は、受信メールのヘッダーに通知先を示すDisposition-Notification-To:などのヘッダーが含まれていることで、対応するメールクライアントが利用者に開封通知を送るか確認する仕組みです。開封通知への対応、通知の送信可否、確認画面の表示などは、メールクライアント側の機能と設定に依存します。<br>
+<br>
+<b>【確認の前提】</b><br>
+<ul>
+<li>開封通知メールだけを識別する専用ログや専用フラグはありません。<br>
+<li>利用者がメールクライアントで開封通知の送信を指示した時刻、送信者アドレス、開封通知の宛先を確認しておくと、ログを検索しやすくなります。<br>
+<li>ログ間の追跡では、時刻やメールアドレスで候補を絞り、最終的には「B」で始まるメッセージIDをキーに確認します。<br>
+</ul>
+<br>
+<b>【追跡手順】</b><br>
+<br>
+<b>1．EPSTRSによるSMTP受領段階を確認する</b><br>
+最初に、メールクライアントからE-Postへ開封通知メールが送信要求されたかを確認します。inlog、acceptlog、receivelogを順に確認してください。<br>
+<br>
+<blockquote>
+<b>inlog（SMTP受信ログ）</b>：記録があれば、EPSTRSがメールをSMTP受領したことを示します。<br>
+<b>acceptlog（マシン接続ログ）</b>：SMTP受領された接続はok、SMTP受領を拒否された接続はabortとして記録されます。<br>
+<b>receivelog（SMTP受信詳細ログ）</b>：SMTP受領の詳細を確認できます。受領に成功した処理だけでなく、受領を拒否した処理とその理由も調査できます。
+</blockquote>
+<br>
+inlogに該当する記録がない場合、メールクライアントからE-Postへの送信要求自体が行われていない可能性があります。acceptlogにabortがある場合は、同じ時刻帯のreceivelogを確認し、SMTP認証、送信元、宛先、受信制限など、拒否された段階と応答内容を調べます。<br>
+<br>
+<b>2．メッセージIDを特定する</b><br>
+inlogまたはreceivelogから、開封通知メールに対応する「B」で始まるメッセージIDを確認します。以降のoutlog、faillog、senderlogでは、このメッセージIDを検索キーに使用します。<br>
+<br>
+時刻だけで追跡すると、同じ時間帯に処理された別メールと混同する可能性があります。送信時刻、送信者、宛先で候補を絞った後、メッセージIDでログ間を関連付けてください。<br>
+<br>
+<b>3．EPSTDSによるSMTP配送段階を確認する</b><br>
+EPSTRSが受領した後、EPSTDSが開封通知メールを宛先へ配送できたかを確認します。outlog、faillog、senderlogを使用します。<br>
+<br>
+<blockquote>
+<b>outlog（SMTP送信ログ）</b>：該当メッセージIDの記録があれば、外部ドメイン宛のSMTP配送が成功したことを示します。<br>
+<b>faillog（配送失敗ログ）</b>：配送リトライを行った後、最終的に配送できなかったメールが記録されます。<br>
+<b>senderlog（配送詳細ログ）</b>：接続、SMTP応答、配送成功、配送リトライ、最終失敗までの詳細を確認できます。
+</blockquote>
+<br>
+outlogに該当メッセージIDがあれば、E-Postから接続先SMTPサーバへの配送は成功しています。ただし、接続先SMTPサーバが受領した後の処理や、最終的に受信者のメールボックスへ格納されたかどうかまでは、E-Post側のログだけでは確認できません。<br>
+<br>
+faillogに該当メッセージIDがある場合は、最終的に配送が失敗しています。senderlogから同じメッセージIDを検索し、名前解決、接続、STARTTLS、SMTP認証、MAIL FROM、RCPT TO、DATAなど、どの処理で失敗したかを確認してください。<br>
+<br>
+faillogに記録されていなくても、配送リトライ中である可能性があります。senderlogで接続先からの応答やリトライ状況を確認し、必要に応じてdomains／holdingフォルダにリトライデータが残っていないか確認してください。<br>
+<br>
+<b>【確認結果の考え方】</b><br>
+<blockquote>
+<b>inlogに記録あり、outlogに記録あり</b>：E-Postが開封通知メールを受領し、接続先SMTPサーバへの配送に成功しています。<br>
+<b>inlogに記録あり、faillogに記録あり</b>：E-Postは開封通知メールを受領しましたが、配送リトライ後に最終失敗しています。<br>
+<b>inlogに記録あり、outlog／faillogに記録なし</b>：senderlogで配送処理やリトライ状況を確認してください。まだ最終結果が確定していない可能性があります。<br>
+<b>inlogに記録なし</b>：メールクライアントからE-Postへ開封通知メールが送信されていないか、SMTP受領前の段階で拒否された可能性があります。acceptlogとreceivelogを確認してください。
+</blockquote>
+<br>
+<b>【注意事項】</b><br>
+<ul>
+<li>開封通知要求が付いていても、受信者側のメールクライアントやポリシーによって、開封通知を送信しない場合があります。<br>
+<li>利用者が開封通知の送信を選択しても、メールクライアントがE-Postへ送信要求を行わなければ、E-Postのinlogには記録されません。<br>
+<li>outlogの配送成功は接続先SMTPサーバが受領したことを示すものであり、相手のメールボックスへの最終配達や、相手側での迷惑メール判定までは確認できません。<br>
+<li>開封通知メールは通常メールとして処理されるため、From:やSubject:だけでは識別しにくい場合があります。送信時刻、送信元、宛先、メッセージIDを組み合わせて追跡してください。<br>
+</ul>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-43.html">配送できなかったメールをログで確認する方法</a><br>
+●<a href="./faq05-30.html">該当メールをログから探し出す基本的な方法と手順</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

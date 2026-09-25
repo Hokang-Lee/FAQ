@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-84</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body {
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height:2.0em;
+  margin: 10px;
+  padding: 5px;
+ }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>迷惑メール対策の総合的考え方と優先順位について <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+迷惑メール対策は、メールヘッダーのFrom:だけを条件にするのではなく、接続元IPアドレス、メール本文中のURL、SMTP通信時のエンベロープFROMなど、異なる段階の情報を組み合わせて実施することが重要です。ここでは、E-Postで迷惑メール対策を行うときの基本的な考え方と、推奨する設定の優先順位を説明します。<br>
+<br>
+<b>【最初に理解しておくこと】</b><br>
+<ul>
+<li>メールヘッダーのFrom:は詐称可能であるため、表示されたドメインをそのまま信頼して拒絶条件にするだけでは、十分な効果を得られない場合があります。<br>
+<li>メールフィルタ設定【mail.dat】のFrom:指定は、メールヘッダーのFrom:を判定するものであり、SMTP通信時のエンベロープFROMを判定するものではありません。<br>
+<li>【mail.dat】は、SURBL方式による本文中URLの判定や、件名、本文などに含まれる特徴的な文字列の判定に使用すると効果的です。<br>
+<li>エンベロープFROMのドメインを条件に受信を拒絶する場合は、中継の制限【effect.dat】を使用します。<br>
+</ul>
+<br>
+<b>【推奨する迷惑メール対策の優先順位】</b><br>
+<br>
+<b>1．ORDB（DNSBL）による接続元IPアドレスの判定</b><br>
+最初に、［中継の制限］－［ORDBによる制限］へ、運用に適したDNSBLサイトを設定します。DNSBLは、接続元IPアドレスがブラックリストに登録されているかをSMTP接続時に確認する方式です。<br>
+<br>
+SMTP受信処理の早い段階で接続を拒絶できるため、メール本文を受領してから判定する方式と比べ、メールサーバへの負荷を抑えやすい利点があります。迷惑メール対策では、まずORDB（DNSBL）の設定状況を確認してください。<br>
+<br>
+設定例として、SpamCopを使用する場合は、次のDNSBLサイトを［ORDBによる制限］に指定します。<br>
+<blockquote>
+bl.spamcop.net
+</blockquote>
+※DNSBLサイトは、提供条件、利用制限、応答速度、判定傾向などを確認したうえで選定してください。複数サイトを指定すると検出機会は増えますが、DNS問い合わせ数と処理時間も増加します。<br>
+<br>
+<b>2．SURBL方式によるメール本文中URLの判定</b><br>
+次に、メールフィルタ設定【mail.dat】でSURBL方式のサイトを指定します。SURBLは、受信したメール本文に記載されたURLのドメインを照会し、迷惑メールや悪意のあるサイトとして登録されているかを判定する方式です。<br>
+<br>
+ORDB（DNSBL）が接続元IPアドレスを入口で判定するのに対し、SURBLはメール本文を受領し、一時保存した後にURLを検査します。このため、ORDBよりメールサーバの負荷は大きくなりますが、接続元IPアドレスだけでは判定できない迷惑メールを検出するための重要な対策です。<br>
+<br>
+【mail.dat】では、SURBLによる判定に加え、Subject:、From:、Body:などの条件を使用して、件名や本文に繰り返し現れる特徴的な文字列を補助的に判定できます。ただし、From:ヘッダーのドメインだけに依存した設定は避けてください。<br>
+<br>
+<b>3．【effect.dat】によるエンベロープFROMの判定</b><br>
+特定のエンベロープFROMやドメインからのSMTP受信を拒絶したい場合は、中継の制限【effect.dat】でfalse指定を行います。<br>
+<br>
+エンベロープFROMは、メールソフトに表示されるFrom:ヘッダーとは異なります。判定対象を調査するときは、メールヘッダーだけではなく、E-Postのinlogやreceivelogなどを確認してください。E-Postのログに記録されるFROM項から、SMTP通信時のエンベロープFROMを確認できます。<br>
+<br>
+同じFrom:ヘッダーのドメインから迷惑メールが繰り返し届いているように見えても、実際のエンベロープFROMや接続元IPアドレスが異なることがあります。拒絶条件を追加する前に、ログで実際の通信情報を確認することが重要です。<br>
+<br>
+<b>【メールサーバの負荷を考慮した対策順序】</b><br>
+<blockquote>
+<b>ORDB（DNSBL）</b>：SMTP接続時に接続元IPアドレスを判定し、受信前に拒絶できるため負荷は比較的小さい<br>
+<b>SURBL</b>：メール本文を受領・保存した後でURLを照会するため、ORDBより負荷が大きい<br>
+<b>mail.datの文字列判定</b>：件名、From:ヘッダー、本文などの特徴を補助的に判定<br>
+<b>effect.dat</b>：ログで確認したエンベロープFROMを条件に、特定ドメインなどを拒絶
+</blockquote>
+迷惑メール対策は、負荷の小さい入口側の対策から順に実施し、それを通過したメールを後段のフィルタで詳しく判定する構成が基本です。まずORDB（DNSBL）、次にSURBL、必要に応じてmail.datのパターン判定とeffect.datのエンベロープFROM判定を組み合わせてください。<br>
+<br>
+<b>【設定後の確認と見直し】</b><br>
+<ul>
+<li>acceptlog、inlog、receivelogなどを確認し、どの段階で拒絶または受領されているかを把握します。<br>
+<li>正当なメールが拒絶される誤検知がないか、設定後も継続して確認します。<br>
+<li>DNSBL／SURBLサイトの応答が遅い場合は、SMTP受信処理全体の遅延につながるため、応答速度や利用状況を見直します。<br>
+<li>From:ヘッダー、件名、本文の文字列は容易に変更されるため、単一条件に依存せず複数の対策を組み合わせます。<br>
+<li>迷惑メールの傾向や接続元は変化するため、ログを基に定期的に設定を見直します。<br>
+</ul>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq04-02.html">ORDBによる制限（ordb.dat）設定</a><br>
+●<a href="./faq19-27.html">迷惑メール対策でメールフィルタ設定【mail.dat】にFrom:アドレスを指定しているが、まったく効かない</a><br>
+●<a href="./faq01-81.html">メールフィルタ【mail.dat】の設定事例</a><br>
+●<a href="./faq19-32.html">エンベロープFROMを判定条件に使う場合の方法[A]</a><br>
+●<a href="./faq05-04.html">SMTP受信ログ（inlog）について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

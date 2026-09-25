@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-82</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body { background-color: #ffffff; font-size: 12px; line-height:2.0em; margin: 10px; padding: 5px; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+ gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>配送エラーとなったメールを検知してエラーメールデータを任意場所に退避させることをしたいが可能か <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+配送エラーとなったメールを削除せず任意の場所へ退避し、エラー要因の回復後に手動で再送する運用が可能か、その考え方と注意点を説明します。<br>
+<br>
+メールは、初回の配送に失敗した時点ですぐに最終的な配送エラーとなるわけではありません。EPSTDSの設定内容に従い、必要な回数または期間にわたって配送リトライが行われます。規定のリトライ回数または期間を終え、配送を断念する時点を外部の監視プログラムから正確に判定することは困難です。<br>
+<br>
+配送リトライ待機中のデータは、［メール作業用フォルダ］（既定値 C:\mail\）内のリトライ関係フォルダに一時保存されます。<br>
+<blockquote>
+<b>domainsフォルダ</b>：配送リトライを行うメールアドレス、エンベロープ情報、接続結果などのデータ<br>
+<b>holdingフォルダ</b>：配送リトライを行うメール本体データ
+</blockquote>
+退避する場合は、domainsフォルダとholdingフォルダに保存されている対応データを組として取り扱う必要があります。片方だけを移動または削除すると、リトライデータの不整合や孤児化を招く可能性があります。<br>
+<br>
+<b>【動作中のリトライ関係フォルダを外部ツールで操作しないでください】</b><br>
+E-Post SMTP Server (x64)およびE-Post Mail Server (x64)の配送処理が動作している状態で、別のプログラムからdomains／holdingフォルダ内のデータを非同期に取得、移動、削除することは推奨できません。EPSTDSによる一連の配送処理を阻害したり、同じファイルを同時に操作したりする可能性があります。<br>
+<br>
+どうしても外部ツールで退避処理を行う場合は、次の手順を検討してください。<br>
+<ol>
+<li>EPSTDS（SMTP配送サービス）を停止します。<br>
+<li>domainsフォルダとholdingフォルダから、対象メールに対応するデータを確認します。<br>
+<li>対応するデータを組として、任意の退避先フォルダへ移動します。<br>
+<li>残されたリトライデータに不整合がないことを確認します。<br>
+<li>EPSTDSサービスを再開します。<br>
+</ol>
+※外部ツールによる退避処理、および退避後の手動再送を含む動作は、製品の標準機能として保証されるものではありません。処理内容と影響を十分に検証したうえで、お客様の責任において実施してください。<br>
+<br>
+※最終的な配送失敗時には、通常、送信元へ返すエラーメールが生成されます。エラーメール自体も配送できず、どこにも返送できなかった場合は、deadフォルダへ保存されることがあります。リトライ待機中の元メールを退避する運用と、最終配送失敗後に生成されるエラーメールを扱う運用は区別してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-67.html">リトライ処理が行われるときの情報とフォルダについて</a><br>
+●<a href="./faq01-65.html">リトライ回数やリトライ期間の設定について</a><br>
+●<a href="./faq17-73.html">holding/domainsのリトライ関係フォルダに残ったデータは削除してよい？</a><br>
+●<a href="./faq15-52.html">リトライデータの孤児化防止とリトライデータを退避させるときのベストな手順について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br><br>
+</body>
+</html>

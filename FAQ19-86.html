@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-86</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body {
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height:2.0em;
+  margin: 10px;
+  padding: 5px;
+ }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>アカウントのAD連携をしているが、POP3認証時にLSAプロセス（LSASS.exe）の使用率が高くなる？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-PostでユーザーアカウントのAD連携またはWindowsアカウント連携を行っている環境において、POP3認証時にLSAプロセス（LSASS.exe）のCPU使用率が高くなる場合の考え方と確認事項を説明します。<br>
+<br>
+AD連携またはWindowsアカウント連携を使用している場合、POP3認証時にはWindowsの認証処理としてLSAプロセス（LSASS.exe）が使用されます。このため、POP3の認証要求が発生した時点でLSASS.exeのCPU使用率が一時的に上昇すること自体は考えられます。<br>
+<br>
+ただし、POP3認証時にLSASS.exeの使用率が異常に高い状態となる場合、メールサーバ上のアンチウイルスソフトやセキュリティソフトのリアルタイムスキャンが、E-Postの処理フォルダや関連ファイルへ介入していないか確認してください。<br>
+<br>
+<b>【アンチウイルスソフトの除外設定との関係】</b><br>
+アンチウイルスソフトの検索除外設定が行われていない場合、E-Postサービスによるファイルアクセスとアンチウイルスソフトによる監視が競合し、E-Post側の処理が異常に遅くなったり、サーバ負荷が高くなったりすることがあります。<br>
+<br>
+特に、AD連携またはWindowsアカウント連携を行っている環境では、POP3認証処理がLSASS.exeを経由するため、E-Postサービス側の処理遅延やファイルアクセス競合が重なることで、LSASS.exeの使用率が高くなる可能性があります。過去にも、AD連携環境でアンチウイルスソフトの除外設定が不足していたことにより、同様の現象が発生した事例があります。<br>
+<br>
+<b>【確認する項目】</b><br>
+<ol>
+<li>メールサーバ上のアンチウイルスソフトで、E-Postが使用するフォルダが検索除外されているか確認します。<br>
+<li>除外設定が登録済みであっても、製品更新、OS更新、仮想マシンの再作成、設定移行などにより、除外設定が無効化または未反映になっていないか確認します。<br>
+<li>除外対象のパスが、現在のE-Postのインストール先およびメール作業用フォルダと一致しているか確認します。<br>
+<li>アンチウイルスソフト側のログを確認し、E-Postの実行ファイル、メールデータ、認証関連ファイルなどが検査、遮断、隔離されていないか確認します。<br>
+<li>POP3認証が集中する時間帯と、LSASS.exeのCPU使用率が上昇する時間帯が一致しているか確認します。<br>
+<li>除外設定を再適用した後、必要に応じてアンチウイルスソフトおよび関連するE-Postサービスを再起動し、現象が改善するか確認します。<br>
+</ol>
+<br>
+<b>【切り分けの考え方】</b><br>
+<blockquote>
+<b>除外設定の再適用後に改善した場合</b>：アンチウイルスソフトの監視がE-Postの処理に介入し、POP3認証時のLSASS.exe負荷を高めていた可能性があります。<br>
+<b>POP3認証時だけ負荷が高い場合</b>：AD連携またはWindowsアカウント連携による認証処理との関係を優先して確認します。<br>
+<b>POP3認証がない時間帯にも負荷が高い場合</b>：E-Post以外のWindows認証処理、ドメインコントローラーとの通信、セキュリティソフト、OS側のイベントなども含めて切り分けます。<br>
+<b>除外設定を再適用しても改善しない場合</b>：POP3接続数、認証失敗の連続、総当たり攻撃、AD応答遅延、ネットワーク遅延など、別の負荷要因を調査します。
+</blockquote>
+<br>
+<b>【調査時に採取するとよい情報】</b><br>
+<ul>
+<li>LSASS.exe、EPSTPOP3S、EPSTRSなどのCPU使用率の推移<br>
+<li>現象発生時刻のpop3logおよびreceivepop3<br>
+<li>Windowsのイベントログ<br>
+<li>アンチウイルスソフトの検査・隔離・除外設定のログ<br>
+<li>POP3接続数、認証成功数、認証失敗数<br>
+<li>ADまたはドメインコントローラーとの通信状態および応答時間<br>
+</ul>
+<br>
+なお、LSASS.exeはWindowsの認証に関係する重要なシステムプロセスです。LSASS.exeを停止、強制終了、除外対象として直接指定するのではなく、E-Postが使用するフォルダやファイルに対して、必要なアンチウイルス除外設定を行ってください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq03-29.html">アンチウイルスソフトをメールサーバマシンに入れる場合、除外設定を必須とする理由について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

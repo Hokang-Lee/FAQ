@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-83</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body {
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height:2.0em;
+  margin: 10px;
+  padding: 5px;
+ }
+ pre {
+  background-color: #ffffff;
+  font-size: 12px;
+  line-height:1.6em;
+  margin: 10px;
+  padding: 5px;
+ }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>自動転送設定時に元メールと転送メールを関連付けてログで追跡する手順 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+自動転送機能を使用したとき、元メールと転送メールには異なるメッセージIDが採番されます。元メールから各転送メールへの関連付けを確認するには、inlog、senderlog、outlocallogを組み合わせて追跡します。<br>
+<br>
+内部アカウントから内部アカウントへ自動転送する場合、EPSTDS（SMTP配送サービス）からEPSTRS（SMTP受信サービス）へSMTPプロトコルで再送信され、EPSTRSが転送メールを再受信します。このため、最初に受信した元メールのメッセージIDとは別に、転送メールごとの新しいメッセージIDが採番されます。<br>
+<br>
+inlogとoutlocallogだけでは、元メールと転送メールの関連付けを確定できません。senderlogに記録される、元メールの送信処理とEPSTRSが応答した新しいメッセージIDを確認する必要があります。<br>
+<br>
+<b>【追跡手順】</b><br>
+<br>
+<b>1．inlogで元メールのメッセージIDを特定する</b><br>
+inlogから、最初に受信したメールのメッセージID、受信時刻、接続元IPアドレス、送信元、送信先を確認します。接続元IPアドレスがメールサーバ自身のIPアドレスではなく、外部のクライアントや別サーバのIPアドレスである記録が元メールの候補です。<br>
+<pre>
+&lt;B0000000169@example.jp&gt; [29/Jan/2026:15:42:10]
+192.0.2.10 sender@example.net user01@example.jp
+
+&lt;B0000000170@example.jp&gt; [29/Jan/2026:15:42:10]
+192.0.2.20 example.jp forward@example.jp user02@example.jp
+</pre>
+上記例では、接続元IPアドレスがメールサーバ自身ではないB0000000169を元メールと判断します。B0000000170のように、受信時刻が近く、接続元IPアドレスがメールサーバ自身である記録は、自動転送メールの候補と推定できます。ただし、inlogだけでは関連付けは確定できません。<br>
+<br>
+<b>2．senderlogで元メールから新しいメッセージIDへの関連付けを確認する</b><br>
+senderlogから、手順1で特定した元メールのメッセージIDを検索します。元メールのメッセージIDは、時刻表示の右側にある角括弧内に記録されます。<br>
+<pre>
+[15:42:10:234] [B0000000169] SendMailMess
+[15:42:10:234] get_reply():token=220 example.jp E-POST ESMTP Receiver
+[15:42:10:234] [B0000000169] SendMailMess:HELO example.jp
+          ：
+[15:42:10:297] get_reply():token=354 Start mail input;id &lt;B0000000170&gt;
+[15:42:10:297] [B0000000169] SendData complete.
+          ：
+[15:42:10:359] get_reply():token=250 2.0.0 Message received ok.
+[15:42:10:359] [B0000000169] SendMailMess:QUIT
+</pre>
+この例では、元メールB0000000169の配送セッションに対して、EPSTRSが新しいメッセージID B0000000170を発番したことが確認できます。したがって、B0000000169が元メール、B0000000170が自動転送によるメールであると関連付けできます。<br>
+<br>
+確認する主なポイントは次の通りです。<br>
+<ul>
+<li>EPSTRS（E-POST ESMTP Receiver）のグリーティング応答があること。<br>
+<li>元メールのメッセージIDが角括弧内に継続して記録されていること。<br>
+<li>「354 Start mail input;id &lt;新しいメッセージID&gt;」で転送メールのメッセージIDが通知されていること。<br>
+<li>「250 2.0.0 Message received ok.」でEPSTRSの受領完了を確認できること。<br>
+</ul>
+複数の宛先へ自動転送している場合は、元メールのメッセージIDをキーにsenderlogを検索し、同様の記録を繰り返し確認して、転送先ごとに新しく発番されたメッセージIDを抽出します。転送先が複数の場合、新しいメッセージIDが必ず連番になるとは限りません。<br>
+<br>
+<b>3．outlocallogで転送メールのメールボックス着信を確認する</b><br>
+senderlogで関連付けを確定した後、outlocallogから新しいメッセージIDを検索します。転送先アドレスへのsent記録があれば、内部アカウントのメールボックスへ着信したことを確認できます。<br>
+<pre>
+B0000000170@example.jp sent on [29/Jan/2026:15:42:10]
+to 192.0.2.20 from forward@example.jp to user02@example.jp
+</pre>
+outlocallogには接続元IPアドレスが記録されないため、outlocallogだけで元メールと自動転送メールを判別することはできません。元メールとの関連付けはsenderlogで確定し、outlocallogは最終的なメールボックス着信の確認に使用します。<br>
+<br>
+<b>【ログごとの役割】</b><br>
+<blockquote>
+<b>inlog</b>：元メールと転送メールの受信時刻、接続元IPアドレス、送信元、送信先を確認<br>
+<b>senderlog</b>：元メールのメッセージIDと、自動転送時に新しく発番されたメッセージIDの関連付けを確定<br>
+<b>outlocallog</b>：転送メールが内部アカウントのメールボックスへ着信したことを確認
+</blockquote>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-31.html">自動転送設定時にメール転送の成功・失敗の判断はどのログで行うか</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
