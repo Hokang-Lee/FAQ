@@ -60,7 +60,7 @@ E-Post Mail Controlの「サーバー設定」タブにある「DNSサーバー」項目欄を空白にする
 <br>
 この設定により、該当ドメイン宛に送信しようとすると受領時に以下のエラーが返されます。<br>
 <blockquote>
-550 5.1.1 Please mail to a valid e-mail address. approval filter.<br>
+550 5.1.1 Please mail to a valid e-mail address. approval filter. '[fromaddress]' is entry in the blacklist.<br>
 </blockquote>
 なお、同報メールの宛先に該当ドメインが含まれる場合、同報全体が拒絶されます。その場合はメールクライアント側で宛先を分けて送信する必要があります。<br>
 【sender.dat】の設定はサービス再起動不要で、ファイルを保存した次のメール送信から反映されます。<br>
