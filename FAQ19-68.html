@@ -5,78 +5,56 @@
 <script language="JavaScript" src="/pull.js"></script>
 <link rel=stylesheet type=text/css href=/font.css>
 <style type="text/css">
-	body {
-		background-color: #ffffff;
-		font-size: 12px;
-		line-height:2.0em;
-		margin: 10px;
-		padding: 5px;
-	}
+body { background-color:#ffffff; font-size:12px; line-height:2.0em; margin:10px; padding:5px; }
+pre { font-size:12px; line-height:1.6em; white-space:pre-wrap; overflow-wrap:anywhere; }
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7N0CMEK0LT');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
 </script>
-<!-- Google tag end -->
 </HEAD>
 <BODY TEXT="black">
-<!-- ACCESS KAISEKIKEN  -->
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
-<!-- ACCESS KAISEKIKEN end-->
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>中継の制限【effect.dat】で特定IPアドレスを“true”指定する以外に、送信元クライアント側のSMTP認証なしの設定でも接続を許可する方法はあるか？ <font color="#ff0000">new!</font></b></FONT>
-<HR>
-<br>
-送信元クライアント側でのSMTP認証の有効／無効を問わず、すべての接続要求を許可する設定はあるかご質問を受けたことがあります。<br>
-【effect.dat】で特定IPアドレスを“true”指定する方法が一般的ですが、ほかに考えられる方法として以下の2通りがあります。<br>
-<br>
-<b>1.サーバ自体で設定する方法</b><br>
-Mail Controlの「サービス制御」タブ画面の［SMTP認証方法］下の［セキュリティレベル］を［非認証有効］とする。<br>
-設定変更後は必ずEPSTRSサービスを再起動。<br>
-これにより、メールクライアントはユーザー名・パスワードによるSMTP認証を行わずとも、サーバからメールを送信できるようになります。<br>
-<font color="#cc0000">しかし、この設定を継続使用していると、不正利用の危険性が高まります。</font><br>
-<br>
-<b>2.【effect.dat】による記述で設定する方法</b><br>
-Mail Controlの「中継の制限」タブ画面の［マシン毎の中継］【effect.dat】にIPアドレスを無条件許可する方法以外に、［送信元エンベロープFROM］を無条件許可“true”設定することも可能です。<br>
-IPアドレスを無条件許可で指定する方法は以下のようにします。ローカルIPアドレスであれば他から名乗れないので危険性はありません。<br>
-（例）<br>
-192.168.101.201 true<br>
-192.168.101.＊ true<br>
-192.168.＊.＊ true<br>
-<br>
-<font color="#cc0000">下記のA例はドメイン名を“true”指定していますが、これは理論的に設定可能であるという意味で、実際に設定するとセキュリティ上問題を招きます。たとえば、この指定方法で内部ドメイン名を“true”設定してしまうと、内部ドメイン名を使って接続されるものは、無条件に受理され、しかもどんなアカウントでもSMTP認証設定に関係なく無条件送信できることになります。通常時には決してしないように十分注意してください。</font><br>
-<b>A.送信元エンベロープが特定のドメインの場合に受信を許可したいとき <font color="#cc0000">（※注意）</font></b><br>
-abc.co.jp<br>
-　　または<br>
-abc.co.jp  true<br>
-<br>
-<font color="#cc0000">またB,C例の特定のアカウント（送信元エンベロープ）を“true”設定してしまうと、外部の第三者が名乗りさえすれば無条件に受理、送信できてしまいますので危険性を常にはらみます。通常時には設定しない方が安全です。</font><br>
-<b>B.特定の送信元エンベロープの場合に受信を許可したいとき <font color="#cc0000">（※注意）</font></b><br>
-abc＠abc.co.jp<br>
-　　または<br>
-abc＠abc.co.jp  true<br>
-<br>
-<b>C.ワイルドカードによる送信元エンベロープの場合に受信を許可したいとき <font color="#cc0000">（※注意）</font></b><br>
-a*c＠abc.co.jp<br>
-　　または<br>
-a*c＠abc.co.jp  true<br>
-abc＠abc*.co.jp<br>
-　　または<br>
-abc＠abc*.co.jp  true<br>
-<br>
-※[送信元エンベロープFROM]は、送信元クライアントが指示するエンベロープFROMであり、ヘッダーFromのことではありません。通常、両者は概ね一致することが多いものですが、接続元は意図的に変更することもできるため、送信元クライアントが使う[エンベロープFROM]を明示指定することが肝要です。なお、E-Postのログ（inlogやreceivelog等）に記載されるのはすべてエンベロープFROMになります。<br>
-<br>
-<b>（関連FAQ）</b><br>
-●<a href="./faq04-01.html">中継の制限－マシンごとの中継【effect.dat】設定</a><br>
-●<a href="./faq19-69.html">クライアント側がSMTP認証要求する／しないが混在するとき、ユーザー毎に認証ファイルあり／なしで対応できるのに、非認証有効の選択がなぜあるのか</a><br>
-●<a href="./faq19-70.html">IISのSMTPサーバ機能では、匿名アクセスを設定していればクライアントから認証要求があっても無条件に許可ができていた。同じことができないか</a><br>
-<br>
-<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
-<br>
-<br>
+<FONT SIZE="4" COLOR="#000000"><b>認証局CA DigiCert Global Root G2 証明書変更の影響及び追加設定の必要性はあるか</b></FONT>
+<HR><br>
+Exchange Onlineとの通信に関して、DigiCert Global Root G2認証局（CA）を信頼するよう案内された場合の、E-Postへの影響と追加設定の必要性について説明します。<br><br>
+<b>【E-Postの動作への影響はあるか】</b><br>
+稼働中のSMTPサーバにDigiCert Global Root G2証明書が追加済みであり、認証局CAが正しく署名し、サーバが正しく中間証明書を提供している場合は、鍵の生成方法に関係なく、E-Post側の動作としては影響を受けません。<br><br>
+<b>【E-Post側で追加設定は必要か】</b><br>
+上記の通り、認証局CAが正しく署名し、サーバが正しく中間証明書を提供したものが登録されていれば、E-Post側で追加設定や設定変更は不要です。ルート証明書が追加されていることに加え、中間証明書を含めた証明書チェーンが正しく構成されていることを確認してください。<br><br>
+<b>【影響を受ける条件】</b><br>
+DigiCert Global Root G2へチェーンされるサーバ証明書を使用し、接続するクライアント（メールソフトや他のサーバ）が新しいルート証明書を信頼していない場合は、影響を受ける可能性があります。特に、古いOSやファームウェアを使用している環境では、G2ルート証明書が信頼されているか確認してください。<br><br>
+DigiCert系の証明書には、RapidSSL、GeoTrust、Thawte、DigiCertブランドなどがあります。ブランド名だけで判断せず、実際の証明書チェーンを確認してください。<br><br>
+<b>【他の認証局の証明書を使用している場合】</b><br>
+自サーバが提示する証明書がLet's EncryptやGlobalSign、Sectigoなどの、DigiCertとは無関係なルートへチェーンされる証明書であれば、その証明書自体はDigiCertのルート変更の対象ではありません。<br><br>
+ただし、自サーバが提示する証明書と、Exchange Onlineなどの接続相手が提示する証明書を信頼・検証することは別です。自サーバの証明書が他のCA発行であっても、接続相手の証明書チェーンに対する信頼確認は必要です。<br><br>
+<b>【OpenSSLによる確認方法】</b><br>
+対象SMTPサーバが提示する証明書と中間証明書を確認する参考方法として、OpenSSLで接続して応答内容を取得します。接続方式に合わせてコマンドを選択してください。<br><br>
+<b>SMTP over SSL（接続開始時からTLSを使用する場合）</b><br>
+<pre>openssl s_client -connect [your.mail.server]:[port] -showcerts</pre>
+<b>STARTTLS（SMTP接続後にTLSへ切り替える場合）</b><br>
+<pre>openssl s_client -connect [your.mail.server]:[port] -starttls smtp -showcerts</pre>
+※[your.mail.server]と[port]は、実際の接続先ホスト名とポート番号へ置き換えてください。STARTTLS用の例は、接続方式を区別するための補足です。<br><br>
+応答内容から、サーバ証明書の発行者、中間証明書、証明書チェーン、検証結果を確認します。OpenSSLが参照する信頼ストアはE-Postの実行環境と異なる場合があるため、OpenSSLの結果だけでE-Postの動作を断定せず、実際のメール配送も確認してください。<br><br>
+<b>【構築ガイドやFAQの古い設定例について】</b><br>
+E-Postの構築ガイドやFAQに掲載されている認証局証明書の事例には、2000年代から2010年代前半のG1ルート系を題材とした古い設定例があります。設定手順は基本的に同じですので、実際に発行されたG2／G3系の証明書チェーンに合わせて設定してください。<br><br>
+E-Postに設定している証明書を新しいチェーンの証明書へ置き換える場合は、証明書の再取得が必要です。ただし、今回のCA変更に対応するために、E-Post本体の最新アップデート作業が必須となるわけではありません。<br><br>
+※接続相手のCAを信頼するための対応と、自サーバの証明書の再取得・差し替えは別の作業です。今回の案内だけを理由に、すべての自サーバ証明書の再取得が必要になるという意味ではありません。<br><br>
+<b>【確認する項目】</b><br>
+<ol>
+<li>SMTPサーバにDigiCert Global Root G2証明書が追加済みか確認します。</li>
+<li>認証局CAの署名と、サーバが提供する中間証明書を含めたチェーンが正しいか確認します。</li>
+<li>接続するメールソフトや他のサーバが、対象ルート証明書を信頼しているか確認します。</li>
+<li>自サーバが提示する証明書と、接続相手の証明書の信頼設定を分けて確認します。</li>
+<li>実際のSMTP/TLS接続とメール配送を確認し、問題がある場合は該当時刻のログやOpenSSLの応答内容を採取します。</li>
+</ol><br>
+<b>（参考資料）</b><br>
+●<a href="https://techcommunity.microsoft.com/blog/exchange/trust-digicert-global-root-g2-certificate-authority-to-avoid-exchange-online-ema/4488311" target="_blank">Microsoft公式案内：Trust DigiCert Global Root G2 Certificate Authority to Avoid Exchange Online Email Disruption</a><br><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p><br><br>
 </body>
 </html>

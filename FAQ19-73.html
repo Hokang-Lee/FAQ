@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-73</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+ body { background-color: #ffffff; font-size: 12px; line-height:2.0em; margin: 10px; padding: 5px; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+ gtag('config', 'G-7N0CMEK0LT');
+</script>
+</HEAD>
+<BODY TEXT="black">
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SSL/TLS関係の証明書有効期間が短縮化される流れがあるが、証明書の自動更新機能はあるか</b></FONT>
+<HR>
+<br>
+SSL/TLS証明書の有効期間短縮に伴い、証明書の更新頻度が高くなることを懸念される場合の、E-Post Mail/SMTP Serverにおける証明書更新の考え方を説明します。<br>
+<br>
+<b>【E-Post側に証明書の自動更新機能はあるか】</b><br>
+2026年2月のサポート回答時点では、SSL証明書のE-Post側での自動更新を含む機能変更はありません。E-Post自体が認証局へ発行を依頼し、証明書を自動取得・更新する機能として案内しているものではありません。<br>
+<br>
+証明書の発行依頼や更新をどのように自動化するかについては、ご利用の認証局ベンダーへお問い合わせください。認証局側での発行・更新と、発行された秘密鍵・証明書をE-Postへ反映する作業は、分けて考える必要があります。<br>
+<br>
+<b>【秘密鍵・証明書の差し替えにサービス再起動は必要か】</b><br>
+E-Post Mail/SMTP Server用の秘密鍵・証明書は、発行時に準備された秘密鍵ファイルと証明書ファイルを、E-Postが使用している該当ファイルへ上書きコピーすることで差し替えできます。サポート回答では、この差し替え自体について、サービス再起動は不要で利用可能と案内しています。<br>
+<br>
+<b>【外部での自動発行と組み合わせる場合】</b><br>
+認証局ベンダーによる自動発行後に、E-Postが使用する秘密鍵・証明書の該当ファイルを上書きする運用を組み合わせることが考えられます。E-Postへの反映作業は、上記ファイルの差し替えで完了します。<br>
+<br>
+<ol>
+<li>ご利用の認証局ベンダーへ、証明書の自動発行・更新方法を確認します。</li>
+<li>更新後の秘密鍵ファイルと証明書ファイルを準備します。</li>
+<li>E-Postが使用している該当の秘密鍵ファイルと証明書ファイルへ上書きコピーします。</li>
+</ol>
+※この説明は、E-Postに証明書の自動発行機能が備わっていることを意味しません。外部の発行・更新処理とファイル差し替えを組み合わせる運用です。認証局の自動化方式や外部ツールの具体的な設定方法は、認証局ベンダーへ確認してください。<br>
+<br>
+<b>【運用上の確認事項】</b><br>
+以下は、ファイル差し替えを運用する際の一般的な確認事項です。<br>
+<ul>
+<li>差し替え対象は、E-Postが実際に使用している秘密鍵・証明書ファイルであることを確認してください。</li>
+<li>秘密鍵と証明書の組み合わせ、対象ホスト名、有効期間などを確認してください。</li>
+<li>秘密鍵は機密情報です。保管先やコピー先のアクセス権を適切に管理してください。</li>
+<li>自動化する場合も、更新処理の失敗や有効期限切れを検知できるよう、結果確認と監視を行ってください。</li>
+<li>更新後は、対象のSSL/TLS接続で新しい証明書が提示されることを確認してください。</li>
+</ul>
+<br>
+※本FAQは2026年2月のサポート回答を基にしています。証明書の有効期間、適用対象、自動発行の提供条件などは、ご利用の認証局ベンダーの案内を確認してください。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br><br>
+</body>
+</html>
