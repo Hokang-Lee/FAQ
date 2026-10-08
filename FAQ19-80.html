@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-80</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>滞留していたメールを再送したところ、“cannot resolve［宛先］”のエラーメールが返された。時間をおいて再送すると再現しない <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDSサービスの停止などにより、メールキュー（incomingフォルダ）にメールが滞留した状態から回復した後、退避しておいた滞留メールの一部を再送したところ、宛先について「cannot resolve［宛先］」という旨のエラーメールが返された。ただし、時間をおいて別のメールを同じように再送すると再現せず、正常に送信できた、というご報告をいただいたことがあります。<br>
+本記事では、このエラーメールが返される仕組みと、考えられる原因、確認するとよい点を説明します。なお、EPSTDSサービスが停止してメールが滞留した事例については、下記記事「メーリングリストを使ってのメール配送時にEPSTDSサービスが停止したことがある」を参照してください。<br>
+<br>
+<b>「cannot resolve」のエラーメールが返される2つのケース</b><br>
+E-Post（EPSTDSサービス）が外部ドメイン宛にメールを配送する際は、まず宛先ドメインのMXレコードを、続いてAレコードを参照して、接続先を決めます。この名前解決（DNS参照）は、リトライのたびに改めて行われます。<br>
+「cannot resolve」のエラーメールは、次のいずれかの場合に返されます。<br>
+<b>・宛先ドメインの名前解決ができなかった場合</b><br>
+<b>・送信先ドメインは存在するが、送信先のマシンへ接続できない状態が「リトライ期間（マシン無応答）」（デフォルト24時間）を過ぎるまで続いた場合</b><br>
+後者の場合は、送信先からの応答がなくエラーコードが得られないため、エラー理由は一律で名前解決エラーとして返されます（例：&quot;Unable to deliver to destination domain Cannot resolve xxxxx.jp&quot;）。<br>
+つまり、エラーメールの表示だけでは、どちらが原因かを判別できません。いずれの場合も、設定されたリトライが行われたうえで、最終的に配送できなかった時点で送信者へエラーメールが返されます。<br>
+<br>
+<b>時間をおくと再現しない場合に考えられること</b><br>
+ご報告の事例のように、時間をおいて再送すると再現せず正常に送信できる場合は、メールの内容やE-Post側の設定に問題があったのではなく、該当する時間帯に、DNSサーバ自体の問題や、DNS参照の通信（ネットワーク）に一時的な問題があった可能性が考えられます。<br>
+<br>
+<b>確認するとよい点</b><br>
+現象の発生した時間帯の前後について、次の点を確認するとよいと思われます。<br>
+1.配送ログで、失敗した時刻と理由を確認する<br>
+　faillog（配送失敗ログ）とsenderlog（配送時の詳細ログ）で、該当メールのメッセージIDをもとに、配送に失敗した時刻と理由を確認します。<br>
+2.その時間帯に、DNSサーバの障害・再起動・応答遅延・高負荷がなかったか<br>
+　E-PostのDNS参照は、次の2系統に分かれています。それぞれについて確認してください。<br>
+　・MXレコードの参照 → Mail Control画面の「サーバー設定」タブにある「DNSサーバー」<br>
+　・Aレコードの参照 → hostsファイル、続いてWindowsのネットワーク接続で設定されたDNSサーバー<br>
+　なお、Mail Controlの「DNSサーバー」に対するEPSTDSサービスの問い合わせは、タイムアウト約5秒・リトライ4回で固定されています。<br>
+3.DNSサーバまでの経路（社内ネットワーク・上位回線）や、送信先サーバとの通信で、障害や輻輳がなかったか<br>
+4.同じ時間帯に、他のシステムでも名前解決やネットワーク起因の不具合が出ていなかったか<br>
+これらに該当する事象が確認できれば、その一時的な問題によって配送できず、「cannot resolve」のエラーメールが返されたもの、と切り分けられます。<br>
+一方、恒常的に「cannot resolve」のエラーメールが多発する場合は、一時的な事象ではなく、参照先DNSの設定や冗長性、名前解決経路の安定性そのものを見直す必要があります。この場合は、上記の確認結果とあわせて弊社サポートまでお問い合わせください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-65.html">リトライ回数やリトライ期間の設定について</a><br>
+●<a href="./faq01-64.html">配送処理とDNS参照について</a><br>
+●<a href="./faq10-23.html">メールサーバがDNSを参照するときの動きについて</a><br>
+●<a href="./faq19-36.html">E-Postシリーズに設定するDNSサーバに対してEPSTDSサービスから行われるDNS問い合わせのタイムアウト時間とリトライ回数は？</a><br>
+●<a href="./faq05-43.html">配送できなかったメールをログで確認する方法</a><br>
+●<a href="./faq17-77.html">EPSTDSサービスが配送失敗時に生成するエラーメール "Delivery failure" はどういう形になるか</a><br>
+●<a href="./faq19-78.html">メーリングリストを使ってのメール配送時にEPSTDSサービスが停止したことがある</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

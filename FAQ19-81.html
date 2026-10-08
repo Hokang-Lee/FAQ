@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-81</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>テーブル編集【gateway.dat】と組み合わせて使う「全受信メールをSMTPゲートウェイへ転送」の意味は？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メールサーバのクラウド移行などで、DNS（MXレコード）を切り替えた後の浸透期間中に、旧サーバであるE-Postに届いたメールを新サーバへまとめて転送したい、というご相談をいただいたことがあります。<br>
+このように「受信メールをまとめて別サーバへ転送する」構成を実現したい場合、テーブル編集【gateway.dat】での転送先指定と、「全受信メールをSMTPゲートウェイへ転送」チェックボックスの設定を組み合わせて実現します。本記事では、両者の関係と、とくに誤解の生じやすい当チェックボックスの意味・挙動について解説します。<br>
+<br>
+<b>テーブル編集【gateway.dat】で転送先を指定します</b><br>
+SMTP配送時の配送（フォワード）先は、Mail Control画面の「サーバー設定」タブにある「テーブル編集」ボタンから開く【gateway.dat】で指定します。書式は次のとおりで、受信メールのエンベロープTOのドメインを基準に、ドメイン別に転送先を振り分けられます。<br>
+<br>
+記述式：対象ドメイン,ゲートウェイ先(FQDN or IP),接続ポート番号<br>
+-----記述例：特定ドメイン宛てをすべて別サーバへ転送する場合-----<br>
+example.jp,new.example.jp,25<br>
+<br>
+対象ドメイン欄にワイルドカード「*」を指定すると、受信するすべてのメールを対象に、指定した転送先へフォワードする指示になります。<br>
+*,new.example.jp,25<br>
+-----------------------------------------------------------------------------<br>
+なお、【gateway.dat】を編集・保存しただけであれば、サービスの再起動は不要です（後述のチェックボックス切り替えとは扱いが異なります）。転送先が1個所のMTA固定に決まっている場合は、【gateway.dat】ではなく「サーバー設定」タブの「SMTPゲートウェイ」欄に指定する方法もあります。くわしくは下記記事「フォワードするSMTPサーバをドメイン別に振り分け制御する」を参照ください。<br>
+<br>
+<b>「全受信メールをSMTPゲートウェイへ転送」チェックボックスの意味</b><br>
+【gateway.dat】（または「SMTPゲートウェイ」欄）で転送先を指定する際に、あわせて意味を十分ご理解いただく必要があるのが、「全受信メールをSMTPゲートウェイへ転送」チェックボックスです。このチェックボックスは、「自身のサーバにメールボックスを持つかどうか」という配送の基本方針を切り替えるもので、オン／オフで挙動が大きく変わります。<br>
+<br>
+<b>・オンのとき</b><br>
+自身のサーバのメールボックスは存在しないものとして扱い、すべて転送せよ、という意図を示す指示になります。自身のサーバに該当アカウントが存在していても、そのメールボックスには一切着信・格納されず、すべて転送先へフォワードされます。受信したメールを自サーバには一切残さず、まるごと別サーバへ引き渡したい場合は、オンにします。<br>
+<b>・オフのとき</b><br>
+自身のサーバに該当アカウントとメールボックスが存在するものは、そのメールボックスに着信・格納させる働きになります。つまり、一部でも自身のサーバで受信させたいアカウントがある場合は、オフに設定します。オフのときは、転送先を判定する前に、まず自身のドメイン・アカウントの有無が判定されます。<br>
+<br>
+なお、オン／オフいずれの設定であっても、エイリアス指定の有無は必ず最初にチェックされる点にもご留意ください。<br>
+また、「全受信メールをSMTPゲートウェイへ転送」チェックボックスのオン／オフを切り替えたときは、［適用］ボタンをクリックしたうえで、EPSTDSサービスの再起動が必要です。設定を変更しただけでは反映されませんので、切り替え後は必ずEPSTDSサービスを再起動してください。<br>
+<br>
+以上のとおり、実際の運用では、<br>
+・「サーバー設定」タブのテーブル編集【gateway.dat】　→　どのドメイン（メール）を、どこへ転送するか<br>
+・「全受信メールをSMTPゲートウェイへ転送」　→　自サーバにメールボックスを残すか、残さずすべて転送するか<br>
+の二つを組み合わせて設定することになります。転送先の記述だけでなく、チェックボックスのオン／オフが意図どおりになっているかを、あわせてご確認ください。<br>
+外部MTA側（ホスティング事業者のメールサーバなど）でSMTP認証が必要なケースで、認証付きのままフォワードさせたい場合は、下記記事もあわせてご参照ください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-28.html">フォワードするSMTPサーバをドメイン別に振り分け制御する</a><br>
+●<a href="./faq10-34.html">SMTP認証を有効にして外部MTAに送信要求をそのままフォワードさせる方法</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
