@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-52</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler の拒否アドレス一覧に「:-1」が記録されている理由と抑制する方法は？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Secure Handler の「拒否アドレス一覧（reciverblackaddr.dat）」に「:-1」が記録されている理由と原因はどこにあるのか、さらにこうした記録を抑制する方法はあるかという質問を受けました。<br>
+<br>
+<b>Secure Handler の拒否アドレス一覧に「:-1」が記録されている原因</b><br>
+Secure Handler がいわゆる怪しいメールを判断する際、怪しいポイントが高いと判断されたメールを受けた場合、「送信元エンベロープ（エンベロープFROM）」情報が ""（本当のブランク）であったり、&lt;&gt;（RFCで許容されている空白アドレス）であるメールであるケースがこれらの原因となっています。<br>
+これらのメールは一度は保留される一方、時間が経って「拒否アドレス一覧（reciverblackaddr.dat）」に「:-1」が
+記載される形となります。拒否アドレス一覧に記載されること、つまりブラックリスト化されていくわけです。<br>
+特に怪しい迷惑系メールは、ほぼ間違いなくエンベロープFROMとヘッダーFromが食い違うように操作させられており、ヘッダーFromには適当なメールアドレスを名乗り100パーセント詐称しています。ところがエンベロープFROMはへたに詐称できないので、""（本当のブランク）や、&lt;&gt;（RFCで許容されている空白アドレス）を使う傾向にあります。中でもエンベロープFROMに&lt;&gt;を使うのは、RFCで許容されていることもあり、とりわけ迷惑系メール発信者にとっては、都合がよいというわけです。<br>
+「拒否アドレス一覧（reciverblackaddr.dat）」に「:-1」が載ってしまうと、正当なメールの中にも実はエンベロープFROMに&lt;&gt;を使っているケースもあるため、正当なメールなのに拒否されてしまい、誤検知される結果につながります。<br>
+<br>
+<b>拒否アドレス一覧に「:-1」が記録されることを抑止する方法について</b><br>
+「拒否アドレス一覧（reciverblackaddr.dat）」に記載されることは、自動判定処理記載のためのカウント数＝下記の許可設定回数（whitecount）を増やすことで、ある程度抑制させることは可能です。しかしながら一切記載しなくなるということはありませんので、定期的なメンテはどうしても必要になります。<br>
+オンラインヘルプにも記載されている通り、自動判定の設定でタスクスケジューラで設定した admiappr.exe が参照している admiappr.ini というファイルを管理者権限でメモ帳等から開き、ホワイトリストへの登録までの許可設定回数（グレイリストでの保持回数）を以下のように設定値を"1"から"3"に増やしておくことにより、即座にブラックリストへ登録されることをある程度抑制させる結果になります。ひどい場合はこうした設定値で運用してください。<br>
+<br>
+whitecount=1 → whitecount=3<br>
+<br>
+ちなみに、弊社ではこれまで Secure Handler を運用してきた経験則から whitecount=3 の設定値で運用しています。<br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

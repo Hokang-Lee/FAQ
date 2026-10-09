@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ16-53</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler 使用時は reject フォルダに拒絶メールデータがたまっていくのでメンテナンスが必須 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Secure Handler 使用時は [メール作業用フォルダ]\approval\reject フォルダに拒絶メールデータがたまっていくのでメンテナンスが必須です。<br>
+Secure Handler を有効にして、怪しいメールを判定させ長く運用を続けていると、保留で止め置いた怪しいメールはやがて拒否アドレス一覧に掲載、そうした拒絶したメールデータは一段深い下記の reject フォルダ内にどんどん蓄積されていきます。<br>
+<br>
+ [メール作業用フォルダ]\approval\reject フォルダ<br>
+（例）"C:\mail\approval\reject"フォルダ<br>
+<br>
+この蓄積されたメールデータ（.RCPと .MSG）は、そのままにしておくとやがて膨大な数になり、放置すればサーバ自体のパフォーマンスを大幅に下げてしまう原因となります。1フォルダ内に対になっているメールデータファイル（.RCPと .MSG）が1万を超える状態でそのまま格納されていると、サーバ全体にパフォーマンスの極端な低下を引き起こします。<br>
+これを防ぐには、月別単位とか四半期別単位の任意名のサブフォルダを手動作成し、対になっているメールデータファイル（.RCPと .MSG）を移動、格納するメンテナンス作業が必須です。移動、格納するだけでなく、一方でかなりの時間が経過した古いファイルは削除していくのもよいでしょう。<br>
+ [メール作業用フォルダ]\approval\reject フォルダ直下に置くメールデータファイル（.RCPと .MSG）は多くても千～数千以内に収めるよう、メンテナンスをするようにしてください。<br>
+もし手動のメンテナンス作業が煩雑であれば、バッチファイルやスクリプトなどを用意し、タスクスケジューラで実行することによってある程度自動化しておくのもよいアイデアです。<br>
+<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

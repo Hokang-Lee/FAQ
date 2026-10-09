@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ06-30</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	pre {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:1.6em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDKIM 実装済み環境から EPSTDMARC に切り替える方法について <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDKIM ツールを利用して既に実装済みになっている環境から、新しく ESPSTDMARC ツールを利用して切り替える方法と手順についての質疑応答事例です。<br>
+<br>
+<b>1. レジストリの設定で、「DomainAUTHDKIM」のパスを epstdkim.exe のパスから epstdmarc.exe のパスに変更するだけで切り替わるか。</b><br>
+はい。レジストリの設定のうち、「DomainAUTHDKIM」のフルパス表記を epstdkim.exe のパスから epstdmarc.exe のパスに変更するだけで切り替わります。念のために、変更後はEPSTRSサービスの再起動を行うことをお勧めします。<br>
+<br>
+<b>2. EPSTDMARC の readme には ARC の設定手順が書かれているが、ARC を使用しない場合にはどのような対応をとればよいか。</b><br>
+EPSTDMARC に含まれる ARC を使用しない場合で ARC を未設定にしておく際は、"epstarc.exe" のファイル名を変更し、例えば "~epstarc.exe" のようにリネームし、EPSTDKIM ツール本体（epstdmarc.exe）から内部呼び出しされる状態を意図的に無効にしてください。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq06-27.html">EPSTDMARC を使ってDKIM/DMARC設定したがARC未設定だと epstarc のエラーが出てしまう</a><br>
+<br>
+<b>3. EPSTDKIM の sign.bat で作成した秘密鍵、暗号鍵は EPSTDMARC に流用できるか。<br>
+（DKIM用の情報であるDNSのtxtレコードを登録済みのため、同じDKIMヘッダを付けたい）</b><br>
+はい。EPSTDKIM の sign.bat で作成した秘密鍵と暗号鍵は、EPSTDMARC 導入後にそのまま流用することが可能です。DMARC でも、既に登録済み DKIM の情報でサインやチェックを行います。<br>
+<br>
+<b>4. 一般的な質問となるが、一つの E-Post から複数のサブドメインのメールを送る環境となっている。DNSにサブドメインAの DKIM、DMARC のtxtレコードをそれぞれ追加しても、サブドメインBには特に影響はない想定でよいか。</b><br>
+はい。送信元アドレスの@マーク以降のドメイン名が、サイン＆チェックの条件となり、サブドメイン毎に処理は可能です。可能なら E-Post側へメールを送る際に、送信元サブドメイン毎に接続IPアドレスを指定する設定にすればなおよいです。<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq06-26.html">2つのドメインを管理するとき EPSTDMARC を使って送信ドメイン認証（DMARC/DKIM/ARC）設定に関する質疑応答集</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</BODY>
+</HTML>

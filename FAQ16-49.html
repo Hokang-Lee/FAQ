@@ -29,19 +29,24 @@
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
 <!-- ACCESS KAISEKIKEN end-->
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>Secure Handler使用時にメールが届かないときの原因の調べ方は？ <font color="#ff0000">new!</font></b></FONT>
+<FONT SIZE="4" COLOR="#000000"><b>Secure Handler使用時に着信すべきメールが届かないときの原因の調べ方は？ <font color="#ff0000">new!</font></b></FONT>
 <HR>
 <br>
-Secure Handler 使用時に特定サーバからのメールが届かないとき E-Postのログから調べて原因がわかるかという質問を受けたことがあります。<br>
-acceptlogとreceivelogを調べたところ、先方からはエンベロープFROMが&lt;&gt;でメールが送られようとしており、その後、Secure Handlerによって拒絶をしているようでした。<br>
-<blockquote>
-MAIL FROM:&lt;&gt; SIZE=12427<br>
-550 5.1.1 Please mail to a valid e-mail address. approval filter. '' is entry in the blacklist.</blockquote>
-次にSecure Handlerの管理画面にて［拒否アドレス一覧］（ブラックリスト）に改行のみの行か、あるいは「:0」だけの行がないか、確認してください。もし、［拒否アドレス一覧］（ブラックリスト）に改行のみの行か「:0」だけの行が記載されている場合は、該当行を削除してください。<br>
+Secure Handler 使用時に特定サーバから送られてきて、着信すべきメールが届いていないとき、通常は次のように段階を追った調べ方をしていくことになるでしょう。<blockquote>
+１．システム管理者もしくはユーザーが、Secure Handlerの「メール承認管理（Web）」からログインし「メール承認管理 一覧」を調べる。<br>
+２．見つからなければさらに一段深い「メール承認管理 一覧（保留）」を調べる。<br>
+３．見つからなければシステム管理者が Secure Handlerの「メール承認管理（Web）」にログインし、［設定］から［拒否アドレス一覧］（ブラックリスト）及び［保留アドレス一覧］（グレーリスト）に送信元アドレスが登録されていないかを調べる。<br>
+見つかればカットして［許可アドレス一覧］（ホワイトリスト）に登録する。</blockquote>
+以上の手順で調べても、見つからなかった場合や、仮に見つかっても原因が不明な場合は、E-Postのログ、acceptlog（マシン接続ログ）と receivelog（SMTP受信詳細ログ）から調べることになります。<br>
 <br>
-<b>（※エンベロープFROM&lt;&gt;で拒絶されるときに考えられる E-Post側の設定問題）</b><br>
+あるサポート案件、特定サーバから送られてきて着信すべきメールが届いていないという案件を受けたとき、この2つのログ、特に receivelog（SMTP受信詳細ログ）を調べました。先方の送信元からはエンベロープFROMが&lt;&gt;でメールが送られようとしており、その後、Secure Handler によって拒絶のエラー応答を返している記録が見つかりました。<blockquote>
+MAIL FROM:&lt;&gt; SIZE=12427<br>
+<b>550 5.1.1 Please mail to a valid e-mail address. approval filter. '' is entry in the blacklist.</b></blockquote>このエラー応答では、エンベロープFROMが&lt;&gt;でメールが送られようとしていること、それが Secure Handler 機能により、拒絶をしていることが示されているようでした。<br>
+これを受けて Secure Handlerの「メール承認管理（Web）」からログインし［設定］から［拒否アドレス一覧］（ブラックリスト）に改行のみの行か、あるいは「:0」だけの行がないか確認したところ、改行のみの行や「:0」だけの行が記載されていました。改行のみの行か「:0」だけの行については、該当行を削除してもらいました。<br>
+<br>
+<b>（※エンベロープFROM&lt;&gt;で拒絶されるときに考えられる E-Post本体側の設定問題）</b><br>
 エンベロープFROMが&lt;&gt;のときに拒絶されるケースですが、Secure Handler 機能によること以外に E-Post本体側の設定でも拒絶される状況があり得ます。「中継の制限」-「マシン毎の中継」【effect.dat】も確認してください。<br>
-デフォルトの【effect.dat】は下記の通りです。これより下に別の行を記述していたとしても、デフォルトで用意した下記2行の指定行がコメントアウトされず、そのまま残っていれば問題はありません。<br>
+デフォルトの【effect.dat】は下記の通りです。これより下に別の行を記述していたとしても、デフォルトで用意した2行がコメントアウトされず、そのまま残っていれば問題はありません。<br>
 -------------------------<br>
 #blank false<br>
 #&lt;&gt; default<br>
