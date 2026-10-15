@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-93</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body {background-color:#ffffff;font-size:12px;line-height:2.0em;margin:10px;padding:5px;}
+pre {font-size:12px;line-height:1.6em;white-space:pre-wrap;overflow-wrap:anywhere;}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-7N0CMEK0LT');
+</script>
+</HEAD>
+<BODY TEXT="black">
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メール送信時にCCへ自分のアドレスを指定すると、自分宛てのメールが届かないことがある</b> <FONT COLOR="#FF0000"><b>new!</b></FONT></FONT>
+<HR><br>
+Toの宛先にはメールが届く一方、CCに指定した自分のアドレスにはメールが届かないことがあります。サポート事例では、すべてのメールで発生するわけではなく、配送リトライ用フォルダにデータが滞留し、EPSTRSとEPSTDSのサービス再起動後に配送が再開しました。<br><br>
+ただし、再起動で復旧したことだけでは原因は確定できません。サポート回答では、内部ドメインの名前解決と同報時のセッション分離設定を確認し、必要な設定後に動作を確認することを提案しています。<br><br>
+<b>【ToとCCの違いが原因か】</b><br>
+ToであれCCであれ、メールサーバにとって同報配送の対象であることは同じです。「自分をCCに指定したこと」自体が原因と確認されたものではありません。ToとCCの宛先ドメインや配送経路が異なる場合は、一方が配送済みでも、もう一方がリトライとなっている可能性を調べます。<br><br>
+<b>【holding／domainsフォルダの役割】</b><br>
+holdingとdomainsは配送リトライ関係のフォルダです。両方のフォルダに対応するデータが一時的に退避されます。サポート回答では、接続先からの400番台・500番台の拒絶応答、名前解決の失敗、接続先が応答しない場合などを、配送リトライに関係する状況として説明しています。具体的な処理は応答内容とログを確認してください。<br><br>
+domainsフォルダには、エンベロープ情報を持つ.rcpファイルとともにDomain.mriファイルが作成されます。配送リトライに入った際にDomain.mriを確認し、「Err-code: 0」となっている場合は、名前解決がスムーズにできていない可能性を優先して確認します。この値だけで原因を確定するものではありません。<br><br>
+receivelogに「MoveFileEx successed」が記録されていても、それだけでCC宛ての最終配送完了を判断しないでください。リトライ情報や配送側のログも併せて確認します。<br><br>
+<b>【内部ドメインの名前解決を確認する】</b><br>
+E-Postシリーズでは、内部ドメインをhostsファイルへ記述することを必須のお願い事項として案内しています。CCに指定した自分のアドレスが内部ドメインの場合は、そのドメインの記述があるか、内容が現在の環境と一致しているか確認してください。具体的な記述方法は関連FAQ10-53を参照してください。<br><br>
+<b>【EPSTDSの同報セッション分離設定】</b><br>
+報告された環境ではEPSTDS 4.77が使用されていました。ゲートウェイ先指定時の同報処理について、EPSTDS 4.76までの旧来バージョンではセッションを分離することが既定でしたが、4.77以降は分離しない設定へ既定値が変更されています。<br><br>
+本来、同報先に異なるドメインが含まれる場合は、送信処理の都合上、結果的に最初からセッションが分離されて配送されるはずです。サポート回答では、名前解決やリトライとの組み合わせで、何らかの課題により最初のセッション分離がうまく行かなかった可能性を挙げています。ただし、本事例の原因として確定したものではありません。<br><br>
+<b>【確認・対処手順】</b><br>
+<ol><li>現象発生時のログと、holding／domainsにある該当メールのリトライ情報を確認します。Domain.mriのErr-codeなどを記録し、内部ドメインの名前解決に問題がないか調べます。</li>
+<li>hostsファイルへの内部ドメインの記述を確認します。未設定の場合はFAQ10-53に従って設定し、その後の動作を確認します。</li>
+<li>FAQ17-74を参照し、EPSTDSのレジストリ設定でセッション分離を指定します。IncludeForwardをDWORD値として作成し、値を0に設定した後、EPSTDSを再起動します。設定場所や適用条件は同FAQで確認してください。</li>
+<li>使用しているモジュールが古い場合は、適用可能な差分アップデートを確認します。2026年4月16日のサポート回答では20251218差分が案内されていますが、適用時点の公開版と対象製品を確認してください。</li>
+<li>Toに相手先、CCに自分のアドレスを指定した送信を再確認し、CC宛ての配送とリトライデータの滞留が改善するか確認します。改善しない場合は、採取したログと設定情報をサポートへ提示します。</li>
+</ol><br>
+レジストリ変更とサービス再起動は業務への影響を考慮して実施してください。変更前の設定を記録し、必要に応じてバックアップを取得してください。リトライデータは未配送メールに関係するため、原因調査や対処として安易に削除しないでください。<br><br>
+<b>【復旧と原因究明を分けて考える】</b><br>
+本事例ではEPSTRSとEPSTDSの再起動後にincomingおよびholdingのデータが流れ、現象が解消しました。しかし、これは復旧結果であり、incoming内の滞留だけが原因であったことや、再起動のみで再発を防げることを示すものではありません。名前解決、セッション分離、配送リトライの状況を確認し、設定後の動作を継続して確認してください。<br><br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-67.html">リトライ処理が行われるときの情報とフォルダについて</a><br>
+●<a href="./faq10-53.html">hostsファイル記述の必要性と有用性について</a><br>
+●<a href="./faq01-04.html">クライアントからのメール送信が遅いケースとhostsファイルの必要性</a><br>
+●<a href="./faq17-74.html">内部宛と外部宛の同報メールを送信すると内部宛メールが遅延してしまう</a><br>
+●<a href="./faq19-64.html">同報時のリトライ処理の流れはどのように行われるか</a><br>
+<br><p align="right"><input type="button" value="閉じる" onclick="window.close();"></p><br><br>
+</body>
+</html>
