@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-90</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>サーバ移行の手順のうちバックアップ1～7の中でサービス停止しなくても正常に行える項目は？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+「サポート２」でダウンロードできる技術資料「メールサーバ・SMTP サーバ移行の手順について」（Std (x64) 版・Ent (x64) 版）では、「A. バックアップの要点」で「バックアップは、E-Post 関係の全サービスを停止させた上でバックアップ作業を行ってください。」と案内しています。これについて、バックアップ手順1.～7.の中に、サービスを停止しなくても正常にバックアップを行える項目はあるか、というご質問をいただいたことがあります。<br>
+なお、Std (x64) 版・Ent (x64) 版とも、バックアップ手順1.～7.の構成は同じです。<br>
+<br>
+<b>前提：サービスが動いている間は、フォルダの中身が刻々と変わっています</b><br>
+サービスが動作している間は、メールのSMTP受領・配送・リトライなどの処理が進むため、メール作業フォルダやメールボックスフォルダの中では、ファイルの生成・リネーム・削除・移動が刻々と行われています。サービスが動いていてもファイルのコピー自体は取れますが、作業途中のファイルや作成途上のファイルが含まれる可能性があり、リストアしても完全に元に戻せる保証はありません。<br>
+一方、人為的に設定変更をしない限り内容が変わらないものについては、サービスを停止しなくてもバックアップを取ることができます。この観点で、手順1.～7.を整理すると次のとおりです。<br>
+<br>
+<table border="1" cellspacing="0" cellpadding="4" style="font-size:12px; line-height:1.6em;">
+<tr bgcolor="#eeeeee"><td align="center"><b>手順</b></td><td><b>バックアップ項目</b></td><td align="center"><b>停止せずに可</b></td><td><b>補足</b></td></tr>
+<tr><td align="center">1</td><td>Mail Server の基本設定内容のバックアップ</td><td align="center">○</td><td>停止しなくてよい</td></tr>
+<tr><td align="center">2</td><td>プログラムインストールフォルダ下にある設定ファイル群のバックアップ</td><td align="center">○（△）</td><td>原則停止しなくてよい。ロックアウト機能を使用している場合は注意</td></tr>
+<tr><td align="center">3</td><td>ユーザーアカウント情報（アカウントデータファイル）のバックアップ</td><td align="center">○</td><td>停止しなくてよい</td></tr>
+<tr><td align="center">4</td><td>メール作業データのバックアップ</td><td align="center">×</td><td>サービス停止が前提</td></tr>
+<tr><td align="center">5</td><td>ユーザーごとのメール関連の設定、メールデータのバックアップ</td><td align="center">×（△）</td><td>メールデータはサービス停止が前提。設定ファイル類は停止しなくてよい</td></tr>
+<tr><td align="center">6</td><td>登録済みドメインの方式を確認</td><td align="center">○</td><td>確認のみのため停止しなくてよい</td></tr>
+<tr><td align="center">7</td><td>hosts ファイルのバックアップ</td><td align="center">○</td><td>停止しなくてよい</td></tr>
+</table>
+<small>○：サービスを停止しなくてもバックアップ可能　×：事前にサービスを停止することが前提　△：条件付き（各項目の説明を参照）</small><br>
+<br>
+<b>1.Mail Server の基本設定内容のバックアップ</b><br>
+E-Post Mail Controlの「バージョン情報」タブにある［エクスポート］ボタンで出力される &quot;epst-ms.reg&quot; ファイルのバックアップです。基本設定の内容の出力であり、基本設定はふだん変更することがないものですので、サービスを停止せずにそのままバックアップを取ってかまいません。<br>
+<br>
+<b>2.プログラムインストールフォルダ下にある設定ファイル群のバックアップ</b><br>
+拡張子.datの設定ファイル類（【sender.dat】【effect.dat】【gateway.dat】【mail.dat】等）のほとんどは、人為的な設定変更をしない限り変動がないため、サービスを停止せずにそのままバックアップを取ることができます。任意のフォルダに置いているSSL用の証明書ファイルや秘密鍵ファイルも同様です。<br>
+<font color="#cc0000">ただし、IPロックアウト機能・認証接続ロックアウト機能を使用している場合は注意が必要です。</font>これらの機能で使われる設定ファイル（&quot;rejectsmtpip.dat&quot;、&quot;rejectpopip.dat&quot;、&quot;rejectimapip.dat&quot;等）は、設定ファイルであると同時に、SMTP・POP3・IMAP4それぞれの接続や認証のたびに記録が追加・更新されていくトランザクションのテーブルとしても働いています。そのため、サービスを停止しないままバックアップを取った場合、バックアップを取った後のアクセスによって、内容が追加・変更されている可能性があります。<br>
+なお、IPロックアウト機能・認証接続ロックアウト機能を使用していない場合は、この点は関係ありません。<br>
+<br>
+<b>3.ユーザーアカウント情報（アカウントデータファイル）のバックアップ</b><br>
+アカウントデータファイル（&quot;[ドメイン名].idx&quot;）は、人為的に追加や設定をしない限り変動がないため、サービスを停止せずにそのままバックアップを取ることができます。<br>
+<br>
+<b>4.メール作業データのバックアップ</b><br>
+メール作業フォルダ（デフォルトC:\mail）は、大別すると次のような種類のフォルダで構成されています。<br>
+・共有設定情報を保管するregフォルダ<br>
+・ログ関係のフォルダ<br>
+・SMTP受領の一時作業フォルダ<br>
+・メールキューフォルダ<br>
+・リトライ関係の作業フォルダ<br>
+・メーリングリストの配送展開フォルダ<br>
+・MXキャッシュフォルダ<br>
+・その他<br>
+サービスが動作したままでは、SMTP受領・配送・リトライなどの一連の動作が進行し、時間の経過とともにどんどん構成内容が変わっていきます。また、regフォルダの中には、メールのメッセージIDの発番情報を保管しているファイルもあり、このファイルはSMTP受領のたびにカウントアップされるため、中身が常時変更されています。<br>
+ほとんど変更がないフォルダもありますが、サービスを動作させたままバックアップを取った場合、リストアしても完全に元に戻せる保証はありません。<b>メール作業データのバックアップは、事前にサービスを停止することを前提にお考えください。</b><br>
+<br>
+<b>5.ユーザーごとのメール関連の設定、メールデータのバックアップ</b><br>
+これはメールボックスフォルダのバックアップになります（メールボックスフォルダがメール作業フォルダの下にある既定の設定の場合は、上記4.に含まれます）。サービスが動作していると、メールデータファイルが格納されたり、ユーザーの操作によってメールデータファイルの消去・移動・リネームなどが刻々と行われ、構成が変化していきます。<b>メールデータのバックアップは、事前にサービスを停止することを前提にお考えください。</b><br>
+ただし、メールボックスフォルダ内に置かれている次の設定ファイル類は、人為的に設定変更しなければほとんど変わらないため、サービスを停止せずにバックアップを取ってかまいません。<br>
+・自動転送・自動応答設定ファイル（IMS.CTL）<br>
+・SMTP AUTH／APOPパスワードファイル（apop.dat）<br>
+・送信先制限設定ファイル（sender.dat）　など<br>
+<br>
+<b>6.登録済みドメインの方式を確認</b><br>
+確認だけですので、サービスを停止する必要はありません。<br>
+<br>
+<b>7.hosts ファイルのバックアップ</b><br>
+人為的に設定変更しなければ変わらないため、サービスを停止せずにバックアップを取ってかまいません。<br>
+<br>
+※「サービスを停止しなくてよい」としている項目も、人為的な設定変更をしないことが前提です。バックアップ作業中は、設定の変更を行わないようにしてください。<br>
+※MSFCクラスタ構成の場合は、E-Postのサービスを停止するとクラスタの制御が切り替わってしまうため、サービスの停止方法が異なります。移行手順の資料の「A. バックアップの要点」、および下記記事「[32bit版][64bit版] MSFCクラスタ構成でサーバ移行時のバックアップ作業前に行うサービス停止について」を参照してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-10.html">メールサーバーで使用しているフォルダについて</a><br>
+●<a href="./faq15-30.html">inboxフォルダ（メールボックスフォルダ）配下に格納されるデータファイルについて</a><br>
+●<a href="./faq03-06.html">別マシンへの移行手順について</a><br>
+●<a href="./faq07-14.html">[32bit版][64bit版] MSFCクラスタ構成でサーバ移行時のバックアップ作業前に行うサービス停止について</a><br>
+●<a href="./faq17-09.html">〔新機能〕SMTP接続時の「IPロックアウト機能」について</a><br>
+●<a href="./faq15-25.html">〔新機能〕SMTP認証時の「認証接続ロックアウト機能」について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

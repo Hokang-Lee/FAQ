@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-89</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>E-Post SMTP Serverを中継サーバとされて送られたメールの添付ファイル名が文字化けしているケースが見られる。これに対しての考え方、アプローチは？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+E-Post SMTP Serverを中継サーバとして送信したメールについて、相手側で添付ファイルのファイル名が文字化けしている、というお問い合わせをいただいたことがあります。ファイル名には日本語が使われており、あわせて、メールの仕様として添付ファイル名の長さやバイト数に制限があるのか、というご質問もいただきました。<br>
+本記事では、この現象に対する考え方と、運用上のアプローチを説明します。E-Post固有の仕様というよりは、メールシステム全般に共通する一般的な内容です。<br>
+<br>
+<b>E-Postは、中継時に添付ファイル名を書き換えない</b><br>
+添付ファイル名は、メールのヘッダ部分（添付ファイルごとのヘッダ）に記載されます。E-Post SMTP Server・E-Post Mail Serverは、通常のメール中継（SMTP受信と配送）において、この部分の文字コードやMIMEエンコードを意図的に書き換えることはありません。<br>
+そのため、添付ファイル名の文字化けは、<b>送信元のメールクライアントの仕様や抱えている問題点と、受信側のメールクライアントとの組み合わせによって起きる事象</b>と考えられます。解決には、メール送受信の両端での対応が必要になります。<br>
+なお、E-Post Mail ServerのIMAP4サービス（EPSTIMAP4S）経由でメールを閲覧している場合、古いモジュールでは添付ファイル名の表示が変わる現象が確認されています。これについては下記記事「Roundcube mail を E-Post と組み合わせて設定、添付ファイルを送信したときの問題」を参照してください。<br>
+<br>
+<b>添付ファイル名の長さに直接の上限はないが、RFCによる実質的な制約がある</b><br>
+添付ファイル名の長さについて、RFCの規定やE-Postシリーズ側による直接的な上限は定められていません。ただし、RFCによる実質的な制約のために、次のような影響を受けることが考えられます。<br>
+<b>1.メールの1行の長さの制約</b><br>
+　メールのヘッダや本文の1行は998文字（1バイト/1文字の場合）までと定められており（必須）、さらに1行あたり78文字以内で改行することが推奨されています（RFC 5322「2.1.1. Line Length Limits」）。添付ファイル名もヘッダに含まれるため、長いファイル名ほど、文字化けや欠落の危険性が高まります。<br>
+<b>2.日本語（全角文字）を使うときは、制約がさらに厳しくなる</b><br>
+　日本語のファイル名は、そのままではヘッダに記載できないため、エンコード（文字コードの指定を付け加えたうえでの変換）が行われます。その分だけ文字列が長くなるため、上記の制約はさらに厳しくなります。ヘッダに日本語などを記載するためのエンコード方式はRFC 2047で定められており、エンコードした1つの単位（encoded-word）は75文字以内とされています（RFC 2047「2. Syntax of encoded-words」）。<br>
+<b>3.長い日本語ファイル名は、分割してエンコードされる</b><br>
+　長い日本語ファイル名になると、エンコードした文字列が送信元のメールクライアントによって複数に分割されます（分割の方式には、RFC 2231で定められた方式（「3. Parameter Value Continuations」「4. Parameter Value Character Set and Language Information」）のほか、本来はファイル名などのパラメータへの使用が認められていないRFC 2047の形式を流用する方式も広く使われています（RFC 2047「5. Use of encoded-words in message headers」））。その方式が特殊だったり、受信側にとって想定外だったりすると、受信側のメールクライアントでは、判読可能な日本語のファイル名に戻せない（文字化けする）可能性が高くなります。<br>
+<br>
+<b>受信側が携帯電話（スマートフォン）のメールアプリの場合</b><br>
+受信側がどのメールアプリを使用しているかによるため、一概には言えません。<br>
+ただ、PCで使われている主要なメールクライアントの多くは、添付ファイル名や日本語メールの文字コード、MIMEエンコード・デコードの問題に長年対応してきた実績があります。一方、携帯電話のメールアプリは比較的歴史が浅く、こうした相性問題への対応がまだ十分でない場合があります。<br>
+また、長い文字列を分割してエンコードする方式などは、細かなルールが統一されておらず、大手ベンダーの主要メールクライアントのやり方が事実上の標準として扱われてきた側面もあります。メールの世界では、最新の規格への対応だけでなく、過去からの相性問題を解決してきた実績が問われると言えます。<br>
+<br>
+<b>運用上のアプローチ（目安）</b><br>
+メールは、送信元メールクライアント、送信元サーバ、中継サーバ、相手先サーバ、相手先メールクライアントというように、多くを経由して届きます。長い日本語のファイル名を使うほど、トラブルの原因になりやすい箇所が増えます。一般論にはなりますが、次のような対策を検討してください。<br>
+<b>送信側</b><br>
+・ファイルはzipなどでまとめ、ファイル名には半角英数字を使う<br>
+・添付ファイル名はできるだけ短くする<br>
+・添付ファイル名に半角スペースや特殊文字を使わない<br>
+・内部で文字化けの元となるメールクライアントが特定できた場合は、その製品をできるだけ使わない<br>
+・これらを内規として定めて運用する<br>
+<b>受信側</b><br>
+・携帯電話では、できるだけこなれたメールアプリを使う<br>
+・場合によっては、ブラウザから利用できるWebメールで確認してみる<br>
+<br>
+<b>（参考）</b><br>
+■<a href="https://tex2e.github.io/rfc-translater/html/rfc5322.html#2-1-1--Line-Length-Limits" target="_blank">（外部サイト）RFC 5322 - Internet Message Format 日本語訳「2.1.1. Line Length Limits」</a><br>
+■<a href="https://www.rfc-editor.org/rfc/rfc2047" target="_blank">（外部サイト）RFC 2047 - MIME Part Three: Message Header Extensions for Non-ASCII Text（英語）</a><br>
+■<a href="https://tex2e.github.io/rfc-translater/html/rfc2231.html#3--Parameter-Value-Continuations" target="_blank">（外部サイト）RFC 2231 - MIME Parameter Value and Encoded Word Extensions 日本語訳「3. Parameter Value Continuations」</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq19-72.html">Roundcube mail を E-Post と組み合わせて設定、添付ファイルを送信したときの問題</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

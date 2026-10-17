@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-88</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールフィルタ機能が働くのは、マニュアルではメール受信時としてあるが「送信・受信」の両方で行われている理解でよいのか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+ユーザーズガイドの「メールフィルタ」の項では、「フィルタしたいメールの特徴を記述して一致する場合指定した処置を施します。（中略）その特徴を記述することによりサーバー上にて受信を防ぐことが可能になります」と説明しています。ところが、メールクライアントからメールを「送信」するときにもメールフィルタ機能が働いているようだが、送信・受信の両方で処理されているという理解でよいのか、というご質問をいただいたことがあります。<br>
+<br>
+<b>「送信」「受信」は、見ている立場によって意味が変わる</b><br>
+「送信」「受信」という言葉は、ユーザーが操作するメールクライアントの立場から見るか、MTAであるメールサーバの立場から見るかで、指すものが異なります。簡略図で説明します。<br>
+<br>
+<p align="center"><img src="./img/faq19-88-01.png" width="600" border="0" alt="アウトバウンド時の流れ：メールクライアントから送信したメールは、E-PostのEPSTRS（SMTP受信・メールフィルタ）で受け取られ、EPSTDS（SMTP配送）から外部インターネットへ、または内部ドメイン宛てならメールボックスへ配送される"></p>
+<br>
+<p align="center"><img src="./img/faq19-88-02.png" width="600" border="0" alt="インバウンド時の流れ：外部インターネットから届いたメールは、E-PostのEPSTRS（SMTP受信・メールフィルタ）で受け取られ、EPSTDS（SMTP配送）でメールボックスへ配送され、メールクライアントがPOP受信する"></p>
+<br>
+<small>★印：メールフィルタ機能が処理を行う場所（EPSTRSサービスのSMTP受信時）</small><br>
+<br>
+図のとおり、メールクライアントからの「送信」時も、外部インターネット側から送られてくるメールの「受信」時も、どちらもいったん、E-PostのEPSTRSサービスが「SMTP受信」します。<br>
+<b>メールフィルタ機能は、このEPSTRSサービスが「SMTP受信」するときに処理を行っているもの</b>です（図の＊の部分）。<br>
+つまり、メールサーバの立場から見ると、どちらも「受信」です。ユーザーズガイドの「受信を防ぐ」は、このメールサーバ側の「SMTP受信」を指しています。メールクライアントの立場で言えば、「送信」「受信」の両方でメールフィルタ機能が働く、という理解で問題ありません。<br>
+<br>
+<b>内部から送信するメールをメールフィルタの対象外にするには</b><br>
+内部のメールクライアントから送信するメールを、メールフィルタ機能のチェック対象から外したい場合は、E-Post Mail Controlの「メールフィルタ」タブ画面にある「チェック不要なIP」【passfilter.dat】に、内部のローカルエリアのIPアドレスを登録します。これにより、内部からアウトバウンド方向にメールを「送信」するときは、メールフィルタ機能をパスできるようになります。外部から届くメールは、引き続きメールフィルタの対象です。<br>
+メールフィルタの処理に時間がかかると、メールクライアントがタイムアウトと判断して同じメールを再送してしまうことがあります。その事例については、下記記事「メールクライアントからのメール通信時に複数の同じ内容のメールが送られてしまう現象とその原因」を参照してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq19-87.html">メールクライアントからのメール通信時に複数の同じ内容のメールが送られてしまう現象とその原因</a><br>
+●<a href="./faq01-81.html">メールフィルタ【mail.dat】の設定事例</a><br>
+●<a href="./faq01-82.html">tempフォルダに一時ファイルを含むメールデータが残っている</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

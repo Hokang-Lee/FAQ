@@ -1,0 +1,128 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-91</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>エイリアス設定のうち「エイリアス一対実アドレス多」の設定が仕様上不可とはどういうことか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+エイリアス設定のうち「エイリアス一対実アドレス多」の設定が仕様上不可とはどういうことか、というご質問をいただいたことがあります。<br>
+ご質問の内容は、次のようなものでした。<br>
+メールサーバでアカウント taro@example.jp と、そのエイリアス taro.yamada@example.jp を運用していたところ、上位のシステムでアドレスが書き換えられるようになり、taro.yamada@sub.example.jp 宛てのメールも届くようになった。これも同じ taro のメールボックスで受け取りたいので、sub.example.jp のドメインを追加してエイリアスを登録しようとしたところ、「重複しています。」と表示された、というものです。<br>
+（ドメイン名・アカウント名は、説明用の例に置き換えています）<br>
+<br>
+<b>結論</b><br>
+E-Postシリーズのエイリアスは、エイリアスと実アドレスを一対一の関係で設定します。1つのエイリアスに複数の実アドレスを割り当てる「エイリアス一対実アドレス多」の設定は、仕様上できません。<br>
+一方、複数のエイリアスに同じ実アドレスを割り当てる「エイリアス多対実アドレス一」の設定はできます。ご質問のケースは、こちらの形で設定できます。<br>
+<p align="center"><img src="./img/faq19-91-01.png" width="800" style="max-width:100%;height:auto;" alt="多対一と一対多の比較"></p>
+
+<br>
+<b>「エイリアス一対実アドレス多」を登録しようとするとどうなるか</b><br>
+同じエイリアスに2つ目の実アドレスを登録しようとしたときの動きは、使う画面によって異なります。<br>
+<p align="center"><img src="./img/faq19-91-02.png" width="800" style="max-width:100%;height:auto;" alt="画面ごとの違い"></p>
+
+<b>（1）Account Manager で登録しようとした場合</b><br>
+すでに登録されているエイリアス taro.yamada@sub.example.jp に、2つ目の実アドレス hanako@example.jp を登録しようとすると、「重複しています。」と表示され、登録されません。<br>
+<p align="center"><img src="./img/faq19-91-06.png" style="max-width:100%;height:auto;" alt="Account Managerでの入力"></p>
+<p align="center"><img src="./img/faq19-91-07.png" style="max-width:100%;height:auto;" alt="重複しています。の表示"></p>
+
+<b>（2）Mail Control の「エイリアス設定」タブで登録しようとした場合</b><br>
+Mail Control の「エイリアス設定」タブでは、同じエイリアスに2つ目の実アドレスを追加しても、メッセージは表示されずに登録できてしまいます。登録後は、Mail Control の一覧にも、Account Manager の一覧にも、同じエイリアスが2行並んで表示されます。<br>
+<p align="center"><img src="./img/faq19-91-08.png" style="max-width:100%;height:auto;" alt="Mail Controlでの入力"></p>
+<p align="center"><img src="./img/faq19-91-09.png" style="max-width:100%;height:auto;" alt="同じエイリアスが2行並んだ一覧"></p>
+<p align="center"><img src="./img/faq19-91-10.png" style="max-width:100%;height:auto;" alt="Account Managerにも2行表示"></p>
+
+しかし、この状態で taro.yamada@sub.example.jp 宛てにメールを送ると、メールは1つ目の実アドレス taro@example.jp にだけ届き、2つ目の実アドレス hanako@example.jp には届きません。SMTP受信詳細ログ（receivelog）を見ると、エイリアスが1つ目の実アドレスにだけ置き換えられていることがわかります。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; border:1px solid #999999; padding:6px 10px; margin:6px 0;">RCPT TO:&lt;taro.yamada@sub.example.jp&gt;<br>
+Check RCPT TO address = taro.yamada@sub.example.jp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&gt; aliases = taro@example.jp<br>
+・・・<br>
+250 2.0.0 &lt;taro.yamada@sub.example.jp&gt;... Recipient ok.<br>
+</div>
+設定画面では2行とも登録されているように見えるため、2つ目の実アドレスにメールが届いていないことに気づきにくい点にご注意ください。同じエイリアスを2行以上登録しないようにしてください。<br>
+<br>
+<b>「重複しています。」と表示される条件</b><br>
+Account Manager は、まったく同じエイリアスのアドレス（@以降のドメイン名まで同じもの）が、すでにどこかに登録されているときに「重複しています。」と表示します。<br>
+<table border="1" cellspacing="0" cellpadding="4" style="font-size:12px; line-height:1.6em;">
+<tr><th bgcolor="#eeeeee">登録しようとしたエイリアス</th><th bgcolor="#eeeeee">結果</th></tr>
+<tr><td>すでに登録されているエイリアスと同じアドレス（実アドレスが同じでも、違っていても）</td><td>「重複しています。」と表示され、登録されない</td></tr>
+<tr><td>すでに登録されているエイリアスと同じアドレスを、別のドメインの Aliases に登録しようとした</td><td>「重複しています。」と表示され、登録されない</td></tr>
+<tr><td>@より前は同じで、ドメイン名が違うアドレス<br>（taro.yamada@example.jp がある状態で taro.yamada@sub.example.jp を登録）</td><td>別のエイリアスとして登録できる</td></tr>
+</table>
+<br>
+<b>ご質問のケースの設定方法</b><br>
+ご質問のケースでやりたいことは、3つのアドレス宛てのメールを1つのメールボックスで受け取ることで、「エイリアス多対実アドレス一」の形にあたります。そのため、追加したドメインにエイリアスを1つ登録するだけで実現できます。<br>
+<p align="center"><img src="./img/faq19-91-03.png" width="800" style="max-width:100%;height:auto;" alt="ご質問のケースの構成"></p>
+
+<b>1. ドメインの追加</b><br>
+<blockquote>
+Mail Control の「ドメイン管理」タブで sub.example.jp を追加し、［適用］をクリックします。続いて「サービス制御」タブで EPSTRS、EPSTDS のサービスを停止→開始で再起動します。<br>
+</blockquote>
+<b>2. エイリアスの登録</b><br>
+<blockquote>
+Account Manager で sub.example.jp の［Aliases］を選択し、次のエイリアスを登録します。<br>
+エイリアス：taro.yamada@sub.example.jp<br>
+実アドレス：taro@example.jp<br>
+</blockquote>
+<p align="center"><img src="./img/faq19-91-05.png" style="max-width:100%;height:auto;" alt="sub.example.jpのAliasesに登録した状態"></p>
+
+Account Manager から登録したエイリアスは、サービスを再起動しなくてもすぐに有効になります。<br>
+<br>
+なお、アカウントもエイリアスも、ドメインごとに別のものとして扱われます。sub.example.jp のドメインを追加しただけでは、taro.yamada@sub.example.jp 宛てのメールは User unknown として受領を拒否されます。example.jp 側にある同じ名前のエイリアス（taro.yamada@example.jp）が、新しいドメインにも効くわけではありませんので、追加したドメイン側にもエイリアスの登録が必要です。<br>
+<br>
+<b>エイリアスを登録するときは入力の向きに注意</b><br>
+エイリアスは「エイリアス → 実アドレス」の向きで登録します。エイリアス欄と実アドレス欄を逆に入力すると、意図しない「エイリアス一対実アドレス多」の状態になったり、既存のアカウント宛てのメールが受信できなくなったりすることがあります。<br>
+<p align="center"><img src="./img/faq19-91-04.png" width="800" style="max-width:100%;height:auto;" alt="入力の向き"></p>
+
+登録したあとは、一覧で向きを確認してください。Mail Control の「エイリアス設定」タブでは「"エイリアス" -&gt; "実アドレス"」の形で、Account Manager では［Aliases］列と［Address］列に分かれて表示されます。<br>
+<br>
+<b>1つのアドレス宛てのメールを複数の人に届けたい場合</b><br>
+1つのアドレス宛てのメールを複数のメールボックスに届けたい場合は、エイリアスではなく、メーリングリストや自動転送を使います。（下記の関連FAQ「エイリアス1つに実アドレス複数割り当ては不可、エイリアス複数に実アドレス1つの割り当ては可」参照）<br>
+<br>
+（確認環境）E-Post Mail Server Standard (x64)（EPSTRS 4.AN、EPSTDS 4.84）、メールボックス方式は「共通ボックス（区別しない）」<br>
+<br>
+<b>（関連資料）</b><br>
+■<a href="https://www.e-postinc.jp/Mail_Server.html#point5" target="_blank">E-Post Mail Server (x64) 仕様表（脚注 *23）</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-71.html">エイリアス1つに実アドレス複数割り当ては不可、エイリアス複数に実アドレス1つの割り当ては可</a><br>
+●<a href="./faq15-32.html">エイリアスインポート後にエイリアスの二重登録状態になっている</a><br>
+●<a href="./faq01-24.html">複数の自動転送先を指定する場合</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
