@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-01</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>OutlookでIMAP4利用する際、CPU高負荷状態発生を抑止するため、Outlook側のタイムアウト設定値を10分程度に伸ばす <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+OutlookでIMAP4利用する際、Outlook側のタイムアウト設定値が通常デフォルト1分に設定されています。E-Post IMAP4サーバ側がCPU高負荷の連続状態にならないよう、抑止策としてOutlook側のタイムアウト設定値はデフォルト1分から最大10分程度に伸ばすようにしてください。<blockquote>
+（例）Outlook 2019 での設定<br>
+<small>※他バージョンのOutlookでも同様の設定と思われますが、保証の限りではありません。事前に確認してください。</small><br>
+(1) [ファイル]<br>
+(2) [アカウント設定] → [アカウント設定]<br>
+(3) 対象のIMAPアカウントを選択<br>
+(4) [変更]<br>
+(5) [詳細設定] <br>
+(6) [詳細設定] タブ<br>
+(7)「サーバーのタイムアウト」のスライダーを右へ移動、最大10分<br>
+(8) [OK] → [次へ] → [完了] で保存<br>
+<img src="./img/faq21-01-01.jpg"><br>
+</blockquote>
+仮に設定を変更しない場合は、デフォルトのタイムアウト設定値が1分ですので、これでは下記のような時間のかかる処理をさせているときに、途中でタイムアウトとして判断し、Outlook側が簡単にセッションを切ってしまい、再びリトライしようとする結果になります。<br>
+例えば、Outlook側からSELECT命令やFETCH命令でフォルダの総数やメール検索など発生すると、E-Post IMAP4サーバ側は該当フォルダに対して総なめで調べます。フォルダ内にメールデータファイル数が多いほど、結果待ちに時間がかかります。この待ち時間が長くなっているとき、メールクライアントのOutlook側で設定している無通信タイムアウト値が1分程度と短かければ、Outlook側で無通信タイムアウトと判断しセッションを一方的に切断してしまう結果になります。<br>
+セッションが切れますので、Outlook側はその後必然的にリトライをします。同じことを最初から繰り返しては、再びタイムアウトが発生することにより、またしても途中でセッションが切られます。この動作を繰り返すことで高負荷の連続状態が発生することが推測されるのです。<br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
