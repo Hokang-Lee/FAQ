@@ -50,10 +50,10 @@ inlogとoutlocallogだけでは、元メールと転送メールの関連付けを確定できません。send
 inlogから、最初に受信したメールのメッセージID、受信時刻、接続元IPアドレス、送信元、送信先を確認します。接続元IPアドレスがメールサーバ自身のIPアドレスではなく、外部のクライアントや別サーバのIPアドレスである記録が元メールの候補です。<br>
 <pre>
 &lt;B0000000169@example.jp&gt; [29/Jan/2026:15:42:10]
-192.0.2.10 sender@example.net user01@example.jp
+201.xxx.xxx.xxx sender@example.net user01@example.jp
 
 &lt;B0000000170@example.jp&gt; [29/Jan/2026:15:42:10]
-192.0.2.20 example.jp forward@example.jp user02@example.jp
+192.168.11.20 example.jp forward@example.jp user02@example.jp
 </pre>
 上記例では、接続元IPアドレスがメールサーバ自身ではないB0000000169を元メールと判断します。B0000000170のように、受信時刻が近く、接続元IPアドレスがメールサーバ自身である記録は、自動転送メールの候補と推定できます。ただし、inlogだけでは関連付けは確定できません。<br>
 <br>
@@ -85,7 +85,7 @@ senderlogから、手順1で特定した元メールのメッセージIDを検索します。元メールのメッ
 senderlogで関連付けを確定した後、outlocallogから新しいメッセージIDを検索します。転送先アドレスへのsent記録があれば、内部アカウントのメールボックスへ着信したことを確認できます。<br>
 <pre>
 B0000000170@example.jp sent on [29/Jan/2026:15:42:10]
-to 192.0.2.20 from forward@example.jp to user02@example.jp
+to 192.168.11.20 from forward@example.jp to user02@example.jp
 </pre>
 outlocallogには接続元IPアドレスが記録されないため、outlocallogだけで元メールと自動転送メールを判別することはできません。元メールとの関連付けはsenderlogで確定し、outlocallogは最終的なメールボックス着信の確認に使用します。<br>
 <br>

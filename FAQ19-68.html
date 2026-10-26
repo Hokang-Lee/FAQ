@@ -20,11 +20,11 @@ gtag('config', 'G-7N0CMEK0LT');
 <BODY TEXT="black">
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>認証局CA DigiCert Global Root G2 証明書変更の影響及び追加設定の必要性はあるか</b></FONT>
+<FONT SIZE="4" COLOR="#000000"><b>認証局CA DigiCert Global Root G2 証明書変更の影響及び追加設定の必要性はあるか <font color="#ff0000">new!</font></b></FONT>
 <HR><br>
-Exchange Onlineとの通信に関して、DigiCert Global Root G2認証局（CA）を信頼するよう案内された場合の、E-Postへの影響と追加設定の必要性について説明します。<br><br>
+Exchange Onlineとの通信に関して、DigiCert Global Root G2認証局（CA）を信頼するよう案内されたことがあり、その場合のE-Postへの影響と追加設定の必要性について説明します。<br><br>
 <b>【E-Postの動作への影響はあるか】</b><br>
-稼働中のSMTPサーバにDigiCert Global Root G2証明書が追加済みであり、認証局CAが正しく署名し、サーバが正しく中間証明書を提供している場合は、鍵の生成方法に関係なく、E-Post側の動作としては影響を受けません。<br><br>
+稼働中のメールサーバ・SMTPサーバにDigiCert Global Root G2証明書が追加済みであり、認証局CAが正しく署名し、サーバが正しく中間証明書を提供している場合は、鍵の生成方法に関係なく、E-Post側の動作としては影響を受けません。<br><br>
 <b>【E-Post側で追加設定は必要か】</b><br>
 上記の通り、認証局CAが正しく署名し、サーバが正しく中間証明書を提供したものが登録されていれば、E-Post側で追加設定や設定変更は不要です。ルート証明書が追加されていることに加え、中間証明書を含めた証明書チェーンが正しく構成されていることを確認してください。<br><br>
 <b>【影響を受ける条件】</b><br>
@@ -42,16 +42,16 @@ DigiCert系の証明書には、RapidSSL、GeoTrust、Thawte、DigiCertブランドなどがありま
 ※[your.mail.server]と[port]は、実際の接続先ホスト名とポート番号へ置き換えてください。STARTTLS用の例は、接続方式を区別するための補足です。<br><br>
 応答内容から、サーバ証明書の発行者、中間証明書、証明書チェーン、検証結果を確認します。OpenSSLが参照する信頼ストアはE-Postの実行環境と異なる場合があるため、OpenSSLの結果だけでE-Postの動作を断定せず、実際のメール配送も確認してください。<br><br>
 <b>【構築ガイドやFAQの古い設定例について】</b><br>
-E-Postの構築ガイドやFAQに掲載されている認証局証明書の事例には、2000年代から2010年代前半のG1ルート系を題材とした古い設定例があります。設定手順は基本的に同じですので、実際に発行されたG2／G3系の証明書チェーンに合わせて設定してください。<br><br>
+E-Postの構築ガイドやFAQに掲載されている認証局証明書の事例には、2000年代から2010年代前半のG1ルート系を題材とした古い設定例があります。ただし、設定手順は基本的に同じですので、実際に発行されたG2／G3系の証明書チェーンに合わせて設定してください。<br><br>
 E-Postに設定している証明書を新しいチェーンの証明書へ置き換える場合は、証明書の再取得が必要です。ただし、今回のCA変更に対応するために、E-Post本体の最新アップデート作業が必須となるわけではありません。<br><br>
 ※接続相手のCAを信頼するための対応と、自サーバの証明書の再取得・差し替えは別の作業です。今回の案内だけを理由に、すべての自サーバ証明書の再取得が必要になるという意味ではありません。<br><br>
 <b>【確認する項目】</b><br>
 <ol>
-<li>SMTPサーバにDigiCert Global Root G2証明書が追加済みか確認します。</li>
+<li>メールサーバ・SMTPサーバにDigiCert Global Root G2証明書が追加済みか確認します。</li>
 <li>認証局CAの署名と、サーバが提供する中間証明書を含めたチェーンが正しいか確認します。</li>
-<li>接続するメールソフトや他のサーバが、対象ルート証明書を信頼しているか確認します。</li>
+<li>接続するメールクライアントソフトや他のサーバが、対象ルート証明書を信頼しているか確認します。</li>
 <li>自サーバが提示する証明書と、接続相手の証明書の信頼設定を分けて確認します。</li>
-<li>実際のSMTP/TLS接続とメール配送を確認し、問題がある場合は該当時刻のログやOpenSSLの応答内容を採取します。</li>
+<li>実際のSMTP over SSL/TLS あるいは STARTTLS SMTP 通信接続とメール配送を確認し、問題がある場合は該当時刻のログやOpenSSLの応答内容を採取します。</li>
 </ol><br>
 <b>（参考資料）</b><br>
 ●<a href="https://techcommunity.microsoft.com/blog/exchange/trust-digicert-global-root-g2-certificate-authority-to-avoid-exchange-online-ema/4488311" target="_blank">Microsoft公式案内：Trust DigiCert Global Root G2 Certificate Authority to Avoid Exchange Online Email Disruption</a><br><br>
