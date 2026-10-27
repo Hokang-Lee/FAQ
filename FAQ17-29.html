@@ -35,21 +35,25 @@
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
 <!-- ACCESS KAISEKIKEN end-->
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>SMTPゲートウェイに設定したSMTP Serverに内側のメールサーバと同名のドメインが登録されていると user unknown となり正しく働かない <font color="#ff0000">new!</font></b></FONT>
+<FONT SIZE="4" COLOR="#000000"><b>SMTPゲートウェイに設定したSMTP Serverに内側のメールサーバと同名のドメインが登録されていると user unknown となり正しく働かない <font color="#ff0000">updated!</font></b></FONT>
 <HR>
 <br>
-SMTPゲートウェイとして設定した E-Post SMTP Server (x64) において、内側のメールサーバと同名のドメインが登録されている場合、SMTP Server にはローカルユーザーを登録していないはずなので、そのままでは SMTP Server が user unknown を返す結果となり正しく働かない状態になります。E-Post SMTP Server (x64) には内側のメールサーバと同名のドメインを登録しておかないよう注意が必要です。<br>
+<b>同名ドメインは登録しない。異なる名前のダミードメインを使う。</b><br>
+SMTPゲートウェイとして設定した E-Post SMTP Server (x64) において、内側のメールサーバと同名のドメインが登録されている場合、通常 SMTP Server には宛先となるユーザーを登録していないため、そのままでは SMTP Server が user unknown を返す結果となり正しく働かない状態になります。E-Post SMTP Server (x64) には内側のメールサーバと同名のドメインを登録しておかないよう注意が必要です。<br>
+社内システムの通知メールなどを外部へ送るための中継（Windows Server 標準のSMTP機能の代わりや、Microsoft 365 への中継など）として使う場合も同様です。送信先や送信元に使っているドメインと同じ名前のドメインを E-Post SMTP Server (x64) に登録すると、アカウントが登録されていない宛先へのメールは user unknown となり、送信できません。<br>
 <br>
 SMTPゲートウェイ構成の設定方法には二通りの方法があります。E-Post SMTP Server (x64) にエイリアスを設定、そのエイリアス設定の際、内側のメールサーバにあるドメイン配下のアカウントをワイルドカード指定および1行のエイリアス設定する方法（Aの方法）と 、内側のメールサーバにあるドメイン配下のアカウントと一対一のエイリアスを設定する方法（Bの方法）です。（下記記事参照）<br>
 なお、E-Post SMTP Server (x64) を単純な SMTPリレーや SMTPゲートウェイとして使用する場合でも、E-Post内に登録しておくアカウント数はゼロにはできません。ダミードメインを登録しそこにダミーアカウント最低一つ以上の登録が必要です。（下記記事参照）<br>
 <br>
 仮にSMTPゲートウェイ内に内側のメールサーバと同名のドメインが登録されているときに「未指定のアカウントへの送信」や「未指定のアカウントからの送信」がされると、SMTPゲートウェイにしたはずの SMTP Server が user unknown を返す結果になります。その動きはSMTP受信詳細ログ（receivelog）に記録されます。<br>
-SMTPゲートウェイとして設定した E-Post SMTP Server (x64) に登録しておく内部ドメインは、内側のメールサーバと同名のドメインではなく、異なる名前のダミードメインを登録しその中にダミーカウントを最低一つ以上追加しておくべきです。<br>
+SMTPゲートウェイとして設定した E-Post SMTP Server (x64) に登録しておく内部ドメインは、内側のメールサーバと同名のドメインではなく、異なる名前のダミードメインを登録しその中にダミーアカウントを最低一つ以上追加しておくべきです。これが、SMTPゲートウェイや送信中継として使う場合の標準的な構成です。ダミードメインには、サブドメインを使うこともできます。<br>
 <br>
 <b>（関連資料）</b><br>
 ■<a href="https://www.e-postinc.jp/doc/SMTPgatewaysetting2.3.pdf">技術資料『SMTPゲートウェイ基本設定と応用 Rev2.3』</a><br>
 <br>
 <b>（関連FAQ）</b><br>
+●<a href="./faq17-54.html">同名ドメインを登録した場合にメールが拒否される仕組み</a><br>
+●<a href="./faq15-65.html">SMTP認証を有効にしていないのに、メール送信するときアカウントが存在しないとメールが送信できない理由</a><br>
 ●<a href="./faq01-30.html">SMTPゲートウェイとして利用したい</a><br>
 ●<a href="./faq01-61.html">SMTPゲートウェイとメールサーバの設定ポイント（E-Post Mail Server・E-Post SMTP Server）</a><br>
 ●<a href="./faq01-99.html">SMTPゲートウェイとして構築したとき踏み台にならないようにする（重要）</a><br>
