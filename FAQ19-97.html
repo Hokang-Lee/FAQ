@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-97</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+
+</HEAD>
+
+<BODY TEXT="black">
+
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAP4サーバが高負荷状態になる原因を探る場合の確認ポイントと対策 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+
+<br>
+
+IMAP4サービス（Epstimap4s）のCPU使用率が高くなり、メールの同期が進まない、または動作が著しく遅くなる場合があります。サポート案件の調査では、フォルダ構成やアクセス頻度など複数の要因が重なって負荷が増大している事例が確認されています。CPU高負荷が継続する場合は、次の項目をご確認ください。<br>
+
+<br>
+
+1.【INBOX直下のサブフォルダ構成を確認する】<br>
+
+IMAP4利用時、INBOX直下に多数のサブフォルダが存在すると、フォルダ一覧取得や同期処理の負荷が増加する場合があります。サブフォルダは可能な限りINBOX直下ではなく、INBOXと同レベルの階層に配置してください。<br>
+
+<br>
+
+2.【メールクライアントの定期受信間隔を見直す】<br>
+
+定期受信や未読確認の間隔が1分程度に設定されている場合、LOGINやFETCH要求が頻繁に発生しサーバ負荷の増加につながることがあります。メールクライアントやグループウェアの定期受信間隔・再接続間隔は5分以上を推奨します。<br>
+
+<br>
+
+3.【大容量メールの送受信状況を確認する】<br>
+
+大容量メールの送受信や保存済みメールの同期は、EPSTRSサービスおよびEPSTIMAP4サービスの負荷要因となります。特に送信済みフォルダや保管フォルダに大容量メールが多く存在する場合は、同期処理の負荷が高くなることがあります。必要に応じてメールサイズ制限の設定をご検討ください。<br>
+
+<br>
+
+4.【IMAP4詳細ログを取得する】<br>
+
+原因調査の際はIMAP4詳細ログ（receiveimap4）の取得を推奨します。接続元IPアドレス、ログイン頻度、アクセス頻度などを確認することで、負荷要因の特定に役立ちます。<br>
+
+<br>
+
+5.【特定クライアントを接続拒否して切り分ける】<br>
+
+問題端末が疑われる場合は、rejectimapip.dat を利用して一時的に対象端末からのIMAP4接続を拒否し、CPU負荷の変化を確認できます。<br>
+
+<br>
+
+（例）<br>
+
+C:\Program Files\EPOST\MS\rejectimapip.dat<br>
+
+<br>
+
+記述例<br>
+
+192.168.xxx.xxx<br>
+192.168.xxx.xxx<br>
+
+<br>
+
+対象IPアドレスからの接続が拒否されると、その旨がIMAP4詳細ログへ記録されます。調査終了後はファイル名変更または削除により接続拒否を解除してください。<br>
+
+<br>
+
+<b>（関連FAQ）</b><br>
+
+●<a href="./faq05-14.html">IMAP4の詳細ログ（receiveimap4）について</a><br>
+
+●<a href="./faq17-11.html">IMAP4接続時の「IPロックアウト機能」について</a><br>
+
+●<a href="./faq15-27.html">IMAP4認証時の「認証接続ロックアウト機能」について</a><br>
+
+●<a href="./faq10-71.html">メールクライアントからの送信時にサイズ制限をかけるには</a><br>
+
+●<a href="./faq17-24.html">メール送信時のメールサイズ制限を設定しているが設定サイズより小さいサイズで制限されてしまう</a><br>
+
+●<a href="./faq15-47.html">IMAP4使用時のメールボックスフォルダにメールボックス保管サイズ制限を超えてメールデータが格納される理由について</a><br>
+
+<br>
+
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+
+<br>
+<br>
+
+</BODY>
+</HTML>
