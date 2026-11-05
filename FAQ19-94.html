@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-94</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>IMAPメールをOutlookなどで運用する際、サブフォルダ小分けをするときは、INBOX（受信箱）以下にフォルダを作らず、INBOXと同列レベルにサブフォルダを作るようにする <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+IMAP4で運用しているメールサーバで、IMAP4サービス（EPSTIMAP4S）のCPU使用率が100％に張り付き、メールが開けない、Outlookの同期が進まない、というご相談をいただいたことがあります。ログを調べたところ、受信箱（INBOX）の下に、深い階層でたくさんのサブフォルダを作っていたことが、負荷を大きくする要因の一つになっていました。<br>
+<br>
+<b>メールを小分けするサブフォルダは、INBOX（受信箱）の下には作らず、INBOXと同じ階層（同列）に作ってください。</b><br>
+<br>
+<table border="1" cellspacing="0" cellpadding="4" style="font-size:12px; line-height:1.6em;">
+<tr bgcolor="#eeeeee"><td><b>避けたい構成</b></td><td><b>おすすめの構成</b></td></tr>
+<tr><td style="font-family:monospace; font-size:12px; line-height:1.6em; vertical-align:top; padding:8px 14px;">受信箱（INBOX）<br>├ 取引先A<br>│　├ 2025年度<br>│　└ 2026年度<br>├ 取引先B<br>└ 社内連絡<br>送信済みアイテム</td><td style="font-family:monospace; font-size:12px; line-height:1.6em; vertical-align:top; padding:8px 14px;">受信箱（INBOX）<br>取引先A<br>├ 2025年度<br>└ 2026年度<br>取引先B<br>社内連絡<br>送信済みアイテム</td></tr>
+</table>
+<br>
+<b>1. INBOXの下にサブフォルダがあると負荷が増える理由</b>
+<blockquote>メールクライアントは、未読の確認や同期のときに、INBOXの下にあるフォルダを優先し、毎回すべて調べに行くのが一般的です。実際のログでも、INBOXの下にあるサブフォルダの一つ一つに対して、未読を確認するSTATUSコマンドが送られていました。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">STATUS INBOX/取引先A (MESSAGES UNSEEN)<br>
+STATUS INBOX/取引先A/2025年度 (MESSAGES UNSEEN)<br>
+STATUS INBOX/取引先A/2026年度 (MESSAGES UNSEEN)<br>
+STATUS INBOX/取引先B (MESSAGES UNSEEN)<br>
+　：</div>
+<font color="#ff0000">※実際のログでは、上記例とは異なり、メールクライアントから全角日本語で作成されたフォルダ名は、サーバ側ではIMAP用にエンコード（UTF-7）された形で保存されているため、IMAP4関係ログでもUTF-7でエンコードされたフォルダ名のまま記録されます。</font><br>
+あるアカウントでは、INBOXの下のサブフォルダの未読確認だけで、1回あたり1分以上かかっていました。<br>
+一方、INBOXの外にあるフォルダは、同期するかどうかを選べたり、開いたときだけ同期したりするメールクライアントが多くあります。常に同期する対象から外れる分、サーバの負荷が下がります。<br>
+実際に、INBOXの下のサブフォルダをINBOXと同じ階層へ移動したところ、IMAPメールの読み込みが改善しました。</blockquote>
+<b>2. フォルダ管理の目安</b>
+<blockquote>・INBOXの下にサブフォルダを作らず、INBOXと同じ階層で管理する。「送信済みアイテム」を小分けする場合も同様です<br>
+・フォルダの階層は1～2階層までにし、深くしない<br>
+・フォルダの総数は、20～30個以内を目安にする</blockquote>
+<b>3. 作成済みのサブフォルダを移動するとき</b>
+<blockquote>INBOXの下にあるサブフォルダは、メールサーバマシン上で、エクスプローラーからINBOXフォルダと同じ階層へ移動できます。<br>
+移動は、複数のメールクライアントから同時に操作するのではなく、メールサーバマシンで、計画的かつ段階的に行ってください。</blockquote>
+<b>4. Outlookを使う場合の補足</b>
+<blockquote>Outlookは、同期に時間がかかると、タイムアウトでセッションを切り、つなぎ直したあとに、続きからではなく最初から同期をやり直すことがあります。そのため、フォルダ内のメールが多いと、同期がいつまでも進まないように見えます。<br>
+Outlookのアカウント設定にある「サーバーのタイムアウト」は、初期値が1分と短いため、最大の10分まで延ばしておくことをお勧めします（Outlook 2019の場合）。</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href="./faq19-47.html">E-Post関連サービスがCPU負荷100％となっており送受信とも遅い、考えられることは？</a><br>
+●<a href="./faq15-35.html">IMAP4用メールボックスフォルダへのメール格納タイミングについて</a><br>
+●<a href="./faq17-44.html">IMAP4メールボックスフォルダにサイズ制限を設定したときサブフォルダも対象となるか？</a><br>
+●<a href="./faq05-14.html">IMAP4の詳細ログ（receiveimap4）について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

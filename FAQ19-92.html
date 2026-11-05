@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-92</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>外部からのメールが実際にメールボックスに着信しているのか、クライアントが受信したのか確認する方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+SMTP受信ログ（inlog）やマシン接続ログ（acceptlog）では受信が確認できているメールが、グループウェアなどのメールクライアントに表示されない。切り分けのため、本当に受信できていたのかを確認したい、というご質問をいただいたことがあります。<br>
+<br>
+<b>E-Post内でのメールの流れを、"B"で始まるメッセージIDをキーにして、次の段階ごとにログで追っていくと確認できます。</b><br>
+SMTPローカル送信ログ（outlocallog）と各詳細ログは、初期状態では記録されません。記録を始める前のメールはさかのぼって確認できないため、あらかじめ記録する設定にしておくことをお勧めします。<br>
+<br>
+<b>1. SMTP受信ログ（inlog）でメッセージIDを確かめる</b>
+<blockquote>受信日時や送信元アドレスを手がかりに、SMTP受信ログ（inlog）で、該当メールの"B"で始まるメッセージID（例：B0000000026）を確かめます。以降の段階では、このメッセージIDをキーにして記録を探します。</blockquote>
+<b>2. SMTPローカル送信ログ（outlocallog）でメールボックスへの格納を確かめる</b>
+<blockquote>内部ドメイン宛のメールがメールボックスへ格納されると、SMTPローカル送信ログ（outlocallog）に記録されます。メッセージIDで検索し、該当する記録があれば、メールボックスへの着信・格納は完了しています。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">（書式）&lt;メッセージID@マシン名&gt; &lt;sent on [記録日時]&gt; &lt;to 宛先メールサーバ&gt; &lt;from 送信元アドレス&gt; &lt;to 送信先アドレス&gt;</div>
+記録を始めるには、レジストリで "MailSendLocallogEnabled" を "1" に設定し、SMTP配送サービス（EPSTDS）を再起動します（関連FAQ「SMTPローカル送信ログ（outlocallog）について」参照）。</blockquote>
+<b>3. クライアントが受け取ったかを確かめる（POP3の場合）</b>
+<blockquote>POP3ログ（pop3log）だけでは、どのメールを受信したかまでは判別できません。POP3詳細ログ（receivepop3）を記録する設定にしておけば、メッセージIDで探せるようになります。<br>
+(1) POP3詳細ログ（receivepop3）で、該当のメールデータ（例：B0000000026.MSG）を扱っている記録を探し、その時刻を確かめます。<br>
+(2) POP3ログ（pop3log）で同じ時刻の記録を探します。RETRコマンドでメールを取得している記録があれば、クライアントがPOP3で受信したと判断できます。<br>
+POP3詳細ログ（receivepop3）を記録するには、レジストリの設定とフォルダの手動作成が必要です（関連FAQ「POP3の詳細ログ（receivepop3）について」参照）。</blockquote>
+<b>4. クライアントが受け取ったかを確かめる（IMAP4の場合）</b>
+<blockquote>IMAP4で受け取る場合、メールはまず、ユーザーのメールボックスフォルダ（例：C:\mail\inbox\example.jp\taro\）に"B"で始まる.MSGファイルとして着信します。その後、クライアントがIMAP4で接続した時点で、一段深いIMAP4用のINBOXフォルダへ移動（またはコピー）されます。<br>
+この移動（またはコピー）の記録を、メッセージIDをキーにしてIMAP4詳細ログ（receiveimap4）から探します。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">LOGIN:MoveMSGFile()=CopyFile([C:\mail\inbox\example.jp\taro\B0000000026.MSG],<br>
+[C:\mail\inbox\example.jp\taro\INBOX\0000000001-100000.MSG]) Success.</div>
+メッセージIDがわからない場合は、SMTPで受信した時刻の前後のメッセージIDをキーにして、INBOXフォルダへの移動の記録をたどります。<br>
+IMAP4詳細ログ（receiveimap4）を記録するには、レジストリの設定とフォルダの手動作成が必要です（関連FAQ「IMAP4の詳細ログ（receiveimap4）について」参照）。<br>
+なお、移動になるかコピーになるかは、Account Managerの各アカウントの「POP3無効」の設定によります（関連FAQ「IMAP4用メールボックスフォルダへのメール格納タイミングについて」参照）。</blockquote>
+<b>確認結果の見方</b>
+<blockquote>
+<table border="1" cellspacing="0" cellpadding="4" style="font-size:12px; line-height:1.6em;">
+<tr bgcolor="#eeeeee"><td><b>ログの記録</b></td><td><b>わかること</b></td></tr>
+<tr><td>2まであり、3・4がない</td><td>E-Postのメールボックスには届いているが、クライアントはまだ受け取っていない</td></tr>
+<tr><td>3・4まである</td><td>E-Postからクライアントへの受け渡しまで完了している。表示されない原因は、クライアント（グループウェア）側で確認する</td></tr>
+</table>
+</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href="./faq05-08.html">SMTPローカル送信ログ（outlocallog）について</a><br>
+●<a href="./faq05-12.html">POP3の詳細ログ（receivepop3）について</a><br>
+●<a href="./faq19-30.html">送信されてきた当該メールがPOP3で正常に受信されているかの確認手段</a><br>
+●<a href="./faq05-14.html">IMAP4の詳細ログ（receiveimap4）について</a><br>
+●<a href="./faq15-35.html">IMAP4用メールボックスフォルダへのメール格納タイミングについて</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

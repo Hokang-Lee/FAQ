@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-65</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Account Manager でなくあえて Mail Control からエイリアス設定するケースはどのようなときか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+エイリアス設定を行うとき、Account Managerから設定を行う操作方法が通常ではないかと考えます。ただ、Account Manager だけでなく E-Post Mail Control（以下 Mail Control）にも「エイリアス」設定タブがあり、エイリアス設定ができるようになっています。あえて Mail Control から設定する意味があるときやその必要性があるのはどのようなケースのときか、ポイントをまとめてみました。Account Manager でなくあえて Mail Control からエイリアス設定を行う必要があるケースとしては、大きく下の４つのケースです。<br>
+<br>
+<b>１．E-Post内に登録していないドメイン名でのエイリアス設定をするとき</b><br>
+Account Managerでエイリアスを設定するとき、登録済み内部ドメインが既にある状況下に限定され、「エイリアス－実アドレス」の組み合わせを設定登録できます。それに対して、Mail Controlの「エイリアス」設定タブ画面では、「エイリアス－実アドレス」の設定時に、対応する実アドレスを登録済み内部ドメインだけでなく、登録していないサブドメインについても設定することが可能です。<br>
+詳細な説明については、オンラインヘルプのマニュアル－設定－7.エイリアス設定 を参照してください。<br>
+<br>
+<b>２．SMTPゲートウェイ設定を行うとき</b><br>
+SMTPゲートウェイとして設定を行うとき、方法(A)の「エイリアス－実アドレス」設定時にワイルドカードで指定する「＊＠example.jp→＊＠example.jp」という方法か、方法(B)の「エイリアス－実アドレス」設定時に1対1で「user1＠example.jp→user1＠example.jp」のように指定する方法のいずれかを選択するケースがあります。<br>
+この場合、Mail Controlの「エイリアス」設定タブ画面で設定を行うことになります。詳細な説明については、下記FAQ記事を参照してください。<br>
+<br>
+<b>３．エイリアス設定でエンベロープ書き換えを必要とするとき</b><br>
+上記１に加え、さらに Mail Controlの「エイリアス」設定タブ画面では、「エイリアス－実アドレス」設定時に「実アドレス」の後ろにオプション指定することにより、「送信先レシピエント（エンベロープTO）」の書き換え有無を明示的に指定することができます。例えば「実アドレス,1」を指定すると送信先として実アドレスに書き換え、「実アドレス,0」を指定すると送信先として実アドレスに書き換えない形になります。このときの書き換え対象はメールサーバが送信先レシピエントとして利用する（エンベロープTO）の方であり、メールヘッダーとして表示される To:ヘッダー の書き換えは行わないことに注意してください。<br>
+詳細な説明については、オンラインヘルプのマニュアル－設定－7.エイリアス設定 を参照してください。<br>
+<br>
+<b>４．LGWAN Option (x64) を導入、拡張エイリアス設定を有効にして、エンベロープFROM と From:ヘッダー、エンベロープTO と To:ヘッダー の書き換え機能を利用するとき</b><br>
+E-Post Mail Server (x64) または E-Post SMTP Server (x64) シリーズ本体に E-Post LGWAN Option (x64) を組み込むと、エイリアス機能が強化され、拡張エイリアス設定が可能になり、「エイリアス－実アドレス」設定時に「実アドレス」の後ろに2番目のオプションだけでなく、3番目のオプションを指定することができます。<br>
+これにより地方自治体がインターネット用の地方公共団体型ドメイン単独で運用する場合、またはその反対で 「.lg.jp」ドメイン（LG.JPドメイン）単独で運用する場合、インターネット側とLGWAN側の両方向の制御をしながら、ドメイン名の付け替えを適宜行うことができます。<br>
+「エイリアス」－「実アドレス,0,IPアドレス」を指定すると、送信元IPアドレスからの受信メールで「エイリアス」項目で指定された送信先エンベロープ（エンベロープTO）の場合、「実アドレス」項目で指定された内容に書き換えます。<br>
+「エイリアス」－「実アドレス,2,IPアドレス」を指定すると、送信先IPアドレスへの送信メールで「エイリアス」項目で指定された送信元エンベロープ（エンベロープFROM）の場合、「実アドレス」項目で指定された内容に書き換えます。<br>
+具体的には地方自治体がインターネット用の地方公共団体型ドメイン単独で運用している場合、アウトバウンド時、インターネットへの送信時にはエンベロープFROMとFrom:ヘッダーを書き換えない一方、LGWANへの送信時にはエンベロープFROM と From:ヘッダーを「.lg.jp」ドメイン（LG.JPドメイン）に書き換えて送るようになります。対してインバウンド時、インターネットからの受信時にはエンベロープTO と To:ヘッダー を書き換えないで受け取る一方、LGWANからの受信時にはエンベロープTO とTo:ヘッダー を地方公共団体型ドメインに書き換えて受け取るようになります。<br>
+このとき書き換えることになる対象は、アウトバウンド方向の送信時にはメールサーバが利用するエンベロープFROM と From:ヘッダー の両方であり、インバウンド方向の受信時にはエンベロープTO と To:ヘッダー の両方です。<br>
+詳細な説明については、E-Post LGWAN Option (x64) の「ユーザーズガイド」や「LGWAN Option 機能補足ガイド」 を参照してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-30.html">SMTPゲートウェイとして利用したい</a><br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

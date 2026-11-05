@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-99</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+	tr {
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>250Userを超えるアカウントすべてがIMAP利用をするとIMAPサーバが高負荷になりがちなため、個人アカウントを中心にPOP3へ移行する作業をしたい。気をつけるポイントは？ <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+500ユーザーのライセンスで、ほとんどのアカウントがIMAP4を使っている環境で、IMAP4サーバの高負荷が続いているため、POP3への切り替えを検討している。手順と注意点を知りたい。IMAP4をやめても、IMAP4用のフォルダ（INBOX）は残るのか、というご質問をいただいたことがあります。<br>
+<br>
+<b>IMAP4用のフォルダは、手動で削除しない限り残ります。移行で特に気をつけたいのは、サブフォルダの扱いと、POP3とIMAP4を併用する期間の扱いです。</b><br>
+<br>
+<b>1. 代表アカウントはIMAP4、個人アカウントはPOP3という分け方</b>
+<blockquote>IMAP4サーバの適正規模は、250ユーザー程度が目安と考えています。また、Outlookなどのメールクライアントは、1ユーザーで1セッションとは限らず、5～10セッションを同時に張って処理することがあるため、ユーザー数以上に負荷がかかります。<br>
+そこで、IMAP4とPOP3の違いを生かして、次のように使い分ける方法があります。<br>
+<table border="1" cellspacing="0" cellpadding="4" style="font-size:12px; line-height:1.6em;">
+<tr bgcolor="#eeeeee"><td>　</td><td><b>IMAP4</b></td><td><b>POP3</b></td></tr>
+<tr><td>サブフォルダの管理</td><td>サーバ側</td><td>メールクライアント側</td></tr>
+<tr><td>サブフォルダの共有</td><td>サーバ上のフォルダを、複数人で閲覧・参照できる</td><td>各自のメールクライアントの中だけ</td></tr>
+<tr><td>サーバの負荷</td><td>高くなりやすい</td><td>軽くできる</td></tr>
+<tr><td>向いているアカウント</td><td>代表アカウント</td><td>個人アカウント</td></tr>
+</table></blockquote>
+<b>2. IMAP4をやめても、IMAP4用のフォルダは残る</b>
+<blockquote>IMAP4用のメールボックスフォルダ（INBOX）は、POP3用のメールボックスフォルダとは別の階層で管理されています。IMAP4のメールクライアントや、Windowsのエクスプローラーで手動で削除しない限り、消えることはありません。<br>
+（例）POP3用：C:\mail\inbox\[ドメイン名]\[ユーザー名]\<br>
+　　　IMAP4用：C:\mail\inbox\[ドメイン名]\[ユーザー名]\INBOX\</blockquote>
+<b>3. サブフォルダのメールは、サーバ上でコピーしても使えない</b>
+<blockquote>IMAP4のサブフォルダは、サーバ側で、UTF-7でエンコードされたフォルダ名で管理されています。一方、POP3のサブフォルダは、サーバ側ではなくメールクライアント側で管理されます。<br>
+そのため、IMAP4のサブフォルダを、サーバ上でPOP3のメールボックスフォルダにいくらコピーしても、POP3からは一切アクセスできません。<br>
+サブフォルダのメールを移すときは、POP3のメールクライアント側に同じサブフォルダを作っておき、メールクライアントの機能でメールをコピー＆貼り付けしてください。サブフォルダをまるごと移すことは、メールクライアント経由でも難しいと思われます。</blockquote>
+<b>4. 「POP3無効」チェックボックスをオフにする</b>
+<blockquote>IMAP4専用で運用していたアカウントは、Account Managerの「POP3無効」チェックボックスがオンになっていることがあります。オンのままではPOP3で接続できないため、POP3へ移行するアカウントはオフにしてください（関連FAQ「IMAP使用時のメールボックスフォルダと「POP3無効」チェックボックスの関係について」参照）。</blockquote>
+<b>5. POP3とIMAP4を併用する期間は、POP3でメールをサーバに残す</b>
+<blockquote>移行の途中などで、同じアカウントをPOP3とIMAP4の両方で使う場合は注意が必要です。POP3が先にメールを受信してサーバから削除すると、あとからIMAP4で接続したときに、IMAP4用のフォルダ（INBOX）へメールをコピーできなくなります。<br>
+意図的に併用する期間は、POP3のメールクライアントで、受信したメールを一定期間サーバに残す設定にしておいてください。</blockquote>
+<b>6. 移行が終わったら、不要になったIMAP4用のデータを削除する</b>
+<blockquote>必要なメールをPOP3のメールクライアント側へ移し終えたことを確認してから、IMAP4用のフォルダとデータ（INBOXフォルダのほか、送信済みや他のフォルダも含む）を手動で削除してください（関連FAQ「POP3/IMAP4両用で使っていたメールボックスをPOP3のみに限定したとき残ったIMAP4用のデータはどうすればよいか？」参照）。</blockquote>
+<b>（関連FAQ）</b><br>
+●<a href="./faq10-11.html">方式の違いによるメールボックスフォルダの作成位置について</a><br>
+●<a href="./faq15-35.html">IMAP4用メールボックスフォルダへのメール格納タイミングについて</a><br>
+●<a href="./faq10-14.html">IMAP使用時のメールボックスフォルダと「POP3無効」チェックボックスの関係について</a><br>
+●<a href="./faq17-26.html">POP3/IMAP4両用で使っていたメールボックスをPOP3のみに限定したとき残ったIMAP4用のデータはどうすればよいか？</a><br>
+●<a href="./faq17-97.html">IMAP4使用中にメールボックスのルートに&quot;Bxxxxxxxxxx.MSG&quot;ファイルが大量にたまっている</a><br>
+●<a href="./faq19-01.html">「imap.idx」「imap.!dx」「imap.$dx」ファイルの役割は何か</a><br>
+●<a href="./faq19-94.html">IMAPメールをOutlookなどで運用する際、サブフォルダ小分けをするときは、INBOX（受信箱）以下にフォルダを作らず、INBOXと同列レベルにサブフォルダを作るようにする</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

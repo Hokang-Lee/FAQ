@@ -1,0 +1,190 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ03-44</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+	body {
+		background-color: #ffffff;
+		font-size: 12px;
+		line-height:2.0em;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+
+</HEAD>
+
+<BODY TEXT="black">
+
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTRS v4.ANでサービス停止が発生する場合の対処方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+
+<br>
+
+EPSTRSサービスプログラムモジュール（v4.AN）において、特定条件が重なった場合にサービス停止が発生する事象が確認されています。<br>
+本FAQでは現象、対象バージョンおよび対処方法について説明します。<br>
+
+<br>
+
+1.【現象】<br>
+
+EPSTRSサービスプログラムモジュール（v4.AN）において、以下の条件が同時に発生した場合、EPSTRSサービスが停止することがあります。<br>
+
+<ul>
+<li>高負荷状態で動作している</li>
+<li>ログ取得を行っている</li>
+<li>ログファイルのOpen／Close処理が発生するタイミングと重なる</li>
+</ul>
+
+<br>
+
+2.【対象バージョン】<br>
+
+対象EPSTRSバージョン<br>
+
+<ul>
+<li>EPSTRS v4.AN</li>
+</ul>
+
+<b>対象となる製品・プログラム</b><br>
+
+<br>
+
+●「差分アップデートプログラム 2026.09.10版」収録CD、または以下の差分アップデートプログラムを適用した環境<br>
+
+<ul>
+<li>E-Post Mail Server Enterprise II (x64) 20260901差分プログラム</li>
+<li>E-Post Mail Server Standard (x64) 20260901差分プログラム</li>
+<li>E-Post SMTP Server Enterprise II (x64) 20260901差分プログラム</li>
+<li>E-Post SMTP Server Standard (x64) 20260901差分プログラム</li>
+</ul>
+
+●2026年9月10日以降に弊社から出荷した新規インストールCD<br>
+
+<ul>
+<li>
+E-Post Mail Server Enterprise II (x64)<br>
+ボリュームラベル名：EPMS_Ent_260902
+</li>
+
+<li>
+E-Post Mail Server Standard (x64)<br>
+ボリュームラベル名：EPMS_Std_260902
+</li>
+
+<li>
+E-Post SMTP Server Enterprise II (x64)<br>
+ボリュームラベル名：EPSS_Ent_260902
+</li>
+
+<li>
+E-Post SMTP Server Standard (x64)<br>
+ボリュームラベル名：EPSS_Std_260902
+</li>
+</ul>
+
+※光学ドライブにCDをセットした際に表示されるCDのボリュームラベル名です。<br>
+※上記新規インストールCDには、20260901差分アップデートプログラムが適用された状態のプログラムが収録されています。<br>
+※これ以外のボリュームラベル名の新規インストールCDは対象外です。<br>
+
+<br>
+
+3.【推奨対策】<br>
+
+本事象は以下の差分アップデートプログラムで修正されています。<br>
+
+<ul>
+<li>E-Post Mail Server Enterprise II (x64) 20261030差分プログラム</li>
+<li>E-Post Mail Server Standard (x64) 20261030差分プログラム</li>
+<li>E-Post SMTP Server Enterprise II (x64) 20261030差分プログラム</li>
+<li>E-Post SMTP Server Standard (x64) 20261030差分プログラム</li>
+</ul>
+
+2026年11月5日に「サポート２」へ公開しておりますので、対象のお客様は最新版差分アップデートプログラムをダウンロードして適用してください。<br>
+
+<br>
+
+4.【20261030差分アップデート適用まで継続利用する場合】<br>
+
+20260901差分アップデートを適用したまま運用する場合、または対象の新規インストールCDからインストールした環境を継続利用する場合は、一時対策として以下の設定を行ってください。<br>
+
+<br>
+
+（1）EPSTRSサービスの回復設定<br>
+
+Windows Serverの「サービス」より「E-Post SMTP Receiver（EPSTRS）」のプロパティを開き、「回復」タブでサービス停止時に自動再起動するよう設定してください。<br>
+
+<br>
+
+（2）レジストリ設定<br>
+
+以下のレジストリ値を作成してください。<br>
+
+<br>
+
+HKEY_LOCAL_MACHINE<br>
+　→SYSTEM<br>
+　　→CurrentControlSet<br>
+　　　→Services<br>
+　　　　→EPSTRS<br>
+　　　　　→LogSyncEnabled (DWORD)<br>
+
+<br>
+
+設定値<br>
+
+<br>
+
+デフォルト＝未設定<br>
+0：排他同期しない<br>
+1：排他同期する<br>
+
+<br>
+
+設定手順<br>
+
+<ol>
+<li>LogSyncEnabled をDWORD値として作成します。</li>
+<li>値を10進数で「1」に設定します。</li>
+<li>EPSTRSサービスを再起動します。</li>
+</ol>
+
+<br>
+
+5.【20261030差分アップデート適用後について】<br>
+
+20261030差分アップデート適用後は、本FAQで作成したレジストリ値「LogSyncEnabled」を削除しても、そのまま残しても問題ありません。<br>
+
+<br>
+
+6.【補足】<br>
+
+20260901差分アップデートプログラムの提供は終了しています。<br>
+対象環境につきましては、20261030差分アップデートプログラムの適用を推奨します。<br>
+
+<br>
+
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+
+<br>
+<br>
+
+</BODY>
+</HTML>
