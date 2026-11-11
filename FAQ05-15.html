@@ -47,8 +47,7 @@
 <B>■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定</B>
     <small><font color="darkgreen">※設定ファイルの拡張子種類は、次の通り値の型を表わす。レジストリのBINARY,DWORD,STRINGの型に該当。
        （ .0 = BINARY,  .1 = DWORD,  .2 = STRING及びその他の形式 ）
-     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font>
-
+     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font><br>
 [メール作業フォルダ]内
 ->REG
  ->SOFTWARE
@@ -106,8 +105,7 @@
          ->Alias.2              (SZ     Default NULL) エイリアス名
          ->MappedTo.2           (SZ     Default NULL) 実アドレス
        ->00000002               (KEY)  エイリアスその2
-           : 以下繰り返し
-         
+           : 以下繰り返し<br>
      ->Lists                    (KEY) メーリングリスト管理用
        ->[ML-list name1]        (KEY) メーリングリスト名1
          ->BounceAction.1       (DWORD  Default 0) 未送信レポート先 0:送信しない,1:送信者に戻す,2:返信者を指定
@@ -134,8 +132,7 @@
            ->[mail address]     (KEY) 参加者メールアドレス
                   : 繰り返し
        ->[ML-list nameN] (メーリングリスト名１)
-         : 以下繰り返し
-         
+         : 以下繰り返し<br>
      ->Domain
        ->Operation              (KEY) ドメイン毎の操作パスワード（空白＝パスワード無し）
            ->[domain name1].2   (SZ) eg.password1
@@ -146,8 +143,7 @@
 </small>
 <B>■個別情報－レジストリに設定</B>
     <small><font color="darkgreen">※秒数、回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。
-      ただし、0,1の2値のときは、どちらでも同じなので16進でも可。</font>
-
+      ただし、0,1の2値のときは、どちらでも同じなので16進でも可。</font><br>
 HKEY_LOCAL_MACHINE
  ->SOFTWARE
   ->EMWAC
@@ -182,8 +178,7 @@ HKEY_LOCAL_MACHINE
        ->Imap4IP             (KEY) ドメインに対応するIMAP4-IPアドレス（空白＝マシンに設定されている全てのIPに応答）
             ->[domain name1]  (SZ) eg.192.168.0.3
                 :
-            ->[domain nameN]  (SZ) eg.192.168.0.4
-
+            ->[domain nameN]  (SZ) eg.192.168.0.4<br>
 </small>
 <B>[EPSTRS]</B> (E-POST SMTP Receiver)
 <small>HKEY_LOCAL_MACHINE

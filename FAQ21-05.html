@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-05</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body {
+background-color: #ffffff;
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+tr {
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>OAuth2.0 Gateway 設定ガイドに記載されているAPIの登録で、SMTP_SendのAPIは「Microsoft Graph」のSMTP.Sendで間違いないか <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Microsoft 365とOAuth2.0を使用し、E-Post SMTP Serverをメール中継サーバとして構築している環境で、setoauth2.exeを実行するとトークン関連ファイルは正常に作成されるものの、Statusが「Authentication unsuccessful」になる場合があります。このとき、SMTP_SendのAPIとして「Microsoft Graph」のSMTP.Sendを登録するのか、「Office 365 Exchange Online」のSMTP.Sendを登録するのか、というご質問をいただいたことがあります。<br>
+<br>
+<b>登録するAPIは、「Microsoft Graph」のSMTP.Sendで間違いありません。</b><br>
+<br>
+<b>1. 構成されたアクセス許可を確認する</b><br>
+Microsoft 365でSMTPのOAuth認証を使用する場合は、［APIのアクセス許可］-［構成されたアクセス許可］に、「Microsoft Graph」の次の3つのアクセス許可を登録してください。種類はいずれも「委任済み」です。<br>
+<blockquote>・offline_access<br>・SMTP.Send<br>・User.Read</blockquote>
+<img src="./img/faq21-05-01.png"><br>
+<br>
+<b>2. トークン関連ファイルの生成状況を確認する</b><br>
+setoauth2.exeの実行後、次のファイルが正常に作成されているか確認してください。これらが作成されていてもStatusが「Authentication unsuccessful」となる場合は、トークンの取得処理ではなく、SMTP AUTHの認証段階でMicrosoft 365側から拒否されている可能性があります。<br>
+<blockquote>・code.txt<br>・access_token.dat<br>・refresh_token.dat<br>・xoauth2_code.dat</blockquote>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">Status: Authentication unsuccessful</div>
+<br>
+<b>3. Microsoft 365側の関連設定を確認する</b><br>
+同じ症状が発生する場合は、APIの登録に加えて、Microsoft 365側の次の設定も確認してください。<br>
+<blockquote>・認可サイトへのアプリの登録<br>・APIの登録<br>・テナントの設定<br>・使用するメールアカウントでのSMTP AUTHの有効化<br>・セキュリティの既定値群の無効化</blockquote>
+<br>
+<b>（注意事項）</b><br>
+本項のAPI登録では、「Office 365 Exchange Online」のSMTP.Sendではなく、「Microsoft Graph」のSMTP.Sendを選択します。上記3種類のアクセス許可とMicrosoft 365側の関連設定を確認しても改善しない場合は、実際の設定内容とsetoauth2.exeの実行結果を添えてサポートへお問い合わせください。<br>
+<br>
+<b>（関連資料）</b><br>
+■<a href="https://www.e-postinc.jp/download_x64.html#oauth">技術資料『OAuth 2.0（オー・オース）Gateway設定ガイド』（ダウンロードコーナー）</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq19-43.html">M365のSMTPメールリレー接続設定方法とOAuth2.0での接続設定方法、説明ドキュメントへの案内</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

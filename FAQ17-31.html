@@ -5,21 +5,21 @@
 <script language="JavaScript" src="/pull.js"></script>
 <link rel=stylesheet type=text/css href=/font.css>
 <style type="text/css">
-	body {
-		background-color: #ffffff;
-		font-size: 12px;
-		line-height:2.0em;
-		margin: 10px;
-		padding: 5px;
-	}
+body {
+background-color: #ffffff;
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7N0CMEK0LT');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
 </script>
 <!-- Google tag end -->
 </HEAD>
@@ -28,26 +28,52 @@
 <script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
 <!-- ACCESS KAISEKIKEN end-->
 <HR>
-<FONT SIZE="4" COLOR="#000000"><b>自動転送設定時にメール転送の成功・失敗の判断はどのログで行うか <font color="#ff0000">new!</font></b></FONT>
+<FONT SIZE="4" COLOR="#000000"><b>自動転送設定時にメール転送の成功・失敗の判断はどのログで行うか <font color="#ff0000">updated!</font></b></FONT>
 <HR>
 <br>
-自動転送設定時にメール転送の成功・失敗の判断はどのログで行えばよいかについてですが、基本的には、inlog（SMTP受信ログ）、senderlog（配送時の詳細ログ）の順で見てください。<br>
-※状況によっては acceptlog（接続マシンログ）、receivelog（SMTP受信詳細ログ）を調べたり、必要な場合には outlocallog（ローカル送信ログ）、faillog（配送失敗ログ）を確認することもあります。<br>
-送信元のエンベロープからのメールを自動転送設定をしている該当アカウントでE-PostのSMTP（EPSTRS）がまず受領しているかを調べるためにinlogで確認します。記録されている &quot;B&quot; で始まるメッセージIDを控えてください。もしinlogで確認できないときは、acceptlogやreceivelogを調べることになります。<br>
+自動転送したメールが転送先へ届かない場合は、ログを確認する前に、次の二つの条件を切り分けてください。そのうえで、転送先が外部ドメイン宛か内部ドメイン宛かに応じて確認するログを選びます。<br>
 <br>
-続いて次の配送（転送）段階でどのように処理されたか、senderlog（配送時の詳細ログ）を調べます。転送先ドメインがE-Postの外部にあるときには、基本的にはsenderlogにすべて記載されます。転送先がE-Post内部に登録済みのドメインであるときは、senderlogにはほとんど記録されず、配送成功結果のみoutlocallog（ローカル送信ログ）に載ります。メッセージIDを元に、senderlogを照らし合わして、一致する送信記録を探してください。<br>
-自動転送がうまく働いているときは、senderlogに記載される「MAIL From: 」（エンベロープFROM）は、自動転送設定の「不転送レポート先」で選択、あるいは指定したアドレスになっているはずです。これは「不転送レポート先」がエンベロープ書き換え機能と等価になっているためです。またsenderlogに記載される「RCPT To:」（エンベロープTO）は、自動転送設定の転送先になっているはずです。<br>
+<b>1. 転送先が内部ドメイン宛か、外部ドメイン宛かを確認する</b><br>
+自動転送の転送先アドレスが、E-Postに登録されている内部ドメイン宛か、E-Postの外部ドメイン宛かを確認してください。転送先が両方に設定されている場合は、内部ドメイン宛と外部ドメイン宛の両方の確認を行います。転送先の種別によって、配送段階で確認するログが異なります。<br>
 <br>
-もし名前解決などの問題があり配送できなかったときには、senderlog および faillog（配送失敗ログ）にその失敗理由が載ることになります。失敗理由は両ログで異なることが理論的に起こり得るため、両方のログを確認するとより確実です。<br>
+<b>2. ［不転送レポート送信先］と多重転送の組み合わせを確認する</b><br>
+「自動転送」設定ダイアログボックスの［不転送レポート送信先］は、転送時のエンベロープFROM書き換えと等価です。［不転送レポート送信先］に「管理者アカウント」を指定し、さらに自動転送を二回以上行う多重転送になっていないか確認してください。転送が禁止されている管理者アカウントを［不転送レポート送信先］に設定した状態で多重転送しようとすると、自動転送は働きません。<br>
+［不転送レポート送信先］を「送信者」または「送信者を指定」に変更し、管理者以外の任意のアドレスを指定して転送できるか確認してください。<br>
+<br>
+<b>3. 上記二つを確認しても未転送の場合はログを調べる</b><br>
+まず、送信元からのメールを自動転送設定済みアカウントでE-PostのSMTP受信サービス（EPSTRS）が受領しているか、inlog（SMTP受信ログ）で確認します。記録されている「B」で始まるメッセージIDを控えてください。inlogで確認できない場合は、acceptlog（接続マシンログ）やreceivelog（SMTP受信詳細ログ）を調べます。異なるログ間の記録を照合するときは、このメッセージIDを使用します。<br>
+<br>
+<b>4. 転送先が外部ドメイン宛の場合</b><br>
+SMTP受領段階はinlogで確認し、SMTP配送段階はoutlog（SMTP送信ログ）、senderlog（配送時の詳細ログ）の順で確認します。特にfaillog（配送失敗ログ）を調べ、自動転送時の配送失敗記録がないか確認してください。<br>
+senderlogでは、転送先サーバから400番台の一時的拒絶や500番台の永続的拒絶を受けていないか確認します。faillogの右端にはリトライ最終回の配送失敗理由が記載されるため、senderlogに記録された途中の失敗理由と一致しない場合があります。両方のログを確認するとより確実です。<br>
+faillogに名前解決の問題が記録されている場合は、E-Postの［サーバー設定］タブにある［DNSサーバー］でDNS MXレコードを参照できるか、Windows Serverの［ローカルエリア接続］にある［DNSサーバー］でDNS Aレコードを参照できるか確認してください。<br>
+自動転送が正常に働いている場合、senderlogの「MAIL From:」には［不転送レポート送信先］で選択または指定したアドレスが記録され、「RCPT To:」には自動転送の転送先アドレスが記録されます。<br>
+<br>
+<b>5. 転送先が内部ドメイン宛の場合</b><br>
+SMTP受領段階はinlogで確認し、SMTP配送段階はoutlocallog（SMTPローカル送信ログ）で確認します。内部ドメイン宛の配送成功結果はsenderlogにほとんど記録されないため、outlocallogの取得が必要です。<br>
+outlocallogに転送先アドレスへの記録がある場合は、転送先メールボックスへ着信したことの裏付けになります。この場合は、メールクライアントがPOP3またはIMAP4で受信した際に見落とした、または削除した可能性を確認してください。<br>
+outlocallogに転送先アドレスへの記録がない場合は、転送先メールボックスへ着信していないことの裏付けになります。サーバが高負荷状態のときに転送が失敗した可能性もあるため、senderlogを精査してください。必要な場合はログ一式をサポートへお送りください。<br>
+内部ドメイン宛の自動転送に時間がかかる場合は、hostsファイルの記述も確認してください。<br>
+<br>
+<b>（注意事項）</b><br>
+outlocallogとreceivelogは［ログ設定］タブに設定項目がありません。取得にはレジストリ設定やログ保存用フォルダの手動作成などが必要です。関連FAQを確認して取得設定を行ってください。<br>
 <br>
 <b>（関連FAQ）</b><br>
+●<a href="./faq01-25.html">自動転送先で再転送できない（“多重転送”ができない）場合</a><br>
+●<a href="./faq01-37.html">管理者アカウントに絡んでの［自動転送］時の注意</a><br>
+●<a href="./faq01-02.html">外部へメールが配送されない</a><br>
 ●<a href="./faq05-04.html">SMTP受信ログ（inlog）について</a><br>
+●<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）について</a><br>
 ●<a href="./faq05-08.html">SMTPローカル送信ログ（outlocallog）について</a><br>
 ●<a href="./faq05-09.html">配送失敗ログ（faillog）について</a><br>
 ●<a href="./faq05-10.html">配送時の詳細ログ(senderlog)について</a><br>
 ●<a href="./faq05-18.html">ログに記録されるメッセージIDの後の枝番種類について</a><br>
 ●<a href="./faq05-20.html">senderlog と faillog に記載された配送失敗の理由が異なる</a><br>
 ●<a href="./faq05-22.html">SMTPローカル送信ログ（outlocallog）などのログで fromアドレスが空白になっているケースがあるのはなぜ？</a><br>
+●<a href="./faq10-23.html">メールサーバがDNSを参照するときの動きについて</a><br>
+●<a href="./faq10-53.html">hostsファイル記述の必要性と有用性について</a><br>
+●<a href="./faq10-54.html">内部アカウントを自動転送で設定したり、メーリングリストに設定したときに、送信処理に時間がかかってしまう</a><br>
+●<a href="./faq19-45.html">内部アカウントのメールボックスへ着信された日時を確認するには？</a><br>
 <br>
 <p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
 <br>

@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ19-66</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body {
+background-color: #ffffff;
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>EPSTDS v4.78で報告されたSTARTTLS通信の不具合とv4.79、v4.80での修正内容 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+EPSTDSの2023年頃のバージョンで、STARTTLSを使用した配送後、同じ継続スレッドで処理する次のメールが正しく配送されない不具合が報告されました。EPSTDS v4.78で確認された事象と、v4.79およびv4.80で行われた修正内容について説明します。<br>
+<br>
+<b>1. EPSTDS v4.78で確認された不具合</b><br>
+EPSTDSサービスが複数スレッドで同時並行に配送処理を行っているとき、最初の送信先との通信でSTARTTLSによる暗号化を開始した後、同じ継続スレッドで次のメールを処理すると、先の通信で使用した暗号化通信フラグが初期化されない場合がありました。<br>
+この状態では、次の送信先がSTARTTLSを宣言していない段階から、EPSTDSがSMTP over SSL/TLSとして暗号化通信を開始してしまいます。送信先SMTPサーバは想定しない通信を受け取るため、接続を切断する場合があります。<br>
+継続スレッドは、E-Postが配送処理を高速化するために内部で使用している処理です。個々のスレッド開始時には初期化されますが、継続スレッドで次のメールを処理するときに暗号化通信フラグの初期化が行われないことが原因でした。<br>
+<br>
+<b>2. 発生時に確認される主な現象</b><br>
+複数の宛先へ自動転送している場合、最初の宛先には配送されても、二つ目以降の宛先への配送が失敗することがあります。senderlogには、次のエラーが記録される場合があります。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">451 Requested action aborted: error in processing. (code=0/0)</div>
+STARTTLSまたはSMTP over TLS/SSLの通信時には、senderlogに「SSL_CTX_new()」を含む記録が出力される場合があります。送信先SMTPサーバ側では、「500 5.5.2 Error: bad UTF-8 syntax」や「500 5.5.2 Error: bad syntax」などが記録されることがあります。<br>
+配送に失敗したメールは、holdingフォルダやdomainsフォルダへリトライデータとして移動します。同じ理由でリトライに失敗し続けると、最終的に配送を断念します。エラーメールを返せないメールはdeadフォルダへ移動する場合があります。<br>
+<br>
+<b>3. EPSTDS v4.79での修正内容</b><br>
+EPSTDS v4.79（2023年9月27日）では、送信スレッド内でSTARTTLSを使用してメールを送信した後、次のメールデータを自動的に「SMTP over SSL」として処理してしまう不具合を修正しました。<br>
+<br>
+<b>4. EPSTDS v4.80での追加改善</b><br>
+EPSTDS v4.80（2023年11月4日）では、STARTTLSの暗号化ネゴシエーションに失敗するドメインのリストを作成し、失敗した送信先への配送をプレーン通信へ自動的に切り替える機能を追加しました。<br>
+<br>
+<b>5. 対処方法</b><br>
+E-Postの「バージョン情報」タブで、EPSTDSのバージョンを確認してください。EPSTDS v4.78以前を使用している場合は、この不具合に該当する可能性があるため、最新の差分アップデートを適用してください。<br>
+2025年12月18日付の差分アップデートを適用した場合、EPSTDSはv4.83になります。差分アップデートでは、EPSTDSサービスプログラムに加えて、STARTTLSおよびSMTP over TLS/SSLで使用するSSL関連モジュールも更新されます。<br>
+<br>
+<b>（確認のポイント）</b><br>
+複数宛先への自動転送で一部の宛先だけ配送されない、senderlogに「451 Requested action aborted」が記録される、holdingフォルダやdomainsフォルダにリトライデータが蓄積する、といった現象がある場合は、EPSTDSのバージョンとSTARTTLS通信の記録を確認してください。<br>
+<br>
+<b>（関連資料）</b><br>
+■<a href="https://www.e-postinc.jp/updateinfo.html">最新差分プログラムの更新情報</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-31.html">自動転送設定時にメール転送の成功・失敗の判断はどのログで行うか</a><br>
+●<a href="./faq05-09.html">配送失敗ログ（faillog）について</a><br>
+●<a href="./faq05-10.html">配送時の詳細ログ(senderlog)について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

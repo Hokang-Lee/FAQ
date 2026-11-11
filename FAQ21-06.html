@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-06</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body { background-color: #ffffff; font-size: 12px; line-height:2.0em; margin: 10px; padding: 5px; }
+tr { font-size: 12px; line-height:2.0em; margin: 10px; padding: 5px; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>SMTP認証を設定していない特定アカウントが第三者に不正利用された場合の対処方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+SMTP認証を設定していない特定アカウントが第三者に不正利用された場合は、SMTP認証用の新しいパスワードを設定し、利用するメールクライアント側も変更してください。利用形態によっては、当該アカウントの廃止も検討します。<br>
+<br>
+<b>1. 「SMTP-AUTH＆APOPを使用」を有効にする</b><br>
+Account Managerで対象アカウントの「SMTP-AUTH＆APOPを使用」をオンにします。［OK］を押したときに表示される「認証ファイルの設定」のパスワード欄は、古いパスワードの確認ではなく、SMTP認証用の新しいパスワードを設定するための欄です。<br>
+<br>
+<b>2. 新しいパスワードを設定する</b><br>
+古いパスワードを変更してよい場合は、新しいSMTP認証用パスワードを設定してください。<br>
+<br>
+<b>3. メールクライアント側も変更する</b><br>
+対象アカウントを利用するすべてのメールクライアントで、認証パスワードを新しいパスワードへ変更してください。<br>
+<br>
+<b>4. Webサイトの送信フォームなどで使用している場合</b><br>
+送信フォームプログラムがSMTP認証に対応しているか確認してください。対応しておらず改修も難しい場合は、対象アカウント自体の廃止も検討してください。<br>
+<br>
+<b>5. 古いパスワードを確認する必要がある場合</b><br>
+アカウント管理方式が独自アカウント方式（Soft Account）の場合に限り、ユーザーをエクスポートし、タブ区切りテキストファイルへパスワードを平文で出力できます。<br>
+<blockquote>(1) Account Managerから［設定］-［アカウント管理］を選択します。<br>(2) 「アカウント管理方法」で「Soft Account」が選択されていることを確認します。<br>(3) 左ペインで「User」を選択し、［アカウント］-［ユーザー］-［ユーザーエクスポート］からタブ区切りテキストファイルを出力します。</blockquote>
+<br>
+<b>（注意事項）</b><br>
+AD連携またはWindowsアカウント連携の場合、エクスポートしたパスワードは伏せ字となり、古いパスワードは確認できません。<br>
+不正利用が発生した場合は、SMTP認証の設定だけでなく、対象アカウントの停止、パスワード変更、利用箇所の確認なども速やかに実施してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq01-38.html">SMTP認証（SMTP-AUTH）設定の手順</a><br>
+●<a href="./faq01-54.html">SMTP認証（SMTP-AUTH）の認証方法を選択したときの挙動と「認証ファイル」の意味は？</a><br>
+●<a href="./faq17-49.html">メールの不正利用・なりすまし被害に遭った場合の一連の手順</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

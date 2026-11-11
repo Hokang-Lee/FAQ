@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-10</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body {
+background-color: #ffffff;
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>グループウェアからTLS 1.2以上でメール送信するよう要求された場合の設定方針 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+グループウェアから、メール送受信の暗号化にTLS 1.2以上、TLSセキュリティ強度112 bit以上を使用するよう求められた場合は、E-Postと相手側SMTPサーバ間のSTARTTLS（SMTP）通信として設定します。SMTP over SSL/TLSの設定だけでは、E-Postから相手側SMTPサーバへのSTARTTLS送信設定にはなりません。<br>
+<br>
+<b>1. STARTTLS（SMTP）の送信を設定する</b><br>
+E-Postからグループウェア側のSMTPサーバへメールを送信する場合は、STARTTLS（SMTP）の送信設定を行います。送信側の設定には、E-Post側のサーバ証明書は必要ありません。<br>
+<br>
+<b>2. STARTTLS（SMTP）の受信を設定する</b><br>
+グループウェア側からE-PostへSTARTTLSでメールを送信する場合、E-PostはSMTPの受信側になります。この場合は、E-Post側に認証局が発行したサーバ証明書と証明書ファイルを設定してください。メールクライアントからE-PostへSTARTTLSで送信する場合も、同じ受信側の証明書が使用されます。<br>
+<br>
+<b>3. TLS 1.2以上を使用する</b><br>
+E-Postシリーズへ2023年9月29日付以降の差分を適用し、OpenSSL 3系のライブラリを使用している場合は、TLS 1.2およびTLS 1.3だけが使用可能であり、古いSSL/TLSバージョンは使用できません。2023年9月29日付の差分ではOpenSSL 3.1.0系へ移行し、2025年12月18日付の差分ではOpenSSL 3.5系へ移行して、libssl-3-x64.dllとlibcrypto-3-x64.dllが3.5.4へ更新されています。<br>
+旧バージョンを使用している場合、またはTLSバージョンを明示的に制限する場合は、レジストリ項目「SecureLayOption」を設定します。「15（10進）」を指定するとTLS 1.1以前が禁止され、TLS 1.2以降だけが許可されます。「31（10進）」を指定するとTLS 1.2以前が禁止され、TLS 1.3以降だけが許可されます。TLS 1.2以上という要件には「15（10進）」を使用します。<br>
+<br>
+<b>4. TLSセキュリティ強度112 bit以上を満たす</b><br>
+証明書のRSA鍵長が2048 bitであれば、TLSセキュリティ強度112 bit以上の条件を満たします。RSA 1024 bitでは十分な強度がなく、条件を満たしません。<br>
+公開ダウンロードの「SSL-Key-SHA2a.zip」に含まれる「CERTIFICATE-internal.BAT」では、CSRの鍵長を2048 bitとしてプライベート認証局用の鍵を作成できます。ただし、これはテストや動作確認向けです。実運用では、Let's Encryptやグローバルサインなどの認証局が発行するRSA 2048 bit以上の証明書を使用してください。<br>
+<br>
+<b>5. TLSあり・なしの併用について</b><br>
+STARTTLSは、通常のSMTP接続を開始した後に暗号化通信へ切り替える方式です。送信先がSTARTTLSに対応している場合に暗号化して送信する設定方針となります。暗号化を必須とするか、STARTTLSに対応しない相手には平文で送信するかは、グループウェア側の要件とE-PostのSTARTTLS設定を確認して決定してください。<br>
+複数ドメインを運用している場合でも、TLSの可否をメールアドレスやドメイン単位で考える前に、E-Postと接続先SMTPサーバ間の通信経路ごとに要件を確認してください。資料だけでドメイン単位の設定可否を確認できない場合は、具体的な配送経路と必須条件を添えてサポートへお問い合わせください。<br>
+<br>
+<b>6. 設定後の確認方法</b><br>
+設定後は、OpenSSLコマンドでTLSバージョンを指定して疎通確認を行い、STARTTLSを含むSSL/TLS通信の成否をログで確認してください。必要に応じて、TLSバージョンとCipherをReceived:ヘッダーへ記録する設定を使用します。<br>
+<br>
+<b>（注意事項）</b><br>
+「SMTP over SSL/TLS」と「STARTTLS（SMTP）」は設定目的が異なります。E-Postとメールクライアント間の暗号化設定だけでは、E-Postからグループウェア側SMTPサーバへのSTARTTLS送信を有効にしたことにはなりません。送信方向と受信方向を分けて設定してください。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq15-55.html">E-Postから相手側SMTPへ送信時にSTARTTLSで通信させる設定について</a><br>
+●<a href="./faq15-59.html">STARTTLSを有効にするためのE-Postでの仕様と設定について</a><br>
+●<a href="./faq17-42.html">STARTTLSを実施するときのサーバ証明書について</a><br>
+●<a href="./faq01-40.html">SMTP/POP3/IMAP4 over SSL/TLS設定方法</a><br>
+●<a href="./faq15-07.html">グローバルサイン認証局の証明書を利用したSSL/TLS設定事例</a><br>
+●<a href="./faq19-10.html">メールの暗号化（SMTP over SSL）とDKIMで利用する証明書は同じものを一つ購入すればよいか？Let's Encryptで大丈夫か？</a><br>
+●<a href="./faq17-13.html">SSL/TLS通信使用時にTLS 1.3のみ有効にさせる方法について</a><br>
+●<a href="./faq19-09.html">公開ダウンロードに用意してあるSSL-Key-SHA2を証明書として本番利用することはできるか</a><br>
+●<a href="./faq17-64.html">SSL/TLSやSTARTTLSのTLSバージョンやCipherの表記をReceived:ヘッダーに記録するようにしたい</a><br>
+●<a href="./faq17-28.html">opensslコマンドでTLSバージョンを指定して疎通確認する方法について</a><br>
+●<a href="./faq17-06.html">STARTTLSを含むSSL/TLS通信の成否記録はログで確認できますか？</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

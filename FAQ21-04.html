@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-04</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body {
+background-color: #ffffff;
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+tr {
+font-size: 12px;
+line-height:2.0em;
+margin: 10px;
+padding: 5px;
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>Gmailからエラー応答「550-5.7.1」が返り、メールを送信できない場合の確認事項と対応方法 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+Gmail宛のメールが「550-5.7.1」のエラーで届かない場合は、エラーの詳細理由、送信ドメイン認証の設定状況、不正利用による大量送信の有無を切り分けて確認してください。単に時間をおくだけでは解決しない場合があります。<br>
+<br>
+<b>1. エラーメールの詳細理由を確認する</b><br>
+「550-5.7.1」は拒否理由の分類を示すコードであり、このコードだけでは原因を特定できません。コードの後ろに続く英文を確認してください。たとえば、次のような応答があります。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">550-5.7.1 Unauthenticated email ...<br>550-5.7.1 The message does not meet IPv6 sending guidelines ...</div>
+<br>
+<b>2. SPF・DKIM・DMARCの設定を確認する</b><br>
+Gmail側で迷惑メールとして扱われている場合は、DNSにSPFレコードが設定されているか、DKIMおよびDMARCが設定されているかを確認してください。<br>
+E-Postシリーズでは、DKIM・DMARCの設定にアドオンツール「EPSTDMARC v1.06c」を使用できます。公開ダウンロードコーナー、または「サポート2」の「ツール」ジャンルから入手してください。EPSTDMARCにはDKIM署名機能が含まれるため、別途「EPSTDKIM v1.04a」をインストールする必要はありません。<br>
+ARCを使用しない場合は、関連FAQを確認し、未設定であることを明示するために「epstarc.exe」をリネームしてください。<br>
+<br>
+<b>3. 不正利用による大量送信が発生した場合</b><br>
+「中継の制限」の［マシン毎の中継］【effect.dat】で送信元IPアドレスを拒否するだけでは不十分です。SMTP受信ログ（inlog）やSMTP配送失敗ログ（faillog）などを確認し、不正利用された内部アカウントを特定してください。対象アカウントは、メールボックスを誤って削除しないよう、削除ではなくリネームなどの方法でいったん使用停止にします。<br>
+あわせて、SMTP受信サービス（EPSTRS）およびSMTP配送サービス（EPSTDS）の停止、domains・holding・incomingフォルダの退避、正常メールの選別と復旧など、関連FAQに記載された一連の手順を実施してください。原因となったアカウントの認証設定やパスワードも見直してください。<br>
+<br>
+<b>4. 再発防止策を実施する</b><br>
+全アカウントでSMTP認証（SMTP-AUTH）を必須にし、類推されにくい認証パスワードへ変更してください。SMTP認証を使用していても、簡単なパスワードや不要なテスト用アカウントが残っていると不正利用されるおそれがあります。<br>
+さらに、SMTP・POP3・IMAP4の認証接続ロックアウト機能およびIPロックアウト機能の導入を検討してください。POP3認証で見破られたパスワードがSMTP認証にも使われ、不正送信につながる場合があります。<br>
+<br>
+<b>5. 設定後も改善しない場合</b><br>
+SPF・DKIM・DMARCの設定、不正利用への対処、再発防止策を実施しても改善しない場合は、エラーメールに記載された詳細理由を添えてGmailのサポートへお問い合わせください。<br>
+<br>
+<b>（注意事項）</b><br>
+DMARCレポート（履歴）機能は、一般的な利用環境では必須ではありません。レポート収集アドレスを公開すると、迷惑メールの送信先として悪用される可能性があるため、利用目的を確認したうえで設定してください。<br>
+<br>
+<b>（関連資料）</b><br>
+■<a href="https://www.e-postinc.jp/download_x64.html#dmarc">アドオンツール EPSTDMARC（公開ダウンロード）</a><br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq17-49.html">メールの不正利用・なりすまし被害に遭った場合の一連の手順</a><br>
+●<a href="./faq06-29.html">E-Postシリーズで SPF、DKIMの設定を行う基本的方法について</a><br>
+●<a href="./faq06-21.html">アドオンツール EPSTDMARC 組み込み後の動作確認チェックリスト</a><br>
+●<a href="./faq06-25.html">DMARC認証をPassさせるために DKIM署名設定はどうすればよいか</a><br>
+●<a href="./faq06-22.html">アドオンツール EPSTDMARC のインストールおよび E-Postでの設定に関する質疑応答集</a><br>
+●<a href="./faq06-26.html">2つのドメインを管理するとき EPSTDMARC を使って送信ドメイン認証（DMARC/DKIM/ARC）設定に関する質疑応答集</a><br>
+●<a href="./faq06-27.html">EPSTDMARC を使ってDKIM/DMARC設定したがARC未設定だと epstarc のエラーが出てしまう</a><br>
+●<a href="./faq01-38.html">SMTP認証（SMTP-AUTH）設定の手順</a><br>
+●<a href="./faq01-54.html">SMTP認証（SMTP-AUTH）の認証方法を選択したときの挙動と「認証ファイル」の意味は？</a><br>
+●<a href="./faq15-25.html">SMTP認証時の「認証接続ロックアウト機能」について</a><br>
+●<a href="./faq17-09.html">SMTP接続時の「IPロックアウト機能」について</a><br>
+●<a href="./faq15-26.html">POP3認証時の「認証接続ロックアウト機能」について</a><br>
+●<a href="./faq17-10.html">POP3接続時の「IPロックアウト機能」について</a><br>
+●<a href="./faq15-27.html">IMAP4認証時の「認証接続ロックアウト機能」について</a><br>
+●<a href="./faq17-11.html">IMAP4接続時の「IPロックアウト機能」について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>

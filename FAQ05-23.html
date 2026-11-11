@@ -47,8 +47,7 @@
 <B>■共有情報－[メール作業フォルダ]\regフォルダ内の設定ファイルで設定</B>
     <small><font color="darkgreen">※設定ファイルの拡張子種類は、次の通り値の型を表わす。レジストリのBINARY,DWORD,STRINGの型に該当。
        （ .0 = BINARY,  .1 = DWORD,  .2 = STRING及びその他の形式 ）
-     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font>
-
+     ※秒数や回数、サイズなどのDWORD値は原則としてすべて10進数表記で設定。</font><br>
 [メール作業フォルダ]内
 →REG
  →SOFTWARE
@@ -83,8 +82,7 @@ HKEY_LOCAL_MACHINE
   →EPOST
    →BOSSCHECK
      →proxymessage40      (SZ) 代理承認時の通知メールメッセージ（JISエンコード文字列）
-     →proxymessage41      (SZ) 代理承認解除時の通知メールメッセージ（JISエンコード文字列）
-
+     →proxymessage41      (SZ) 代理承認解除時の通知メールメッセージ（JISエンコード文字列）<br>
 HKEY_LOCAL_MACHINE
  →SOFTWARE
   →EMWAC
@@ -92,8 +90,7 @@ HKEY_LOCAL_MACHINE
      →MailApprovalHtml     (DWORD  Default 0) 上長承認依頼メールをHTML形式メールに変更するオプション
                                          ( 0:PLAIN 1:HTML ) <font color="blue">(EPSTRS v4.A3～)</font>
      →MailApprovalHtmlColumn      (DWORD default 78) 承認依頼メールHTML形式で1行当たりの文字数を正規化するオプション
-                                         <font color="blue">(EPSTRS v4.AI～)</font>
-
+                                         <font color="blue">(EPSTRS v4.AI～)</font><br>
 HKEY_LOCAL_MACHINE
  →SYSTEM
   →CurrentControlSet

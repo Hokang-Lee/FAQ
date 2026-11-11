@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>FAQ21-09</TITLE>
+<script language="JavaScript" src="/pull.js"></script>
+<link rel=stylesheet type=text/css href=/font.css>
+<style type="text/css">
+body { background-color: #ffffff; font-size: 12px; line-height:2.0em; margin: 10px; padding: 5px; }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7N0CMEK0LT"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-7N0CMEK0LT');
+</script>
+<!-- Google tag end -->
+</HEAD>
+<BODY TEXT="black">
+<!-- ACCESS KAISEKIKEN  -->
+<script src="//accaii.com/epost/script.js" async></script><noscript><img src="//accaii.com/epost/script?guid=on"></noscript>
+<!-- ACCESS KAISEKIKEN end-->
+<HR>
+<FONT SIZE="4" COLOR="#000000"><b>メールフィルタ設定【mail.dat】で「To:#blank」を指定した場合の動作条件 <font color="#ff0000">new!</font></b></FONT>
+<HR>
+<br>
+メールフィルタ設定【mail.dat】で「To:#blank」を指定した場合、To:ヘッダー行が存在し、To:の後ろに文字がないメールだけが判定対象になります。To:ヘッダー行自体が存在しないメールは、判定対象になりません。<br>
+<br>
+<b>1. 「To:#blank」が一致する条件</b><br>
+メールヘッダー内にTo:ヘッダー行が存在し、To:の後ろが空白または文字なしの状態である場合に一致します。設定例は次のとおりです。<br>
+<div style="font-family:monospace; font-size:12px; line-height:1.6em; background-color:#f5f5f5; border:1px solid #dddddd; padding:6px 10px; margin:6px 0;">Virus:SPAM Blank To<br>To:#blank<br>Level:110<br>Warning:<br>Tag:X-EPost-Filter:SPAM Blank To<br>WarningEnd:<br>VirusEnd:</div>
+<br>
+<b>2. 「To:#blank」が一致しない条件</b><br>
+メールヘッダー内にTo:ヘッダー行そのものが存在しない場合は、「To:#blank」では判定できません。SMTP通信時のエンベロープに「RCPT TO:」が存在していても、メールヘッダーのTo:とは別の情報であるため、判定条件にはなりません。<br>
+<br>
+<b>3. 【mail.dat】内の説明について</b><br>
+【mail.dat】には、To:ヘッダーの「項目なしもしくは空白」が特徴の場合に「#blank」を指定する旨の説明がありますが、「項目なし」という表現は誤記です。実際の動作では、To:ヘッダー行自体がないメールは処理対象外です。<br>
+<br>
+<b>4. To:ヘッダーがないメールを抑止する場合</b><br>
+To:ヘッダーがないこと自体を「To:#blank」で判定することはできません。該当メールのinlogやreceivelogを確認し、エンベロープFROMを特定したうえで、別の抑止方法を検討してください。<br>
+エンベロープFROMを条件に拒絶する場合は、【effect.dat】で対象ドメインまたはメールアドレスを「false」に指定する方法があります。メールフィルタ機能と組み合わせる方法もあります。<br>
+<br>
+<b>（注意事項）</b><br>
+メールヘッダーの「To:」と、SMTP通信で使用されるエンベロープの「RCPT TO:」は異なります。inlogやreceivelogで宛先が確認できても、メールヘッダー内にTo:ヘッダー行が存在するとは限りません。<br>
+<br>
+<b>（関連FAQ）</b><br>
+●<a href="./faq19-32.html">エンベロープFROMを判定条件に使う場合の方法[A]</a><br>
+●<a href="./faq19-33.html">エンベロープFROMを判定条件に使う場合の方法[B]</a><br>
+●<a href="./faq05-04.html">SMTP受信ログ（inlog）について</a><br>
+●<a href="./faq05-05.html">SMTP受信詳細ログ（receivelog）について</a><br>
+<br>
+<p align="right"><input type="button" value="閉じる" onclick="window.close();"></p>
+<br>
+<br>
+</body>
+</html>
